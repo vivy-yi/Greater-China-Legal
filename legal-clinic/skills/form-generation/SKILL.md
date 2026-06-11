@@ -1,19 +1,26 @@
 ---
 name: form-generation
 description: >
-  Reference: DEPRECATED — use `/draft` instead. This skill has been folded into
-  the draft skill, which handles practice-area document generation including
-  form population. Kept as a redirect for migration.
-user-invocable: false
+  CN法律援助文书生成——标准表格和格式化文书。
+  适用情形：生成法律援助申请表格和标准文书。
+argument-hint: "[表格类型]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+risk_level: medium
 ---
 
-# [DEPRECATED] Form Generation → see `/draft`
+# /form-generation — China Mainland
 
-This skill was folded into `skills/draft/` during the v2 rebuild. The `/draft`
-command handles first-draft generation for all clinic documents including form
-population (asylum applications, eviction answers, protective order petitions,
-etc.) with practice-area templates and jurisdiction-aware formatting.
+## CN法律援助文书表格
 
-**Use `/draft [document type]` instead.**
+### 支持的表格
 
-See `skills/draft/SKILL.md` for the full workflow.
+- 法律援助申请表
+- 经济困难证明
+- 案件代理委托书
+- 结案报告表
+
+---
+
+*Greater China Legal — legal-clinic form-generation CN adapter v1.0.0*

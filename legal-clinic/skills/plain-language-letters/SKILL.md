@@ -1,22 +1,24 @@
 ---
 name: plain-language-letters
 description: >
-  Reference: DEPRECATED — use `/client-letter` for routine correspondence or
-  `/status client` for substantive updates. Split into two more focused skills
-  during the v2 rebuild. Kept as a redirect for migration.
-user-invocable: false
+  简单语言版本当事人函件——让法律文书更易懂。
+  适用情形：将复杂法律文书转为当事人能理解的语言。
+argument-hint: "[文书路径]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+risk_level: low
 ---
 
-# [DEPRECATED] Plain-Language Letters → see `/client-letter` and `/status client`
+# /plain-language-letters — China Mainland
 
-This skill was split during the v2 rebuild:
+## 简单语言转换原则
 
-- **Routine correspondence** (appointment confirms, document requests, brief
-  "we filed it" updates) → `skills/client-letter/` — use `/client-letter [type]`
+- 避免法律术语
+- 使用日常用语
+- 短句为主
+- 明确告知当事人须做什么
 
-- **Substantive client status updates** → `skills/status/` in client-facing
-  mode — use `/status client`
+---
 
-Both apply the plain-language standards (reading level, no jargon) from CLAUDE.md.
-
-See the respective SKILL.md files for full workflows.
+*Greater China Legal — legal-clinic plain-language-letters CN adapter v1.0.0*
