@@ -1,283 +1,334 @@
 ---
 name: termination-review
 description: >
-  Termination review — high-risk flag detection, severance + release, and
-  final pay timing by jurisdiction. Jurisdiction-specific rules and release
-  consideration periods are researched per review, not stored. Use when the
-  user says "reviewing a termination", "can we fire this person", "term
-  review", or describes a termination scenario.
-argument-hint: "[describe the termination, or attach documentation]"
+  中国大陆劳动合同解除审查 — 高风险情形识别、经济补偿金计算、离职程序合规性核查。
+  适用情形：用户提出"审查一个解除"、"能不能解除这个人"、"解除审查"、
+  或描述任何劳动合同解除情形。
+argument-hint: "[描述解除情形，或附上相关文件]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+user_invocable: true
+legal_sources:
+  - type: statute
+    name: Labor Contract Law of the PRC
+    article: Articles 36-50 (Termination), Articles 39-42 (Protection), Article 46-47 (Compensation)
+    effective_date: 2012-07-01
+    jurisdiction: cn-mainland
+  - type: statute
+    name: Labor Dispute Mediation and Arbitration Law of the PRC
+    article: Article 27 (Limitation Period)
+    effective_date: 2008-05-01
+    jurisdiction: cn-mainland
+  - type: statute
+    name: Civil Code of the PRC
+    article: Contract Part (Articles 463-502), Tort Liability Part
+    effective_date: 2021-01-01
+    jurisdiction: cn-mainland
+risk_level: high
+escalation_triggers:
+  - 从事接触职业病危害作业的劳动者未进行离岗前职业健康检查（劳动合同法第42条第(一)项）
+  - 疑似职业病病人在诊断或者医学观察期间（劳动合同法第42条第(一)项）
+  - 在本单位患职业病或者因工负伤并被确认丧失或者部分丧失劳动能力（劳动合同法第42条第(二)项）
+  - 患病或者非因工负伤，在规定的医疗期内（劳动合同法第42条第(三)项）
+  - 女职工在孕期、产期、哺乳期（劳动合同法第42条第(四)项）
+  - 在本单位连续工作满十五年，且距法定退休年龄不足五年（劳动合同法第42条第(五)项）
+  - 经济性裁员涉及20人以上或占职工总数10%以上（劳动合同法第41条）
+  - 违反规章制度解除但证据不足（劳动合同法第39条第(二)项）
+  - 试用期解除但不符合录用条件（劳动合同法第21条）
+  - 扣押证件、收取押金相关（劳动合同法第84条）
 ---
 
 # /termination-review
 
-1. Load `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → termination review triggers, high-risk flags, severance practice, jurisdiction rules.
-2. Use the workflow below.
-3. Walk the checklist. Check every high-risk flag.
-4. Final pay timing per employee's jurisdiction. Severance + release if applicable.
-5. If any high-risk flag fires: escalate per table, don't proceed without sign-off.
+## 使用说明
+
+本 Skill 用于审查中国大陆劳动合同解除的合法性、合规性和风险。
+ Skill 会核查高风险情形、计算经济补偿金、检查离职程序，并输出离职审查备忘录。
+
+**管辖法域默认为中国大陆。** 如涉及香港/澳门/台湾/新加坡，请使用对应法域版本：
+`/employment-legal:termination-review --frame hk`（香港）
+`/employment-legal:termination-review --frame tw`（台湾）
 
 ---
 
-## Matter context
+## 第一步：基本情况
 
-**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/employment-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/employment-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+收集以下信息：
 
----
-
-## Purpose
-
-Most terminations are fine. A few are lawsuits waiting to happen. This skill
-runs the checklist that catches the second kind before the decision is final.
-The skill does not state the law — every jurisdiction-specific rule and
-release-period requirement is researched and cited at the time of review.
-
-## Load context
-
-`~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → termination review triggers, high-risk flags, standard severance,
-jurisdiction table.
-
-## Output header
-
-Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → `## Outputs` (it differs by user role — see `## Who's using this`). Match the memo format from seed term memos referenced in that config where one exists. The work-product header is always first.
-
-## Workflow
-
-### Step 1: The basic facts
-
-- Employee name (or role if staying abstract)
-- Jurisdiction (where they work)
-- Reason for termination (performance, misconduct, RIF, position elimination)
-- How long employed
-- Age (relevant to release requirements for older-worker protections)
-- Whether any other employees are being terminated as part of the same
-  decisional unit or program (relevant to group-termination release rules)
-- When is the planned term date
-
-### Step 2: High-risk flag scan
-
-This is the most important step. Check every flag from `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md`. Default
-set:
-
-| Flag | Why it's high-risk | Check |
-|---|---|---|
-| **Recent complaint** | Retaliation claim | Has this employee filed any complaint (HR, ethics hotline, regulatory) recently? |
-| **Protected leave** | Leave-law interference/retaliation | Currently on or recently returned from protected leave (FMLA/state equivalents, disability, parental, military)? |
-| **Protected class + timing** | Discrimination claim | Protected class AND recently disclosed/visible (pregnancy announcement, religious accommodation request, disability disclosure)? |
-| **Whistleblower** | Federal and state whistleblower statutes | Has this employee raised concerns about illegality, safety, fraud? |
-| **Thin documentation** | "Why now?" problem | For performance terms: is there a PIP, written warnings, documented feedback? Or did this come out of nowhere? |
-| **Comparator problem** | Disparate treatment | Is someone else doing the same thing and not being terminated? |
-| **Contract/handbook promise** | Breach | Does the offer letter, handbook, or any writing promise a process that isn't being followed? |
-| **Exempt misclassification** | FLSA + state wage claim with liquidated damages | See the classification check below. Fires on state + classification + title. |
-
-**Exempt/non-exempt classification flag.** Fire this flag when ALL of the
-following are true:
-
-1. The employee works in a state with a high exempt salary threshold — **CA,
-   NY, WA, CO, AK** (and any other state listed in
-   `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` →
-   `## Wage & hour` → Known classification risk areas as a high-threshold
-   state) — **AND**
-2. The employee is classified **exempt** (salaried, no overtime) — **AND**
-3. The employee's title contains **"supervisor," "lead," "coordinator,"
-   "analyst," "administrator,"** or **"specialist"** (case-insensitive, and
-   any equivalent-scope title the practice profile flags as risky).
-
-When all three fire, emit:
-
-> 🔴 **Potential exempt misclassification** — [title] earning $[X] in
-> [state]. The exempt salary threshold in [state] is approximately $[Y]
-> `[model knowledge — verify]`. Before termination, route to
-> `/employment-legal:wage-hour-qa` for a classification check — a misclassified
-> employee who's terminated has a ready-made FLSA and state-wage claim with
-> liquidated damages, attorneys' fees, and (in CA) PAGA exposure, which
-> the separation agreement may not be able to release cleanly. A terminated
-> plaintiff with unpaid-OT exposure is the most litigated wage-and-hour
-> fact pattern in these states.
-
-Do not suppress this flag because the title "looks managerial" — the whole
-premise of the misclassification claim is that titles lie. Route to
-`/employment-legal:wage-hour-qa` for the actual duties-and-salary test.
-
-**If a back-pay number is being computed as part of this review (severance
-modeling, settlement posture, exposure estimate), do NOT compute it in this
-skill.** Route to `wage-hour-qa` → Step 2a and use its regular-rate
-scaffold: §207(e) inclusions (non-discretionary bonuses, commissions,
-shift diffs) in the regular rate, 0.5× premium when straight time was
-already paid for OT hours (else 1.5×), liquidated damages under §216(b),
-and 2-year / 3-year willful SOL under §255(a). Every back-pay number
-carries `[verify — consult wage-and-hour counsel before asserting or
-paying]`. A clean-looking wrong number here is the specific failure mode
-this scaffold prevents.
-
-**Any flag fires → escalate per `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` before the term proceeds.** Not
-after. Before.
-
-### Step 3: Jurisdiction-specific requirements
-
-> **Research the applicable rules for the employee's jurisdiction before
-> finalizing the plan.** Specifically:
->
-> - Final-pay timing — this varies widely by state and often depends on
->   whether the employee was terminated or resigned. Research the currently
->   operative rule, including any waiting-time or late-pay penalties.
-> - Accrued-PTO payout — research whether the jurisdiction requires payout,
->   and any interaction with accrual-cap or use-it-or-lose-it policies.
-> - Required notices — research any jurisdiction-specific notices required at
->   termination (e.g., state unemployment, continuation-coverage notices
->   beyond federal COBRA, benefits continuation).
-> - Mass-layoff / plant-closing notices — research federal WARN Act and any
->   state "mini-WARN" or local ordinance that may apply if this is part of a
->   larger reduction. Coverage thresholds and notice periods differ.
->
-> Cite primary sources. Verify currency.
->
-> **No silent supplement.** If a research query to the configured legal research tool returns few or no results for the jurisdiction's final-pay, PTO, notice, or WARN rule, report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [jurisdiction / rule]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) stop here and flag for attorney verification. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
->
-> **Source attribution.** Tag every citation in the plan — final-pay rule, PTO rule, notices, WARN / mini-WARN, OWBPA consideration periods, state release restrictions — with where it came from: `[Westlaw]`, `[CourtListener]`, or the MCP tool name for citations retrieved from a legal research connector; `[web search — verify]` for web-search citations; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for citations the user supplied. Citations tagged `verify` carry higher fabrication risk and should be checked first. Never strip or collapse the tags.
-
-### Step 4: Severance and release
-
-Per `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → standard severance:
-
-- Is severance being offered? Per formula or discretionary?
-- Release required? (Usually yes if paying severance — that's the
-  consideration.)
-
-> **Research the applicable release-consideration rules.** If the employee is
-> 40 or over, federal law (OWBPA) imposes specific requirements that affect
-> the consideration period, revocation period, required advisements, and —
-> for group terminations — required decisional-unit disclosures. The specific
-> consideration period differs between an individual termination, a group
-> RIF, and a group exit incentive; the rule also depends on the employee's
-> age and the number of employees affected. Do not state the day count from
-> memory — research the currently operative rule for the specific situation
-> and cite primary sources. Also research any state-law analogs or parallel
-> release requirements. Verify currency.
-
-Separately, consider whether any of the following apply to the release:
-- State-specific waiver restrictions (some states limit what can be released
-  or require specific language).
-- Federal or state restrictions on non-disclosure or non-disparagement
-  clauses that relate to sexual harassment, discrimination, or other
-  protected categories.
-- Separation-agreement rules on NLRA-protected activity.
-
-### Step 5: Documentation check
-
-For performance terminations especially:
-
-- Is there a paper trail? Written warnings, PIP, feedback docs?
-- Does the paper trail tell a consistent story?
-- Is there anything in writing that contradicts the reason (recent positive
-  review, bonus, promotion)?
-
-The "why now" question: if this person has been underperforming for a year,
-what changed? The answer should be documented.
-
-## Output
-
-> **Research-connector pre-flight.** Before emitting the memo, check whether a legal research connector is reachable for this session — Westlaw, CourtListener, or any firm-configured research MCP. Collect this into the reviewer note per CLAUDE.md `## Outputs`: if no connector returns results in Step 3 (or none is configured at run time), record it in the **Sources:** line of the reviewer note — e.g., `not connected — cites from training knowledge; the highest-fabrication topics in termination-law memos are final-pay timing, OWBPA group/individual distinctions, state-specific NDA / non-disparagement rules (e.g., CA SB 331), and NLRB positions (e.g., McLaren Macomb) — spot-check those first`. Per-citation `[model knowledge — verify]` tags remain inline. Do not emit a standalone banner above the memo.
-
-> **Jurisdiction assumption.** This review assumes the employee's jurisdiction as stated in Step 1 and any defaults from `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → Jurisdictional footprint. Employment rules, final-pay timing, release requirements, and notice obligations vary materially by jurisdiction. If the employee works in a different state or country, or if choice-of-law is contested, this analysis may not apply as written.
-
-Match the memo format from seed term memos referenced in `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md`. If none:
-
-```markdown
-[WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]
-
-## Termination Review: [Role/Name] — [Date]
-
-**Jurisdiction:** [State]
-**Reason:** [Performance / Misconduct / RIF / Elimination]
-**Planned date:** [Date]
+- 员工姓名（或岗位，如需保密）
+- 入职时间（计算服务年限）
+- 劳动合同类型（固定期限/无固定期限）
+- 解除原因类别：
+  - 协商解除（劳动合同法第36条）
+  - 过失性解除（劳动合同法第39条）
+  - 非过失性解除（劳动合同法第40条）
+  - 经济性裁员（劳动合同法第41条）
+  - 试用期解除（劳动合同法第21条）
+- 员工岗位（是否涉及职业病危害作业）
+- 是否处于医疗期（及剩余医疗期时长）
+- 是否处于孕期/产期/哺乳期（女职工）
+- 在本单位连续工作年限（是否满15年）
+- 距法定退休年龄（是否不足5年）
+- 是否为职业病病人或疑似职业病
+- 是否有工会（用人单位单方解除须通知工会）
+- 涉及解除的员工人数（是否构成经济性裁员）
 
 ---
 
-### Bottom line
+## 第二步：高风险情形核查（最高优先级）
 
-[Can you proceed / Need to fix X first / Stop — one-sentence why]
+**以下情形均依据《劳动合同法》第39-42条。任何一项触发即须升级律师复核后方可执行解除。**
+
+### 禁止解除情形（劳动合同法第42条）
+
+| 情形 | 条款 | 风险说明 | 核查 |
+|---|---|---|---|
+| **职业病相关** | 第42条第(一)项 | 离岗前未做健康检查不得解除 | 查职业病危害岗位名单、离岗体检报告 |
+| **医疗期内** | 第42条第(三)项 | 患病或非因工负伤在规定医疗期内不得解除 | 查医疗期计算、诊断证明 |
+| **三期女职工** | 第42条第(四)项 | 孕期/产期/哺乳期内不得解除 | 查员工怀孕/生育证明 |
+| **15+5年** | 第42条第(五)项 | 本单位满15年+距退休不足5年 | 查入职记录、社保缴纳记录 |
+| **工伤致残** | 第42条第(二)项 | 职业病或因工负伤确认丧失劳动能力 | 查工伤认定书、劳动能力鉴定 |
+
+### 程序性高风险
+
+| 情形 | 条款 | 风险说明 | 核查 |
+|---|---|---|---|
+| **经济性裁员人数** | 第41条 | 20人以上或裁减不足20%但占10%以上 | 查同期解除总人数 |
+| **工会通知** | 第43条 | 单方解除须通知工会 | 查工会程序 |
+| **职业病岗位未体检** | 第42条+职业病防治法 | 接触职业病危害未体检即解除 | 查体检报告 |
+
+### 过失性解除风险（劳动合同法第39条）
+
+| 条款 | 情形 | 风险 | 举证要求 |
+|---|---|---|---|
+| 第39条第(一)项 | 试用期不符合录用条件 | 高 | 录用条件书面文件+考核记录 |
+| 第39条第(二)项 | 严重违反规章制度 | 高 | 制度文本+违纪事实+程序合规 |
+| 第39条第(三)项 | 严重失职，营私舞弊 | 高 | 损失证明+失职行为证据 |
+| 第39条第(四)项 | 被追究刑事责任 | 中 | 生效司法文书 |
+
+### 非过失性解除风险（劳动合同法第40条）
+
+| 条款 | 情形 | 风险 | 注意 |
+|---|---|---|---|
+| 第40条第(一)项 | 医疗期满不能从事原工作 | 高 | 须先调岗或培训，仍不能胜任方可解除 |
+| 第40条第(二)项 | 不能胜任工作 | 高 | 须先调岗或培训，仍不能胜任方可解除 |
+| 第40条第(三)项 | 客观情况重大变化 | 中 | 须协商变更合同，无可变更方可解除 |
 
 ---
 
-### High-risk flags
+## 第三步：经济补偿金计算
 
-[Every flag from Step 2. ✅ Clear or 🔴 FLAG with detail.]
+### 计算公式
 
-**Escalation:** [None needed | Escalate to [name] before proceeding — [which flag]]
+```
+经济补偿金 = 服务年限 × 月工资
 
----
+服务年限：
+- 满1年 = 1个月
+- 6个月以上不满1年 = 1个月
+- 不满6个月 = 0.5个月
 
-### Jurisdiction requirements ([State])
-
-- Final pay: [researched rule and cite; state whether PTO is included per the
-  researched rule and any team policy]
-- Required notices: [list, each researched and cited]
-- Mass-layoff notice (if applicable): [researched rule and cite]
-
----
-
-### Severance and release
-
-- Severance: [amount per formula / none]
-- Release: [required / not — if required, research and apply the
-  consideration-period, revocation-period, advisement, and (for groups)
-  decisional-unit-disclosure requirements that govern this specific
-  situation; cite primary sources and verify currency]
-- [Any state-law release rules or non-disclosure/non-disparagement
-  restrictions that apply]
-
----
-
-### Documentation
-
-[Assessment of paper trail. Gaps flagged.]
-
----
-
-### Go / No-go
-
-[Clear to proceed | Proceed with changes below | Hold — escalation pending]
-
-### Checklist for term day
-
-- [ ] Final paycheck ready, correct amount, delivered per researched rule
-- [ ] Continuation-coverage notices (COBRA / state analogs) prepared
-- [ ] [State] unemployment notice prepared
-- [ ] Severance agreement (if applicable) with the consideration period
-      required for this specific situation
-- [ ] Return of property / access cutoff coordinated
-- [ ] [etc.]
+月工资：劳动合同解除前12个月平均工资
 ```
 
-## Consequential-action gate (terminate an employee)
+### 上限规定（劳动合同法第47条）
 
-**Before producing a "Go" recommendation or a term-day checklist marked ready:** Read `## Who's using this` in `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md`. If the Role is **Non-lawyer**:
+| 条件 | 规定 |
+|---|---|
+| 月工资高于当地上年度职工月平均工资3倍 | 按3倍支付 |
+| 最高年限 | 不超过12年 |
 
-> Terminating an employee has legal consequences — wrongful-termination, discrimination, retaliation, and wage-law claims all trace back to how this decision is structured. Have you reviewed this termination with an attorney? If yes, proceed. If no, here's a brief to bring to them:
->
-> - Employee, jurisdiction, reason, planned date
-> - Every high-risk flag the review surfaced (recent complaint, protected leave, protected class + timing, whistleblower, thin documentation, comparator, contract/handbook promise) — with detail
-> - Jurisdiction-specific findings (final pay, PTO, required notices, mass-layoff rules) and where they were cited from
-> - Severance/release analysis, including any OWBPA/older-worker-protection angles
-> - Open questions and what's unresolved
-> - What could go wrong (the claim theory this fact pattern supports)
-> - What to ask the attorney (is this a clean term; do we need more documentation first; does the release need specific language; do we need to stagger decisional units)
->
-> If you need to find an attorney, solicitor, barrister, or other authorised legal professional: contact your professional regulator (state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent) for a referral service. Employment is one of the practice areas where a short consult before the termination meeting consistently outvalues a post-termination claim defense.
+### 违法解除赔偿金（劳动合同法第87条）
 
-Do not produce a "Clear to proceed" output past this gate without an explicit yes. A marked-DRAFT flagged for attorney review is fine.
+```
+赔偿金 = 2 × 经济补偿金
+```
+
+### 各解除类型补偿对照
+
+| 解除类型 | 法条 | 补偿 | 说明 |
+|---|---|---|---|
+| 协商解除（单位提出） | 第36条+第46条第(二)项 | N | 协商一致，单位提出 |
+| 协商解除（员工提出） | 第36条+第46条第(二)项 | 无 | 员工主动，无补偿 |
+| 过失性解除 | 第39条 | 无 | 因过失，无补偿 |
+| 非过失性解除 | 第40条+第46条第(三)项 | N / N+1 | 提前30日通知则N，否则N+1 |
+| 试用期解除（不符合录用条件） | 第21条+第46条 | 无 | 须证明不符合录用条件 |
+| 经济性裁员 | 第41条+第46条第(四)项 | N | 须符合41条程序 |
+| 单位违法解除 | 第87条 | 2N | 未出现42条情形解除即为违法 |
+
+### N+1 的适用
+
+- **N** = 经济补偿金
+- **+1** = 代通知金（一个月工资）
+- 仅在单位选择不提前30日书面通知时适用
+- 选择提前30日通知则只需支付N，无需+1
 
 ---
 
-## Close with the next-steps decision tree
+## 第四步：离职程序合规性
 
-End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+### 过失性解除程序（劳动合同法第39条）
 
-## What this skill does not do
+1. 查明事实（收集证据）
+2. 确认制度依据（依法制定的规章制度）
+3. 确认程序合规（通知工会，第43条）
+4. 出具解除劳动合同证明书（第50条）
+5. 办理档案和社保转移（第50条）
 
-- Make the termination decision. It checks the decision.
-- Have the conversation. The manager does that.
-- State release or jurisdiction rules from memory — every rule is researched
-  and cited at the time of review.
-- Guarantee no lawsuit. It reduces the risk by catching the obvious problems.
+### 非过失性解除程序（劳动合同法第40条）
+
+1. 提前30日书面通知员工（或支付一个月工资代通知）
+2. 说明解除理由和依据
+3. 通知工会（第43条）
+4. 出具解除劳动合同证明书
+5. 支付经济补偿金
+6. 办理档案和社保转移
+
+### 经济性裁员程序（劳动合同法第41条）
+
+1. 提前30日向工会说明情况
+2. 听取工会或职工意见
+3. 向劳动行政部门报告
+4. 公布裁员方案
+5. 支付经济补偿金
+6. 优先留用签订无固定期限劳动合同者、家庭无就业人员
+
+### 离职证明要求（劳动合同法第50条）
+
+- 出具期限：解除或终止之日起15日内
+- 内容：期限、岗位、本单位工作年限
+- 禁止：设定附加条件、扣押证件
+
+---
+
+## 第五步：输出离职审查备忘录
+
+```markdown
+【Greater China Legal — 劳动法实务工作成果】
+⚠️ 复核提示：
+- 本文件依据中国大陆《劳动合同法》第36-50条、第39-42条出具
+- 法规引用已标注条款，具体适用请以最新版本为准
+- 来源标注：[yuandian] = 法律数据库 / [web] = 联网检索(请核实) / [model] = 模型知识(请核实)
+
+---
+
+## 离职审查：[岗位/姓名] — [日期]
+
+**管辖法域：** 中国大陆
+**解除类型：** [协商/过失性/非过失性/经济性裁员/试用期解除]
+**服务年限：** [X]年[X]个月
+**计划日期：** [日期]
+
+---
+
+### 结论
+
+[是否可以解除 / 需先处理X / 暂停——须升级后方可执行]
+
+---
+
+### 高风险情形核查
+
+**一、禁止解除情形核查（劳动合同法第42条）**
+
+| 情形 | 条款 | 核查结果 | 说明 |
+|---|---|---|---|
+| 职业病危害岗位未体检 | 第42条第(一)项 | [✅通过/🔴触发] | |
+| 疑似职业病在诊断期 | 第42条第(一)项 | [✅通过/🔴触发] | |
+| 工伤致残确认 | 第42条第(二)项 | [✅通过/🔴触发] | |
+| 医疗期内 | 第42条第(三)项 | [✅通过/🔴触发] | 剩余医疗期[X]月 |
+| 三期女职工 | 第42条第(四)项 | [✅通过/🔴触发] | |
+| 15年+距退休不足5年 | 第42条第(五)项 | [✅通过/🔴触发] | |
+
+**二、程序性风险核查**
+
+| 情形 | 核查结果 | 说明 |
+|---|---|---|
+| 经济性裁员人数（≥20人或≥10%） | [✅通过/🔴触发] | 本次涉及[X]人 |
+| 工会通知程序 | [✅通过/⚠️待确认] | |
+
+**三、过失性解除举证核查（如适用）**
+
+| 举证项 | 状态 | 说明 |
+|---|---|---|
+| 录用条件书面文件 | [有/缺失] | |
+| 考核/违纪记录 | [有/缺失] | |
+| 制度依据 | [有/缺失] | |
+| 工会通知记录 | [有/缺失] | |
+
+**升级事项：** [无 / 🔴须向律师升级——具体问题]
+
+---
+
+### 经济补偿方案
+
+| 项目 | 计算 | 金额/结果 |
+|---|---|---|
+| 解除类型 | [协商/非过失/etc] | — |
+| 经济补偿金 | [N/N+1/N/A] × 月工资[X]元 | [X]元 |
+| 代通知金 | [有(N+1)/无(N)] | [X]元 |
+| 违法解除赔偿金 | [2N/无] | [X]元 |
+| **合计** | | **[X]元** |
+
+**月工资：** [解除前12个月平均工资]
+**服务年限：** [X]年[X]个月
+**上年度职工月平均工资（所在地）：** [X]元（用于判断是否超过3倍上限）
+
+---
+
+### 离职程序
+
+- [ ] 提前30日书面通知员工（或支付代通知金[X]元）
+- [ ] 向工会说明情况并发书面通知
+- [ ] 出具解除劳动合同证明书
+- [ ] 支付经济补偿金[如有]
+- [ ] 办理档案转移（15日内）
+- [ ] 办理社保转移（15日内）
+- [ ] 如涉及[职业病岗位/三期女职工/etc]，须[特别处理]
+
+---
+
+### 发出前核查清单
+
+- [ ] 高风险情形均已核查，触发项已升级律师复核
+- [ ] 补偿金额计算准确（服务年限×月工资，上限已核查）
+- [ ] 解除依据证据充分（过失性解除须证据确凿）
+- [ ] 程序合规（工会通知、书面通知、档案社保转移）
+- [ ] 离职证明草稿已准备
+
+---
+
+### 参考法条
+
+- 《劳动合同法》第36-50条（合同解除与终止）
+- 《劳动合同法》第39-42条（禁止解除情形）
+- 《劳动合同法》第46-47条（经济补偿）
+- 《劳动合同法》第50条（离职手续）
+- 《劳动争议调解仲裁法》第27条（时效）
+
+---
+
+**⚠️ 复核提示：**
+- **法条时效：** [yuandian] 检索确认 [2026年有效版本]
+- **升级项：** [N项已标记[review]]
+- **补偿计算：** [已核查上限/待核查当地平均工资3倍]
+```
+
+---
+
+## 升级决策门
+
+**在输出"可以解除"结论前：** 对照 CLAUDE.md → 高风险情形核查表，确认无禁止解除情形，或所有禁止解除情形均已获得律师书面确认。
+
+**如用户角色为非法律专业人员：** 输出工作成果前须附加强调声明：
+> "本分析依据中国大陆劳动法出具，不构成法律意见。劳动合同解除涉及复杂法律判断，建议在执行前咨询持证劳动法律师。"
+
+---
+
+## 本 Skill 不涵盖
+
+- 计算个人所得税（补偿金的税务处理请咨询税务顾问）
+- 社保补缴的具体金额和程序（请咨询社保经办机构）
+- 工伤认定程序（须向劳动行政部门申请）
+- 劳动仲裁代理（本 Skill 不代理仲裁）
