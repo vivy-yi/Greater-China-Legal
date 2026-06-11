@@ -1,199 +1,242 @@
 ---
 name: renewal-tracker
 description: >
-  Show contracts with cancel-by deadlines coming up and warn before notice windows
-  close, working from a maintained renewal register. Use when the user asks "what's
-  renewing soon", "what renewals are due", "did we miss a cancellation window", "add
-  this to the renewal tracker", or on a scheduled basis. Receives handoffs from
-  saas-msa-review.
-argument-hint: "[--days N to change window | --missed for lapsed windows]"
+  合同续期追踪——显示即将到期的取消截止日，在通知窗口关闭前预警，
+  基于维护的续期登记簿工作。适用情形：用户说"有哪些合同即将续期"、
+  "我们是否错过了取消窗口"、"把这个加到续期追踪"。接收来自 saas-msa-review 的交接。
+argument-hint: "[--days N 更改窗口 | --missed 已错过窗口]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+risk_level: low
 ---
 
-# /renewal-tracker
+# /renewal-tracker — China Mainland
 
-Surfaces what's renewing and when you have to cancel by.
+## 注册簿位置
 
-## Instructions
-
-1. **Read `~/.claude/plugins/config/claude-for-legal/commercial-legal/renewal-register.yaml`** (the config directory — survives plugin updates).
-
-2. **Default mode:** Mode 2 — what's coming up in the next 90 days, grouped by urgency using half-open intervals so each deadline lands in exactly one band: 🔴 0–13 days, 🟠 14–44 days, 🟡 45–89 days. Days 14, 45, and 90 are boundaries — each belongs to exactly one band, not two.
-
-3. **`--days N`:** Change the window.
-
-4. **`--missed`:** Mode 4 — cancel-by deadlines that passed without recorded cancellation.
-
-5. **If register is empty and the [CLM] is connected:** Offer Mode 3 — scan the [CLM] for active agreements with renewal dates and bulk-load.
-
-6. **Output includes recommended actions:** who to ping (the business owner from each register entry), which ones have uncapped pricing (get leverage before window closes).
-
-## Examples
-
-```
-/commercial-legal:renewal-tracker
-```
-
-```
-/commercial-legal:renewal-tracker --days 180
-```
-
-```
-/commercial-legal:renewal-tracker --missed
-```
-
----
+`~/.claude/plugins/config/claude-for-legal/commercial-legal/renewal-register.yaml`
 
 ## Purpose
 
-Nobody reads a contract twice. The renewal date is extracted once, at review time, and then it lives somewhere — ideally somewhere that shouts at you 45 days before the cancel-by deadline, not 45 days after.
+没人会读合同第二遍。续期日期在审查时提取一次，然后存在某处——理想情况是在取消截止日前45天就提醒你，而不是45天后。
 
-This skill maintains the renewal register and surfaces what's coming.
+本技能维护续期登记簿并显示即将到期的合同。
 
-## The register
+## Instructions
 
-Lives at `~/.claude/plugins/config/claude-for-legal/commercial-legal/renewal-register.yaml` (the config directory — survives plugin updates). Each entry:
+1. **读取注册簿** `renewal-register.yaml`
 
-```yaml
-- counterparty: "Acme SaaS Inc."
-  agreement: "Acme Platform Subscription Agreement"
-  signed_date: 2025-06-15
-  initial_term_end: 2026-06-15
-  current_term_end: 2026-06-15     # rolls forward after each auto-renewal; compute cancel_by_* from this
-  renewal_mechanism: "auto-renew annual"
-  notice_period_days: 60
-  notice_method: "email"           # email / portal / certified mail / registered post / courier / per contract §X
-  transit_buffer_days: 0           # 0 for electronic, 5 for domestic certified mail, 10 for international registered post — or per contract if specified
-  cancel_by_calendar: 2026-04-16    # current_term_end minus notice_period_days
-  cancel_by_effective: 2026-04-16   # rolled back to last business day if needed
-  send_by_effective: 2026-04-16    # cancel_by_effective minus transit_buffer_days — the date you must SEND the notice
-  cancel_by_roll_note: ""           # e.g., "rolled back from Sunday 2026-11-01; verify against contract's business-day definition"
-  cancel_by_provenance: "[model calculation — verify against the notice clause]"
-  price_on_renewal: "then-current list (uncapped)"
-  annual_value: 48000
-  business_owner: "jane@company.com"
-  clm_id:        "IC-12345"        # if connected
-  docusign_envelope: "abc-123"   # if connected
-  status: "active"               # active | cancelled | renewed | lapsed
-  notes: "Pricing uncapped — revisit before renewal. Alt vendors: X, Y."
-```
+2. **默认模式：** 未来90天内即将到期的合同，按紧急程度分组（半开区间）：
+   - 🔴 0–13天
+   - 🟠 14–44天
+   - 🟡 45–89天
 
-**Notice transit time — alert off `send_by_effective`, not `cancel_by_effective`.** A 60-day window with a certified-mail requirement is really ~55 days. The tracker that alerts on the received-by date is the tracker that misses the deadline. Compute `send_by_effective = cancel_by_effective - transit_buffer_days` and fire alerts (the 🔴 / 🟠 / 🟡 urgency bands in Mode 2) off `send_by_effective`. Mode 2's urgency column shows `send_by_effective`; a detail column surfaces `cancel_by_effective`, `notice_method`, and `transit_buffer_days` so the reader can see the delta and challenge the buffer.
+3. **`--days N`：** 更改窗口
 
-**Rolling renewals — the register that doesn't roll forward is the register that's right once.** Store `initial_term_end` for the record, but compute `cancel_by_*` from `current_term_end`. When a renewal fires (the cancel window passes and no notice was given), prompt:
+4. **`--missed`：** 已错过取消截止日的合同
 
-> This contract auto-renewed on [date]. Update the register: new `current_term_end` is [date + renewal period], new `cancel_by_effective` is [computed], new `send_by_effective` is [computed]. Confirm?
+5. **注册簿为空且CLM已连接：** 扫描CLM中的活跃协议并批量加载
 
-After year one, `initial_term_end` is wrong and only `current_term_end` produces a correct cancel-by date.
-
-## Business-day check on every cancel-by date
-
-**The register's cancel-by date must be the last BUSINESS DAY on which notice
-is effective, not the calendar date.** A calendar date that falls on a
-weekend is the single most common way a renewal deadline gets missed. The
-register catches it.
-
-When you compute (or ingest) a cancel-by date:
-
-1. **Compute the calendar date.** `cancel_by_calendar = initial_term_end − notice_period_days` (or whatever the clause specifies). This is the raw arithmetic.
-2. **Business-day roll-back keyed to governing law.** The contract's governing law determines which holidays count. US: federal holidays + the state's holidays if governing law is a state. England & Wales: bank holidays. Germany: Feiertage (vary by Bundesland — ask which). Canada: federal + provincial. Singapore: public holidays. If Saturday, roll back to Friday. If Sunday, roll back to Friday. If a holiday in the governing-law jurisdiction, roll back to the prior business day. Roll BACK, never forward — forward means notice arrives after the window closes. For non-US governing law, if you can't determine the holiday calendar, flag it: "Governing law is [X] — business-day roll-back uses US federal holidays as a placeholder. Verify against the [jurisdiction] holiday calendar before relying on the effective date."
-3. **Check the contract's own day-counting rule.** Look for "business day," "received by," "deemed received," "5:00 p.m. [local time]," or a notice-method clause. If the contract defines "business day" or specifies receipt mechanics (certified mail, email with read receipt), that definition controls. Flag any mismatch between the default roll-back and the contract's own rule.
-4. **Record BOTH dates in the register.** `cancel_by_calendar` is the raw arithmetic; `cancel_by_effective` is the last business day on which notice is effective; `cancel_by_roll_note` records why they differ (e.g., "rolled back from Sunday 2026-11-01; verify against contract's business-day definition"). Every computed `cancel_by_effective` carries a `cancel_by_provenance` tag of `[model calculation — verify against the notice clause]` so the verify flag travels with the date, not with the surrounding prose.
-5. **Fire alerts off the EFFECTIVE date, not the calendar date.** Urgency bands (🔴 / 🟠 / 🟡 in Mode 2) use `cancel_by_effective`. Mode 2 output shows `cancel_by_effective` in the urgency column and surfaces `cancel_by_calendar` and `cancel_by_roll_note` in a detail column where the roll-back happened, so the reader can see it and challenge it.
-
-A Mode 2 report that prints `cancel_by: 2026-11-01` (a Sunday) with no weekday and no warning is a silently wrong effective deadline. The register is the place to catch it — once, at ingest — not later, when the window has already moved.
-
-## Modes
-
-### Mode 1: Ingest a renewal (handoff from review)
-
-When saas-msa-review or vendor-agreement-review finds a renewal clause, it hands off a record. Append it to the register. If the counterparty already has an entry, ask whether this is a replacement (renewed agreement) or an additional agreement.
-
-### Mode 2: What's coming up
-
-**Default lookback window:** next 90 days.
-
-**Urgency bands are half-open intervals — a deadline lives in exactly one band.** Use days-until-cancel-by (`cancel_by_effective - today`). Day 14, 45, and 90 each belong to exactly one band, not two; an off-by-one here puts the most-urgent items into the less-urgent bucket.
-
-- 🔴 **0–13 days** (cancel-by in less than 14 days — including today)
-- 🟠 **14–44 days**
-- 🟡 **45–89 days**
-- (everything 90+ days is outside the default lookback window; include only if the user passed `--horizon` beyond 90)
-
-```markdown
-## Renewals — next 90 days
-
-### 🔴 Cancel-by deadline in 0–13 days
-
-| Counterparty | Cancel by | Renewal date | Annual $ | Owner | Notes |
-|---|---|---|---|---|---|
-| [name] | **[date]** | [date] | $[n] | [email] | [notes] |
-
-### 🟠 Cancel-by deadline in 14–44 days
-
-[same table]
-
-### 🟡 Cancel-by deadline in 45–89 days
-
-[same table]
+6. **输出包含建议操作：** 通知业务负责人（来自每个登记项）、哪些合同价格无上限（在窗口关闭前获取筹码）
 
 ---
 
-**Recommended actions:**
-- [ ] [Counterparty] — ping [business owner]: do we want to keep this?
-- [ ] [Counterparty] — pricing is uncapped; get a quote from an alternative before we lose leverage
+## 中国公共假日处理
+
+**中国法定假日（共11天）：**
+- 元旦：1月1日，放假1天
+- 春节：农历正月初一至初三，放假3天
+- 清明节：农历清明当日，放假1天
+- 劳动节：5月1日，放假1天
+- 端午节：农历端午当日，放假1天
+- 中秋节：农历中秋当日，放假1天
+- 国庆节：10月1日至3日，放假3天
+
+**调休规则：** 通过周末上班换取假日，形成"黄金周"长假（如国庆节通常放假7天）
+
+**计算截止日时：**
+- 如截止日落在周末（中国大陆通常为周六、周日），回滚至前一个工作日（周五）
+- 如截止日落在法定假日，回滚至假日开始前的最后一个工作日
+- **始终回滚，从不前推**——前推意味着通知在窗口关闭后才到达
+
+**调休的不确定性：** 中国调休规则每年公布，较难提前预测。注册簿中的计算应标注 `[model calculation — verify against CN holiday calendar]`。
+
+---
+
+## 通知方式（中国特色）
+
+**中国合同中的通知方式通常包括：**
+- 电子邮件（最常用）
+- 书面通知 + 公司公章（公司盖章的书面文件）
+- 挂号信（正式存档用途）
+- 快递（EMS、顺丰等，可追踪）
+- 合同指定的其他方式
+
+**Transit buffer（中国大陆境内）：**
+- 电子邮件：0天（通常当日到达）
+- 挂号信/快递：建议预留3-5天（考虑周末和假日）
+
+**Transit buffer（跨境/涉及香港/台湾）：**
+- 建议预留7-10天
+
+---
+
+## 工作日回滚规则
+
+当计算（或导入）取消截止日时：
+
+1. **计算日历日期：** `cancel_by_calendar = 当前期限结束日 − 通知期天数`
+
+2. **按中国工作日回滚：**
+   - 周六 → 回滚至周五
+   - 周日 → 回滚至周五
+   - 法定假日 → 回滚至假日开始前的最后一个工作日
+   - 调休周末（需要上班的周六/周日）→ 视为工作日，不回滚
+
+3. **检查合同自身的工作日定义：**
+   查找合同中是否有"工作日"、"收到日期"、"视为收到"、"下午5点[当地时间]"等定义。如合同有明确约定，该定义优先。
+
+4. **在注册簿中同时记录两个日期：**
+   - `cancel_by_calendar`：原始计算日期
+   - `cancel_by_effective`：通知有效的最后一个工作日
+   - `cancel_by_roll_note`：差异原因（如"从周日2026-10-05回滚；须验证合同工作日定义"）
+   - `cancel_by_provenance`：`[model calculation — verify against CN holiday calendar]`
+
+5. **按有效日期触发预警，不是日历日期**
+
+---
+
+## 续期登记项结构
+
+```yaml
+- counterparty: "供应商名称"
+  agreement: "合同名称"
+  signed_date: 2025-06-15
+  initial_term_end: 2026-06-15
+  current_term_end: 2026-06-15
+  renewal_mechanism: "自动年度续期"
+  notice_period_days: 30
+  notice_method: "书面通知+公章"  # 电子邮件 / 书面通知+公章 / 挂号信 / 快递
+  transit_buffer_days: 5          # 中国大陆境内通知预留天数
+  cancel_by_calendar: 2026-05-16  # initial_term_end - notice_period_days
+  cancel_by_effective: 2026-05-15 # 回滚至最后一个工作日（如遇周末/假日）
+  send_by_effective: 2026-05-10   # cancel_by_effective - transit_buffer_days
+  cancel_by_roll_note: "从周日2026-05-17回滚至周五2026-05-15"
+  cancel_by_provenance: "[model calculation — verify against CN holiday calendar]"
+  price_on_renewal: "年度涨幅不超过5%"
+  annual_value: 48000
+  business_owner: "业务负责人@公司.com"
+  clm_id: "合同编号"
+  status: "active"  # active | cancelled | renewed | lapsed
+  notes: "价格有上限——续期前评估是否继续采购。备选供应商：X、Y。"
 ```
 
-If the register has more than ~10 renewals in the window, or any time the user asks: offer the dashboard (see CLAUDE.md `## Outputs → Dashboard offer for data-heavy outputs`). Shape the offer for this output — counts by urgency tier (🔴 / 🟠 / 🟡), a cancel-by timeline, and a sortable register with counterparty, renewal date, annual $, and owner.
+---
 
-### Mode 3: Scan the [CLM] / e-signature tool to populate the register
+## 续期自动推进
 
-If MCPs are connected and the register is empty or stale:
+记录 `initial_term_end` 用于存档，但计算 `cancel_by_*` 均基于 `current_term_end`。
 
-1. Query the [CLM] for all agreements with status "Active" and a renewal date field
-2. Query DocuSign for completed envelopes in the last 24 months with "subscription" / "renewal" / "auto-renew" in metadata
-3. For each hit, extract renewal mechanics and add to register
-4. Flag any where the renewal date can't be determined from metadata — those need a human to read the contract
+当续期触发（取消窗口已过且未发出通知），提示：
+> "本合同的自动续期已于[日期]触发。请更新注册簿：`current_term_end` 更新为[日期+续期期限]，`cancel_by_effective` 更新为[计算值]，`send_by_effective` 更新为[计算值]。是否确认？"
 
-This is a one-time bulk load. After that, ingest happens at review time.
+---
 
-### Mode 4: Missed windows (the bad news report)
+## Mode 1: 导入续期（来自审查的交接）
+
+当 saas-msa-review 或 vendor-agreement-review 发现续期条款时，交接一条记录。追加到注册簿。如对手方已有记录，询问这是替换（已续期合同）还是新增合同。
+
+## Mode 2: 即将到期
+
+**默认回溯窗口：** 未来90天
+
+**紧急程度（半开区间）：**
+- 🔴 **0–13天**（取消截止日在13天内到期）
+- 🟠 **14–44天**
+- 🟡 **45–89天**
 
 ```markdown
-## Missed cancellation windows
+## 续期——未来90天
 
-The following agreements had cancel-by deadlines that have passed and no
-cancellation was recorded:
+### 🔴 取消截止日在0–13天内
 
-| Counterparty | Cancel-by was | Renewal date | Status |
-|---|---|---|---|
-| [name] | [date] | [date] | Will auto-renew on [date] |
+| 对手方 | 取消截止日 | 续期日期 | 年费 | 负责人 | 备注 |
+|---|---|---|---|---|---|
+| [名称] | **[日期]** | [日期] | ¥[金额] | [邮箱] | [备注] |
 
-**Options:**
-- Negotiate late cancellation (rarely works but worth asking)
-- Accept the renewal, mark next year's cancel-by now
-- Check the agreement for any other termination rights (for convenience, for cause)
+### 🟠 取消截止日在14–44天内
+
+[同上表格]
+
+### 🟡 取消截止日在45–89天内
+
+[同上表格]
+
+---
+
+**建议操作：**
+- [ ] [对手方]——通知[业务负责人]：我们是否继续？
+- [ ] [对手方]——价格无明确上限；在窗口关闭前获取备选供应商报价
 ```
 
-## Gate: accepting or declining a renewal
+## Mode 3: 扫描CLM填充注册簿
 
-Tracking a renewal date is research. *Acting* on it — sending a notice of non-renewal, letting an auto-renewal fire, or countersigning a renewal form — is a consequential legal step.
+如CLM已连接且注册簿为空或陈旧：
+1. 查询CLM中所有状态为"活跃"且有续期日期字段的协议
+2. 查询电子签名工具中过去24个月包含"订阅"/"续期"/"自动续期"的已完成信封
+3. 对每个匹配项提取续期机制并添加到注册簿
+4. 标记无法从元数据确定续期日期的合同——需要人类阅读合同
 
-**Before proceeding to accept or decline a renewal (including sending a non-renewal notice or letting an auto-renewal run past the cancel-by date):** Read `## Who's using this` in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. If the Role is Non-lawyer:
+## Mode 4: 已错过窗口
 
-> This step has legal consequences (you're either committing to another term or terminating the relationship). Have you reviewed this with an attorney? If yes, proceed. If no, here's a brief to bring to them:
+```markdown
+## 已错过取消窗口
+
+以下协议的取消截止日已过，且未记录取消：
+
+| 对手方 | 取消截止日为 | 续期日期 | 状态 |
+|---|---|---|---|
+| [名称] | [日期] | [日期] | 将于[日期]自动续期 |
+
+**选项：**
+- 协商延迟取消（很少成功但值得尝试）
+- 接受续期，立即记录下一年的取消截止日
+- 检查合同是否有其他终止权（便利终止权 / 过错终止权）
+```
+
+---
+
+## 操作门控
+
+追踪续期日期是研究。**采取行动**——发送不续期通知、让自动续期触发或签署续期表格——是有法律后果的步骤。
+
+**在继续接受或拒绝续期之前（包括发送不续期通知或让自动续期超过取消截止日）：**
+读取 `commercial-legal/CLAUDE.md` → `## Who's using this`。如 Role 为非律师：
+
+> 此步骤有法律后果（你要么承诺另一个期限，要么终止关系）。您是否已咨询律师？如果是，请继续。如果没有，以下是向他们简要说明的内容：
 >
-> [Generate a 1-page summary: counterparty, current term end and cancel-by date, renewal price mechanism, what happens if we do nothing, alternative vendors if we want to shop, and the three things to ask the attorney before the window closes.]
+> [生成1页摘要：对手方当前期限结束日和取消截止日、续期价格机制、如不采取行动会怎样、如想比较供应商的备选供应商，以及窗口关闭前应向律师请教的三个问题。]
 >
-> If you need to find an attorney, solicitor, barrister, or other authorised legal professional: contact your professional regulator (state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent) for a referral service.
+> 如需要找律师：请联系您的专业监管机构（中国为司法部/律师协会）获取推荐服务。
 
-Do not proceed past this gate without an explicit yes.
+未经明确确认，不继续执行此步骤。
 
-## Integration: renewal-watcher agent
+---
 
-The renewal-watcher agent in this plugin runs this skill on a schedule (weekly by default) and posts the "coming up" report to the channel named in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` → `## House style` → where work product goes. Mode 2 is the agent's primary output.
+## 集成：renewal-watcher agent
 
-## What this skill does not do
+本插件中的 renewal-watcher agent 按计划运行此技能（默认每周），并将"即将到期"报告发布至 `commercial-legal/CLAUDE.md` → `## House style` → `续约提醒发送至` 所指定的频道。Mode 2 是该 agent 的主要输出。
 
-- It does not cancel contracts. It tells you when to decide.
-- It does not decide whether to renew. It surfaces the deadline and the business owner.
-- It does not read contracts to find renewal dates — that happens at review time. If a contract is in the register without a renewal date, it was added manually and someone needs to fill in the gap.
+---
+
+## 本技能不做什么
+
+- 不取消合同。只告知何时做决定。
+- 不决定是否续期。只呈现截止日和业务负责人。
+- 不阅读合同查找续期日期——这在审查时发生。
+
+---
+
+*Greater China Legal — commercial-legal renewal-tracker CN adapter v1.0.0*
+*基于 anthropic/claude-for-legal renewal-tracker 适配中国大陆法律环境*
