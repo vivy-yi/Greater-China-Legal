@@ -1,103 +1,41 @@
 ---
 name: customize
 description: >
-  Guided customization of your IP practice profile — change one thing without
-  re-running the whole cold-start interview. Adjust risk posture, escalation
-  contacts, portfolio scope, brand protection strategy, enforcement posture,
-  clearance thresholds, OSS review rules, or matter workspace paths. Use when
-  the user says "change my [thing]", "update my profile", "edit my config",
-  or "customize".
-argument-hint: "[section name, or describe what you want to change]"
+  引导式自定义知识产权法律实践配置——无需重新运行完整初始化向导即可调整配置。
+  适用情形：用户说"修改[某项IP配置]"、"更新IP组合"、"调整风险偏好"。
+argument-hint: "[要修改的部分名称，或描述你想改变的内容]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+risk_level: low
 ---
 
-# /customize
-
-## When this runs
-
-The user typed `/ip-legal:customize`. They want to change something in their
-practice profile — a risk posture, an escalation contact, a portfolio
-position, an enforcement tactic — without re-running the whole cold-start
-interview and without hand-editing YAML.
+# /customize — China Mainland
 
 ## What to do
 
-1. **Read the config.** Read
-   `~/.claude/plugins/config/claude-for-legal/ip-legal/CLAUDE.md`
-   (and `~/.claude/plugins/config/claude-for-legal/company-profile.md` one
-   level up). If the plugin config does not exist or still contains
-   `[PLACEHOLDER]` values, say:
+1. 读取 `ip-legal/CLAUDE.md`。
+2. 展示可调整项地图：
+   - **IP组合** — 商标/专利/著作权/商业秘密/域名
+   - **风险偏好** — 保守/中等/激进（对应不同侵权容忍度）
+   - **争议解决偏好** — 行政执法/民事诉讼/刑事报案/平台投诉
+   - **升级联系人** — 知识产权负责人、法务、外部律师
+   - **监控频率** — 商标监控/专利监控的频率
 
-   > You haven't run setup yet. Run `/ip-legal:cold-start-interview` first —
-   > customize is for adjusting a profile you already have.
+3. 询问要修改什么，修改后确认。
 
-2. **Show the customizable map.** List what's in the profile, grouped, with a
-   one-line summary of the current value:
+---
 
-   - **Company / who you are** — name, industry, jurisdictions, stage, practice
-     setting *(shared across all 12 plugins — changes flow through
-     `company-profile.md`)*
-   - **IP practice profile** — which IP types are in scope (patent,
-     trademark, copyright, trade secret, design), practice orientation
-     (prosecution / transactions / enforcement / in-house portfolio)
-   - **Risk posture** — conservative / middle / aggressive, what each means
-     for clearance thresholds, FTO opinions, and cease-and-desist escalation
-   - **People** — IP counsel, outside firms by IP type, enforcement
-     escalation chain, invention committee
-   - **Portfolio** — patent families, trademark classes, key marks, countries
-     of registration, watch services
-   - **Brand protection** — enforcement posture on marketplace takedowns,
-     domain squatters, parody / fair use calls
-   - **Enforcement posture** — when to send C&D vs. cure letter vs. suit;
-     escalation triggers by infringement type
-   - **Clearance and FTO** — search vendors, clearance confidence thresholds,
-     FTO opinion format
-   - **OSS review** — license tier policies, ship-blocker licenses, review
-     cadence for new dependencies
-   - **Workflow** — matter workspaces (matter IDs, family IDs), docket feed,
-     invention intake form
-   - **Integrations** — patent docket system / trademark office connectors /
-     Slack / document storage status, fallbacks
+## CN可调整项示例
 
-3. **Ask what they want to change.**
+**CN风险偏好说明：**
+- **保守：** 任何疑似侵权都升级，不容忍任何疑似侵权产品
+- **中等：** 批量侵权才升级，单个疑似侵权先评估
+- **激进：** 仅重大侵权升级，优先协商解决
 
-   > What would you like to adjust? Pick a section, or describe the change in
-   > your own words.
+**CN争议解决梯度：**
+1. 律师函 → 2. 协商 → 3. 行政执法/平台投诉 → 4. 民事诉讼 → 5. 刑事报案
 
-4. **Make the change.** Show the current value, ask for the new value, explain
-   what changes downstream, confirm, write it to the config.
+---
 
-   Examples:
-   - *Adding a new trademark watch class:* "`/portfolio` will include class
-     XX in watch reports and `/infringement-triage` will route class-XX
-     findings accordingly."
-   - *Enforcement posture aggressive → middle:* "`/cease-desist` will offer
-     cure-letter drafts as a first option for ambiguous cases instead of
-     going straight to C&D."
-   - *New ship-blocker OSS license:* "`/oss-review` will fail reviews that
-     include this license rather than warning."
-
-5. **For shared-profile changes** (company name, industry, jurisdictions,
-   practice setting, stage): write to
-   `~/.claude/plugins/config/claude-for-legal/company-profile.md` and note:
-
-   > This change affects all 12 plugins — any plugin that reads your
-   > jurisdiction footprint now sees [new value].
-
-6. **Close.**
-
-   > Done. Your next output will reflect the change. Anything else? You can
-   > run `/ip-legal:customize` anytime.
-
-## Guardrails
-
-- **Never delete a section.** If the user wants to "remove" an IP type from
-  scope, set it to `[Not currently in scope]` and explain what drops out.
-- **Flag internal inconsistency.** If the change would make the profile
-  inconsistent (e.g., trademark out of scope + trademark watch service
-  configured; or aggressive enforcement posture + "all C&Ds go to outside
-  counsel"), flag the tension.
-- **Flag guardrail degradation.** The `[review]` flag, source attribution
-  tags, and `[verify]` tags on cited authorities are load-bearing — do not
-  remove. Clearance confidence is load-bearing on `/clearance` output — do
-  not suppress.
-- **One change at a time.** Don't re-ask the whole interview.
+*Greater China Legal — ip-legal customize CN adapter v1.0.0*
