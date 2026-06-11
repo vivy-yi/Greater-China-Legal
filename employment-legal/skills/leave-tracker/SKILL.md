@@ -1,36 +1,216 @@
 ---
 name: leave-tracker
 description: >
-  Check open leaves for deadline alerts and required decisions. Surfaces only
-  the leaves that require an action and explains why — not a status board.
-  Use weekly, or whenever the attorney needs to know which leaves have
-  upcoming designation, certification, or exhaustion deadlines.
-argument-hint: "[no arguments — works from HRIS or leave-register.yaml]"
+  中国大陆员工休假管理跟踪 — 年休假、病假、产假、陪产假、婚假、丧假、工伤假等
+  法定休假权益跟踪与期限提醒。适用情形：用户说"有哪些休假需要处理"、"本周/月有哪些休假到期"、
+  "员工休假状态跟踪"。
+argument-hint: "[无参数 — 从休假登记文件或HR系统读取数据]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+user_invocable: true
+legal_sources:
+  - type: statute
+    name: Labor Law of the PRC
+    article: Articles 45-50 (Annual leave, wages)
+    effective_date: 2018-12-29
+    jurisdiction: cn-mainland
+  - type: regulation
+    name: Regulations on Paid Annual Leave for Employees
+    article: Full text
+    effective_date: 2008-01-01
+    jurisdiction: cn-mainland
+  - type: statute
+    name: Social Insurance Law of the PRC
+    article: Articles 53-56 (Maternity insurance)
+    effective_date: 2018-12-29
+    jurisdiction: cn-mainland
+  - type: statute
+    name: Population and Family Planning Regulations (various provinces)
+    article: Province-specific
+    effective_date: varies by province
+    jurisdiction: cn-mainland
+risk_level: low
+escalation_triggers:
+  - 产假天数超过法定标准（部分省市有额外延长）
+  - 年休假未休且未支付300%工资报酬（须在年度内安排或支付补偿）
+  - 病假工资低于当地最低工资标准的80%（各省市规定不同）
 ---
 
 # /leave-tracker
 
-Checks all open leaves with hard legal deadlines and surfaces only the ones
-requiring a decision or action. Not a status board — tells you what you need
-to do and why.
+## 使用说明
 
-## Instructions
+本 Skill 用于跟踪中国大陆员工法定休假权益的处理状态与期限提醒。
+仅输出需要处理操作的休假，无操作需要的休假一行概括。
 
-1. Load the `leave-tracker` agent and run the full workflow.
+**管辖法域默认为中国大陆。** 如涉及香港/澳门/台湾/新加坡：
+`/employment-legal:leave-tracker --frame hk`
 
-2. If no HRIS is connected and no `~/.claude/plugins/config/claude-for-legal/employment-legal/leave-register.yaml` exists, prompt
-   the attorney to upload a leave spreadsheet or use
-   `/employment-legal:log-leave` to add entries.
+---
 
-3. Alerts only for leaves requiring action. Clean leaves summarized one line each.
+## 前置条件
 
-## Examples
+1. **已有休假登记文件**：`leave-register.yaml`（或 `leave-register.csv`）
+2. **无文件时**：调用 `/employment-legal:log-leave` 录入，或请用户提供休假记录表格
+
+---
+
+## 中国大陆法定休假类型
+
+| 休假类型 | 法律依据 | 天数 | 工资支付 |
+|---|---|---|---|
+| 年休假 | 《职工带薪年休假条例》2008 | 5/10/15天（累计工龄） | 全额工资 |
+| 病假 | 《劳动法》第4条 | 无统一天数（凭医院证明） | 不低于最低工资80% |
+| 产假 | 《劳动法》第62条+各省市规定 | 98天基础+生育奖励假 | 生育津贴/工资 |
+| 陪产假 | 各省市人口与计划生育条例 | 7-30天（各省不同） | 全额工资 |
+| 婚假 | 《婚姻法》+各省市规定 | 3天基础+晚婚假（多数省市已取消） | 全额工资 |
+| 丧假 | 《关于丧假的暂行规定》1980 | 1-3天（直系亲属） | 全额工资 |
+| 工伤假 | 《工伤保险条例》 | 医疗机构确定 | 正常工资福利待遇 |
+| 流产假 | 各省市规定 | 15-42天 | 全额工资/生育津贴 |
+| 产前检查假 | 《女职工劳动保护特别规定》2012 | 孕期正常检查时间 | 全额工资 |
+
+---
+
+## 读取休假登记
+
+从 `leave-register.yaml` 读取所有开放休假记录。
+
+如果文件不存在或为空：
+> 当前未找到休假登记文件。请选择：
+> 1. 上传休假记录表格（CSV/Excel）
+> 2. 调用 `/employment-legal:log-leave` 逐条录入
+> 3. 已有 HRIS 系统连接，直接读取数据
+
+---
+
+## 期限核查工作流
+
+### 第一步：识别须操作的休假
+
+对每条开放休假记录，核查以下期限：
+
+#### 产假相关
+
+| 期限类型 | 说明 | 处理要求 |
+|---|---|---|
+| 产假即将结束 | 产假到期前[X]天提醒 | 确认员工复工安排 |
+| 生育津贴申领 | 产后30日内（或当地规定）须申领 | 提醒提交材料至社保 |
+| 产假延长（难产/多胎） | 难产增加15天，多胎每多一胎增加15天 | 确认延长天数，更新记录 |
+
+#### 年休假相关
+
+| 期限类型 | 说明 | 处理要求 |
+|---|---|---|
+| 年休假即将过期 | 跨年度安排的截止日期 | 确保持续安排或支付补偿 |
+| 未休年休假补偿 | 年度结束前未安排的 | 应支付300%年休假工资报酬 |
+
+#### 病假相关
+
+| 期限类型 | 说明 | 处理要求 |
+|---|---|---|
+| 病假证明到期 | 医院证明的休息期即将届满 | 提醒员工续开证明 |
+| 医疗期届满 | 病假连续超过规定期限 | 须评估是否终止劳动合同 |
+
+#### 工伤假相关
+
+| 期限类型 | 说明 | 处理要求 |
+|---|---|---|
+| 工伤认定申请期限 | 事故发生后30日内 | 须在期限内申请工伤认定 |
+| 劳动能力鉴定 | 伤情稳定后 | 须申请劳动能力鉴定 |
+
+### 第二步：按紧迫程度分组
 
 ```
-/employment-legal:leave-tracker
+🔴 紧急（须本周处理）：
+- 即将到期的年休假处理决定
+- 产假到期员工复工安排
+- 病假证明即将到期须续开
+
+🟡 本月须处理：
+- 生育津贴申领材料准备
+- 工伤假期满评估
+- 跨年度年休假安排确认
+
+✅ 正常追踪：
+- 已安排的休假，无特殊期限
+- 休假中的员工，无需操作
 ```
 
-Run this weekly — set a Monday-morning reminder to invoke
-`/employment-legal:leave-tracker`. Automated scheduling requires a separate
-integration (calendar reminder, cron job, etc.); Claude Code agents do not
-self-schedule.
+### 第三步：输出须操作项
+
+对每个须操作的休假，输出：
+
+```
+【须操作休假 — [紧迫程度]】
+
+员工：[姓名] | 部门：[部门] | 用工类型：[劳动合同/劳务派遣]
+休假类型：[年休假/病假/产假/其他]
+起始日期：[YYYY-MM-DD] | 预计结束：[YYYY-MM-DD]
+剩余天数：[X]天
+
+⚠️ 操作原因：[具体说明]
+建议操作：[具体建议]
+操作截止：[YYYY-MM-DD]（[距今天还有X天]）
+```
+
+---
+
+## 休假统计摘要
+
+无紧急操作项时，输出休假状态摘要：
+
+```
+【休假状态摘要 — YYYY-MM-DD】
+
+总计开放休假：[X]条
+🔴 紧急须处理：[X]条
+🟡 本月须关注：[X]条
+✅ 正常追踪：[X]条
+
+休假类型分布：
+- 年休假：[X]条
+- 病假：[X]条
+- 产假：[X]条（含生育奖励假）
+- 陪产假：[X]条
+- 婚假：[X]条
+- 其他：[X]条
+
+本月到期：[X]条
+跨年度未安排：[X]条（须支付300%补偿）
+```
+
+---
+
+## 常见合规问题提示
+
+### 年休假过期处理
+
+根据《职工带薪年休假条例》第5条：
+- 年休假在一个年度内可以集中安排，也可以分段安排
+- 因工作需要无法在本年度安排的，可以跨一个年度安排
+- 确因工作需要无法安排时，须支付300%年休假工资报酬
+- "未安排"包括员工主动放弃（须书面确认）≠ 用人单位不安排
+
+### 产假天数核算
+
+基础产假：98天（顺产）
+生育奖励假：多数省市15-30天（须核实当地规定）
+难产：增加15天
+多胎：每多一胎增加15天
+妊娠4个月以下流产：15天
+妊娠4个月以上流产：42天
+
+### 病假工资下限
+
+各省市规定不同，最低标准通常为当地最低工资的80%（部分省市100%）。
+须按员工实际工作地核发。
+
+---
+
+## 本 Skill 不涵盖
+
+- 休假政策制定（使用 policy-drafting Skill）
+- 请假申请审批流程（HR工作流，非法律审查）
+- 产假天数核定（须核实当地人口与计划生育条例）
+- 工伤认定申请（须向人社部门提交材料）
