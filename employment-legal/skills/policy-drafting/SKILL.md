@@ -1,131 +1,311 @@
 ---
 name: policy-drafting
 description: >
-  Draft an employment policy with state supplements where law differs across
-  the jurisdictional footprint. Use when the user says "draft a [topic]
-  policy", "we need a policy on", "update our [topic] policy", or names a
-  policy gap.
-argument-hint: "[policy topic — e.g., 'remote work', 'parental leave', 'PTO']"
+  中国大陆员工规章制度/政策起草 — 加班管理、考勤、年休假、病假、薪酬、
+  保密竞业、奖惩、离职管理等政策起草。适用情形：用户说"起草一份[主题]制度"、
+  "我们需要一份关于[主题]的规定"、"制定[主题]政策"。
+argument-hint: "[政策主题 — 如'加班申请制度'、'考勤制度'、'年休假管理'、'薪酬制度']"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+user_invocable: true
+legal_sources:
+  - type: statute
+    name: Labor Contract Law of the PRC
+    article: Article 4 (Rules and regulations), Article 17 (Contract terms), Article 35 (Contract changes)
+    effective_date: 2012-07-01
+    jurisdiction: cn-mainland
+  - type: statute
+    name: Labor Law of the PRC
+    article: Articles 3, 36-45 (Working hours, rest), Articles 44-47 (Wages, overtime)
+    effective_date: 2018-12-29
+    jurisdiction: cn-mainland
+  - type: regulation
+    name: Regulations on Paid Annual Leave for Employees
+    article: Articles 2-5
+    effective_date: 2008-01-01
+    jurisdiction: cn-mainland
+risk_level: medium
+escalation_triggers:
+  - 起草涉及低于法定标准的条款（该条款无效且可能影响整体合规性）
+  - 涉及员工重大切身利益（工资、休假、解除权）须经民主程序
+  - 涉及孕期/哺乳期/工伤等特殊保护群体的政策
+  - 涉及罚款/扣款权力（须符合劳动合同法第4条及工资支付规定）
+  - 政策可能被视为变更劳动合同的情形（须协商一致，劳动合同法第35条）
 ---
 
 # /policy-drafting
 
-1. Load `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → jurisdictional footprint, handbook location.
-2. Use the workflow below.
-3. Draft core policy. Check each jurisdiction in footprint for required variants.
-4. Output: core policy + state supplements. Flag where law is currently shifting.
+## 使用说明
+
+本 Skill 用于起草中国大陆用人单位员工规章制度/政策。
+起草范围：加班申请、考勤管理、年休假、病假、薪酬、保密竞业、奖惩、离职管理、安全生产等。
+
+**管辖法域默认为中国大陆。** 如涉及香港/澳门/台湾/新加坡：
+`/employment-legal:policy-drafting --frame hk`
 
 ---
 
-## Matter context
+## 第一步：确定政策范围
 
-**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/employment-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/employment-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+收集以下信息：
+
+- **政策主题**：具体要规范什么（如"加班申请制度"、"考勤管理制度"）
+- **起草原因**：法定合规要求 / 内部管理需要 / 填补现有制度空白
+- **适用范围**：全体员工 / 特定岗位 / 特定部门 / 特定工作地点
+- **与现有制度的关系**：新增 / 替代现有制度 / 修订现有制度
+- **员工规模**：制度影响员工的多少（涉及集体劳动争议风险评估）
+- **是否有工会**：起草是否经工会讨论（影响民主程序的实现方式）
 
 ---
 
-## Purpose
+## 第二步：地方差异扫描
 
-A policy that's right for California may be wrong (or unnecessary) in Texas. This skill drafts a core policy and generates state supplements where the footprint requires different rules.
+中国大陆各省市在以下领域存在差异，起草前须确认适用地区的具体要求：
 
-## Load context
+| 领域 | 差异来源 | 主要差异 |
+|---|---|---|
+| 最低工资 | 各省市自定 | 上海(2690/月)、北京(2420/月)等 |
+| 社保基数上下限 | 各省市全口径平均工资 | 差异显著 |
+| 综合计算工时审批 | 部分省市有细化要求 | 上海、北京要求较多 |
+| 高温津贴 | 部分省市有额外规定 | 部分省市细化标准 |
+| 婚假/产假/陪产假 | 各省市人口与生育条例 | 婚假天数各省差异大 |
+| 病假工资 | 部分省市有更严格要求 | 最低工资80%-100%不等 |
 
-`~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → jurisdictional footprint, handbook location and format.
+---
 
-## Workflow
+## 第三步：起草核心政策
 
-### Step 1: Scope the policy
+### 政策基本结构
 
-- What's the policy for? (Remote work, parental leave, social media, etc.)
-- Why now? (Legal requirement, incident, growth, gap noticed)
-- Who does it apply to? (All employees, certain roles, certain locations)
+```
+# [政策名称]
 
-### Step 2: Jurisdictional scan
+## 一、目的
+[一句话说明制定本制度的依据和目的]
 
-For each state/country in the footprint, check: does this jurisdiction have a specific rule on this topic?
+## 二、适用范围
+[适用对象、适用地点，如有例外须明确]
 
-**Common topics with jurisdictional variance:**
+## 三、核心规定
+[具体规则：要求/允许/禁止什么]
 
-| Topic | Variance |
+## 四、申请/执行程序
+[如何申请、审批流程、时限]
+
+## 五、违规处理
+[违反规定的后果——须与劳动合同及奖惩制度衔接]
+
+## 六、附则
+[生效日期、与旧制度的关系、解释权归属]
+```
+
+### 起草原则
+
+- **语言清晰**：员工应能理解，无须法律背景
+- **标准明确**：避免模糊表述（如"严重违纪"须有具体认定标准）
+- **程序完整**：申请→审批→执行→记录，全流程覆盖
+- **标准合法**：任何标准不得低于法定最低要求
+- **与合同衔接**：政策不得与劳动合同约定冲突
+
+### 避免的表述
+
+| ❌ 避免 | ✅ 改用 |
 |---|---|
-| Paid leave | State mandates (CA, NY, CO, WA, etc.) with different accrual rates, uses, carryover |
-| Parental leave | State programs layer on top of FMLA (CA PFL, NY PFL, etc.) |
-| Meal and rest breaks | CA is the outlier (penalty pay); most states minimal |
-| Expense reimbursement | CA requires; most states don't |
-| Pay transparency | Growing list of states requiring ranges in postings |
-| Non-competes | See hiring-review skill — unenforceable in some states |
-| Final pay | Timing varies widely |
-
-If the topic has no jurisdictional variance (dress code, say), skip this step.
-
-### Step 3: Draft the core policy
-
-One policy. Applies everywhere. Clear and readable — employees should understand it without a lawyer.
-
-Structure:
-- Purpose (one sentence — why this policy exists)
-- Scope (who it applies to)
-- The rule (what's required/permitted/prohibited)
-- Process (how to request, who approves, what happens if)
-- Questions (who to ask)
-
-Avoid: "heretofore," "notwithstanding," nested exceptions. This is a handbook policy, not a contract.
-
-### Step 4: State supplements
-
-For each jurisdiction where the rule differs, a supplement:
-
-```markdown
-### [State] Supplement
-
-Employees working in [State] are subject to the following in addition to / instead of the core policy:
-
-- [Specific difference]
-- [Cite the state law if helpful]
-```
-
-Keep supplements tight. Only what's different — don't repeat the core.
-
-### Step 5: Cross-check
-
-- Does this policy conflict with anything already in the handbook?
-- Does it promise more than the company intends to deliver? (A policy is a promise — courts hold employers to handbook promises.)
-- Does it inadvertently create a contract? (Some states treat handbook policies as contractual — include the standard "this is not a contract" language if the handbook doesn't already.)
-
-## Output
-
-```markdown
-# [Policy Name]
-
-## Core Policy
-
-[Full text]
-
-## State Supplements
-
-### [State 1]
-[Supplement]
-
-### [State 2]
-[Supplement]
+| "公司有权随时调整" | "须提前[X]日书面通知员工，并协商一致" |
+| "严重违反公司规定"（无定义） | 列举具体情形 + 认定程序 |
+| "公司保留最终解释权" | 删除（无实际法律效力但影响制度严肃性） |
+| "员工必须无条件服从" | "员工应遵守……，如有特殊情况可向……申诉" |
 
 ---
 
-## Drafting Notes (internal — remove before handbook insertion)
+## 第四步：常见政策起草要点
 
-- **Jurisdictional scan:** [which states checked, which have variance]
-- **Conflicts with existing handbook:** [none | list]
-- **Law currently shifting:** [any state where this is in flux]
-- **Review cadence:** [when to revisit — annual, or when X happens]
+### 加班管理制度
+
+**必备内容：**
+
+```
+适用范围：全体员工（或指定岗位）
+加班申请：提前填写加班申请 → 部门主管审批 → 报人力资源部备案
+加班认定：经审批的加班时间方计入加班
+加班费：标准工时制员工——平日加班按150%、休息日加班按200%、法定节假日按300%
+综合计算工时制：按周期结算，超出标准工时部分按150%，法定节假日按300%
+加班调休：休息日加班优先安排调休，无法调休的支付200%工资
+禁止：未经审批自行加班不计入加班时间
 ```
 
-> **Draft, not a policy in effect.** This is a drafting aid for attorney review, not a policy you can publish. Publishing a handbook policy has legal consequences — in several states it can bind the company as a contractual promise, and wage/leave/accommodation policies are routinely read against the employer. A licensed attorney, solicitor, barrister, or other authorised legal professional in your jurisdiction reviews, edits as needed, and takes professional responsibility before the policy is rolled out. Do not publish or distribute this draft unreviewed.
+### 考勤管理制度
 
-## Handoff
+**必备内容：**
 
-To handbook-updates skill: when this policy is approved, it diffs against the current handbook and flags what changes.
+```
+工时制度：标准工时/综合计算工时/不定时工时（如经审批）
+考勤方式：打卡/指纹/人脸识别/系统记录
+请假程序：提前申请 → 部门主管批准 → 报人力资源部
+迟到/早退处理：按制度执行，注意不低于最低工资标准
+外出/出差：须填写外出申请或出差申请
+旷工认定：未经批准不来上班即为旷工
+旷工处理：旷工期间不计发工资；连续旷工X天构成严重违反规章制度
+```
 
-## What this skill does not do
+### 年休假管理制度
 
-- Approve the policy. It drafts; a human approves.
-- Roll out the policy. Communication to employees is an HR workflow.
-- Cover every jurisdiction on earth — only the ones in the footprint. If the footprint expands, re-run.
+**必备内容：**
+
+```
+休假资格：入职满1年后享受年休假（累计工作年限）
+休假天数：累计年限→5/10/15天（须与劳动合同约定一致）
+休假安排：年度统筹安排，须考虑工作需要；员工申请时原则上批准
+未休假处理：确因工作需要无法安排时，支付300%年休假工资报酬
+折算规则：当年度入职按日历日折算，不足1天不计入
+跨年安排：原则上当年度安排，确因工作需要可跨一个年度安排
+```
+
+### 薪酬管理制度
+
+**必备内容：**
+
+```
+工资构成：基本工资 + 岗位工资 + 绩效工资 + 奖金 + 津贴（如有）
+支付时间：每月X日发放（如遇节假日提前发放）
+支付方式：银行转账，须在约定时间内到账
+加班费：计算基数、倍数（须不低于合同约定且不低于最低工资标准）
+病假工资：不低于当地最低工资标准的80%（按各省市规定）
+工资扣除：因员工原因造成损失的，须证明因果关系，扣除不超过当月工资20%且不低于最低工资
+年终奖：须有明确制度依据或劳动合同约定，否则法院可能按往年惯例判决支付
+```
+
+### 保密管理制度
+
+**必备内容：**
+
+```
+保密范围：技术信息、商业信息、客户信息、薪酬信息等（须明确具体定义）
+保密人员：接触保密信息的员工（须合理认定，不得过宽）
+保密期限：在职期间 + 离职后一定年限（离职后部分须约定补偿）
+保密补偿：离职后继续承担保密义务的，须按月支付补偿金（无强制性法定标准）
+违约责任：员工违反保密义务须支付违约金，并赔偿实际损失
+竞业限制：如同时适用竞业限制，须另行签订协议（参见 hiring-review Skill）
+```
+
+### 奖惩管理制度
+
+**必备内容：**
+
+```
+奖励条件：列举具体奖励情形
+奖励方式：物质奖励 + 精神奖励
+惩罚种类：警告、小过、大过、解除劳动合同（须与劳动合同约定一致）
+"严重违反"认定标准：须列举具体情形（避免模糊表述），须合理且与岗位性质匹配
+程序要求：调查 → 听取员工陈述和申辩 → 作出决定 → 书面通知员工
+禁止：不得罚款（劳动合同法第4条允许扣减绩效工资但须与绩效考核挂钩，不得随意克扣）
+```
+
+---
+
+## 第五步：合法性核查
+
+### 劳动合同法第4条合规性
+
+| 要求 | 内容 |
+|---|---|
+| **民主程序** | 须经职工代表大会或全体职工讨论，提出方案和意见，与工会或职工代表平等协商确定 |
+| **公式告知** | 制度须公示或告知全体员工（签字确认/公告/培训记录） |
+| **内容合法** | 不得违反法律、法规的规定 |
+
+### 不得包含的条款
+
+| 禁止内容 | 法律后果 |
+|---|---|
+| 低于法定最低标准（工资/休假/加班费等） | 该条款无效 |
+| 免除用人单位法定责任（如"工伤自负"） | 条款无效 |
+| 扩大用人单位单方解除权（超出劳动合同法第39条范围） | 超出部分无效 |
+| 无依据的罚款权 | 条款无效，可能构成克扣工资 |
+| 限制员工人身自由 | 条款无效，侵犯公民权利 |
+
+---
+
+## 第六步：与现有制度的衔接核查
+
+起草新制度须核查与现有制度的关系：
+
+| 检查项 | 说明 |
+|---|---|
+| 与劳动合同约定是否冲突 | 劳动合同约定具有优先效力，制度不得减损员工合同权利 |
+| 与集体合同是否冲突 | 集体合同标准不得低于制度，制度亦不得低于集体合同 |
+| 与现有手册章节是否重复/矛盾 | 须明确新旧版本的适用关系 |
+| 申请/审批流程是否与现有OA系统匹配 | 须确认流程可执行性 |
+| 与其他部门制度是否协调 | 考勤→薪酬、加班→绩效等跨部门衔接 |
+
+---
+
+## 输出：制度草案 + 起草说明
+
+```
+【Greater China Legal — 劳动法实务工作成果】
+⚠️ 复核提示：
+- 本草案依据中国大陆《劳动合同法》第4条、《劳动法》第3/36-47条起草
+- 发布前须经民主程序+公示告知，方对员工具有约束力
+- 来源标注：[yuandian] = 法律数据库 / [web] = 联网检索(请核实) / [model] = 模型知识(请核实)
+
+---
+
+# [政策名称]
+
+## 草案版本
+
+[完整制度文本]
+
+---
+
+## 起草说明（内部使用，发布前删除）
+
+### 适用范围
+- 适用员工：[全体/部门/岗位]
+- 适用地区：[城市/省份]
+
+### 合法性核查
+| 检查项 | 结果 |
+|---|---|
+| 不低于法定最低标准 | [✅/🔴] |
+| 民主程序 | [✅/⚠️待补充] |
+| 公示告知 | [✅/⚠️待补充] |
+| 无扩大解除权 | [✅/🔴] |
+| 无禁止性条款 | [✅/🔴] |
+
+### 地方差异
+| 适用地区 | 相关差异 | 处理方式 |
+|---|---|---|
+| [城市] | [具体差异] | [已在制度中体现/须另行附录] |
+
+### 与现有制度的关系
+- [新增/替代/修订]：[旧制度名称]
+- 须同步更新的章节：[章节名称]
+
+### 发布前操作事项
+- [ ] 民主讨论程序（职工代表大会/全体职工讨论）
+- [ ] 与工会/职工代表协商
+- [ ] 公示告知（签字确认版本）
+- [ ] 与劳动合同衔接核查
+- [ ] 法律顾问复核
+
+### 审查周期
+- [建议首次X个月内复查 / 法定标准变更时复查]
+
+---
+
+**⚠️ 复核提示：**
+- 本草案为内部起草文件，未经法律顾问复核不得发布
+- 发布须经民主程序+公示告知，否则对员工无约束力
+- 本草案不构成法律意见，具体适用须结合贵司实际情况
+```
+
+---
+
+## 本 Skill 不涵盖
+
+- 集体合同起草（须另行使用集体合同审查 Skill）
+- 股权激励计划合规（期权/限制性股票另有规定）
+- 劳动仲裁代理（不得代理）
+- 特定行业特殊规定（建筑/矿山/化工等须另行论证）
