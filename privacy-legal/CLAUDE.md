@@ -215,6 +215,21 @@ PIPL 第44-50条规定了数据主体的各项权利：
 
 ---
 
+## Skills
+
+| Skill | 用途 |
+|---|---|
+| `dpa-review` | 审查数据处理协议 |
+| `dsar-response` | 响应个人信息主体权利请求（15日期限）|
+| `pia-generation` | 生成个人信息保护影响评估 |
+| `policy-monitor` | 追踪PIPL/DSL/CSL法规动态 |
+| `use-case-triage` | 新功能隐私风险分级路由 |
+| `reg-gap-analysis` | PIPL合规差距分析与整改 |
+| `breach-notification` | 数据泄露/安全事件通知（PIPL第51/57条，72h内报告）|
+| `privacy-policy-update` | 生成/审查隐私政策（PIPL第17条强制内容）|
+
+---
+
 ## 数据源
 
 | 标注 | 数据源 | 说明 |
