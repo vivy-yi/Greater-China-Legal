@@ -1,110 +1,57 @@
 ---
 name: review
 description: >
-  Review a vendor agreement, NDA, or SaaS subscription against your playbook.
-  Identifies the agreement structure from titles, routes to the right review skill
-  (vendor-agreement-review, nda-review, saas-msa-review), and integrates the output
-  into a single memo. Use when the user says "review this contract", "check this
-  MSA", "is this NDA okay", "look at this SaaS agreement", or attaches an inbound
-  agreement for review.
-argument-hint: '[file path | Drive link | [CLM ID] | paste text]'
+  根据 playbook 审查供应商合同、NDA或SaaS订阅协议。
+  从标题识别协议结构，路由至正确审查技能（vendor-agreement-review、nda-review、saas-msa-review），
+  并将输出整合为一份备忘录。
+  适用情形：用户说"审一下这份合同"、"评估这个MSA"、"这个NDA可以吗"。
+argument-hint: '[文件路径 | Drive链接 | CLM ID | 粘贴文本]'
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+risk_level: medium
 ---
 
-# /review
+# /review — China Mainland
 
-Reviews an inbound agreement against the playbook in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. Identifies the agreement structure from titles, selects the appropriate skill(s), and — if confirm_routing is enabled — checks with the user before proceeding.
+## Purpose
+
+根据 `commercial-legal/CLAUDE.md` 中的 playbook 审查收到的协议。从标题识别协议结构，选择适当技能，并在 confirm_routing 启用时先确认用户再继续。
 
 ## Instructions
 
-1. **Load `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`.** If placeholders present, stop and prompt: "Run `/commercial-legal:cold-start-interview` first — I need to learn your playbook before I can review against it."
+1. **加载 `commercial-legal/CLAUDE.md`**
 
-   Also read `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` → `## Review preferences` → `confirm_routing`. If the field is missing, treat it as `true`.
+   如有占位符，停止并提示："请先运行 `/commercial-legal:cold-start-interview`——我需要在审查前了解您的 playbook。"
 
-2. **Get the agreement:** From file path, Drive link, [CLM ID], or pasted text. If none provided, ask.
+   同时读取 `commercial-legal/CLAUDE.md` → `## Review preferences` → `confirm_routing`。如字段缺失，视为 `true`。
 
-3. **Read the document structure — titles first.**
+2. **获取协议：** 从文件路径、Drive链接、CLM ID或粘贴文本。如未提供，询问。
 
-   Before reading the body, extract:
-   - The main agreement title (e.g., "Master Services Agreement", "Non-Disclosure Agreement")
-   - All exhibit, schedule, addendum, and attachment titles (e.g., "Exhibit A — Data Processing Addendum", "Schedule 1 — Subscription Order Form", "Annex B — Service Level Agreement")
+3. **读取文档结构——先读标题**
 
-   This is the routing signal. Do not rely on body keywords alone — a 40-page MSA with "confidential" throughout is not an NDA.
+   提取：
+   - 主协议标题
+   - 所有附件、附录、补充协议的标题
 
-4. **Select the skill(s) based on document structure.**
+4. **选择技能**
 
-   Map each identified document or section to a skill:
-
-   | Document / section title contains | Skill |
+   | 文档/章节标题包含 | 技能 |
    |---|---|
-   | Non-Disclosure, NDA, Confidentiality Agreement (as the *main* agreement) | **nda-review** |
-   | Master Services Agreement, Professional Services, Statement of Work, Consulting Agreement | **vendor-agreement-review** |
-   | Subscription, SaaS, Cloud Services, Order Form with auto-renewal, Software License with recurring fees | **saas-msa-review** (overlay on vendor-agreement-review) |
-   | Data Processing Addendum, DPA, Data Processing Agreement (as exhibit or standalone) | note for **vendor-agreement-review** → data protection section |
-   | Service Level Agreement, SLA (as exhibit) | note for **saas-msa-review** → SLA section |
+   | Non-Disclosure、NDA、Confidentiality Agreement（作为主协议）| **nda-review** |
+   | Master Services Agreement、Professional Services、Statement of Work、Consulting Agreement | **vendor-agreement-review** |
+   | SaaS、Subscription Agreement、Cloud Services | **saas-msa-review** |
 
-   Multiple skills may apply. Common combinations:
-   - MSA + DPA exhibit → vendor-agreement-review, with DPA noted
-   - SaaS subscription + Order Form + SLA exhibit → saas-msa-review (covers all three)
-   - MSA + Order Form with auto-renewal → vendor-agreement-review + saas-msa-review overlay
+5. **运行审查**，整合输出为单一备忘录
 
-   When the structure is genuinely ambiguous after reading titles (e.g., a document titled "Agreement" with no exhibits listed), read the first two pages of the body to resolve it — then stop and route.
+---
 
-5. **Confirm routing if enabled.**
+## 本技能不做什么
 
-   If `confirm_routing` is `true` in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` (or field is absent):
+- 不做实质性分析。只路由至具体审查技能。
+- 不读取附件正文。附件由具体审查技能处理。
 
-   ```
-   I'm going to review this as: [agreement type(s)].
+---
 
-   Documents identified:
-   - [Main agreement title] → [skill]
-   - [Exhibit A title] → [how it will be handled]
-   - [Exhibit B title] → [how it will be handled]
-
-   Sound right? (yes / no — or tell me what I got wrong)
-   ```
-
-   Wait for confirmation before proceeding. If the user corrects the routing, apply their instruction and proceed.
-
-   If `confirm_routing` is `false`: proceed silently. Log the routing decision at the top of the review memo so the user can see what was applied.
-
-6. **Run the skill(s).** Follow each skill's workflow fully. If multiple skills apply, run them in sequence and integrate the output into a single memo — don't produce separate memos.
-
-7. **Check for escalations:** If any issue exceeds the reviewer's authority per the `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` matrix, invoke **escalation-flagger** to route and draft the ask.
-
-8. **Offer follow-ups:**
-   - Stakeholder summary for the business owner
-   - Redline .docx with tracked changes
-   - [CLM] record creation (if connected)
-   - Add to renewal register (if auto-renewal found)
-
-## Configuring confirm_routing
-
-Add to `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` → `## Review preferences`:
-
-```markdown
-## Review preferences
-
-confirm_routing: true   # Set to false to skip routing confirmation and proceed automatically
-```
-
-The cold-start interview should ask about this preference. Default is `true` — confirmation on. As trust builds, the user can set it to `false`.
-
-## Examples
-
-```
-/commercial-legal:review vendor-msa.pdf
-```
-
-```
-/commercial-legal:review https://drive.google.com/file/d/ABC123
-```
-
-```
-/commercial-legal:review
-[paste agreement text]
-```
-
-## Output
-
-Full review memo per the skill's format. Routing decision logged at the top. Deviation-by-deviation, specific redline language, named approver. Saved where `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` → House style says work product goes.
+*Greater China Legal — commercial-legal review CN adapter v1.0.0*
+*基于 anthropic/claude-for-legal review 适配中国大陆法律环境*

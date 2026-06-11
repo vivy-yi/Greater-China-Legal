@@ -1,39 +1,38 @@
 ---
 name: review-proposals
 description: >
-  Review and approve (or reject) pending playbook update proposals from the
-  playbook-monitor agent and apply approved changes to the practice profile. Use
-  when the playbook-monitor agent has surfaced proposals, when the user says
-  "review playbook proposals", "what playbook updates are pending", or wants to
-  step through deviation-driven playbook changes.
-argument-hint: "[no arguments needed — works from the pending proposals file]"
+  审查并批准（或拒绝）playbook-monitor agent 待处理的 playbook 更新提案，
+  并将批准变更应用到 practice profile。
+  适用情形：playbook-monitor agent 提出提案，用户说"审查 playbook 提案"、
+  "有哪些待处理更新"，或想要逐步审查偏差驱动的 playbook 变更。
+argument-hint: "[无需参数——从待处理提案文件工作]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+risk_level: medium
 ---
 
-# /review-proposals
+# /review-proposals — China Mainland
 
-Steps through pending playbook update proposals from the monitor agent and applies approved changes to `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`.
+## Purpose
+
+逐步审查 playbook-monitor agent 待处理的 playbook 更新提案，并将批准的变更应用到 `commercial-legal/CLAUDE.md`。
 
 ## Instructions
 
-1. **Load the playbook-monitor agent** and run Step 5 (review and approval flow).
+1. **加载 playbook-monitor agent**，运行第5步（审查和批准流程）
 
-2. **If no proposals file exists** or it is empty: respond *"No pending proposals. Playbook is up to date."* Do not proceed further.
+2. **如提案文件不存在或为空：** 回复"无待处理提案。Playbook 已是最新的。"不再继续。
 
-3. **Present proposals one at a time.** For each, show the full proposal block and offer four options: Accept, Reject, Edit, Defer.
+3. **逐个展示提案。** 对每个提案显示完整提案块，提供四个选项：接受、拒绝、修改、延期。
 
-4. **For Accept or Edit:** show the exact diff to `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` before writing. Only apply after the attorney explicitly confirms.
+4. **对于接受或修改：** 显示对 `commercial-legal/CLAUDE.md` 的精确 diff。仅在律师明确确认后应用。
 
-5. **For Reject or Defer:** log the decision. Do not modify `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`.
+5. **对于拒绝或延期：** 记录决定。不修改 `commercial-legal/CLAUDE.md`。
 
-6. **After all proposals are resolved:** show a summary of what changed, then archive the proposals file.
+6. **所有提案解决后：** 显示变更摘要，然后存档提案文件。
 
-## Examples
+---
 
-```
-/commercial-legal:review-proposals
-```
-
-```
-/commercial-legal:review-proposals
-(runs automatically after playbook-monitor notifies you)
-```
+*Greater China Legal — commercial-legal review-proposals CN adapter v1.0.0*
+*基于 anthropic/claude-for-legal review-proposals 适配中国大陆法律环境*
