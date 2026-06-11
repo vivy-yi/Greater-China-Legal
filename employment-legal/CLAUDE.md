@@ -232,8 +232,10 @@
 - 本文件依据中国劳动法（劳动合同法/劳动争议调解仲裁法/工伤保险条例等）出具
 - 法规引用已标注来源，关键结论已进行多源验证
 - 涉及实质判断结论已标记 [review] 供律师复核
-- 来源标注：[YD]=元典 / [WKL]=无合力 / [BD]=北达 / [GOV]=政府平台 / [model]=模型知识(请核实)
+- 来源标注：[YD]=元典 / [WKL]=无合力 / [BD]=北达 / [GOV]=政府平台 / [web]=联网检索 / [model]=模型知识(请核实)
 - 数据源路由规则详见：references/data-source-registry.md
+- 货币触发主题详见：references/currency-watch.md
+- 验证履历记录在：references/verification-log.md
 
 ---
 
@@ -323,17 +325,41 @@
 
 | 工具 | 用途 |
 |---|---|
-| yuandian MCP | 劳动法法规+案例检索 |
-| 联网搜索 | 时效性核查（带[web]标签，请核实）|
+| yuandian MCP | 劳动法法规+案例检索（通过 [YD] 标注） |
+| weiken MCP | 综合法律检索（通过 [WKL] 标注） |
+| beidalu API | 法规原文精准检索（通过 [BD] 标注） |
+| 政府平台 | 最低工资/社保基数（通过 [GOV] 标注） |
+| 联网搜索 | 时效性核查（带 [web] 标签，请核实） |
 
 ---
 
-## 来源标注规则
+## 数据源治理详细规则
 
-- `[yuandian]` — 法律数据库检索结果（法规/案例）
-- `[web]` — 联网搜索结果（请核实准确性）
-- `[model]` — 模型知识（请核实）
-- `[user]` — 用户提供的文件/信息
+### Pre-flight Citation Check
+
+每次 Skill 引用法规前，测试 connector 是否真的在响应：
+- 如 connector 未连接，Sources 行标注：`not connected — cites from training knowledge, verify before relying`
+- Per-citation 的 `[model]` tag 保留，不输出独立 banner
+
+### Currency Trigger
+
+以下主题必须 web search，不能直接用模型知识：
+- 近期案例/生效日期、执法口径、年度更新阈值（最低工资/社保基数）
+- 详见：`references/currency-watch.md`
+
+### 三值系统
+
+Skill 需要信息但没有时，三种有效响应：
+1. **补充 + flag**：标注来源，继续执行
+2. **停下 + 请求**：直接请求用户提供
+3. **flag 但不替代**：已知疑问但不改变结论方向
+
+### 验证日志
+
+每验证一个引用后，写入 `references/verification-log.md`：
+```
+[YYYY-MM-DD] [引用] verified by [姓名] against [来源] — [结果]
+```
 
 ---
 
