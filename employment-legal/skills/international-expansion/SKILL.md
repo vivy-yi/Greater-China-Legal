@@ -1,361 +1,266 @@
 ---
 name: international-expansion
 description: >
-  Reference: implementation-planning framework for international hiring — EOR
-  vs. entity decision framing, cross-functional triggers for tax/finance/HR,
-  structured outside-counsel briefing requests, and a persistent gap tracker.
-  Loaded by /expansion-kickoff and /expansion-update; not invoked directly.
-user-invocable: false
+  跨国用工扩张规划参考框架 — EOR vs 自设实体判断、跨部门触发事项、
+  外部律师简报请求、持续缺口跟踪器。
+  被 /expansion-kickoff 和 /expansion-update 调用，不直接由用户调用。
+user_invocable: false
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+risk_level: medium
+escalation_triggers:
+  - 涉及外派中国员工至其他国家（须评估目的地国税务和社保义务）
+  - 上市公司跨境扩张（须评估证券披露义务）
+  - 涉及高风险国家/地区（须评估ODI合规）
 ---
 
-# International Expansion Skill
+# /international-expansion
 
-## Matter context
+跨国用工扩张规划参考框架。
 
-**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/employment-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/employment-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+## 使用说明
+
+本 Skill 不直接由用户调用。被以下 Skill 调用：
+- `/employment-legal:expansion-kickoff`（启动新国家/地区扩张）
+- `/employment-legal:expansion-update`（更新现有扩张跟踪）
+
+**管辖法域：** 从中国大陆向海外扩张的场景（如向香港/澳门/台湾/新加坡/其他国家和地区派遣员工或设立当地团队）。
 
 ---
 
-## Purpose
+## 第一步：信息采集
 
-International hiring gets handled sloppily at scaleups because nobody owns
-the full picture. Legal knows the employment-law questions but not the PE
-risk questions. Finance knows the cost model but not the employee-representation
-triggers. HR knows the comp benchmarks but not the Day 1 compliance requirements.
+一次性询问以下问题：
 
-This skill doesn't replace any of those functions. It maps the terrain, drafts
-the right questions for each stakeholder, produces a briefing request that
-walks outside counsel through the country-specific issues, and creates a
-tracker that keeps the project moving across sessions.
-
-This skill assumes expansion is decided. It is not a "should we expand?"
-framework.
-
-This skill does not contain country-specific employment law. The substantive
-rules change frequently and vary by role, headcount, and industry — the skill
-routes every country through an outside-counsel briefing rather than relying
-on a stored reference table.
-
-## Load context
-
-Read `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → jurisdictional footprint, escalation table, any existing
-expansion notes.
-
-## Output header
-
-Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → `## Outputs` (it differs by user role — see `## Who's using this`).
-
-## Workflow
-
-### Step 1 — Information gathering
-
-Ask all of the following in a single block:
-
-> Before I build the expansion plan I need to understand the shape of this
-> expansion. Please answer what you can — gaps in the answers are themselves
-> useful data:
+> **扩张基本信息：**
+> - 目标国家/地区：[国家/地区]
+> - 用工类型：中国员工外派 / 当地招聘 / 混合
+> - 招聘岗位：[岗位类型]（不同岗位法律风险不同——销售/商务谈判可能产生常设机构风险）
+> - 预计12个月内招聘人数：[N]
+> - 首批员工预计到岗时间：[日期]
 >
-> **The expansion**
-> - Which country?
-> - What roles are you hiring? (Job function matters — a sales rep closing
->   deals creates different legal exposure than an engineer writing code)
-> - How many hires are planned in the next 12 months?
-> - When do you need the first person to start?
+> **当前状态：**
+> - 在目标国家/地区是否已有法律实体？
+> - 是否使用过EOR供应商？是否已有备选供应商？
+> - 财务/税务部门是否已参与？
+> - 是否有目标国家/地区的外部劳动法律师？
 >
-> **Current state**
-> - Do you already have a legal entity in this country?
-> - Have you used an EOR provider before? Are you already considering one?
-> - Has tax or finance been looped in yet?
-> - Do you have outside employment counsel in this country?
->
-> **Strategic context**
-> - Is this a long-term strategic commitment (building a real team) or
->   testing the market (one or two hires, see how it goes)?
-> - Who is the executive sponsor making the structure decision?
+> **战略背景：**
+> - 是长期战略承诺（建立真实团队）还是试探市场（1-2人试试看）？
+> - 谁是决定用工结构的高管？
 
-Wait for responses before proceeding.
+---
 
-### Step 2 — EOR vs. entity framing
+## 第二步：EOR vs. 自设实体判断
 
-Do not make this decision. Frame it with enough precision that the CFO and
-tax counsel can make it.
+不做决定，但要充分精确地框定问题，以便 CFO 和税务顾问做出决定。
 
-Work through the following factors against the intake answers and produce a
-structured framing document:
+**核心权衡：**
 
-**The core trade-off:**
-
-| Factor | Points toward EOR | Points toward Entity |
+| 因素 | 倾向EOR | 倾向自设实体 |
 |---|---|---|
-| Headcount in 12 months | Fewer hires | More hires |
-| Timeline to first hire | Short runway | Longer runway available |
-| Strategic commitment | Testing the market | Long-term presence |
-| Cost sensitivity | EOR markup acceptable | Scale makes entity more efficient |
-| Control needs | Low — EOR employer handles local HR | High — want direct employer relationship |
-| IP sensitivity | Lower | Higher — entity ownership cleaner |
+| 12个月内人数 | 较少 | 较多 |
+| 首批到岗时间 | 短周期 | 较长周期 |
+| 战略承诺 | 试探市场 | 长期存在 |
+| 成本敏感度 | EOR加价可接受 | 规模效应使实体更高效 |
+| 控制需求 | 较低——EOR处理本地HR | 较高——希望直接雇主关系 |
+| 知识产权敏感度 | 较低 | 较高——实体所有权更清晰 |
 
-Specific headcount break-even points, EOR markup ranges, setup costs, and
-timelines vary by country and provider — do not hardcode them. Route those
-questions to tax/finance and the EOR provider.
+**具体的人数盈亏平衡点、EOR加价范围、设立成本和时间线因国家和供应商而异——不要硬编码。**
 
-**PE risk flag (route to tax counsel):**
-If roles include sales, business development, account management, or anyone
-with authority to negotiate or sign contracts on behalf of the company —
-flag this explicitly:
+**常设机构（PE）风险标记（路由至税务顾问）：**
+如果岗位包含销售、商务拓展、客户管理或任何有权代表公司谈判或签署合同的人员——明确标记：
 
-> PE Risk: [Role type] may create a taxable permanent establishment in
-> [country] even before a legal entity exists. This is a tax question, not
-> an employment question. Tax counsel must assess before the first hire.
+> PE风险：[岗位类型]即使在设立法律实体之前，可能在[国家/地区]产生应税常设机构。这是税务问题，不是劳动法问题。须在首批招聘前由税务顾问评估。
 
-**Produce the question for the CFO/tax:**
+**向CFO/税务提出以下问题：**
 
-> Questions for your CFO and tax counsel:
-> - At [N] hires over 12 months, at what headcount does entity setup become
->   more cost-effective than EOR (accounting for EOR markup, setup costs,
->   and ongoing compliance burden)?
-> - [If PE-risk roles:] Do these role types create a taxable permanent
->   establishment in [country]? If yes, does that change the entity timeline?
-> - If we start with EOR and convert to entity later, what are the transition
->   risks for the employees already on the EOR?
-> - Who is our preferred EOR provider for this country, and have we vetted
->   their local compliance track record?
+> - 在12个月内[N]人的情况下，在什么人数下设立实体比EOR更具成本效益（计入EOR加价、设立成本和持续合规负担）？
+> - [如有PE风险岗位：]这些岗位类型是否会在[国家/地区]产生应税常设机构？如果是，这是否改变实体设立时间线？
+> - 如果先从EOR开始，以后再转为实体，已有EOR员工有什么过渡风险？
+> - 我们在目标国家/地区的首选EOR供应商是谁？我们是否审核过其在当地的合规记录？
 
-### Step 3 — Cross-functional triggers
+---
 
-For each function that needs to be looped in, state: what they need to do,
-and the specific questions legal should ask them. Do not just say "loop in
-finance." Draft the ask.
+## 第三步：跨部门触发事项
 
-**Tax counsel** (always required before first hire)
+对于每个需要参与的部门，说明：他们需要做什么，以及法务应该问他们的具体问题。
 
-What they need to do: PE risk analysis, determine whether entity is required
-for tax purposes, advise on equity tax treatment in this jurisdiction.
+**税务顾问（首批招聘前必须）**
 
-Questions legal should ask:
-- Does hiring a [role type] in [country] create a permanent establishment or
-  taxable nexus before we have an entity?
-- What is our exposure window if we start hiring before the PE question is
-  resolved?
-- How are our equity awards (RSUs/options) taxed in [country]? Do we need
-  local tax counsel to advise employees at grant and vesting?
-- If we set up an entity, what intercompany services agreement is needed
-  between the subsidiary and the US parent?
+需要做：PE风险分析、确定是否须为税务目的设立实体、就股权激励在当地的税务处理提供建议。
 
-**Finance / Payroll** (required before first paycheck)
+法务应问的问题：
+- 在[国家/地区]招聘[岗位类型]是否在我们设立实体之前就产生常设机构或应税连接点？
+- 如果我们在PE问题解决之前开始招聘，我们的敞口窗口是多大？
+- 我们的股权奖励（RSU/期权）在[国家/地区]如何征税？员工授予和归属时是否需要当地税务顾问？
+- 如果我们设立实体，子公司与美国母公司之间需要什么内部服务协议？
 
-What they need to do: identify local payroll provider (or confirm EOR handles
-it), budget mandatory employer contributions, set up local banking if entity.
+**财务/薪资（首批工资发放前必须）**
 
-Questions legal should ask:
-- Have we identified a local payroll provider? (If EOR: confirm EOR handles
-  payroll including local social contributions)
-- What are the mandatory employer contributions in [country] — pension,
-  social insurance, healthcare — and are these budgeted in the comp model?
-- How will equity grants be administered for employees in [country]? Has
-  anyone modeled the employer-side tax withholding obligations at vesting?
+需要做：确定当地薪资供应商（或确认EOR处理薪资）、预算强制性雇主缴款、如设立实体则开立当地银行账户。
 
-**HR / Total Rewards** (required before offer is made)
+法务应问的问题：
+- 我们是否确定了当地薪资供应商？（如用EOR：确认EOR处理包括当地社保缴款在内的薪资）
+- [国家/地区]的强制性雇主缴款是什么——养老金、社会保险、医疗——这些是否已计入薪酬模型？
+- 股权授予如何为[国家/地区]员工管理？是否有人建模过归属时雇主端的预扣义务？
+- 中国外汇管理规定下，汇出工资/薪酬有什么要求？
 
-What they need to do: benefits benchmarking, comp benchmarking against local
-market, confirm mandatory vs. supplemental benefits.
+**人力资源/全面薪酬（发出offer前必须）**
 
-Questions legal should ask:
-- What benefits are legally mandatory in [country] vs. market-standard? (Do
-  not want to accidentally promise more than required or less than market)
-- Is our standard equity package competitive in this market, or does local
-  practice differ significantly?
-- Who will be this person's day-to-day manager — local or remote from HQ?
-  (Affects employee-representation analysis and employment agreement terms
-  in some jurisdictions)
+需要做：福利对标、当地市场薪酬对标、确认强制性 vs 补充性福利。
 
-**Outside counsel** (required — do not skip)
+法务应问的问题：
+- [国家/地区]哪些福利是法定强制的 vs 市场标准的？（不要意外承诺多于要求或少于市场水平）
+- 我们的标准股权包在本地市场是否有竞争力，还是当地实践有很大不同？
+- 此人的日常经理是谁——本地的还是从总部远程管理的？（影响员工代表分析和雇佣协议条款）
 
-What they need to do: research and advise on the local employment framework
-for this role and headcount, review/draft local employment agreement, flag
-any structural issues with the proposed arrangement.
+**外部律师（必须——不要跳过）**
 
-The outside-counsel briefing request in Step 4 is the agenda for this
-engagement. Send it at the start — do not ask piecemeal.
+需要做：研究和建议目标国家/地区的当地雇佣框架、审查/起草当地雇佣协议、标记拟议安排的任何结构问题。
 
-### Step 4 — Country-specific briefing request
+---
 
-Instead of a stored country reference table, this skill produces a structured
-outside-counsel briefing request. Substantive local law (entity requirements,
-statutory benefits and contributions, termination protections, notice periods,
-employee-representation / works-council / collective-bargaining obligations,
-mandatory leave, restrictive covenants, data protection, work authorization)
-varies by country *and* by role and headcount *and* by industry, and changes
-frequently. Treat every country as a country that requires verification — do
-not rely on the skill's own knowledge.
+## 第四步：目标国家/地区外部律师简报请求
 
-Draft the briefing request below, tailored to the intake answers:
+不存储国家参考表，而是生成结构化的外部律师简报请求。当地实质性法律（实体要求、法定福利和缴款、终止保护、通知期、员工代表/工会/集体谈判义务、强制性休假、限制性契约、数据保护、工作许可）因国家*和*岗位*和*人数*和*行业而异，且经常变化。将每个国家视为需要核实的国家——不要依赖本 Skill 自身的知识。
 
-**Outside counsel briefing request — [Country]**
+起草以下简报请求（根据采集答案定制）：
 
-> We are planning to hire [N] employees in [Country] starting [date], in the
-> following roles: [roles]. Target headcount over 12 months: [N]. Preferred
-> structure (subject to your advice and tax counsel): [EOR / entity /
-> undecided]. We need a briefing covering each of the following. Please
-> answer as questions with cites to primary law, not as a reference table —
-> we want to be able to track changes over time.
+**外部律师简报请求 — [国家/地区]**
+
+> 我们计划从[日期]开始在[国家/地区]招聘[N]名员工担任以下角色：[角色]。12个月内目标人数：[N]。首选结构（以您的建议和税务顾问意见为准）：[EOR/实体/未定]。我们需要涵盖以下各点的简报。请按问题回答并引用成文法，而非参考表——我们要能够跟踪随时间的变化。
 >
-> 1. **Entity and engagement structure** — what are our options (direct
->    hire via entity, EOR, contractor) and what are the practical and legal
->    trade-offs for this headcount and these roles?
+> 1. **实体和用工结构** — 我们的选项有哪些（通过实体直接招聘、EOR、承包商），对于这个人数和这些岗位，实际和法律上的权衡是什么？
 >
-> 2. **Employment contract requirements** — what form is required or standard?
->    What must be included? What cannot be included or is unenforceable?
->    What language or translation requirements apply?
+> 2. **劳动合同要求** — 需要什么形式或标准格式？必须包含什么？不能包含什么或什么不可执行？适用什么语言或翻译要求？
 >
-> 3. **Termination** — what are the notice requirements and severance
->    obligations? How difficult is termination in practice (protected-cause
->    standards, social-selection rules in RIFs, reasonable-notice common-law
->    exposure)? What documentation standard should we establish from day one?
+> 3. **终止** — 通知要求和遣散费义务是什么？实际上终止有多难（受保护原因标准、RIF中的社会选择规则、普通法合理通知敞口）？我们应该从第一天起建立什么文档标准？
 >
-> 4. **Mandatory benefits and employer contributions** — what must we provide
->    by law (pension, social insurance, healthcare, paid leave, bonuses)?
->    What are the current employer contribution rates we should budget?
->    Please cite the controlling statute and verify currency.
+> 4. **强制性福利和雇主缴款** — 法律要求我们提供什么（养老金、社会保险、医疗、带薪休假、奖金）？我们应该预算的当前雇主缴款率是多少？请引用控制性成文法并核实时效性。
 >
-> 5. **Restrictive covenants** — are non-competes enforceable? Under what
->    conditions and with what compensation requirements? What confidentiality
->    and IP assignment language holds up?
+> 5. **限制性契约** — 竞业限制可执行吗？在什么条件下，有什么补偿要求？什么样的保密和知识产权转让语言有效？
 >
-> 6. **Employee representation** — are there works council, employee
->    representation, union, or collective bargaining requirements? At what
->    headcount do they trigger? What consultation or co-determination rights
->    apply? Are we covered by any sectoral collective agreement even if we
->    are not unionized?
+> 6. **员工代表** — 是否有工会委员会、员工代表、工会或集体谈判要求？在什么人数下触发？适用什么协商或共同决定权？我们是否即使未加入工会也受任何行业集体协议的约束？
 >
-> 7. **Data protection** — what obligations apply to employee data? Is there
->    a data transfer mechanism needed for employee data flowing to the US?
+> 7. **数据保护** — 员工数据适用什么义务？从中国向[国家/地区]传输员工数据是否需要数据传输机制？
 >
-> 8. **Work authorization** — what permits or visas are required for foreign
->    nationals? What are the processing timelines?
+> 8. **工作许可** — 外国公民需要什么许可证或签证？处理时间线是什么？
 >
-> 9. **Industry-specific rules** — are there sector rules, awards, or
->    collective agreements that apply to our industry regardless of whether
->    we are unionized?
+> 9. **行业特定规则** — 是否有无论我们是否加入工会都适用的行业规则、奖项或集体协议？
 >
-> 10. **Contractor/independent-contractor risk** — what is the country's test
->     for classification, and what are the deemed-employment or reclassification
->     risks for any contractor arrangements we may consider?
+> 10. **承包商/独立承包商风险** — 该国对分类的测试是什么？对于我们可能考虑的任何承包商安排，推定雇佣或重新分类风险是什么？
 >
-> 11. **Equity / incentive compensation** — any local tax, securities, or
->     employment-law rules that govern how we grant RSUs, options, or other
->     equity here?
+> 11. **股权/激励薪酬** — 有什么当地税务、证券或劳动法规则来管理我们如何在这里授予RSU、期权或其他股权？
 >
-> 12. **Day 1 compliance** — what must be in place before the first employee
->     starts? Registration requirements, notices, filings, posters?
+> 12. **第一天合规** — 首批员工开始前必须到位的是什么？注册要求、通知、备案、公告？
 >
-> 13. **Top 2-3 things that surprise US companies hiring here for the first
->     time** — what do you wish clients had asked you earlier? What has
->     *changed recently* that a US team might not have caught?
+> 13. **中国公司首次在这里招聘最惊讶的2-3件事** — 您希望客户早点问您什么？最近*有什么变化*是我们中国团队可能没有注意到的？
 
-Add this briefing request to the expansion tracker as a single open item:
-owner = Outside Counsel, status = open, with the full briefing agenda in
-the questions field. If the jurisdiction is one the team has asked about
-before, still send the briefing — this is a currency check, not a first
-contact.
+将此简报请求添加为扩张跟踪器中的单一开放项：owner = 外部律师，status = open，完整简报议程放入questions字段。
 
-### Step 5 — Create the expansion tracker
+---
 
-Write a new file to `~/.claude/plugins/config/claude-for-legal/employment-legal/expansion-[country-slug].yaml` with all open items
-identified in Steps 2-4. This file persists across sessions.
+## 第五步：创建扩张跟踪器
 
-Format:
+写入新文件 `expansion-[country-slug].yaml`：
 
 ```yaml
-[WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]
-country: [Country name]
-country_slug: [lowercase-hyphenated]
-kickoff_date: [ISO date]
-first_hire_target: [ISO date or "TBD"]
+# [WORK-PRODUCT HEADER]
+country: [国家/地区]
+country_slug: [小写连字符]
+kickoff_date: [ISO日期]
+first_hire_target: [ISO日期或"TBD"]
 headcount_12mo: [N]
-roles: [list]
+roles: [列表]
 strategic_commitment: [testing / long-term]
 eor_or_entity: [EOR / entity / undecided]
 outside_counsel_engaged: [true / false]
 pe_risk_flagged: [true / false]
-last_updated: [ISO date]
+last_updated: [ISO日期]
 
 open_items:
   - id: 1
     category: [structure / tax / finance / hr / outside-counsel / compliance]
-    item: "[what needs to happen]"
-    owner: "[function or person]"
+    item: "[需要发生的事情]"
+    owner: "[职能部门或人员]"
     status: [open / in-progress / done / blocked]
-    due: [ISO date or null]
+    due: [ISO日期或null]
     questions:
-      - "[specific question drafted in Steps 2-4]"
+      - "[第二步至第四步中起草的具体问题]"
     notes: ""
-
-  - id: 2
-    [etc.]
 ```
 
-Generate one open item per action identified across Steps 2-4. Do not collapse
-multiple actions into one item — each item should be completable and
-attributable to a single owner.
+---
 
-### Step 6 — Output
+## 输出格式
 
-> **Jurisdiction assumption.** This plan frames the expansion to the single country identified in intake. Local employment law, tax rules, employee-representation obligations, and data-protection requirements vary materially by country, region, industry, and headcount, and change frequently. Every substantive local-law answer comes from the outside-counsel briefing request, not from this skill. If the plan is adapted for another country later, re-run the briefing.
-
-```markdown
-[WORK-PRODUCT HEADER — per plugin config ## Outputs — differs by role; see `## Who's using this`]
-
-## International Expansion: [Country] — [Date]
-
-**First hire target:** [date]
-**Headcount (12 months):** [N]
-**Roles:** [list]
-**Tracker:** ~/.claude/plugins/config/claude-for-legal/employment-legal/expansion-[slug].yaml
+```
+【Greater China Legal — 劳动法实务工作成果】
+⚠️ 复核提示：
+- 本简报为内部工作文件，未经法律顾问复核不得对外披露
+- 跨国扩张须符合中国ODI/外汇管理规定，详情请咨询税务顾问
+- 来源标注：[yuandian] = 法律数据库 / [web] = 联网检索(请核实) / [model] = 模型知识(请核实)
 
 ---
 
-### EOR vs. Entity
+## 跨国扩张：[国家/地区] — [日期]
 
-[Framing from Step 2 — table, PE risk flag if applicable, questions for CFO/tax]
-
----
-
-### Who needs to be looped in — and what to ask them
-
-**Tax counsel** — [N] questions
-[Questions from Step 3]
-
-**Finance / Payroll** — [N] questions
-[Questions from Step 3]
-
-**HR / Total Rewards** — [N] questions
-[Questions from Step 3]
-
-**Outside counsel** — see briefing request below
-[Full briefing request from Step 4]
+**首批招聘目标：** [日期]
+**人数（12个月）：** [N]
+**岗位：** [列表]
+**跟踪器：** expansion-[slug].yaml
 
 ---
 
-### Open items ([N] total)
+### EOR vs. 实体
 
-| # | Item | Owner | Status |
+[第二步的框架——表格、PE风险标记（如适用）、给CFO/税务的问题]
+
+---
+
+### 需要参与的部门——以及问他们什么
+
+**税务顾问** — [N]个问题
+[第三步的问题]
+
+**财务/薪资** — [N]个问题
+[第三步的问题]
+
+**人力资源/全面薪酬** — [N]个问题
+[第三步的问题]
+
+**外部律师** — 见下方简报请求
+[第四步的完整简报请求]
+
+---
+
+### 开放项（共计[N]项）
+
+| # | 事项 | 负责人 | 状态 |
 |---|---|---|---|
-| 1 | [item] | [owner] | Open |
-[etc.]
+| 1 | [事项] | [负责人] | 开放 |
 
 ---
 
-Run `/employment-legal:expansion-update [country]` to update status
-as items close.
+运行 `/employment-legal:expansion-update [国家/地区]` 更新状态。
+
+---
+
+**⚠️ 合规提示：**
+- 中国公司境外用工须遵守ODI（对外直接投资）相关规定
+- 外汇管制下，境外工资发放须通过合规渠道
+- 员工外派须评估目的地国税务和社保义务（避免双重缴纳）
+- 上市公司跨境扩张须评估证券披露义务
 ```
 
-## What this skill does NOT do
+---
 
-- Advise on specific local employment law — that is outside counsel's job.
-- Make the EOR vs. entity decision — frames it for the right decision-makers.
-- Draft the local employment agreement — flags that outside counsel must do
-  this.
-- State country-specific rules from its own knowledge — every country is
-  routed through an outside-counsel briefing.
-- Substitute for outside counsel engagement — every new country requires
-  local counsel, no exceptions.
+## 本 Skill 不涵盖
+
+- 具体当地劳动法建议（那是外部律师的工作）
+- 做EOR vs. 实体决定（框定问题供正确决策者决定）
+- 起草当地劳动合同（标记外部律师必须做此事）
+- 从自身知识中陈述特定国家规则（每个国家都通过外部律师简报路由）
+- 替代外部律师委托（每个新国家都需要当地律师，无例外）
