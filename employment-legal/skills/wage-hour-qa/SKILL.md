@@ -1,214 +1,300 @@
 ---
 name: wage-hour-qa
 description: >
-  Jurisdiction-aware wage/hour and employment Q&A — classification, overtime,
-  meal/rest breaks, leave, final pay — answered for the specific state/country
-  with the controlling rule researched and cited rather than stated from
-  memory. Use when the user asks any employment law question, or says "what's
-  the rule in [state]", "is this exempt", "do we have to pay overtime for",
-  or "can we classify this as".
-argument-hint: "[question]"
+  中国劳动法工时/工资/休假问答 — 工时制度认定、加班费计算、休假权利、
+  工资支付合规、社保缴纳最低标准。适用情形：用户询问"这个岗位怎么定工时制"、
+  "加班费怎么算"、"年休假怎么折算"、"能不能用综合工时"、
+  "最低工资标准是多少"、"工资拖欠怎么办"。
+argument-hint: "[具体问题]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+user_invocable: true
+legal_sources:
+  - type: statute
+    name: Labor Contract Law of the PRC
+    article: Articles 10-17 (Contract terms), Articles 20-21 (Wages), Articles 30-35 (Wage payment)
+    effective_date: 2012-07-01
+    jurisdiction: cn-mainland
+  - type: statute
+    name: Labor Law of the PRC
+    article: Articles 36-45 (Working hours), Articles 44-47 (Overtime pay)
+    effective_date: 2018-12-29
+    jurisdiction: cn-mainland
+  - type: regulation
+    name: Regulations on Paid Annual Leave for Employees
+    article: Articles 2-5 (Entitlement by service years)
+    effective_date: 2008-01-01
+    jurisdiction: cn-mainland
+  - type: regulation
+    name: Special Rules on the Labor Protection of Female Employees
+    effective_date: 2012-04-28
+    jurisdiction: cn-mainland
+risk_level: medium
+escalation_triggers:
+  - 劳动者主张加班费涉及重大金额（建议律师介入）
+  - 工时制度审批申请（综合计算工时制/不定时工时制须劳动行政部门审批）
+  - 工资拖欠引发群体性事件
+  - 社保欠缴涉及补缴计算（金额大）
+  - 最低工资标准适用争议
 ---
 
 # /wage-hour-qa
 
-1. Load `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → jurisdictional footprint.
-2. Use the workflow below.
-3. Identify jurisdiction the question is about. If not specified, ask.
-4. Answer per that jurisdiction's rule. Cite. Flag if it's a close call or law is shifting.
+## 使用说明
+
+本 Skill 用于回答中国大陆劳动法工时/工资/休假相关问题。
+所有答案须基于研究后出具，法条须标注来源标签。
+
+**管辖法域默认为中国大陆。** 如涉及香港/澳门/台湾/新加坡：
+`/employment-legal:wage-hour-qa --frame hk`
 
 ---
 
-## Matter context
+## 第一步：识别问题类型与管辖地
 
-**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/employment-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/employment-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+### 问题类型分类
+
+| 类型 | 示例问题 | 回答要点 |
+|---|---|---|
+| **工时制度认定** | "这个岗位能申请综合工时吗" | 适用条件、审批要求 |
+| **加班费计算** | "加班费怎么算" | 平日/休息日/法定节假日倍数 |
+| **休假权利** | "工作5年年休假多少天" | 年休假天数、服务年限 |
+| **工资支付** | "最迟什么时候发工资" | 支付时间、拖欠后果 |
+| **社保缴纳** | "社保按什么基数缴" | 上下限、缴纳比例 |
+| **最低工资** | "这个城市的最低工资是多少" | 地区标准、包含项目 |
+| **特殊群体保护** | "哺乳期女职工能安排加班吗" | 三期保护规定 |
+
+### 管辖地
+
+- 如未指定城市/省份，默认回答全国性规则
+- 如询问具体城市，先问"是哪个城市"或按最 restrictive 的省级规则回答
+- 中国大陆最低工资、社保基数均以地级市为单位规定
 
 ---
 
-## Purpose
+## 第二步：研究规则并回答
 
-"It depends" is true but unhelpful. This skill produces a jurisdiction-specific
-answer grounded in researched, cited primary sources — and flags when the
-question is close enough to need human judgment. It does not state rules from
-memory: wage-and-hour thresholds, exemption criteria, and final-pay timing
-change frequently and vary meaningfully by state.
+### 通用工时制度（中国劳动法第36-45条）
 
-## Load context
+#### 三种工时制度
 
-`~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → jurisdictional footprint. If the question doesn't specify a
-jurisdiction, ask — or answer for the state with the most employees and note
-that.
+| 工时制度 | 适用条件 | 计算周期 | 审批要求 |
+|---|---|---|---|
+| **标准工时制** | 一般岗位 | 8小时/日，40小时/周 | 无需审批 |
+| **综合计算工时制** | 交通/地质/旅游等特定行业 | 周期内平均工时不超过标准 | 须劳动行政部门审批 |
+| **不定时工时制** | 高管/外勤/司机等特定岗位 | 无固定工作时间 | 须劳动行政部门审批 |
 
-## The answer
+**申请不定时工时制的常见岗位（须审批）：**
+- 企业高级管理人员
+- 长途运输人员
+- 机场、港口部分岗位
+- 外勤人员、推销人员
+- 非生产性值班人员
 
-### Step 1: Jurisdiction
+**申请综合计算工时制的常见岗位（须审批）：**
+- 地质勘查
+- 建筑、旅游
+- 季节性生产的行业
+- 交通、铁路、航运
 
-Which state/country is this about? If not stated:
-- If it's about a specific employee: where do they work?
-- If it's a policy question: identify the jurisdictions in the footprint that
-  are most likely to be the most restrictive on the question at hand, then
-  research those.
-
-### Step 2: Research the rule, then state it
-
-> **Research before answering.** For the jurisdiction and question, identify
-> the currently operative rule. Cite the controlling primary source (statute,
-> regulation, wage order, or case) with a pinpoint cite. Note the effective
-> date and whether the rule has been recently amended, indexed, or is in
-> litigation. If you are uncertain or cannot verify the current state of the
-> law, say so and flag for attorney verification — do not state a rule you
-> haven't confirmed.
-
-State the rule in one paragraph, tied to the cite. Use your tools (web search,
-legal research integrations, team reference materials) to verify currency —
-especially for:
-
-> **No silent supplement.** If a research query to the configured legal research tool (Westlaw, CourtListener, or firm platform) returns few or no results for the jurisdiction-and-question, report what was found and stop. Do NOT fill the gap from web search or model knowledge without asking. Say: "The search returned [N] results from [tool]. Coverage appears thin for [jurisdiction / question]. Options: (1) broaden the search query, (2) try a different research tool, (3) search the web — results will be tagged `[web search — verify]` and should be checked against a primary source before relying, or (4) flag the question as unverified and stop here. Which would you like?" A lawyer decides whether to accept lower-confidence sources.
->
-> **Source attribution.** Tag every citation in the answer with where it came from: `[Westlaw]`, `[CourtListener]`, or the MCP tool name for citations retrieved from a legal research connector; `[web search — verify]` for web-search citations; `[model knowledge — verify]` for citations recalled from training data; `[user provided]` for citations the user supplied. Citations tagged `verify` carry higher fabrication risk and should be checked first. Never strip or collapse the tags.
-
-
-- Salary thresholds for any exemption (federal and state — several states
-  index annually and several have tiered thresholds by employer size).
-- Final-pay timing on termination vs. resignation (many states differ).
-- PTO payout requirements (jurisdiction-specific; some require, some leave
-  it to policy, some depend on accrual-plan design).
-- Meal and rest break rules and any penalty-pay consequence.
-- Daily or weekly overtime rules (some states have daily overtime and
-  double-time rules that federal law does not).
-- Classification tests — see the worker-classification skill; the applicable
-  test depends on jurisdiction and purpose.
-
-Common question types you may be asked — for each, the answer is
-jurisdiction-specific and time-sensitive. Do not state the rule here; route
-to research:
-
-- "Is this role exempt?" — Research the applicable federal and state salary
-  thresholds (verify current amounts and any employer-size tiers) and the
-  applicable duties test(s).
-- "Do we have to pay overtime for X?" — Research federal FLSA overtime plus
-  any state-specific overtime rules (daily OT, double-time, alternative
-  workweeks).
-- "Do we have to provide meal/rest breaks?" — Research the applicable
-  state rule and any penalty-pay consequence for missed breaks.
-- "When is final pay due?" — Research the applicable state rule, including
-  whether timing differs for termination vs. resignation and whether
-  waiting-time or late-pay penalties apply.
-- "Do we have to pay out accrued PTO?" — Research the applicable state rule
-  and any carve-out for accrual-cap or use-it-or-lose-it policies.
-- "Can we classify this person as a contractor?" — Route to
-  `/employment-legal:worker-classification` if the facts are not already clear.
-
-### Step 2a: FLSA regular-rate and back-pay calculations
-
-When the question is a back-pay computation, unpaid-OT computation, or any
-question that turns on the FLSA "regular rate," use this scaffold. Do not
-answer from bare hourly wage × OT hours; that's the two most common errors
-this skill exists to catch.
-
-**The regular rate is NOT just the hourly wage.** Under 29 U.S.C. §207(e),
-the regular rate is **all remuneration** for employment EXCEPT the eight
-statutory exclusions in §207(e)(1)–(8) (e.g., discretionary bonuses, gifts,
-premium pay, expense reimbursements, profit-sharing plans meeting the DOL
-regs, stock options meeting §207(e)(8), retirement/insurance contributions).
-Anything NOT within those eight exclusions is IN.
-
-1. **Non-discretionary bonuses are IN the regular rate.** Productivity
-   bonuses, attendance bonuses, commissions, shift differentials, contest
-   awards, and most "bonuses" a reasonable employee would expect as a matter
-   of course are non-discretionary under §207(e)(3) and 29 C.F.R. §778.211.
-   Divide the bonus by the total hours worked in the bonus period to get
-   the per-hour increase to the regular rate. True discretionary bonuses
-   (§207(e)(3)) require both the fact of payment AND the amount to be
-   within the employer's sole discretion, determined at or near the end of
-   the period — narrow category.
-2. **The unpaid OT premium is 0.5×, not 1.5× — when straight time was
-   already paid for all hours.** If the employee was paid straight time for
-   every hour (including the OT hours) but no premium, they are owed the
-   **half-time premium** on OT hours, not time-and-a-half: `unpaid OT =
-   0.5 × regular rate × OT hours`. 29 C.F.R. §778.110(b). If the employee
-   was NOT paid for the OT hours at all, the owed amount is 1.5× the
-   regular rate on those hours. **State which pay posture you're assuming
-   before you compute** — it determines 0.5× vs. 1.5× and is the most
-   common error in this computation.
-3. **Show your math.** Print the formula and the inputs explicitly:
-   ```
-   Regular rate    = (straight-time wages + non-discretionary bonuses + other non-excluded comp) ÷ total hours worked
-   OT premium owed = 0.5 × regular rate × OT hours    [if straight time already paid for OT hours]
-                   = 1.5 × regular rate × OT hours    [if OT hours were unpaid]
-   ```
-   A number without the formula is not usable by a wage-and-hour lawyer.
-4. **Liquidated damages double the back-pay.** 29 U.S.C. §216(b). Liquidated
-   damages equal the unpaid back-pay amount unless the employer proves, to
-   the court's satisfaction, that the violation was in good faith and based
-   on reasonable grounds to believe it was not a violation. 29 U.S.C.
-   §260. Default assumption is liquidated damages apply; the employer bears
-   the burden to avoid them.
-5. **Statute of limitations is 2 years; 3 for willful.** 29 U.S.C. §255(a).
-   State the lookback explicitly and compute both bookends unless the
-   willfulness posture is already established by the user.
-6. **State overlay.** Many states have longer lookback, higher overtime
-   multipliers (daily OT, double-time), and different regular-rate rules.
-   Check state wage-and-hour law against the jurisdiction gate from Step 1
-   and flag where state law compounds (higher cap) or replaces (different
-   rate) federal. California, New York, Massachusetts, and Washington are
-   the most frequent overlay hits.
-7. **Attach the verify tag to the number.** Any back-pay amount produced by
-   this skill carries `[verify — consult wage-and-hour counsel before
-   asserting or paying]` on the line the number appears. The computation is
-   specialist work; the skill is scaffolding, not opinion.
-
-If the question is a back-pay calculation and any of these inputs are
-missing (bonus breakdown, whether straight time was paid for OT hours,
-willfulness posture, state jurisdiction), **ask before computing**. A
-confident wrong number is the worst output this skill can produce.
-
-### Step 3: The flag
-
-Is this a close call? Be honest.
-
-- If the answer is clear on the researched rule: say so. "Exempt — meets
-  each element of the applicable duties test and the current salary
-  threshold."
-- If it's close: say so. "The duties test is borderline — this role could
-  go either way. Recommend classifying as non-exempt to be safe, or getting
-  a formal opinion."
-- If the law is in flux: say so. "This rule has been amended recently — the
-  current version takes effect [date]. Confirm effective date before relying
-  on this answer."
-- If you could not verify currency: say so. Do not guess.
-
-## Output format
-
-Conversational. This is a Q&A, not a memo.
-
-> **Research-connector pre-flight.** Before emitting the answer, check whether a legal research connector is reachable for this session — Westlaw, CourtListener, or any firm-configured research MCP. Collect this into the reviewer note per CLAUDE.md `## Outputs`: if no connector returns results in Step 2 (or none is configured at run time), record it in the **Sources:** line of the reviewer note — e.g., `not connected — cites from training knowledge; pinpoint cites (volume/page/subsection) carry the highest fabrication risk, spot-check those first`. Per-citation `[model knowledge — verify]` tags remain inline. Do not emit a standalone banner above the output.
-
-> **Jurisdiction assumption.** Answers apply only to the jurisdiction identified. Wage-hour rules, exemption thresholds, and final-pay timing vary materially by state and country, and many rules index or change year over year. If the employee works in another jurisdiction, or the question is answered for the default-footprint state, this answer may not apply as written.
+#### 标准工时加班费（劳动法第44条）
 
 ```
-**[Jurisdiction]:** [The researched rule, one paragraph, with pinpoint cite
-and currency note.]
+加班费倍数 × 基本工资（日或小时工资）
 
-[If close call or shifting law: the flag.]
+日工资 = 月工资 ÷ 21.75天
+小时工资 = 日工资 ÷ 8小时
 
-[If the answer differs in other footprint jurisdictions: one line noting that,
-and whether the differences are material.]
+平日加班：150% = 基本工资 × 1.5
+休息日加班：200% = 基本工资 × 2.0
+法定节假日加班：300% = 基本工资 × 3.0
 ```
 
-> **Verify citations.** Any case, statute, regulation, or wage-order cite above was generated with AI assistance. Before relying on a cite, check it against Westlaw, CourtListener, the relevant state agency's site, or your firm's research tool for accuracy, currency, and subsequent history. Fabricated or misquoted citations in filings or formal advice have resulted in sanctions.
+**加班费计算基数：** 合同约定的正常工作时间工资。
+约定加班费计算基数不得低于当地最低工资标准。
 
-## Close with the next-steps decision tree
+#### 综合计算工时制加班费
 
-End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+- 在计算周期内，总工时超过标准工作时间部分，支付150%工资
+- 法定节假日工作的，支付300%工资
+- 休息日工作不予额外支付（安排补休或支付200%）
 
-## What this skill does not do
+#### 不定时工时制加班费
 
-- State the rule from memory — every answer is grounded in a researched,
-  cited primary source verified for currency.
-- Make classification decisions for borderline cases. It states the rule and
-  flags the close call. Human decides.
-- Give a 50-state survey unless asked. Answers for the relevant
-  jurisdiction(s).
-- Track when the answer changes. If thresholds index or law shifts, the
-  answer goes stale. Re-ask for current.
+- **一般不执行加班费规定**（这是申请不定时工时制的主要目的）
+- 但法定节假日工作仍须支付300%工资
+
+### 年休假（职工带薪年休假条例，2008）
+
+| 累计工作年限 | 年休假天数 |
+|---|---|
+| 满1年不满10年 | 5天 |
+| 满10年不满20年 | 10天 |
+| 满20年 | 15天 |
+
+**折算公式：**
+```
+当年度年休假天数 = (当年度在本单位日历天数 ÷ 365) × 应享受年休假天数
+                （折算后不足1整天的部分不计入）
+```
+
+**未休年休假工资报酬：** 用人单位经职工同意不安排年休假，应按日工资收入300%支付未休年休假工资报酬（包含正常工作期间工资收入，即实际支付200%）。
+
+### 工资支付规定
+
+#### 支付时间（劳动法第50条）
+
+| 情形 | 支付时间 | 说明 |
+|---|---|---|
+| 正常工作期间工资 | 每月至少支付一次 | 不得拖欠 |
+| 解除/终止时 | 办结工作交接时一次性支付 | 不得扣押 |
+| 离职最后一个月工资 | 正常发放日或离职时 | |
+
+#### 拖欠工资的法律后果
+
+- **行政责任：** 劳动行政部门责令支付，可加付50%-100%赔偿金（劳动合同法第85条）
+- **刑事责任：** 以转移财产、逃匿等方式逃避支付劳动者报酬，数额较大，经政府有关部门责令支付仍不支付，构成拒不支付劳动报酬罪（刑法第276条之一）
+
+#### 工资支付的其他要求
+
+- 以人民币支付
+- 约定货币化（实物折价支付无效）
+- 约定时间和方式须合法
+- 不得克扣（法律允许的代扣项目除外：社保、公积金、个人所得税、司法判决等）
+
+### 最低工资标准
+
+- 由各省级/地级市政府规定，每年或每几年调整
+- 不包含：加班费、津贴、奖金、夜班津贴、高温补贴、低温补贴、有毒有害补贴
+- 须高于当地最低工资标准
+
+**查询方式：** 各省市人社局官网 [yuandian] 或 [web search]
+
+### 社会保险（五险一金）
+
+| 险种 | 缴费比例（企业） | 缴费基数 |
+|---|---|---|
+| 养老保险 | 16% | 上年度月平均工资（上下限） |
+| 医疗保险 | 8-10% | 上年度月平均工资（上下限） |
+| 失业保险 | 0.7% | 上年度月平均工资（上下限） |
+| 工伤保险 | 0.2-1.9%（行业差异化） | 上年度月平均工资（上下限） |
+| 生育保险 | 0.5-1%（合并后） | 上年度月平均工资（上下限） |
+| 住房公积金 | 5-12%（企业自定） | 上年度月平均工资（上下限） |
+
+**社保基数上下限：** 上年度全省全口径城镇单位就业人员月平均工资的300%（上限）和60%（下限）。
+
+### 特殊群体保护（不适用加班安排）
+
+| 群体 | 保护规定 | 法条 |
+|---|---|---|
+| **孕期女职工** | 不得安排怀孕女职工延长工作时间或从事夜班劳动 | 《女职工劳动保护特别规定》第6条 |
+| **哺乳期女职工** | 不得安排哺乳不满1周岁婴儿的女职工延长工作时间或从事夜班劳动 | 《女职工劳动保护特别规定》第9条 |
+| **未成年工** | 不得安排未成年工从事矿山井下、有毒有害、国家规定的第四级体力劳动强度的劳动 | 《未成年工特殊保护规定》 |
+
+---
+
+## 第三步：输出答案
+
+### 答案格式
+
+```
+## [问题类型]问答 — [城市/省份]
+
+**问题：** [用户原问题]
+
+**答案：**
+
+[研究规则，一段话，带法条引用和时效标注]
+
+**来源标注：** [yuandian] = 法律数据库 / [web] = 联网检索(请核实) / [model] = 模型知识(请核实)
+
+[如涉及计算，附计算过程]
+
+[如为近似判断，明确标注]
+```
+
+### 示例：加班费计算
+
+```
+## 加班费计算问答
+
+**问题：** 员工月薪6000元，2024年3月平日加班10小时，休息日加班8小时，法定节假日（清明）加班1天，怎么算加班费？
+
+**答案：**
+
+日工资 = 6000 ÷ 21.75 = 275.86元/天
+小时工资 = 275.86 ÷ 8 = 34.48元/小时
+
+平日加班（10小时）：34.48 × 10 × 1.5 = 517.20元
+休息日加班（8小时）：34.48 × 8 × 2.0 = 551.68元
+法定节假日加班（1天）：275.86 × 3.0 = 827.58元
+
+**合计加班费：1,896.46元**
+
+**说明：**
+- 加班费计算基数6000元/月，须不低于当地最低工资标准 [verify]
+- 法定节假日清明节当天加班须支付300%，不得以补休替代
+- 加班费应在当月工资周期内支付
+
+**来源标注：** [model] — 劳动法第44条，2024年有效版本 [verify]
+```
+
+### 示例：工时制度认定
+
+```
+## 综合计算工时制认定问答
+
+**问题：** 物业公司保安岗位能否申请综合计算工时制？
+
+**答案：**
+
+综合计算工时制须经劳动行政部门审批，适用条件为"因生产特点无法按标准工时安排作业的岗位"。
+
+**可以申请的情形：**
+- 物业管理公司（部分）：适用于需要24小时值守的保安岗位，须证明无法实行标准工时
+- 须向当地人社局提交申请，说明行业特点和申请理由
+
+**不可以申请的情形：**
+- 仅以"工作时间长"为由申请，一般不予批准
+- 须有行业/生产特点的客观依据
+
+**操作路径：**
+1. 准备申请材料（营业执照、申请报告、岗位说明、职代会意见）
+2. 向注册地人社局提交
+3. 审批周期通常30-60天
+
+**风险提示：** 未经审批擅自实行综合计算工时制，按标准工时制标准支付加班费。
+
+**来源标注：** [yuandian] —劳动法第36-45条；国务院关于职工工作时间的规定 [verify]
+```
+
+---
+
+## 第四步：判断是否需要升级
+
+### 需升级情形
+
+| 情形 | 升级原因 | 升级至 |
+|---|---|---|
+| 加班费争议金额大 | 计算复杂，可能进入仲裁/诉讼 | 劳动法律师 |
+| 工时制度审批申请 | 材料准备复杂，涉及行政程序 | 劳动法律师 |
+| 工资拖欠引发集体争议 | 群体性事件风险高 | 律师+企业管理层 |
+| 社保补缴金额大 | 计算复杂，涉时效问题 | 劳动法律师 |
+| 特殊群体（职业病/三期）加班安排 | 违法风险高，后果严重 | 劳动法律师 |
+
+### 不需要升级情形
+
+- 一般性问答（已研究，有明确法条）
+- 通用规则查询（最低工资标准、加班费倍数等）
+- 公司内部政策解读（已有明确规则的）
+
+---
+
+## 本 Skill 不涵盖
+
+- 个人所得税计算（补偿金、加班费税务请咨询税务顾问）
+- 工伤认定程序（须向劳动行政部门申请）
+- 劳动仲裁代理（本 Skill 不代理仲裁）
+- 集体合同审查（须另行使用合同审查 Skill）
+- 香港/澳门/台湾/新加坡工时制度（须使用对应法域版本）
