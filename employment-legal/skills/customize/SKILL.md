@@ -1,104 +1,64 @@
 ---
 name: customize
 description: >
-  Guided customization of your employment practice profile — change one thing
-  without re-running the whole cold-start interview. Adjust jurisdictional
-  footprint, risk posture, escalation contacts, hiring review rules,
-  termination review rules, handbook positions, investigation preferences,
-  or matter workspace paths. Use when the user says "change my [thing]",
-  "add a jurisdiction", "update my profile", "edit my config", or "customize".
-argument-hint: "[section name, or describe what you want to change]"
+  引导式自定义——无需重新运行完整初始化向导即可调整用工实践配置。
+  可调整：管辖范围、风险偏好、升级联系人、招聘审查规则、
+  离职审查规则、员工手册立场、调查偏好、案件工作区路径。
+  适用情形：用户说"修改[某项配置]"、"添加一个省市"、"更新配置"。
+argument-hint: "[要修改的部分名称，或描述你想改变的内容]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+risk_level: low
 ---
 
-# /customize
+# /customize — China Mainland
 
 ## When this runs
 
-The user typed `/employment-legal:customize`. They want to change something
-in their practice profile — a jurisdiction, a risk posture, an escalation
-contact, a handbook position — without re-running the whole cold-start
-interview and without hand-editing YAML.
+用户输入 `/employment-legal:customize`。他们想修改配置中的某项——一个省市、风险偏好、升级联系人——而无需重新运行整个初始化向导。
 
 ## What to do
 
-1. **Read the config.** Read
-   `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md`
-   (and `~/.claude/plugins/config/claude-for-legal/company-profile.md` one
-   level up). If the plugin config does not exist or still contains
-   `[PLACEHOLDER]` values, say:
+1. **读取配置。** 读取 `employment-legal/CLAUDE.md`。如果配置文件不存在或仍包含 `[PLACEHOLDER]` 值，说："你还没有运行初始化向导。请先运行 `/employment-legal:cold-start-interview`。"
 
-   > You haven't run setup yet. Run `/employment-legal:cold-start-interview`
-   > first — customize is for adjusting a profile you already have.
+2. **展示可调整项地图。** 列出配置中的内容，分组，每项一行摘要：
 
-2. **Show the customizable map.** List what's in the profile, grouped, with a
-   one-line summary of the current value:
+   - **公司/身份** — 名称、行业、实践设置、管辖省市
+   - **管辖范围** — 有员工的省份/直辖市/特别行政区，单一省份还是多省份，是否有新的扩张计划
+   - **风险偏好** — 保守/中等/激进，每个级别对应什么风险标志（离职补偿争议风险、竞业限制可执行性等）
+   - **人员** — HR负责人、业务负责人、外部律师、升级链
+   - **离职审查** — 经济补偿框架、解除通知期、高风险标志
+   - **员工手册** — 手册文件路径、省份补充、审查周期
+   - **调查偏好** — 特权标注、访谈协议、摘要模板
+   - **工作流** — 案件工作区、病假追踪周期、扩张项目路径
 
-   - **Company / who you are** — name, industry, practice setting, jurisdictions
-     *(shared across all 12 plugins — changes flow through
-     `company-profile.md`)*
-   - **Jurisdictional footprint** — states (and countries) where employees
-     work, single-state vs. multi-state, and any upcoming expansion. This
-     drives state-specific supplement logic.
-   - **Risk posture** — conservative / middle / aggressive, what each means
-     for flagging termination risk, restrictive covenant enforceability, and
-     leave accommodation
-   - **People** — HR partners, people team lead, outside counsel, escalation
-     chain, investigation sponsor
-   - **Hiring review** — offer letter template, restrictive covenants
-     posture, background check vendor, standard at-will language
-   - **Termination review** — severance framework, release language, final
-     pay timing rules per state, high-risk flags
-   - **Handbook** — handbook file path, state supplements approach, review
-     cadence
-   - **Investigation preferences** — privileged labeling, interview protocol,
-     audience-specific summary templates
-   - **Workflow** — matter workspaces, leave tracker cadence, expansion
-     project paths
-   - **Integrations** — HRIS / Slack / document storage status, fallbacks
+3. **询问要修改什么。**
 
-3. **Ask what they want to change.**
+4. **修改后确认。** 展示修改内容，写入配置文件。
 
-   > What would you like to adjust? Pick a section, or describe the change in
-   > your own words.
+---
 
-4. **Make the change.** Show the current value, ask for the new value, explain
-   what changes downstream, confirm, write it to the config.
+## CN可调整项示例
 
-   Examples:
-   - *Adding Washington to the jurisdictional footprint:* "`/wage-hour-qa`
-     and `/termination-review` will start applying WA rules. `/handbook-
-     updates` will prompt for a WA supplement. `/hiring-review` will now
-     flag non-compete attempts in WA (unenforceable)."
-   - *Severance framework 2 weeks/year → 4 weeks/year:* "`/termination-
-     review` will use the new baseline in severance calculations."
-   - *Risk posture middle → conservative:* "I'll flag more terminations for
-     escalation, recommend more protective release language, and be stricter
-     on restrictive covenants."
+**管辖省市调整：**
+- 添加：海南（自贸港特殊政策）
+- 添加：雄安新区（特殊劳动政策）
+- 移除：[某省]
 
-5. **For shared-profile changes** (company name, industry, jurisdictions,
-   practice setting, stage): write to
-   `~/.claude/plugins/config/claude-for-legal/company-profile.md` and note:
+**CN风险偏好说明：**
+- **保守：** 按法定最低标准执行，预留2N赔偿金
+- **中等：** 协商优先，争取N+1以内解决
+- **激进：** 协商解除优先接受N，避免仲裁
 
-   > This change affects all 12 plugins — any plugin that reads your
-   > jurisdiction footprint now sees [new value].
+---
 
-6. **Close.**
+## 本技能不做什么
 
-   > Done. Your next output will reflect the change. Anything else? You can
-   > run `/employment-legal:customize` anytime.
+- 不重新初始化整个配置。只修改指定项。
+- 不提供法律建议。只修改配置模板。
+- 不验证配置内容的法律准确性。
 
-## Guardrails
+---
 
-- **Never delete a section.** If the user wants to "remove" a jurisdiction,
-  offer to mark it `[Not currently staffed — retain rules for re-entry]` and
-  explain that going to `[Not configured]` will drop state-specific
-  flagging.
-- **Flag internal inconsistency.** If the change would make the profile
-  inconsistent (e.g., CA in the footprint + aggressive non-compete posture;
-  or risk posture aggressive + "every termination goes to outside counsel"),
-  flag the tension.
-- **Flag guardrail degradation.** The pre-flight citation check, source
-  attribution tags, and `[verify]` tags on cited statutes are load-bearing —
-  do not remove. The `[review]` flag is load-bearing — explain the trade-off
-  before adjusting.
-- **One change at a time.** Don't re-ask the whole interview.
+*Greater China Legal — employment-legal customize CN adapter v1.0.0*
