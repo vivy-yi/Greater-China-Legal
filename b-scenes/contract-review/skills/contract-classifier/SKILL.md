@@ -11,6 +11,10 @@ version: 1.0.0
 risk_level: medium
 ---
 
+## 加载上下文
+
+**首次使用时：** 读取 `../CLAUDE.md` 获取场景级配置（法域足迹/数据源/置信度规则）。
+
 # /contract-classifier — 合同类型判断
 
 ## 民法典合同编19类典型合同

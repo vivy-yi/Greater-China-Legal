@@ -11,6 +11,10 @@ version: 1.0.0
 risk_level: high
 ---
 
+## 加载上下文
+
+**首次使用时：** 读取 `../CLAUDE.md` 获取场景级配置（法域足迹/数据源/置信度规则）。
+
 # /term-analyzer — 合同核心条款风险分析
 
 ## 五类核心条款checklist

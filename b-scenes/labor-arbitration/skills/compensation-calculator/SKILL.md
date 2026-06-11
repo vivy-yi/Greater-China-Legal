@@ -11,6 +11,10 @@ version: 1.0.0
 risk_level: high
 ---
 
+## 加载上下文
+
+**首次使用时：** 读取 `../CLAUDE.md` 获取场景级配置（法域足迹/数据源/置信度规则）。
+
 # /compensation-calculator — 经济补偿金/赔偿金计算引擎
 
 ## 计算公式速查

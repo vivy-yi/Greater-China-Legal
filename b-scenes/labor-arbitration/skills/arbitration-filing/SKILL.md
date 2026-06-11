@@ -11,6 +11,10 @@ version: 1.0.0
 risk_level: high
 ---
 
+## 加载上下文
+
+**首次使用时：** 读取 `../CLAUDE.md` 获取场景级配置（法域足迹/数据源/置信度规则）。
+
 # /arbitration-filing — 劳动仲裁申请材料生成
 
 ## 材料清单
