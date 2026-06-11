@@ -1,312 +1,395 @@
 ---
 name: nda-review
 description: >
-  Reference: fast triage of inbound NDAs into GREEN / YELLOW / RED so the team only
-  spends lawyer time on the ones that need it. Built for sales and BD to self-serve
-  before pinging legal. Loaded by /commercial-legal:review when an NDA is detected.
-user-invocable: false
+  中国商业秘密保护协议（NDA）快速分类 — 将收到的NDA分为 GREEN/YELLOW/RED，
+  确保只有需要律师介入的协议才会消耗法务资源。
+  适用情形：用户说"审一下这份保密协议"、"评估这个NDA"、"分类这份NDA"。
+  内置于 /commercial-legal:review，当检测到NDA时自动加载。
+argument-hint: "[交易对手名称] 或 [附加文档]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+risk_level: medium
+escalation_triggers:
+  - 单边NDA（我方仅接收保密信息，对方不披露任何信息）
+  - 合同期限超过3年或无明确终止日期
+  - 包含竞业限制条款（须结合中国法律评估可执行性）
+  - 适用境外法律或境外仲裁条款
+  - 数据跨境传输相关保密义务（PIPL合规）
+  - 违约金条款超过合同总价30%
 ---
 
-# NDA Review
+# NDA Review — China Mainland
 
 ## Matter context
 
-**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/commercial-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/commercial-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
-
----
+**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (default for in-house users), skip this paragraph. If enabled and no active matter: ask "Which matter is this for? Run `/commercial-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md`. Write outputs to the matter folder.
 
 ## Destination check
 
-Before producing output, check where it's going. If the user has named a destination (a channel, a distribution list, a counterparty, "everyone"), ask whether it's inside the privilege circle. Public channels, company-wide lists, counterparty/opposing counsel, vendors, and clients (for work product) waive the protection. When the destination looks outside the circle, flag it and offer (a) the privileged version for legal only, (b) a sanitized version for the broader channel, or (c) both — don't silently apply a privileged header and then help paste it somewhere the header won't protect it. See the canonical `## Shared guardrails → Destination check` in this plugin's CLAUDE.md.
+Before producing output, check where it's going. If destination is outside the privilege circle (public channel, company-wide list, counterparty, client), flag it and offer: (a) privileged version for legal only, (b) sanitized version for the broader channel, or (c) both.
 
 ## Purpose
 
-Most inbound NDAs are fine. A few have landmines. This skill sorts them in under a minute so legal only reads the ones that matter.
+大多数收到的NDA没有问题。少数存在隐患。本技能在一分钟内完成分类，确保法务只处理真正需要介入的协议。
 
-**The goal:** a GREEN NDA should need nothing more than a signature. A YELLOW needs a lawyer's eyes on one or two specific things. A RED stops before anyone wastes time.
+**目标：** GREEN = 只需签字；YELLOW = 律师看1-2个具体问题；RED = 停止，律师介入。
 
-## Load the playbook first
+## 先加载 playbook
 
-**Which side?** Before applying the playbook, determine which side the company is on for this NDA. Usually obvious from the context: if the counterparty is a vendor or partner evaluating your product, you're sales-side; if you're evaluating theirs, you're purchasing-side. Mutual NDAs still have a side — whose paper is it, and which direction is the evaluation running. If it's not obvious, ask. Read the matching playbook section (`### Sales-side playbook` or `### Purchasing-side playbook`) from the config. Note which side in the output so the reviewer knows which playbook was applied. If the matching side is `[Not configured]`, stop and tell the user to run `/commercial-legal:cold-start-interview --side <side>` before this triage can proceed.
+**判断我方角色：** 先判断我方是销售端（vendor，服务提供方）还是采购端（customer，服务采购方）。
+- 销售端：我方提供产品/服务，通常用我方模板
+- 采购端：我方购买产品/服务，通常用对方模板
+- 双方NDA（Mutual NDA）：仍需判断谁主导交易方向
 
-**Before triaging anything, read `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` → `## Playbook` → the matching side → `NDA triage positions`.** That section is the source of truth for what makes an NDA GREEN, YELLOW, or RED for *this* team on *this* side. This skill does not ship with default positions on NDA terms — the law, the market, and each team's risk tolerance vary too much for hardcoded defaults to be safe.
+**读取配置：** `commercial-legal/CLAUDE.md` → `## Playbook` → 对应端 → `NDA triage positions`
 
-If `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` doesn't have an `NDA triage positions` section yet, or it's silent on a term that comes up in the NDA you're reviewing, ask the user:
+如 `commercial-legal/CLAUDE.md` 中没有 `NDA triage positions` 章节，停止并告知用户：
+> "请先运行 `/commercial-legal:cold-start-interview` 完成配置，本技能需要您的 playbook 位置才能进行分类。"
 
-> Your playbook doesn't cover [term — e.g., "residuals clauses," "survival period," "one-way NDAs where you're the receiver"]. What's your default position — when should this be GREEN, when YELLOW, when RED? I'll add it to `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` so the next review is consistent.
+## Scope check — 检查是否仅是NDA
 
-Then record the answer in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` and proceed with the triage using the new position.
+**NDA可能隐藏其他义务：**
+-  standstill（稳定期协议）
+-  licensing grant（许可授权）
+-  non-solicit（非挖角条款）
+-  non-compete（竞业限制）
+-  IP assignment（知识产权转让）
+-  right of first refusal（优先购买权）
+-  MFN（最惠国条款）
+-  broad arbitration（宽泛仲裁条款）
 
-## Scope check
+如NDA包含上述非保密义务以外的条款：**自动YELLOW，无论NDA条款分类结果如何。**
 
-**Before reviewing NDA-specific provisions, check whether the document is doing more than its name suggests.** Mutual commercial NDAs can hide: standstills, licensing grants, exclusivity, non-solicits, non-competes, IP assignments, right of first refusal, most-favored-nation clauses, and arbitration/jurisdiction clauses that govern far more than confidentiality disputes.
+> "该文件标注为NDA，但包含[standstill/许可授权/非挖角/竞业限制/IP转让/优先购买权/宽泛仲裁]。内容超出保密范围，请法务介入。"
 
-If the NDA contains obligations beyond confidentiality: **auto-YELLOW regardless of the NDA-term analysis.** Flag the non-NDA provisions:
+## 分类流程
 
-> This document is labeled an NDA but contains [standstill / license grant / non-solicit / exclusivity / IP assignment / ROFR / MFN / broad arbitration]. It's more than an NDA. Route for attorney review.
+### GREEN — 路由至签署
 
-Do not silently push a document labeled "NDA" through NDA triage when the substantive obligations are a services agreement, a term sheet, or a covenant package in NDA clothing.
+满足以下全部条件：
+- 通过playbook中的所有检查项
+- 无RED flag
+- 适用法律为中国大陆法律（或香港/新加坡仲裁）
+- 违约金条款合理（不超过合同总价30%）
 
-## The triage
+**输出格式：**
 
-Classify the NDA into one of three buckets by applying the positions from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. The bucket definitions below are stable; the *criteria* that fill each bucket come from the playbook.
+```
+【Greater China Legal — 商业合同实务工作成果】
+⚠️ 复核提示：
+- 本文件依据中国民法典合同编出具，法规引用已标注来源
+- 来源标注：[YD]=元典 / [WKL]=无合力 / [BD]=北达 / [GOV]=政府平台 / [web]=联网检索 / [model]=模型知识(请核实)
+- 数据源路由规则详见：references/data-source-registry.md
 
-### GREEN — route to signature
+---
 
-The NDA satisfies every position in the team's playbook, and no term triggers a RED flag per the playbook. Examples of checks the playbook typically covers: mutuality, term length, survival period, carveouts, governing law, restrictive covenants, fee-shifting. Confirm each one against `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` before calling GREEN.
+## NDA分类：[交易对手]
 
-**GREEN requires attorney-reviewed playbook positions.** GREEN is the only path to signature without lawyer review. It cannot be issued against default or absent positions. Before issuing GREEN, check: does the practice profile have an attorney-reviewed `## NDA triage positions` section? If not:
+**GREEN — 可路由至签署**
 
-> I can't issue GREEN without attorney-reviewed NDA positions in your practice profile. Run `/commercial-legal:cold-start-interview --full` with your commercial counsel to set them, or route this NDA for attorney review. Issuing GREEN against defaults means a non-lawyer set the positions the next non-lawyer relies on.
+### 执行摘要
 
-Do not route to signature on defaults. YELLOW is the right call when positions are missing — it surfaces the NDA to a human who can decide.
+ playbook检查全部通过，未发现RED flag。按标准流程路由至签署。
 
-**Output:**
+### 检查结果
 
-Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` `## Outputs` (it differs by user role — see `## Who's using this`).
-
-```markdown
-[WORK-PRODUCT HEADER — per plugin config ## Outputs]
-
-## NDA Triage: [Counterparty]
-
-GREEN — route to signature
-
-### Executive Summary
-
-No red flags identified under the playbook. Route for signature per standard process.
-
-| Check | Status | Playbook reference |
+| 检查项 | 状态 | Playbook参考 |
 |---|---|---|
-| [Each playbook check] | [pass/fail] | [`~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` section] |
+| [mutuality] | ✅ | ## Playbook → NDA triage positions |
+| [definition of CI] | ✅ | ## Playbook → NDA triage positions |
+| [carveouts] | ✅ | ## Playbook → NDA triage positions |
+| [term & survival] | ✅ | ## Playbook → NDA triage positions |
+| [governing law] | ✅ | ## Playbook → NDA triage positions |
 
-**Next step:** [Submit to [CLM] standard NDA workflow | Send to [approver from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`] for signature]
+**下一步：** 按标准审批流程提交签署。
+
+---
+
+### YELLOW — 标记问题，法务复核
+
+至少满足以下之一：
+- 1个或多个YELLOW flag（playbook明确触发）
+- playbook未覆盖的条款
+- 适用法律/仲裁条款不在首选清单内
+
+**输出格式：**
+
 ```
+【Greater China Legal — 商业合同实务工作成果】
+⚠️ 复核提示：
+- 本文件依据中国民法典合同编出具，法规引用已标注来源
+- 来源标注：[YD]=元典 / [WKL]=无合力 / [BD]=北达 / [GOV]=政府平台 / [web]=联网检索 / [model]=模型知识(请核实)
 
-**Before proceeding past GREEN to signature:** Read `## Who's using this` in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. If the Role is Non-lawyer:
+---
 
-> This step has legal consequences (countersigning an NDA binds the company). Have you reviewed this with an attorney? If yes, proceed. If no, here's a brief to bring to them:
->
-> [Generate a 1-page summary: counterparty, NDA direction (mutual / one-way), the playbook checks run, anything the playbook didn't cover, what could go wrong if signed as-is, and the three things to ask the attorney.]
->
-> If you need to find an attorney, solicitor, barrister, or other authorised legal professional: contact your professional regulator (state bar in the US, SRA/Bar Standards Board in England & Wales, Law Society in Scotland/NI/Ireland/Canada/Australia, or your jurisdiction's equivalent) for a referral service.
+## NDA分类：[交易对手]
 
-Do not proceed past this gate without an explicit yes.
+**YELLOW — 提交法务复核**
 
-### YELLOW — needs a lawyer's eyes on specific items
+### 执行摘要
 
-One or more terms deviate from the playbook but aren't categorical deal-breakers, OR a term appears that the playbook doesn't address. Surface each item individually so the approver can make the call.
+- [问题1的简短描述，如："删除第6条的竞业限制条款" ]
+- [问题2的简短描述]
 
-**Output:**
+### 标记的问题
 
-Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` `## Outputs` (it differs by user role — see `## Who's using this`).
+**1. [问题]** — 第[X]条
+   内容："[原文引用]"
+   触发原因：[ playbook位置或"playbook未覆盖"]
+   **法律风险：** [🔴高 / 🟠中 / 🟡低] | **业务影响：** [🔴阻止交易 / 🟠延迟交易 / 🟡需关注]
+   建议处理：[接受 / 删除 / 修改 / 视交易背景而定]
 
-```markdown
-[WORK-PRODUCT HEADER — per plugin config ## Outputs]
+[对每个YELLOW flag重复]
 
-## NDA Triage: [Counterparty]
+### 通过的检查
 
-YELLOW — flag for [approver name from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`]
-
-### Executive Summary
-
-- [One-line actionable edit, e.g. "Strike non-solicit clause (Section 6)"]
-- [One-line actionable edit]
-
-### Flagged items
-
-**1. [Issue]** — Section [X]
-   What: [one line]
-   Why flagged: [one line — which playbook position this hits, or "playbook is silent on this"]
-   **Legal risk:** [🔴/🟠/🟡/🟢] | **Business friction:** [🔴 Blocks deals / 🟠 Slows deals / 🟡 Confuses customers / 🟢 Invisible]
-   Likely resolution: [accept / push back on X / depends on deal context]
-
-[repeat for each flag]
-
-### Everything else
-
-| Check | Status | Playbook reference |
+| 检查项 | 状态 | Playbook参考 |
 |---|---|---|
-| [playbook checks that passed] | pass | [`~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` section] |
+| [通过的检查项] | ✅ | ## Playbook → NDA triage positions |
 
-**Next step:** Ask [approver] about the flagged items, then route to signature if they're okay with it.
+**下一步：** 请[法务审批人]确认标记的问题，然后路由至签署。
+
+---
+
+### RED — 停止，先咨询法务
+
+满足以下之一：
+- 触发playbook中的"绝对不接受"条款
+- NDA结构与团队标准立场不兼容（如：单边NDA但团队要求 Mutual；永久期限但团队要求有限期）
+- 包含无限责任、知识产权全转让、适用美国法律等关键风险条款
+
+**输出格式：**
+
 ```
+【Greater China Legal — 商业合同实务工作成果】
 
-### RED — stop, talk to legal first
+## NDA分类：[交易对手]
 
-The NDA hits a position on the playbook's "never accept" list, or the structure of the agreement is incompatible with the team's standard posture (e.g., a one-way NDA where the team's playbook requires mutual; a perpetual term where the playbook caps at a finite period; governing law on the "never" list).
+**RED — 暂不提交，先咨询法务**
 
-**Output:**
+### 执行摘要
 
-Prepend the work-product header from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` `## Outputs` (it differs by user role — see `## Who's using this`).
+- [关键问题1的描述，如："第4条 — 路由至法务审查"]
+- [关键问题2的描述]
 
-```markdown
-[WORK-PRODUCT HEADER — per plugin config ## Outputs]
+### 关键问题
 
-## NDA Triage: [Counterparty]
+**1. [问题]** — 第[X]条
+   > "[原文引用]"
+   为什么这是问题：[具体风险；引用playbook中触发的条款]
+   **法律风险：** [🔴高 / 🟠中] | **业务影响：** [🔴阻止交易]
+   建议处理：[使用我方模板 / 提出修改意见 / 终止谈判]
 
-RED — do not submit, talk to legal first
+**下一步：** 将本分类结果发送至[法务总监]。不要创建CLM记录，不要告知对方我们同意签署。
 
-### Executive Summary
+---
 
-- [One-line actionable edit, e.g. "Section 4 — route to Legal for review"]
-- [One-line actionable edit]
+## 详细检查参考
 
-### Critical issues
+### Mutuality（互惠性）
 
-**1. [Issue]** — Section [X]
-   > "[exact quote]"
-   Why this is a problem: [specific risk; cite the playbook position it violates]
-   **Legal risk:** [🔴/🟠/🟡/🟢] | **Business friction:** [🔴 Blocks deals / 🟠 Slows deals / 🟡 Confuses customers / 🟢 Invisible]
-   Recommended response: [use our paper instead | push back with specific language | walk]
+**检查：** NDA是双向（Mutual）还是单向（One-way）？
+- 双向：双方互为信息披露方和义务承担方
+- 单向：仅一方披露保密信息，另一方仅接收
 
-**Next step:** Send this triage to [GC or named escalation person from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`]. Do not send to [CLM or approvals workflow]. Do not tell the counterparty we'll sign.
-```
+**中国法律视角：**
+- 中国法律允许单向NDA，但须评估交易背景是否合理
+- 如我方仅接收保密信息（对方不向我方披露任何信息），须确认是否有商业合理性
 
-## Redline granularity
+**单边NDA问卷（如NDA为单向）：**
+1. 在此合作关系中，我方是否是唯一的信息披露方？（对方不向我方披露任何信息）
+2. 这是否针对特定有限的披露场景？（如向供应商展示技术，但不获取对方技术）
+3. 这是否与并购、雇佣或投资相关？（如是，停止 — 本技能仅适用于商业NDA，请路由至法务）
 
-**Edit at the smallest possible granularity.** A redline is a negotiation artifact, not a rewrite. Wholesale clause replacement signals "we threw out your drafting" — it's aggressive, it forces the counterparty to re-read the whole clause, and it discards the parts of their drafting that were fine. Surgical redlines — strike a word, insert a phrase, restructure a subclause — signal "we have specific asks" and are faster to read, understand, and accept.
+如单边NDA无合理解释，**自动YELLOW**。
 
-Default to the smallest edit that achieves the playbook position:
-- Replace a **word** before a phrase. ("twelve (12)" → "twenty-four (24)")
-- Replace a **phrase** before a sentence. ("paid by the Buyer" → "paid and payable by the Buyer")
-- Restructure a **subclause** before replacing the sentence. (Add "(a)" and "(b)" to split a compound condition.)
-- Replace a **sentence** before replacing the clause.
-- Only replace a **whole clause** when the counterparty's version is so far from your position that surgical edits would be harder to read than a fresh draft — and when you do, say so in the transmittal: "We've replaced §8.2 rather than marking it up because the changes were extensive. Happy to walk you through the delta."
+---
 
-When in doubt, smaller. A client who receives a surgical redline trusts that you read carefully. A client who receives a wholesale replacement wonders whether you read at all.
+### 保密信息定义
+
+**检查项：**
+- 保密信息的标记要求（明示 vs 默认全披露）
+- 口头披露的确认窗口期
+- 保密信息的范围定义（是否过宽或过窄）
+
+**中国法律视角：**
+- 根据《民法典》第467条，保密条款属于合同附随义务，即使未明示也可推断存在
+- "商业秘密"定义参见《反不正当竞争法》第9条：不为公众所知悉、具有商业价值并经权利人采取相应保密措施的技术信息和经营信息
+
+---
+
+### 除外条款（Carveouts）
+
+标准五项除外：
+1. 已进入公共领域的信息（非因违约导致）
+2. 接收方在披露前已拥有的信息
+3. 独立开发且未参考保密信息的信息
+4. 从无限制的第三方获取的信息
+5. 法律或法院命令要求的披露（须通知披露方，如法律允许）
+
+**中国法律视角：**
+- 除外条款的措辞须具体明确，避免模糊表述导致争议
+- "独立开发"的举证责任较高，建议保留开发过程文档
+
+---
+
+### 残条（Residuals）
+
+残条允许接收方使用保留在记忆中的信息。
+
+**中国法律视角：**
+- 残条在中国司法实践中认定不一，建议争取删除或限缩
+- "未辅助记忆"（unaided memory）措辞较为模糊，可要求删除
+- 如对方坚持保留，须限定范围：仅限个人记忆，不得保留书面/电子记录
+
+---
+
+### 合同期限与保密义务存续
+
+**检查项：**
+- 初始合同期限（建议不超过3年）
+- 合同终止后保密义务的存续期限（建议不超过2年）
+- 商业秘密的特殊保护（可超过一般保密期限）
+
+**中国法律视角：**
+- 根据《民法典》第502条，合同期限由当事人约定，无强制上限
+- 根据《反不正当竞争法》第9条，商业秘密保密义务无固定期限，只要商业秘密未进入公共领域则持续有效
+- 建议在NDA中明确区分"一般保密义务"和"商业秘密保护义务"
+
+---
+
+### 限制性条款（Restrictive Covenants）
+
+**检查项：**
+- 非挖角条款（员工/客户）
+- 竞业限制条款
+- 独占性条款
+- 其他限制性义务
+
+**中国法律视角：**
+| 条款类型 | 可执行性 | 说明 |
+|---|---|---|
+| 非挖角（客户）| ⚠️ 部分有效 | 仅限直接挖角，不可禁止所有商业往来 |
+| 非挖角（员工）| ⚠️ 受限 | 劳动合同法规定劳动者自由择业权 |
+| 竞业限制 | ⚠️ 有条件有效 | 须支付补偿金，期限不超过2年，范围合理 |
+| 独占性条款 | ✅ 通常有效 | 须评估是否构成垄断（反垄断法合规） |
+
+**⚠️ 竞业限制的中国特殊要求：**
+- 须在劳动合同或保密协议中单独约定
+- 须支付经济补偿金（通常为离职前月平均工资的20%-50%）
+- 最长期限2年
+- 范围须合理，不得无限制禁止就业
+- 无补偿金的竞业限制条款可能被认定为无效
+
+如NDA包含竞业限制条款，**自动YELLOW**，须法务复核可执行性。
+
+---
+
+### 违约金条款
+
+**检查项：**
+- 违约金金额或计算方式
+- 是否过高（可请求法院调整）
+
+**中国法律视角：**
+- 根据《民法典》第585条，约定违约金过分高于造成的损失，法院可应请求适当减少
+- "过分高于"的标准：通常以实际损失为基准，违约金超过实际损失30%以上可能被认定过高
+- 建议违约金不超过合同总价的30%
+
+---
+
+### 适用法律与争议解决
+
+**首选：**
+- 中国大陆法律 + CIETAC仲裁（北京）
+- 中国大陆法律 + SHIAC仲裁（上海）
+- 中国大陆法律 + SCIA仲裁（深圳）
+
+**可接受：**
+- 香港法律 + HKIAC仲裁（适用于跨境交易）
+- 新加坡法律 + SIAC仲裁（适用于跨境交易）
+
+**绝对不接受：**
+- 适用美国法律
+- 在美国法院诉讼
+- 适用台湾法律（除非涉及台湾业务且双方同意）
+- 无明确适用法律或仲裁条款
+
+---
+
+### 电子签名
+
+**中国法律视角：**
+- 根据《电子签名法》第14条，可靠电子签名与手写签名具有同等法律效力
+- "可靠电子签名"定义：电子签名制作数据属于签名人专有；签署时电子签名制作数据仅由签名人控制；签署后对电子签名的任何改动能够被发现
+- e签宝、法大大等第三方CA机构认证的电子签名属于可靠电子签名
+
+---
+
+## Redline 粒度原则
+
+**最小化修改原则：**
+- 优先替换**单词**（如"十二"→"二十四"）
+- 其次替换**短语**（如"买方支付"→"买方已支付且应付"）
+- 再次调整**子条款结构**（如添加"(a)"和"(b)"拆分复合条件）
+- 最后才替换**整句**
+- 只有在修改范围过大时才替换**整个条款**，并说明："我们替换了§8.2而非逐行修改，因为修改范围较大。如需了解差异，可详细说明。"
+
+---
 
 ## Jurisdiction assumption
 
-This triage applies the governing-law and restrictive-covenant positions recorded in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. Legal rules (enforceability of non-competes, non-solicits, fee-shifting, choice of law) vary materially by jurisdiction. If the NDA involves a jurisdiction outside the team's configured posture, flag it in the output and note that the triage may not transfer as written.
+本分类适用中国法律。如NDA涉及其他法域（如香港/新加坡），须在输出中注明分类结果可能不完全适用。
 
-## Output rules
+---
 
-**Complexity filter:** If addressing an issue would require drafting new
-language, restructuring a clause, or inserting substantive new
-provisions — do not attempt it. Instead write:
-"Section [X] — route to Legal for review."
-Only include simple, mechanical actions in the Executive Summary
-(strike, delete, replace a word or phrase).
+## Complexity filter
 
-**Clean NDA rule:** If the NDA passes all checks with no flags, the Executive Summary
-should say only: "No red flags identified. Route for signature per
-standard process."
+如解决某个问题需要起草新语言、重组条款或插入实质性新条款：**不要尝试**，改为：
+"第[X]条 — 路由至法务审查。"
 
-Do not produce a lengthy report for a clean NDA.
+仅在执行摘要中包含简单机械操作（删除、替换一个词或短语）。
 
-## Detailed check reference
+---
 
-For each check below, the bucket (GREEN/YELLOW/RED) is determined by `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. This skill lists the *categories* to check; it does not hardcode thresholds.
+## Clean NDA rule
 
-### Mutuality
+如NDA通过所有检查无flag，执行摘要仅写：
+"未发现RED flag。按标准流程路由至签署。"
 
-Is the NDA mutual or one-way? Apply the team's position from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. If the playbook doesn't address one-way NDAs for this context, run the one-way questionnaire below and surface the result for a human.
+不为干净的NDA生成冗长报告。
 
-**One-way NDA questionnaire**
-
-When the NDA is unilateral (one party discloses, the other only receives), do not immediately flag RED or exit. Ask:
-
-> A one-way NDA is appropriate in some situations. Before flagging this,
-> let me ask a few quick questions:
->
-> 1. In this relationship, are you the only party disclosing confidential
->    information? (i.e., the other side shares nothing back)
-> 2. Is this for a limited, specific disclosure — for example, sharing
->    your technology with a vendor who will work on it, but not sharing
->    theirs with you?
-> 3. Is this related to M&A, employment, or investment? (If yes, stop —
->    this skill is for commercial MNDAs only. Route to Legal.)
-
-Use the answers plus the `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` position to decide GREEN/YELLOW/RED. If `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` doesn't take a position on this fact pattern, flag YELLOW and surface the questionnaire answers for the approver.
-
-### Definition of Confidential Information
-
-Check scope (marked-only vs. everything-disclosed), marking requirements, and oral-disclosure confirmation windows. Apply the team's position from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. If the playbook is silent on any of these, ask.
-
-### Carveouts
-
-The five carveouts typically present in an NDA:
-
-1. Information that is or becomes public (other than through breach)
-2. Information the receiving party already had
-3. Information independently developed without reference to the CI
-4. Information received from a third party without restriction
-5. Information required to be disclosed by law or court order (with notice to discloser where legally permitted)
-
-Which carveouts the team requires, and how strictly, is a playbook question. Check `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` for the team's position on required carveouts, acceptable variations in wording, and what happens when one is missing.
-
-### Residuals
-
-A residuals clause lets the receiving party use information retained in unaided memory. Whether this is acceptable — and under what conditions (e.g., narrow "unaided memory" wording vs. broader scope covering notes or copies) — is a playbook question. Apply `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. If the playbook doesn't address residuals, ask.
-
-### Term and survival
-
-Check the initial term length, the post-term survival period for confidentiality obligations, and whether trade secrets are carved out with longer protection. Apply the team's position from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. If the playbook doesn't cover one of these, ask.
-
-### Restrictive covenants
-
-Check for non-solicits (employee, customer), non-competes, exclusivity, and any restriction on who else the receiving party can engage with. Apply `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. If the playbook is silent, ask — restrictive covenants are jurisdiction-sensitive and the team's posture matters.
-
-### Attorneys' fees
-
-Check for fee-shifting provisions and whether they are mutual, one-sided, or prevailing-party. Apply `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`.
-
-### Backup and archival carveout
-
-Check whether the destruction/return clause includes an exception for standard backup and archival retention systems. Apply the team's position from `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` — some teams require this carveout and will push to add it; others accept an NDA without it. If the playbook doesn't address this, ask.
-
-### Governing law
-
-Per `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` `## Playbook` → `Governing law and venue`.
-
-## Counterparty context
-
-**BigCo NDAs:** Fortune 500 counterparties generally won't negotiate NDAs. Calibrate: is the RED flag truly a deal-breaker, or is it "different from our form"? If the business relationship matters, the call is whether to accept their paper — escalate that decision, don't make it.
-
-**Startup NDAs:** Will usually take our paper. If their NDA has issues, the fastest path is often "let's use ours" rather than redlining theirs.
-
-## Integration: CLM
-
-If connected:
-- GREEN → offer to create the CLM record in the standard NDA workflow
-- YELLOW → offer to create it with a note attached listing the flagged items
-- RED → do not create a record; the lawyer decides what happens next
-
-## What this skill does NOT do
-
-- It does not negotiate. It sorts.
-- It does not draft an NDA. If the answer is "use our paper," the user pulls our form from [CLM or document system].
-- It does not make the call on YELLOW items. It surfaces them for a human.
-- It does not state a position on any NDA term. Positions live in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`.
+---
 
 ## Closing action
 
-Read `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` → `## NDA triage preferences` → `closing_action`.
+读取 `commercial-legal/CLAUDE.md` → `## NDA triage preferences` → `closing_action`。
 
-If configured, append the closing action verbatim at the end of every
-output. Example configurations:
+如已配置，将closing action原样附加在每份输出的末尾。
 
-```
-closing_action: "Send the full text of this analysis along with a copy
-of the NDA to Legal at legal@[yourcompany].com for final confirmation before
-signing."
+如未配置，附加：
+"按标准审批流程提交最终NDA。"
 
-closing_action: "Submit to [CLM] using the standard NDA workflow.
-Legal will confirm before routing for signature."
+---
 
-closing_action: "Forward this output and the NDA to your contracts
-manager."
-```
+## CLM 集成
 
-If `closing_action` is not configured in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`, append:
-"Route final NDA through your standard approval process."
+如已连接CLM系统：
+- GREEN → 建议在标准NDA工作流中创建CLM记录
+- YELLOW → 建议创建CLM记录并附注标记的问题
+- RED → 不创建记录；由律师决定后续处理
 
-The cold-start interview asks: "When someone finishes an NDA
-triage, what do you want them to do with the output? I'll add that as
-a standing instruction at the end of every review."
+---
 
-## Close with the next-steps decision tree
+## 本技能不做什么
 
-End with the next-steps decision tree per CLAUDE.md `## Outputs`. Customize the options to what this skill just produced — the five default branches (draft the X, escalate, get more facts, watch and wait, something else) are a starting point, not a lock-in. The tree is the output; the lawyer picks.
+- 不谈判。只做分类。
+- 不起草NDA。如答案是"用我方模板"，用户从[CLM或文档系统]获取我们的模板。
+- 不对YELLOW items做决定。只将问题呈现给人类决策。
+- 不对任何NDA条款表明立场。立场位于 `commercial-legal/CLAUDE.md`。
 
+---
+
+*Greater China Legal — commercial-legal nda-review CN adapter v1.0.0*
+*基于 anthropic/claude-for-legal nda-review 适配中国大陆法律环境*
