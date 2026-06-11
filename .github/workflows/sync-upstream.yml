@@ -1,0 +1,81 @@
+name: Monthly Upstream Sync
+
+on:
+  schedule:
+    # First weekend of each month at 00:00 UTC
+    - cron: '0 01-7 * 0'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force sync (ignore last sync check)'
+        required: false
+        default: 'false'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Add upstream remote
+        run: |
+          git remote add upstream https://github.com/anthropics/claude-for-legal.git
+          git fetch upstream
+
+      - name: Get upstream latest commit
+        id: upstream
+        run: |
+          UPSTREAM_SHA=$(git rev-parse upstream/main)
+          echo "sha=$UPSTREAM_SHA" >> $GITHUB_OUTPUT
+          echo "Upstream main: $UPSTREAM_SHA"
+
+      - name: Check if sync needed
+        id: check
+        run: |
+          LAST_SYNC_FILE=.last-sync-commit
+          if [ -f "$LAST_SYNC_FILE" ]; then
+            LAST_SYNC=$(cat $LAST_SYNC_FILE)
+            if [ "$LAST_SYNC" = "${{ steps.upstream.outputs.sha }}" ]; then
+              echo "already_synced=true" >> $GITHUB_OUTPUT
+              echo "No new upstream commits to sync"
+            else
+              echo "already_synced=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "already_synced=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Sync from upstream
+        if: steps.check.outputs.already_synced == 'false'
+        run: |
+          git config user.name "Greater China Legal Bot"
+          git config user.email "bot@greater-china-legal.dev"
+          
+          # Merge upstream/main into main
+          git merge upstream/main --no-edit || {
+            echo "Merge conflict detected — manual intervention required"
+            git merge --abort
+            
+            # Create conflict branch
+            git checkout -b merge-conflict-$(date +%Y%m%d)
+            git commit -m "Merge conflict with upstream — manual review needed"
+            git push origin merge-conflict-$(date +%Y%m%d)
+            exit 1
+          }
+          
+          # Update sync tracking
+          echo "${{ steps.upstream.outputs.sha }}" > .last-sync-commit
+          git add .last-sync-commit
+          git commit -m "chore: sync with upstream main (${{ steps.upstream.outputs.sha }})"
+          
+          git push origin main
+
+      - name: Report sync result
+        if: steps.check.outputs.already_synced == 'false'
+        run: |
+          echo "Sync completed successfully"
+          echo "Upstream SHA: ${{ steps.upstream.outputs.sha }}"
