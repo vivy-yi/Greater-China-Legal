@@ -1,107 +1,295 @@
 ---
 name: handbook-updates
 description: >
-  Diff a proposed handbook change against the current version, flag ripple
-  effects and state supplement impacts. Use when user says "update the
-  handbook", "add this to the handbook", "handbook change", or has a policy
-  ready for insertion.
+  中国大陆员工手册/规章制度修订审查 — 变更比对、跨章节影响、
+  劳动法合规性检查、地方规定影响分析。适用情形：用户说"更新员工手册"、
+  "在手册里加这条"、"规章制度修订"、"变更考勤制度"。
+argument-hint: "[手册章节，或描述拟变更的内容]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+user_invocable: true
+legal_sources:
+  - type: statute
+    name: Labor Contract Law of the PRC
+    article: Articles 4 (Employer rules and regulations), Articles 38-39 (Employee rights)
+    effective_date: 2012-07-01
+    jurisdiction: cn-mainland
+  - type: statute
+    name: Labor Law of the PRC
+    article: Articles 3, 25-26 (Employee rights, employer obligations)
+    effective_date: 2018-12-29
+    jurisdiction: cn-mainland
+  - type: regulation
+    name: Rules for the Implementation of the Labor Contract Law of the PRC
+    article: Articles 16-19 (Handbook and rules)
+    effective_date: 2012-12-31
+    jurisdiction: cn-mainland
+risk_level: medium
+escalation_triggers:
+  - 变更涉及法定标准以下的内容（员工福利低于法定最低标准无效）
+  - 变更扩大用人单位单方解除权（须合法性论证）
+  - 变更涉及孕期/哺乳期/工伤等特殊保护群体
+  - 新增罚款/扣款条款（最高罚款不得超过当月工资20%且不低于最低工资）
+  - 变更引起较大面积员工异议或集体劳动争议风险
 ---
 
-# Handbook Updates
+# /handbook-updates
 
-## Matter context
+## 使用说明
 
-**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (the default for in-house users), skip the rest of this paragraph — skills use practice-level context and the matter machinery is invisible. If enabled and there is no active matter, ask: "Which matter is this for? Run `/employment-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md` for matter-specific context and overrides. Write outputs to the matter folder at `~/.claude/plugins/config/claude-for-legal/employment-legal/matters/<matter-slug>/`. Never read another matter's files unless `Cross-matter context` is `on`.
+本 Skill 用于审查中国大陆用人单位员工手册/规章制度的修订。
+重点：变更比对、跨章节影响、劳动法合规性、地方性法规影响。
+
+**管辖法域默认为中国大陆。** 如涉及香港/澳门/台湾/新加坡：
+`/employment-legal:handbook-updates --frame hk`
 
 ---
 
-## Purpose
+## 第一步：确认变更内容
 
-Handbook changes have ripple effects. Change the PTO policy and you've affected the final pay calculation, the leave policy cross-reference, and three state supplements. This skill finds the ripples before they become inconsistencies.
+收集以下信息：
 
-## Load context
+- 变更的章节/条款（具体位置）
+- 变更原因：法定合规 / 政策调整 / 清理旧规
+- 新增或修改的具体内容
+- 变更涉及员工范围（全员 / 部分部门 / 特定岗位）
+- 是否涉及绩效考核标准/奖惩制度
+- 当前生效版本的版本号和生效日期
 
-`~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md` → handbook location, state supplements list, update cadence.
+---
 
-## Workflow
+## 第二步：变更合规性审查
 
-### Step 1: Get the change
+### 规章制度的制定/修改程序要求（劳动合同法第4条）
 
-- What section is changing?
-- What's the new language?
-- Why? (Legal requirement, policy decision, cleanup)
+| 程序要求 | 具体内容 | 缺失后果 |
+|---|---|---|
+| **民主程序** | 须经职工代表大会或者全体职工讨论，提出方案和意见，与工会或者职工代表平等协商确定 | 程序缺失导致制度对员工无效 |
+| **公示告知** | 变更内容须公示或告知全体员工（签字确认/公告/培训记录） | 未公示对员工无约束力 |
+| **内容合法** | 不得违反法律、法规的规定 | 违法条款无效 |
 
-### Step 2: Diff against current
+**合规建议：**
+- 修改讨论记录须存档（会议纪要 + 职工代表签字）
+- 公示须有员工签字确认记录（公示照片 + 签收单）
+- 制度生效日期与公示日期之间须有合理过渡期
 
-Read the current handbook section. Show the diff:
+### 变更不得约定的内容
+
+| 禁止类型 | 说明 | 法律后果 |
+|---|---|---|
+| 低于法定标准的劳动报酬 | 如低于最低工资、低于法定加班费倍数 | 违法条款无效 |
+| 免除用人单位法定责任 | 如约定"工伤自负"、"不缴社保" | 违法条款无效 |
+| 扩大用人单位单方解除权 | 如扩大"严重违反规章制度"的范围 | 超出法律边界则无效 |
+| 限制员工人身自由 | 如"上下班须接受安检"过宽 | 侵犯人身自由，条款无效 |
+| 罚款权滥用 | 罚款不得超过当月工资20%且不低于最低工资 | 超额部分无效 |
+
+### 变更涉及绩效考核/奖惩制度
+
+- 须有明确的考核标准和程序
+- 须在制度中明确"严重违反"的认定标准（避免模糊表述如"严重违纪"无具体定义）
+- 奖惩标准须与岗位性质匹配（不得对所有岗位适用同一标准）
+
+---
+
+## 第三步：变更比对（Diff）
+
+### 常见变更类型示例
 
 ```diff
-- [old language]
-+ [new language]
+- [旧版原文]
++ [新版原文]
 ```
 
-### Step 3: Find cross-references
+**示例：年休假政策变更**
 
-Search the handbook for references to the changed section:
-
-- Other policies that cite this one ("see the PTO policy for accrual rates")
-- Defined terms that this section uses or defines
-- State supplements that modify this section
-
-Each cross-reference: does it still make sense after the change? Flag any that break.
-
-### Step 4: State supplement impact
-
-For each state supplement in `~/.claude/plugins/config/claude-for-legal/employment-legal/CLAUDE.md`:
-
-- Does this supplement modify the section being changed?
-- Does the change make the supplement obsolete, wrong, or incomplete?
-- Does the change create a need for a *new* supplement in a state that didn't need one before?
-
-### Step 5: Promise check
-
-Is the change reducing something the old version promised?
-
-If yes: that's a risk. Some states treat handbook policies as contractual. Reducing a benefit may need more than just updating the document — advance notice, consideration, or in some cases it can't be done retroactively.
-
-Flag this. Don't block it — but flag it.
-
-## Output
-
-```markdown
-## Handbook Update: [Section name]
-
-### Change
-
-[diff]
-
-### Cross-reference impact
-
-| Section | References changed section | Still accurate? | Fix needed |
-|---|---|---|---|
-| [name] | [how] | ✅/⚠️ | [what] |
-
-### State supplement impact
-
-| State | Current supplement | After change | Action |
-|---|---|---|---|
-| [state] | [what it says] | [still valid / obsolete / needs update] | [none / update / new supplement needed] |
-
-### Promise check
-
-[If reducing a benefit: flag + jurisdictional risk note]
-
-### Ready to publish
-
-- [ ] Cross-references updated
-- [ ] State supplements updated
-- [ ] [If benefit reduction: notice/consideration addressed]
-- [ ] Version number and date updated
-- [ ] Acknowledgment process (if required)
+```diff
+- 年休假起始日期：入职满1年后开始享受
++ 年休假起始日期：入职当月起即可享受（按日历年度折算）
 ```
 
-## What this skill does not do
+**示例：加班申请制度变更**
 
-- Approve handbook changes. HR/legal leadership does.
-- Communicate changes to employees.
-- Track acknowledgments.
+```diff
+- 加班须提前1日填写《加班申请表》，经部门主管批准
++ 加班须提前填写《加班申请表》并完成系统审批流程，紧急情况须24小时内补批
+```
+
+---
+
+## 第四步：跨章节影响核查
+
+检查以下章节是否对变更内容有引用或依赖：
+
+### 常见跨章节影响关系
+
+| 变更内容 | 可能影响的章节 |
+|---|---|
+| 年休假政策 | 离职清算（未休年休假补偿）、考勤制度、薪酬制度 |
+| 考勤/工时制度 | 加班费计算、绩效考核、工资支付 |
+| 绩效考核标准 | 奖惩制度、不胜任调岗/解除程序 |
+| 薪酬结构调整 | 加班费计算基数、离职补偿金基数、病假工资 |
+| 奖惩制度变更 | 过失性解除认定（劳动合同法第39条第(二)项） |
+| 保密制度 | 竞业限制协议、入职/离职手续 |
+| 社保公积金 | 薪酬税前扣除、员工工资条 |
+| 离职制度 | 解除程序、离职交接、经济补偿 |
+
+**每项引用：变更后是否仍然合理？如不合理，须同步更新。**
+
+---
+
+## 第五步：地方性法规影响分析
+
+中国大陆各地存在地方性规定差异，主要城市（北京/上海/深圳/杭州等）可能有比国家标准更严格的要求：
+
+| 领域 | 差异来源 | 主要城市 |
+|---|---|---|
+| 最低工资 | 各省市自定 | 上海(2690)、北京(2420)、深圳(2360)等 |
+| 社保基数上限/下限 | 各省市全口径平均工资 | 差异较大 |
+| 综合计算工时审批 | 部分省市有细化规定 | 上海、北京 |
+| 高温补贴 | 部分省市有额外规定 | 全国统一，但部分省市有细化 |
+| 婚假/产假/陪产假 | 各省市人口与生育条例 | 差异较大（部分省市婚假延长至不同天数） |
+
+**变更前须核查：该变更涉及的条款，在主要员工所在地是否有地方性更严格要求。**
+
+---
+
+## 第六步：承诺核查（减少福利的风险）
+
+### 中国语境下的"承诺"风险
+
+员工手册在中国实践中具有特殊地位：
+- 劳动合同或集体合同中引用员工手册的，手册内容可构成合同条款
+- 部分法院将员工手册视为"单方承诺"，对用人单位有约束力
+- 减少员工既有权且的手册福利，可能构成变更劳动合同（须协商一致，劳动合同法第35条）
+
+### 减少福利的核查项
+
+| 检查项 | 说明 |
+|---|---|
+| 减少的福利是否有合同/手册明确约定 | 须先协商一致，单方变更可能被认定为无效 |
+| 是否已向员工公示并签字确认新版本 | 未告知的变更对员工无约束力 |
+| 变更是否给予合理过渡期 | 部分情形须提前通知 |
+| 是否存在集体协商/工会意见 | 涉及员工重大利益时建议经工会 |
+
+---
+
+## 输出：员工手册变更审查备忘录
+
+```
+【Greater China Legal — 劳动法实务工作成果】
+⚠️ 复核提示：
+- 本文件依据中国大陆《劳动合同法》第4条、《劳动法》第3/25-26条出具
+- 变更须符合民主程序+公示告知，否则对员工无约束力
+- 来源标注：[yuandian] = 法律数据库 / [web] = 联网检索(请核实) / [model] = 模型知识(请核实)
+
+---
+
+## 员工手册变更审查：[章节名称]
+
+**变更原因：** [法定合规/政策调整/清理旧规]
+**涉及员工范围：** [全员/部门/岗位]
+**生效版本：** [版本号 — 日期]
+
+---
+
+### 结论
+
+[可以发布 / 需修改后发布 / 须律师升级后方可发布]
+
+---
+
+### 变更内容比对
+
+```diff
+- [旧版原文]
++ [新版原文]
+```
+
+---
+
+### 合规性审查
+
+**一、程序合规（劳动合同法第4条）**
+
+| 程序要求 | 状态 | 说明 |
+|---|---|---|
+| 民主讨论程序 | [✅已有/⚠️待补充/🔴缺失] | |
+| 工会/职工代表协商 | [✅已有/⚠️待补充/🔴缺失] | |
+| 公示告知 | [✅已有记录/⚠️待确认/🔴缺失] | |
+
+**二、内容合规**
+
+| 检查项 | 状态 | 说明 |
+|---|---|---|
+| 不低于法定最低标准 | [✅通过/🔴违规] | |
+| 不扩大用人单位单方解除权 | [✅通过/⚠️需论证] | |
+| 无侵犯人身自由条款 | [✅通过/🔴违规] | |
+| 罚款/扣款符合规定 | [✅通过/🔴超标] | |
+
+---
+
+### 跨章节影响
+
+| 章节 | 引用方式 | 变更后是否准确 | 须同步修改 |
+|---|---|---|---|
+| [章节A] | [引用内容] | [✅/⚠️] | [是/否] |
+| [章节B] | [引用内容] | [✅/⚠️] | [是/否] |
+
+---
+
+### 地方性规定影响
+
+| 适用地区 | 相关地方性规定 | 影响分析 | 须调整 |
+|---|---|---|---|
+| [城市] | [具体规定] | [是否与变更冲突] | [是/否] |
+
+---
+
+### 承诺核查
+
+[如变更减少既有福利：]
+| 检查项 | 状态 | 说明 |
+|---|---|---|
+| 减少的福利是否有明确约定 | [✅/🔴] | |
+| 是否与员工协商一致 | [✅/🔴] | |
+| 是否已公示并告知 | [✅/🔴] | |
+| 是否给予合理过渡期 | [✅/🔴] | |
+
+---
+
+### 发布前操作事项
+
+- [ ] 职工代表大会/全体职工讨论记录存档
+- [ ] 与工会/职工代表协商记录存档
+- [ ] 公示告知文件准备（签收单/公告记录/培训记录）
+- [ ] 跨章节引用更新（如有）
+- [ ] 地方性规定核查完成（如有城市差异）
+- [ ] 版本号和生效日期更新
+- [ ] 员工签字确认版本更新
+
+---
+
+### 参考法条
+
+- 《劳动合同法》第4条（规章制度制定程序）
+- 《劳动合同法》第35条（合同变更）
+- 《劳动法》第3条、第25-26条
+- 《劳动合同法实施条例》第16-19条
+
+---
+
+**⚠️ 复核提示：**
+- **程序合规**：[review — 确认民主程序和公示告知均已完成]
+- **地方规定**：[review — 确认主要员工所在地无更严格要求]
+- **承诺风险**：[如减少福利 — 须与员工协商一致后方可执行]
+```
+
+---
+
+## 本 Skill 不涵盖
+
+- 集体合同审查（须另行使用合同审查 Skill）
+- 工会法合规（涉及工会独立性要求时咨询专业律师）
+- 外国人/港澳台员工特殊规定（须另行核查）
+- 特定行业特殊规定（建筑/矿山/化工等行业有额外要求）
