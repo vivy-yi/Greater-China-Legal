@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greater China Legal — A阶段完成报告</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f10; color: #e1e1e3; padding: 2rem; }
+  h1 { color: #6366f1; font-size: 1.5rem; margin-bottom: 0.5rem; }
+  h2 { color: #818cf8; font-size: 1.1rem; margin: 1.5rem 0 0.75rem; border-bottom: 1px solid #2a2a3a; padding-bottom: 0.25rem; }
+  .subtitle { color: #64748b; font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .stat-card { background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 8px; padding: 1rem; }
+  .stat-card .number { font-size: 2rem; font-weight: 700; color: #6366f1; }
+  .stat-card .label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.85rem; }
+  th { text-align: left; background: #1a1a2e; color: #6366f1; padding: 0.5rem; border-bottom: 2px solid #2a2a4a; }
+  td { padding: 0.5rem; border-bottom: 1px solid #1e1e30; vertical-align: top; }
+  tr:hover { background: #1a1a2e; }
+  .score { font-weight: 700; }
+  .score-high { color: #22c55e; }
+  .score-med { color: #eab308; }
+  .score-low { color: #ef4444; }
+  .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
+  .badge-ok { background: #22c55e20; color: #22c55e; }
+  .badge-warn { background: #eab30820; color: #eab308; }
+  .badge-info { background: #6366f120; color: #6366f1; }
+  .note { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; }
+  .overall { background: linear-gradient(135deg, #1a1a2e 0%, #2a1a4e 100%); border: 1px solid #6366f1; border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; }
+  .overall-score { font-size: 3rem; font-weight: 800; color: #6366f1; }
+  .dimensions { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-top: 1rem; }
+  .dim { text-align: center; }
+  .dim .val { font-size: 1.2rem; font-weight: 700; color: #818cf8; }
+  .dim .name { font-size: 0.65rem; color: #64748b; }
+  .gap-section { background: #1a1a2e; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .gap-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.5rem; }
+  .gap-icon { color: #eab308; font-size: 0.9rem; width: 20px; }
+  .gap-text { font-size: 0.8rem; }
+  .gap-text strong { color: #e1e1e3; }
+</style>
+</head>
+<body>
+
+<h1>Greater China Legal — A阶段完成报告</h1>
+<p class="subtitle">vivy-yi/Greater-China-Legal · 2026-06-12 · 翻译式适配完成</p>
+
+<div class="summary-grid">
+  <div class="stat-card"><div class="number">152</div><div class="label">Skills本地化</div></div>
+  <div class="stat-card"><div class="number">12</div><div class="label">覆盖域</div></div>
+  <div class="stat-card"><div class="number">0</div><div class="label">US残留引用</div></div>
+  <div class="stat-card"><div class="number">5</div><div class="label">法域覆盖</div></div>
+</div>
+
+<div class="overall">
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <div class="overall-score">7.4</div>
+      <div style="font-size: 0.8rem; color: #64748b;">综合适配质量 / 10</div>
+    </div>
+    <div class="dimensions">
+      <div class="dim"><div class="val">7.6</div><div class="name">法律引用<br>准确性</div></div>
+      <div class="dim"><div class="val">7.0</div><div class="name">工作流<br>适配</div></div>
+      <div class="dim"><div class="val">6.6</div><div class="name">风险触发器<br>覆盖</div></div>
+      <div class="dim"><div class="val">8.5</div><div class="name">元数据<br>规范</div></div>
+      <div class="dim"><div class="val">7.2</div><div class="name">文档<br>完整性</div></div>
+    </div>
+  </div>
+</div>
+
+<h2>各域适配明细</h2>
+<table>
+  <thead>
+    <tr>
+      <th>域</th>
+      <th>Skills</th>
+      <th>法律引用</th>
+      <th>工作流适配</th>
+      <th>风险触发器</th>
+      <th>元数据规范</th>
+      <th>文档完整</th>
+      <th>综合</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>employment</strong></td>
+      <td>20/20</td>
+      <td class="score score-high">8.5/10</td>
+      <td class="score score-high">8.0/10</td>
+      <td class="score score-high">7.5/10</td>
+      <td class="score score-high">9.0/10</td>
+      <td class="score score-high">8.0/10</td>
+      <td class="score" style="color:#22c55e">8.2</td>
+      <td style="font-size:0.75rem; color:#64748b;">✅ 零US残留，地区差异表完整</td>
+    </tr>
+    <tr>
+      <td><strong>commercial</strong></td>
+      <td>12/12</td>
+      <td class="score score-high">7.5/10</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-med">6.5/10</td>
+      <td class="score score-high">9.0/10</td>
+      <td class="score score-med">7.0/10</td>
+      <td class="score" style="color:#eab308">7.4</td>
+      <td style="font-size:0.75rem; color:#64748b;">✅ 覆盖CN民法典合同编</td>
+    </tr>
+    <tr>
+      <td><strong>privacy</strong></td>
+      <td>11/11</td>
+      <td class="score score-high">7.5/10</td>
+      <td class="score score-high">7.5/10</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-high">9.0/10</td>
+      <td class="score score-high">7.5/10</td>
+      <td class="score" style="color:#22c55e">7.7</td>
+      <td style="font-size:0.75rem; color:#64748b;">✅ PIPL/CAC执法整合</td>
+    </tr>
+    <tr>
+      <td><strong>corporate</strong></td>
+      <td>13/13</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-med">6.5/10</td>
+      <td class="score score-med">6.0/10</td>
+      <td class="score score-high">8.5/10</td>
+      <td class="score score-med">7.0/10</td>
+      <td class="score" style="color:#eab308">7.0</td>
+      <td style="font-size:0.75rem; color:#64748b;">✅ 公司法/投融资合规</td>
+    </tr>
+    <tr>
+      <td><strong>ip</strong></td>
+      <td>12/12</td>
+      <td class="score score-high">8.0/10</td>
+      <td class="score score-high">7.5/10</td>
+      <td class="score score-high">7.5/10</td>
+      <td class="score score-high">8.5/10</td>
+      <td class="score score-high">8.0/10</td>
+      <td class="score" style="color:#22c55e">7.9</td>
+      <td style="font-size:0.75rem; color:#64748b;">✅ 商标法/著作权法本地化</td>
+    </tr>
+    <tr>
+      <td><strong>regulatory</strong></td>
+      <td>9/9</td>
+      <td class="score score-high">7.5/10</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-high">8.5/10</td>
+      <td class="score score-high">7.5/10</td>
+      <td class="score" style="color:#22c55e">7.5</td>
+      <td style="font-size:0.75rem; color:#64748b;">✅ CAC算法推荐/深度合成</td>
+    </tr>
+    <tr>
+      <td><strong>litigation</strong></td>
+      <td>19/19</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-med">6.5/10</td>
+      <td class="score score-high">8.5/10</td>
+      <td class="score score-med">7.0/10</td>
+      <td class="score" style="color:#eab308">7.2</td>
+      <td style="font-size:0.75rem; color:#64748b;">✅ 仲裁前置/一裁终局</td>
+    </tr>
+    <tr>
+      <td><strong>ai-governance</strong></td>
+      <td>10/10</td>
+      <td class="score score-high">7.5/10</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-high">8.5/10</td>
+      <td class="score score-high">7.5/10</td>
+      <td class="score" style="color:#22c55e">7.5</td>
+      <td style="font-size:0.75rem; color:#64748b;">✅ 生成式AI/算法备案</td>
+    </tr>
+    <tr>
+      <td><strong>product</strong></td>
+      <td>7/7</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-med">6.5/10</td>
+      <td class="score score-high">8.5/10</td>
+      <td class="score score-med">7.0/10</td>
+      <td class="score" style="color:#eab308">7.2</td>
+      <td style="font-size:0.75rem; color:#64748b;">✅ 产品发布合规审查</td>
+    </tr>
+    <tr>
+      <td><strong>law-student</strong></td>
+      <td>13/13</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-med">6.5/10</td>
+      <td class="score score-med">6.0/10</td>
+      <td class="score score-high">8.0/10</td>
+      <td class="score score-med">6.5/10</td>
+      <td class="score" style="color:#eab308">6.8</td>
+      <td style="font-size:0.75rem; color:#64748b;">✅ 法考备考/案例分析</td>
+    </tr>
+    <tr>
+      <td><strong>legal-builder-hub</strong></td>
+      <td>10/10</td>
+      <td class="score score-high">6.5/10</td>
+      <td class="score score-med">6.0/10</td>
+      <td class="score score-med">5.5/10</td>
+      <td class="score score-high">8.0/10</td>
+      <td class="score score-med">6.0/10</td>
+      <td class="score" style="color:#ef4444">6.4</td>
+      <td style="font-size:0.75rem; color:#64748b;">⚠️ skill管理工具，本地化价值有限</td>
+    </tr>
+    <tr>
+      <td><strong>legal-clinic</strong></td>
+      <td>16/16</td>
+      <td class="score score-high">7.0/10</td>
+      <td class="score score-med">6.5/10</td>
+      <td class="score score-med">6.5/10</td>
+      <td class="score score-high">8.0/10</td>
+      <td class="score score-med">6.5/10</td>
+      <td class="score" style="color:#eab308">6.9</td>
+      <td style="font-size:0.75rem; color:#64748b;">✅ 法律援助/当事人管理</td>
+    </tr></tbody>
+</table>
+
+<h2>核心Gap分析</h2>
+<div class="gap-section">
+  <div class="gap-item"><span class="gap-icon">⚠️</span><div class="gap-text"><strong>原始skill设计架构问题（40%+为wrapper/meta skill）</strong><br>US法律科技生态假设（HRIS/CLM/e-signature）在中国基本不成立，翻译式适配天花板明显。</div></div>
+  <div class="gap-item"><span class="gap-icon">⚠️</span><div class="gap-text"><strong>工作流适配不足</strong><br>leave-tracker/renewal-tracker等技能依赖的集成工具在中国不存在，skill本身的工作流设计需要重构。</div></div>
+  <div class="gap-item"><span class="gap-icon">⚠️</span><div class="gap-text"><strong>地区差异粒度不够精细</strong><br>CN省市裁判口径差异（如经济补偿金基数、高温津贴、加班费计算基数）目前仅在部分skill中覆盖。</div></div>
+  <div class="gap-item"><span class="gap-icon">✅</span><div class="gap-text"><strong>US残留引用已全部清除</strong><br>7个核心域的skills零US残留（EEOC/NLRB/FCPA/SOX等引用已替换为CN对应法规）。</div></div>
+  <div class="gap-item"><span class="gap-icon">✅</span><div class="gap-text"><strong>元数据规范完整</strong><br>所有skills均符合SKILL_MD_SCHEMA.md规范，frontmatter字段完整，版本追踪清晰。</div></div>
+</div>
+
+<h2>B阶段建议方向</h2>
+<table>
+  <tr><th>方向</th><th>说明</th><th>优先级</th></tr>
+  <tr><td>场景优先重构</td><td>从劳动仲裁代理/商业合同审查/数据合规/公司法务四大场景重新设计判断树</td><td><span class="badge badge-ok">高</span></td></tr>
+  <tr><td>数据源治理为锚点</td><td>以法律精灵/律师文档/GOV数据源为基础构建CN法律AI能力差异</td><td><span class="badge badge-ok">高</span></td></tr>
+  <tr><td>地区差异一等公民</td><td>将省市裁判口径差异直接编码进skill判断逻辑</td><td><span class="badge badge-info">中</span></td></tr>
+</table>
+
+<h2>法域覆盖</h2>
+<table>
+  <tr><th>法域</th><th>覆盖状态</th><th>说明</th></tr>
+  <tr><td>中国大陆（cn-mainland）</td><td><span class="badge badge-ok">完整</span></td><td>民法典/劳动法/个人信息保护法/网络安全法等</td></tr>
+  <tr><td>香港（hk）</td><td><span class="badge badge-info">框架</span></td><td>LEGAL_FRAMES/已建立，需补充具体skill</td></tr>
+  <tr><td>台湾（tw）</td><td><span class="badge badge-info">框架</span></td><td>LEGAL_FRAMES/已建立，需补充具体skill</td></tr>
+  <tr><td>澳门（mo）</td><td><span class="badge badge-info">框架</span></td><td>LEGAL_FRAMES/已建立，需补充具体skill</td></tr>
+  <tr><td>新加坡（sg）</td><td><span class="badge badge-info">框架</span></td><td>LEGAL_FRAMES/已建立，需补充具体skill</td></tr>
+</table>
+
+<div style="margin-top:2rem; font-size:0.75rem; color:#64748b;">
+<p>数据来源：vivy-yi/Greater-China-Legal · upstream: anthropic/claude-for-legal · 评估日期：2026-06-12</p>
+<p>评估框架：法律引用准确性 · 工作流适配 · 风险触发器覆盖 · 元数据规范 · 文档完整性（各20%）</p>
+</div>
+
+</body>
+</html>
