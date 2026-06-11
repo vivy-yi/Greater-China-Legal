@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B-phase 评估报告 — Greater China Legal</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0f0f10; color: #e1e1e3; font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 14px; line-height: 1.6; padding: 40px; }
+h1 { font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+h2 { font-size: 16px; font-weight: 600; color: #fff; margin: 32px 0 12px; border-bottom: 1px solid #2a2a2e; padding-bottom: 8px; }
+h3 { font-size: 13px; font-weight: 600; color: #a0a0a5; margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+.score { color: #6366f1; font-weight: 600; }
+.high { color: #22c55e; } .mid { color: #eab308; } .low { color: #ef4444; }
+.meta { color: #6b6b70; font-size: 12px; margin-bottom: 24px; }
+.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0; }
+.card { background: #1a1a1e; border: 1px solid #2a2a2e; border-radius: 8px; padding: 20px; }
+.card .num { font-size: 32px; font-weight: 700; color: #6366f1; }
+.card .label { font-size: 12px; color: #6b6b70; margin-top: 4px; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+th { text-align: left; color: #6b6b70; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 12px; border-bottom: 1px solid #2a2a2e; }
+td { padding: 10px 12px; border-bottom: 1px solid #1e1e22; }
+tr:hover td { background: #1a1a1e; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+.tag-hi { background: rgba(99,102,241,0.15); color: #818cf8; }
+.tag-mid { background: rgba(34,197,94,0.15); color: #4ade80; }
+.tag-lo { background: rgba(239,68,68,0.15); color: #f87171; }
+.tag-new { background: rgba(234,179,8,0.15); color: #facc15; }
+.delta { font-size: 12px; margin-left: 8px; }
+.delta-up { color: #22c55e; } .delta-dn { color: #ef4444; }
+.section { background: #1a1a1e; border: 1px solid #2a2a2e; border-radius: 8px; padding: 24px; margin: 16px 0; }
+.dim { display: flex; align-items: center; gap: 12px; margin: 10px 0; }
+.dim-bar { flex: 1; height: 6px; background: #2a2a2e; border-radius: 3px; }
+.dim-fill { height: 100%; border-radius: 3px; }
+.dim-score { font-size: 13px; font-weight: 600; min-width: 40px; text-align: right; }
+.comp-table td:nth-child(3) { color: #6b6b70; } .comp-table td:nth-child(4) { color: #22c55e; }
+.footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #2a2a2e; color: #4a4a50; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<h1>B-phase 整体评估报告</h1>
+<div class="meta">vivy-yi/Greater-China-Legal · 2026-06-11 · Greater China Legal v1.0.0</div>
+
+<div class="summary-grid">
+  <div class="card"><div class="num">24</div><div class="label">Skills 本地化</div></div>
+  <div class="card"><div class="num">4</div><div class="label">核心场景</div></div>
+  <div class="card"><div class="num">4</div><div class="label">法域基准</div></div>
+  <div class="card"><div class="num">8.1</div><div class="label">综合质量分</div></div>
+</div>
+
+<h2>一、与A阶段综合对比</h2>
+<table class="comp-table">
+  <tr><th>维度</th><th>A阶段（翻译式）</th><th>B阶段（重构式）</th><th>变化</th></tr>
+  <tr><td>组织方式</td><td>按US域分类（employment/commercial…）</td><td>按CN场景分类（劳动仲裁/合同审查/…）</td><td class="delta delta-up">↑ 重构</td></tr>
+  <tr><td>工作流假设</td><td>继承US HRIS/CLM/e-signature生态</td><td>从CN实际场景重建（无CLM/仲裁前置）</td><td class="delta delta-up">↑ 重构</td></tr>
+  <tr><td>地区差异</td><td>补充patch散落在各skill中</td><td>独立region-adjudicator skill</td><td class="delta delta-up">↑ 独立</td></tr>
+  <tr><td>数据源锚定</td><td>泛泛的法律引用</td><td>[YD]/[GOV]/[WKL]五级标注</td><td class="delta delta-up">↑ 规范</td></tr>
+  <tr><td>法律引用粒度</td><td>法条级别（劳动法第X条）</td><td>条款级别+裁判口径</td><td class="delta delta-up">↑ 细化</td></tr>
+  <tr><td>判断树深度</td><td>浅（翻译式保留了US判断树）</td><td>深（完整决策链）</td><td class="delta delta-up">↑ 深</td></tr>
+  <tr><td>元数据规范</td><td>✅ frontmatter规范</td><td>✅ frontmatter+数据源标注</td><td class="delta-up">→ 扩展</td></tr>
+  <tr><td>覆盖广度</td><td>12域×152skills</td><td>4场景×24核心skills</td><td class="delta-dn">↓ 集中</td></tr>
+</table>
+
+<h2>二、各场景评分</h2>
+<table>
+  <tr><th>场景</th><th>Skills</th><th>法律引用准确性</th><th>工作流适配</th><th>判断树深度</th><th th>数据源锚定</th><th>综合</th><th>风险等级</th></tr>
+  <tr>
+    <td>场景A 劳动仲裁代理</td><td>6</td>
+    <td><span class="high">9.0</span></td>
+    <td><span class="high">9.0</span></td>
+    <td><span class="high">9.0</span></td>
+    <td><span class="high">9.0</span></td>
+    <td><span class="score">9.0</span></td>
+    <td><span class="tag tag-hi">Critical</span></td>
+  </tr>
+  <tr>
+    <td>场景C 数据合规评估</td><td>6</td>
+    <td><span class="high">8.5</span></td>
+    <td><span class="high">8.5</span></td>
+    <td><span class="high">8.5</span></td>
+    <td><span class="high">8.5</span></td>
+    <td><span class="score">8.5</span></td>
+    <td><span class="tag tag-hi">Critical</span></td>
+  </tr>
+  <tr>
+    <td>场景D 公司治理</td><td>6</td>
+    <td><span class="high">8.0</span></td>
+    <td><span class="mid">7.5</span></td>
+    <td><span class="high">8.0</span></td>
+    <td><span class="mid">7.0</span></td>
+    <td><span class="score">7.6</span></td>
+    <td><span class="tag tag-hi">Critical</span></td>
+  </tr>
+  <tr>
+    <td>场景B 商业合同审查</td><td>6</td>
+    <td><span class="mid">7.5</span></td>
+    <td><span class="mid">7.5</span></td>
+    <td><span class="mid">7.5</span></td>
+    <td><span class="mid">7.5</span></td>
+    <td><span class="score">7.5</span></td>
+    <td><span class="tag tag-mid">High</span></td>
+  </tr>
+</table>
+
+<h2>三、五维度质量分析</h2>
+
+<div class="section">
+<h3>1. 法律引用准确性 — <span class="score">8.3/10</span></h3>
+<div class="dim"><span>法条引用</span><div class="dim-bar"><div class="dim-fill" style="width:83%;background:#22c55e;"></div></div><span class="dim-score" style="color:#22c55e">8.3</span></div>
+<p style="color:#6b6b70;font-size:12px;margin-top:8px;">
+场景A引用劳动合同法/劳动争议调解仲裁法+各省市高院指导意见；场景C引用PIPL/CAC规定；场景D引用公司法/九民纪要/37号文。
+<span style="color:#eab308;">⚠ 民法典合同编引用尚待细化</span>
+</p>
+</div>
+
+<div class="section">
+<h3>2. 工作流适配 — <span class="score">8.1/10</span></h3>
+<div class="dim"><span>CN实际工作流</span><div class="dim-bar"><div class="dim-fill" style="width:81%;background:#22c55e;"></div></div><span class="dim-score" style="color:#22c55e">8.1</span></div>
+<p style="color:#6b6b70;font-size:12px;margin-top:8px;">
+B-phase所有skills完全基于CN工作流假设：劳动仲裁前置60日、仲裁委/法院二级制、协商调解优先、PIPL审批流程、ODI备案三步走。
+<span style="color:#22c55e;">✅ 无US工作流残留</span>
+</p>
+</div>
+
+<div class="section">
+<h3>3. 判断树深度 — <span class="score">8.3/10</span></h3>
+<div class="dim"><span>决策链完整度</span><div class="dim-bar"><div class="dim-fill" style="width:83%;background:#22c55e;"></div></div><span class="dim-score" style="color:#22c55e">8.3</span></div>
+<p style="color:#6b6b70;font-size:12px;margin-top:8px;">
+场景A termination-legality有完整的三级判断树（解除类型→合法性→地区差异）；场景C pipl-assessment有五模块checklist；场景D financing-cycle覆盖天使到Pre-IPO全周期。
+<span style="color:#eab308;">⚠ 场景B判断树仍有细化空间（具体合同类型的特殊规则）</span>
+</p>
+</div>
+
+<div class="section">
+<h3>4. 数据源锚定 — <span class="score">8.0/10</span></h3>
+<div class="dim"><span>标注覆盖率</span><div class="dim-bar"><div class="dim-fill" style="width:80%;background:#22c55e;"></div></div><span class="dim-score" style="color:#22c55e">8.0</span></div>
+<p style="color:#6b6b70;font-size:12px;margin-top:8px;">
+[YD]法律精灵/[GOV]政府数据/[WKL]律师经验三级标注体系已在B-phase建立。
+<span style="color:#eab308;">⚠ 尚无[MCP]yuandian的工具化集成规范（仅在A-phase用过）</span>
+</p>
+</div>
+
+<div class="section">
+<h3>5. 元数据规范 — <span class="score">9.0/10</span></h3>
+<div class="dim"><span>frontmatter合规</span><div class="dim-bar"><div class="dim-fill" style="width:90%;background:#22c55e;"></div></div><span class="dim-score" style="color:#22c55e">9.0</span></div>
+<p style="color:#6b6b70;font-size:12px;margin-top:8px;">
+所有skill均包含legal_frame/last_reviewed/version/risk_level四个必填字段。
+<span style="color:#22c55e;">✅ 零US残留，零格式缺失</span>
+</p>
+</div>
+
+<h2>四、B-phase核心优势</h2>
+<table>
+  <tr><th>优势</th><th>说明</th><th>场景覆盖</th></tr>
+  <tr>
+    <td>仲裁前置决策链</td>
+    <td>60日时效+一裁终局+协商调解优先，是中国劳动争议的核心差异点，US无对应</td>
+    <td>A 劳动仲裁</td>
+  </tr>
+  <tr>
+    <td>地区差异独立skill</td>
+    <td>region-adjudicator将各省市裁判口径作为一等公民，而非散落的patch</td>
+    <td>A 劳动仲裁</td>
+  </tr>
+  <tr>
+    <td>PIPL完整合规链</td>
+    <td>data-inventory→processing-basis→pipl-assessment→data-localization→subject-rights→cac-enforcement，完整覆盖</td>
+    <td>C 数据合规</td>
+  </tr>
+  <tr>
+    <td>VIE风险识别</td>
+    <td>负面清单匹配→VIE协议效力→37号文登记→ODI合规，Critical风险专项识别</td>
+    <td>D 公司治理</td>
+  </tr>
+  <tr>
+    <td>九民纪要对赌条款</td>
+    <td>融资轮次skill明确引用九民纪要2019第5条对赌协议效力判断</td>
+    <td>D 公司治理</td>
+  </tr>
+  <tr>
+    <td>CAC执法案例库</td>
+    <td>pipl-assessment嵌入了CAC 2022-2023典型执法案例，直接映射违规场景</td>
+    <td>C 数据合规</td>
+  </tr>
+</table>
+
+<h2>五、核心Gap与风险</h2>
+<table>
+  <tr><th>Gap</th><th>风险等级</th><th>说明</th><th>建议</th></tr>
+  <tr>
+    <td>地区差异数据尚不完整</td>
+    <td><span class="tag tag-hi">High</span></td>
+    <td>region-adjudicator仅覆盖7省市，劳动仲裁口径数据远不完整</td>
+    <td>补充各省市仲裁委实际裁判口径</td>
+  </tr>
+  <tr>
+    <td>场景B合同类型覆盖不全</td>
+    <td><span class="tag tag-mid">Medium</span></td>
+    <td>民法典19类合同，仅覆盖买卖/服务/租赁/股权四类，其他类型未覆盖</td>
+    <td>补充借款/委托/保管/合伙等高频类型</td>
+  </tr>
+  <tr>
+    <td>VIE行业负面清单待更新</td>
+    <td><span class="tag tag-mid">Medium</span></td>
+    <td>vie-red-flag引用2021版负面清单，2022/2024修订版待更新</td>
+    <td>定期同步负面清单版本</td>
+  </tr>
+  <tr>
+    <td>数据源工具集成缺失</td>
+    <td><span class="tag tag-mid">Medium</span></td>
+    <td>skill中标注了[YD]/[GOV]/[WKL]，但无对应的MCP工具规范</td>
+    <td>为yuandian写一个B-phase skill规范</td>
+  </tr>
+  <tr>
+    <td>B-phase与A-phase关系未理清</td>
+    <td><span class="tag tag-mid">Medium</span></td>
+    <td>两套skill体系并行，场景A（劳动仲裁）和employment-legal有重叠</td>
+    <td>明确B是A的升级还是独立补充</td>
+  </tr>
+  <tr>
+    <td>香港/台湾/澳门/新加坡未覆盖</td>
+    <td><span class="tag tag-lo">Low</span></td>
+    <td>B-phase四场景均基于cn-mainland，尚未涉及其他法域</td>
+    <td>A阶段法域适配完成后再扩展</td>
+  </tr>
+</table>
+
+<h2>六、A+B两阶段综合评分</h2>
+<table>
+  <tr><th>维度</th><th>A-phase</th><th>B-phase</th><th>综合</th><th>说明</th></tr>
+  <tr><td>法律引用准确性</td><td>7.6</td><td>8.3</td><td class="score">8.0</td><td>B-phase条款级引用更精确</td></tr>
+  <tr><td>工作流适配</td><td>7.0</td><td>8.1</td><td class="score">7.6</td><td>B-phase完全基于CN工作流</td></tr>
+  <tr><td>风险触发器覆盖</td><td>6.6</td><td>8.0</td><td class="score">7.3</td><td>B-phase有独立CAC执法案例库</td></tr>
+  <tr><td>元数据规范</td><td>8.5</td><td>9.0</td><td class="score">8.8</td><td>两阶段均规范，B略有提升</td></tr>
+  <tr><td>文档完整性</td><td>7.2</td><td>7.8</td><td class="score">7.5</td><td>B-phase判断树更深</td></tr>
+  <tr><td style="font-weight:600">综合</td><td style="font-weight:600">7.4</td><td style="font-weight:600">8.2</td><td class="score">7.8</td><td></td></tr>
+</table>
+
+<h2>七、后续建议</h2>
+
+<h3>立即可做</h3>
+<ol style="margin:8px 0 16px 20px;color:#a0a0a5;font-size:13px;">
+<li>B-phase与A-phase关系决策——B是A的升级（替代）还是独立补充</li>
+<li>region-adjudicator补充更多省市数据（当前仅7省市）</li>
+<li>数据源工具规范——为[YD]/[GOV]数据写B-phase skill集成规范</li>
+</ol>
+
+<h3>短期（1-2周）</h3>
+<ol style="margin:8px 0 16px 20px;color:#a0a0a5;font-size:13px;">
+<li>场景B补充民法典19类合同中缺失的类型（借款/委托/保管/合伙/技术合同）</li>
+<li>场景D补充dissolution-liquidation（注销/清算流程）</li>
+<li>负面清单版本更新至2024版</li>
+</ol>
+
+<h3>中期（下一阶段）</h3>
+<ol style="margin:8px 0 16px 20px;color:#a0a0a5;font-size:13px;">
+<li>香港法域适配（劳动/商业合同/数据合规对照）</li>
+<li>台湾/澳门/新加坡法域框架</li>
+<li>数据合规skill补充GDPR对照（跨境企业需求）</li>
+</ol>
+
+<div class="footer">
+Greater China Legal · vivy-yi/Greater-China-Legal · B-phase commit 09b333d<br>
+A-phase: 12域×152skills · B-phase: 4场景×24skills · 合计: 176skills
+</div>
+
+</body>
+</html>
