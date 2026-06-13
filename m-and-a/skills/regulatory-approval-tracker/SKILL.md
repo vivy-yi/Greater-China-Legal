@@ -1,3 +1,15 @@
+---
+name: regulatory-approval-tracker
+description: >
+  监管审批追踪 — 反垄断/外商投资安全审查/上市公司审批
+  适用情形：用户描述regulatory-approval-tracker相关业务需求。
+argument-hint: "[交易/项目基本信息]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+risk_level: high
+---
+
 # 监管审批追踪技能 (Regulatory Approval Tracker)
 
 ## 技能定位
@@ -296,3 +308,24 @@ ODI备案（发改委/商务部）：
 - 第三方同意取得
 - 先决条件满足
 ```
+
+---
+
+## 升级决策门
+
+**以下情形须向律师升级：**
+- 涉及国有资产转让特殊审批
+- 外商投资准入存在争议
+- 反垄断审查门槛临界
+- 交易结构涉及跨境架构
+- 存在重大潜在负债未在尽调中发现
+- 交易对方存在资信风险
+- 涉及特殊监管行业（金融/医药/教育）
+
+## 本 Skill 不涵盖
+
+- 财务审计与估值建模
+- 目标公司日常经营管理
+- 税务申报与税务筹划
+- 劳动仲裁代理与诉讼
+- 涉及境外法律的跨境问题
