@@ -1,11 +1,27 @@
 ---
 name: construction-defect-advisor
-description: |
-  工程质量纠纷咨询。
+description: '工程质量纠纷咨询。
+
   处理工程质量纠纷：质量缺陷认定标准、修复费用计算、减价补偿责任划分，对接工程质量鉴定机构。
+
+  '
 last_reviewed: 2026-06
 version: 1.0.0
 upgrade_threshold: 涉及金融犯罪/刑事风险立即移交专业律师
+legal_frame: cn-mainland
+trigger_phrases:
+- 房地产开发
+- 建设工程
+- 物业租赁
+- 工程款
+- REITs
+- 土地出让
+- 预售
+legal_sources:
+- name: 城市房地产管理法
+  effective_date: '2020-01-01'
+- name: 建设工程质量管理条例
+  effective_date: '2019-04-23'
 ---
 
 # 工程质量纠纷咨询

@@ -1,11 +1,30 @@
 ---
 name: defi-protocol-token-analysis
-description: |
-  DeFi协议Token性质认定。
+description: 'DeFi协议Token性质认定。
+
   分析DeFi协议原生Token是否构成证券（Howey Test/中国法规对比），提供IEO/IDO合规路径，评估中国居民参与DeFi LP的监管风险。
+
+  '
 last_reviewed: 2026-06
 version: 1.0.0
 upgrade_threshold: 涉及金融犯罪/刑事风险立即移交专业律师
+legal_frame: cn-mainland
+trigger_phrases:
+- 虚拟货币
+- 加密资产
+- NFT
+- 数字藏品
+- DeFi
+- Web3
+- DAO
+- 代币
+legal_sources:
+- name: 关于进一步防范代币发行融资风险的公告（9·4公告）
+  effective_date: '2017-09-04'
+- name: 关于进一步防范虚拟货币交易炒作风险的公告
+  effective_date: '2021-09-15'
+- name: 香港证监会虚拟资产交易平台指引
+  effective_date: '2023-06-01'
 ---
 
 # DeFi协议Token性质认定

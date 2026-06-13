@@ -1,11 +1,27 @@
 ---
 name: commercial-lease-reviewer
-description: |
-  商业租赁合同审查。
+description: '商业租赁合同审查。
+
   审查商业综合体/写字楼/产业园区租赁合同：租金调整机制（递增率/营业额提成）、优先续租权/优先购买权、转租条件、装修期与免租期约定。
+
+  '
 last_reviewed: 2026-06
 version: 1.0.0
 upgrade_threshold: 涉及金融犯罪/刑事风险立即移交专业律师
+legal_frame: cn-mainland
+trigger_phrases:
+- 房地产开发
+- 建设工程
+- 物业租赁
+- 工程款
+- REITs
+- 土地出让
+- 预售
+legal_sources:
+- name: 城市房地产管理法
+  effective_date: '2020-01-01'
+- name: 建设工程质量管理条例
+  effective_date: '2019-04-23'
 ---
 
 # 商业租赁合同审查

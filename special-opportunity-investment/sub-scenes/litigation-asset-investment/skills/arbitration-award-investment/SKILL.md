@@ -1,11 +1,28 @@
 ---
 name: arbitration-award-investment
-description: |
-  仲裁裁决投资。
+description: '仲裁裁决投资。
+
   为投资仲裁裁决债权提供全流程支持：裁决互认与执行（纽约公约）、境外仲裁裁决在中国申请承认与执行。
+
+  '
 last_reviewed: 2026-06
 version: 1.0.0
 upgrade_threshold: 涉及金融犯罪/刑事风险立即移交专业律师
+legal_frame: cn-mainland
+trigger_phrases:
+- 不良资产
+- 困境资产
+- 债务重组
+- 借壳上市
+- SPAC
+- Pre-IPO
+- 诉讼投资
+- 判决债权
+legal_sources:
+- name: 企业破产法
+  effective_date: '2007-06-01'
+- name: 民事诉讼法
+  effective_date: '2024-01-01'
 ---
 
 # 仲裁裁决投资

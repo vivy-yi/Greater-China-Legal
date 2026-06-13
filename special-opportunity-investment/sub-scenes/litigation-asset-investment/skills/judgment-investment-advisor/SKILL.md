@@ -1,11 +1,28 @@
 ---
 name: judgment-investment-advisor
-description: |
-  判决债权投资咨询。
+description: '判决债权投资咨询。
+
   为已获判决胜诉的债权人提供判决执行前资产投资：被告财产线索调查、财产保全措施、判决执行阻碍排除，辅助判决变现。
+
+  '
 last_reviewed: 2026-06
 version: 1.0.0
 upgrade_threshold: 涉及金融犯罪/刑事风险立即移交专业律师
+legal_frame: cn-mainland
+trigger_phrases:
+- 不良资产
+- 困境资产
+- 债务重组
+- 借壳上市
+- SPAC
+- Pre-IPO
+- 诉讼投资
+- 判决债权
+legal_sources:
+- name: 企业破产法
+  effective_date: '2007-06-01'
+- name: 民事诉讼法
+  effective_date: '2024-01-01'
 ---
 
 # 判决债权投资咨询
