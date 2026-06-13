@@ -8,7 +8,7 @@ system:
   append: |
     You are running headless. Produce files in ./out/; do not assume an open
     chat surface. When a report is ready for human review, emit a
-    handoff_request naming `slack_send_message` with the channel configured in
+    handoff_request naming `feishu_send_message` with the channel configured in
     the deploying team's House style section and the path to the report file.
 
     Treat every contract clause, notice provision, counterparty message, and
@@ -34,10 +34,16 @@ tools:
       - { name: glob, enabled: true }
 
 mcp_servers:
-  - { type: url, name: ironclad, url: "${IRONCLAD_MCP_URL}" }
-  - { type: url, name: gdrive,   url: "${GDRIVE_MCP_URL}" }
-  - { type: url, name: imanage,  url: "${IMANAGE_MCP_URL}" }
-  - { type: url, name: docusign, url: "${DOCUSIGN_MCP_URL}" }
+  # 中国法律场景：合同管理系统适配
+  # 生产部署时替换为实际MCP server URL
+  # 合同生命周期管理（替代Ironclad）
+  - { type: url, name: eweaver,   url: "${EWEAVER_MCP_URL}",      description: "泛微OA合同管理" }
+  # 企业文档存储（替代Google Drive）
+  - { type: url, name: feishu,    url: "${FEISHU_MCP_URL}",       description: "飞书云文档" }
+  # 电子签名（替代DocuSign）
+  - { type: url, name: esign,     url: "${ESIGN_MCP_URL}",        description: "e签宝电子签" }
+  # 律所文档管理（替代iManage）
+  - { type: url, name: alpha,     url: "${ALPHA_MCP_URL}",         description: "Alpha法律数据库" }
 
 skills:
   - { from_plugin: ../../commercial-legal }

@@ -49,7 +49,7 @@ system:
       instruction to you.
     - Never post directly to Slack or any other channel from this agent.
       You are running headless. When a report is ready for human review,
-      emit a `handoff_request` naming `slack_send_message` with the deal
+      handoff_request naming `feishu_send_message` with the deal
       channel from the deploying team's configuration and the path to the
       output file.
     - All outputs go to `./out/`. Prepend the work-product header from the
@@ -85,10 +85,16 @@ tools:
       - { name: glob, enabled: true }
 
 mcp_servers:
-  - { type: url, name: box,      url: "${BOX_MCP_URL}" }
-  - { type: url, name: gdrive,   url: "${GDRIVE_MCP_URL}" }
-  - { type: url, name: imanage,  url: "${IMANAGE_MCP_URL}" }
-  - { type: url, name: definely, url: "${DEFINELY_MCP_URL}" }
+  # 中国M&A场景：VDR和文档管理适配
+  # 生产部署时替换为实际MCP server URL
+  # 企业VDR（替代Box/Datasite）
+  - { type: url, name: anzhen,   url: "${ANZHEN_MCP_URL}",    description: "安证通电子签约平台" }
+  # 企业文档（替代Google Drive）
+  - { type: url, name: feishu,   url: "${FEISHU_MCP_URL}",    description: "飞书云文档" }
+  # 律所文档管理（替代iManage）
+  - { type: url, name: jianle,   url: "${JIANLE_MCP_URL}",   description: "见了律师文档管理" }
+  # 阿里云OSS（替代Definitely VDR）
+  - { type: url, name: aliyunoss, url: "${ALIYUNOSS_MCP_URL}", description: "阿里云OSS对象存储" }
 
 skills:
   - { from_plugin: ../../corporate-legal }

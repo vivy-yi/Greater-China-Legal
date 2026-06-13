@@ -38,9 +38,12 @@ tools:
       - { name: glob, enabled: true }
 
 mcp_servers:
-  - { type: url, name: trellis,       url: "${TRELLIS_MCP_URL}" }
-  - { type: url, name: courtlistener, url: "${COURTLISTENER_MCP_URL}" }
-  - { type: url, name: gdrive,        url: "${GDRIVE_MCP_URL}" }
+  # 中国诉讼场景：法院案例数据库适配
+  # 生产部署时替换为实际MCP server URL
+  # 裁判文书检索（替代CourtListener/PACER）
+  - { type: url, name: wangfang,   url: "${WANGFANG_MCP_URL}",   description: "北大法宝法律数据库" }
+  # 企业文档（替代Google Drive）
+  - { type: url, name: feishu,     url: "${FEISHU_MCP_URL}",    description: "飞书云文档" }
 
 skills:
   - { from_plugin: ../../litigation-legal }

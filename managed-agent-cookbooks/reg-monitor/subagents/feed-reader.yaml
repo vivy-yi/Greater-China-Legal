@@ -43,12 +43,20 @@ tools:
         enabled: true
         config:
           allowed_hosts:
-            - federalregister.gov
-            - "*.sec.gov"
-            - "*.gpo.gov"
-            - "*.regulations.gov"
-            - "*.europa.eu"
-            - "*.gov.uk"
+            # 中国政府信息来源
+            - "www.gov.cn"
+            - "flk.npc.gov.cn"      # 国家法律法规数据库
+            - "wenda.mohrss.gov.cn" # 人社部
+            - "www.cbirc.gov.cn"    # 银保监会
+            - "www.csrc.gov.cn"     # 证监会
+            - "www.samr.gov.cn"     # 市场监管总局
+            - "www.mofcom.gov.cn"   # 商务部
+            - "www.moe.gov.cn"      # 教育部
+            - "www.nhc.gov.cn"      # 卫健委
+            - "www.pbc.gov.cn"      # 人民银行
+            # 省级法规库
+            - "*.law-lib.com"
+            - "*.chinaweblaw.com"
           # Extend at deploy time via your feed configuration if your team
           # subscribes to a paid regulatory feed (e.g., Bloomberg Law) or uses
           # direct agency RSS. Keep the list tight — this is the boundary.
@@ -84,5 +92,5 @@ output_schema:
           date:      { type: string, maxLength: 10,  pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
           agency:    { type: string, maxLength: 120, pattern: "^[A-Za-z0-9 .,&()_/-]+$" }
           summary:   { type: string, maxLength: 1000 }
-          url:       { type: string, maxLength: 512, pattern: "^https://" }
+          url:       { type: string, maxLength: 512, pattern: "^https://(www\\.gov\\.cn|flk\\.npc\\.gov\\.cn|www\\.cbirc\\.gov\\.cn|www\\.csrc\\.gov\\.cn|www\\.samr\\.gov\\.cn|www\\.mofcom\\.gov\\.cn|www\\.moe\\.gov\\.cn|www\\.nhc\\.gov\\.cn|www\\.pbc\\.gov\\.cn|wenda\\.mohrss\\.gov\\.cn|.*\\.law-lib\\.com|.*\\.chinaweblaw\\.com)/" }
           docket_id: { type: string, maxLength: 64,  pattern: "^[A-Za-z0-9 ._/:-]+$" }
