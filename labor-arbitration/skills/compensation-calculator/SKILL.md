@@ -1,9 +1,14 @@
 ---
 name: compensation-calculator
-description: 中国劳动争议赔偿计算器。计算工伤赔偿、违法解除赔偿金、代通知金、经济补偿金等。触发词：赔偿计算、工伤赔偿、违法解除、代通知金、经济补偿金、伤残补助金。
+description: >
+  中国劳动争议赔偿计算器——计算工伤赔偿、违法解除赔偿金、代通知金、
+  经济补偿金、加班费等。适用情形：用户说"违法解除赔偿多少"、
+  "工伤九级能赔多少"、"N+1怎么算"、"代通知金是多少"。
+argument-hint: "[赔偿类型] [关键参数：月工资/月数/伤残等级/工龄]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
 version: 1.0.0
-scope: labor-arbitration
-confidence: high
+risk_level: medium
 ---
 
 # 劳动争议赔偿计算器

@@ -1,12 +1,16 @@
 ---
 name: gap-surfacer
 description: >
-  Reference: shared gap- and comment-tracker framework backing /regulatory-legal:gaps
-  and /regulatory-legal:comments. Tracks open policy gaps with remediation status,
-  ingests gaps from policy-diff, surfaces what's open and aging, routes to owners,
-  and notifies gap owners via Slack with per-send confirmation. Loaded by the gaps
-  and comments skills before doing substantive work.
+  合规缺口跟踪框架——接收来自 policy-diff 的合规缺口录入，
+  追踪未关闭缺口的修复状态，向负责人发送到期提醒，
+  并在状态报告中呈现开口缺口和逾期项目。
+  被 gaps 和 comments skills 加载后执行实质性工作，不直接由用户调用。
 user-invocable: false
+argument-hint: "[mode: ingest|status|close|accept] [参数]"
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
+risk_level: medium
 ---
 
 # Gap Surfacer
