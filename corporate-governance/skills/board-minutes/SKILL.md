@@ -206,3 +206,5 @@ risk_level: high
 
 *Greater China Legal — corporate-legal board-minutes CN adapter v1.0.0*
 *基于 anthropic/claude-for-legal board-minutes 适配中国大陆公司治理环境*
+
+*[YD] — 基于 anthropic/claude-for-legal 适配中国大陆法律环境 v1.0.0*

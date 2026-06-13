@@ -393,3 +393,5 @@ Before producing output, check where it's going. If destination is outside the p
 
 *Greater China Legal — commercial-legal nda-review CN adapter v1.0.0*
 *基于 anthropic/claude-for-legal nda-review 适配中国大陆法律环境*
+
+*[YD] — 基于 anthropic/claude-for-legal 适配中国大陆法律环境 v1.0.0*

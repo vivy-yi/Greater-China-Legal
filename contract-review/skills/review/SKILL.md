@@ -55,3 +55,5 @@ risk_level: medium
 
 *Greater China Legal — commercial-legal review CN adapter v1.0.0*
 *基于 anthropic/claude-for-legal review 适配中国大陆法律环境*
+
+*[YD] — 基于 anthropic/claude-for-legal 适配中国大陆法律环境 v1.0.0*

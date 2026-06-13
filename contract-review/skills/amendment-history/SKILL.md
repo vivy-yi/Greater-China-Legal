@@ -144,3 +144,5 @@ risk_level: low
 
 *Greater China Legal — commercial-legal amendment-history CN adapter v1.0.0*
 *基于 anthropic/claude-for-legal amendment-history 适配中国大陆法律环境*
+
+*[YD] — 基于 anthropic/claude-for-legal 适配中国大陆法律环境 v1.0.0*

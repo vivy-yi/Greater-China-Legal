@@ -279,3 +279,5 @@ Playbook 应有直接/间接/豁免项/基数四个维度的位置。如 playboo
 
 *Greater China Legal — commercial-legal vendor-agreement-review CN adapter v1.0.0*
 *基于 anthropic/claude-for-legal vendor-agreement-review 适配中国大陆法律环境*
+
+*[YD] — 基于 anthropic/claude-for-legal 适配中国大陆法律环境 v1.0.0*

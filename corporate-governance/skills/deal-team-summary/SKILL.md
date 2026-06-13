@@ -157,3 +157,5 @@ risk_level: medium
 
 *Greater China Legal — corporate-legal deal-team-summary CN adapter v1.0.0*
 *基于 anthropic/claude-for-legal deal-team-summary 适配中国大陆M&A交易简报环境*
+
+*[YD] — 基于 anthropic/claude-for-legal 适配中国大陆法律环境 v1.0.0*

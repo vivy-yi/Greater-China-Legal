@@ -206,3 +206,5 @@ escalation_triggers:
 
 *Greater China Legal — privacy-legal breach-notification CN adapter v1.0.0*
 *基于 anthropic/claude-for-legal breach-notification 适配中国大陆PIPL/DSL/CSL环境*
+
+*[YD] — 基于 anthropic/claude-for-legal 适配中国大陆法律环境 v1.0.0*

@@ -101,3 +101,5 @@ risk_level: medium
 
 *Greater China Legal — corporate-legal written-consent CN adapter v1.0.0*
 *基于 anthropic/claude-for-legal written-consent 适配中国大陆公司治理环境*
+
+*[YD] — 基于 anthropic/claude-for-legal 适配中国大陆法律环境 v1.0.0*
