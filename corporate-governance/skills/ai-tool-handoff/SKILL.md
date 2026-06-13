@@ -95,7 +95,7 @@ risk_level: medium
 
 ##信任级别设置
 
-在 `corporate-legal/CLAUDE.md` 中设置AI工具信任级别：
+在 `../CLAUDE.md` 中设置AI工具信任级别：
 
 ```yaml
 ai_review_tools:

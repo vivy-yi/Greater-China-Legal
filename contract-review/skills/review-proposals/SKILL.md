@@ -16,7 +16,7 @@ risk_level: medium
 
 ## Purpose
 
-逐步审查 playbook-monitor agent 待处理的 playbook 更新提案，并将批准的变更应用到 `commercial-legal/CLAUDE.md`。
+逐步审查 playbook-monitor agent 待处理的 playbook 更新提案，并将批准的变更应用到 `../CLAUDE.md`。
 
 ## Instructions
 
@@ -26,9 +26,9 @@ risk_level: medium
 
 3. **逐个展示提案。** 对每个提案显示完整提案块，提供四个选项：接受、拒绝、修改、延期。
 
-4. **对于接受或修改：** 显示对 `commercial-legal/CLAUDE.md` 的精确 diff。仅在律师明确确认后应用。
+4. **对于接受或修改：** 显示对 `../CLAUDE.md` 的精确 diff。仅在律师明确确认后应用。
 
-5. **对于拒绝或延期：** 记录决定。不修改 `commercial-legal/CLAUDE.md`。
+5. **对于拒绝或延期：** 记录决定。不修改 `../CLAUDE.md`。
 
 6. **所有提案解决后：** 显示变更摘要，然后存档提案文件。
 

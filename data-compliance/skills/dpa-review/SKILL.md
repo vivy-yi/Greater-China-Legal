@@ -21,15 +21,15 @@ escalation_triggers:
 
 ## Matter context
 
-检查 `privacy-legal/CLAUDE.md` → `## Matter workspaces`。如 `Enabled` 为 `✗`（内场用户默认），跳过本段。
+检查 `../CLAUDE.md` → `## Matter workspaces`。如 `Enabled` 为 `✗`（内场用户默认），跳过本段。
 
 ## Purpose
 
-根据 `privacy-legal/CLAUDE.md` 中的 DPA playbook 审查数据处理协议。自动检测我方是处理者（processor）还是受托处理者（controller），并应用相应审查标准。
+根据 `../CLAUDE.md` 中的 DPA playbook 审查数据处理协议。自动检测我方是处理者（processor）还是受托处理者（controller），并应用相应审查标准。
 
 ## Instructions
 
-1. **加载 `privacy-legal/CLAUDE.md`** → DPA playbook。如有占位符，停止并提示配置。
+1. **加载 `../CLAUDE.md`** → DPA playbook。如有占位符，停止并提示配置。
 
 2. **获取DPA。判断方向：**
    - 我方是**受托处理者（Processor）**——客户的DPA
@@ -68,7 +68,7 @@ escalation_triggers:
 
 ### 跨境传输合规（PIPL第38-43条）
 
-详见 `privacy-legal/CLAUDE.md` → 跨境数据传输章节。
+详见 `../CLAUDE.md` → 跨境数据传输章节。
 
 ---
 

@@ -5,7 +5,7 @@ description: >
   输出所有变更的摘要，或特定条款的演变路径。
   适用情形：用户说"合同变更历史"、"哪里是最新条款"、
   "这个条款是怎么演变的"、或上传多个版本的协议。
-argument-hint: "[文件 | CLM ID] [--provision <条款名称>]"
+argument-hint: "[文件路径 | 合同编号] [--provision <条款名称>]"
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
@@ -54,7 +54,7 @@ risk_level: low
 ## Mode 1: 变更摘要
 
 **步骤：**
-1. 获取文件（从上传、CLM ID或仓库链接）
+1. 获取文件（从上传、合同编号或仓库链接）
 2. 按时间顺序排列所有文件
 3. 提取每个版本的关键变更
 4. 输出当前合同的整体状况

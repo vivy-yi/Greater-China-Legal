@@ -5,7 +5,7 @@ description: >
   从标题识别协议结构，路由至正确审查技能（vendor-agreement-review、nda-review、saas-msa-review），
   并将输出整合为一份备忘录。
   适用情形：用户说"审一下这份合同"、"评估这个MSA"、"这个NDA可以吗"。
-argument-hint: '[文件路径 | Drive链接 | CLM ID | 粘贴文本]'
+argument-hint: '[文件路径 | 合同编号 | 粘贴文本]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
@@ -16,17 +16,17 @@ risk_level: medium
 
 ## Purpose
 
-根据 `commercial-legal/CLAUDE.md` 中的 playbook 审查收到的协议。从标题识别协议结构，选择适当技能，并在 confirm_routing 启用时先确认用户再继续。
+根据 `../CLAUDE.md` 中的 playbook 审查收到的协议。从标题识别协议结构，选择适当技能，并在 confirm_routing 启用时先确认用户再继续。
 
 ## Instructions
 
-1. **加载 `commercial-legal/CLAUDE.md`**
+1. **加载 `../CLAUDE.md`**
 
-   如有占位符，停止并提示："请先运行 `/commercial-legal:cold-start-interview`——我需要在审查前了解您的 playbook。"
+   如有占位符，停止并提示："请先运行 `/shared/agent-ops:cold-start-interview`——我需要在审查前了解您的 playbook。"
 
-   同时读取 `commercial-legal/CLAUDE.md` → `## Review preferences` → `confirm_routing`。如字段缺失，视为 `true`。
+   同时读取 `../CLAUDE.md` → `## Review preferences` → `confirm_routing`。如字段缺失，视为 `true`。
 
-2. **获取协议：** 从文件路径、Drive链接、CLM ID或粘贴文本。如未提供，询问。
+2. **获取协议：** 从文件路径、合同编号或粘贴文本。如未提供，询问。
 
 3. **读取文档结构——先读标题**
 

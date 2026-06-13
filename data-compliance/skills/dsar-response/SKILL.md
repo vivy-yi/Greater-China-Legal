@@ -26,7 +26,7 @@ risk_level: medium
 
 ## Matter context
 
-检查 `privacy-legal/CLAUDE.md` → `## Matter workspaces`。如 `Enabled` 为 `✗`，跳过。
+检查 `../CLAUDE.md` → `## Matter workspaces`。如 `Enabled` 为 `✗`，跳过。
 
 ## Purpose
 
@@ -66,7 +66,7 @@ risk_level: medium
 - 请求内容摘要
 - 当前状态：待验证 / 处理中 / 已响应 / 已拒绝
 
-**保存位置：** `privacy-legal/dsars/[YYYY-MM-DD]-[request-id].md`
+**保存位置：** `../dsars/[YYYY-MM-DD]-[request-id].md`
 
 ---
 
@@ -116,7 +116,7 @@ risk_level: medium
 - 响应内容
 - 如拒绝，说明原因和救济途径（PIPL 第50条：可向法院提起诉讼）
 
-**保存至：** `privacy-legal/dsars/[YYYY-MM-DD]-[request-id].md`
+**保存至：** `../dsars/[YYYY-MM-DD]-[request-id].md`
 
 ---
 

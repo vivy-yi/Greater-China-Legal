@@ -76,7 +76,7 @@ risk_level: high
 
 ### Mode 1: 初始化（--init）
 
-从 `corporate-legal/CLAUDE.md` 的 entity table 中读取公司列表，初始化合规追踪文件。
+从 `../CLAUDE.md` 的 entity table 中读取公司列表，初始化合规追踪文件。
 
 ### Mode 2: 报告（--report）
 
@@ -147,7 +147,7 @@ risk_level: high
 ## 追踪文件结构
 
 ```yaml
-# corporate-legal/entities/compliance-tracker.yaml
+# corporate-governance/entities/compliance-tracker.yaml
 entities:
   - name: "[公司全称]"
    统一社会信用代码: "[代码]"

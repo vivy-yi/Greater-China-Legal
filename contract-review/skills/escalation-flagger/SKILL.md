@@ -1,7 +1,7 @@
 ---
 name: escalation-flagger
 description: >
-  根据 commercial-legal/CLAUDE.md 中的升级矩阵，将合同问题路由至正确审批人，
+  根据 ../CLAUDE.md 中的升级矩阵，将合同问题路由至正确审批人，
   并草拟升级请求。适用情形：用户说"谁需要审批这个"、"升级这个"、
   "这个需要法务总监签字吗"，或其他 skill 发现超出审查人权限的问题。
 argument-hint: "[描述问题，或引用审查备忘录]"
@@ -15,11 +15,11 @@ risk_level: low
 
 ## Purpose
 
-根据 `commercial-legal/CLAUDE.md` 中的升级矩阵，为合同问题命名审批人，并草拟升级请求——不用在下午5点写"您有空吗"。
+根据 `../CLAUDE.md` 中的升级矩阵，为合同问题命名审批人，并草拟升级请求
 
 ## Instructions
 
-1. **加载 `commercial-legal/CLAUDE.md`** → `## Escalation` 章节。如缺失，告知——需要编辑 practice profile。
+1. **加载 `../CLAUDE.md`** → `## Escalation` 章节。如缺失，告知——需要编辑 practice profile。
 
 2. **定性问题：** 金额阈值 / 条款偏离 / 自动触发 / 业务决策
 
@@ -72,7 +72,7 @@ risk_level: low
 
 ### playbook 位置
 
-**标准说：** [来自 `commercial-legal/CLAUDE.md`]
+**标准说：** [来自 `../CLAUDE.md`]
 **实际说：** [合同实际条款]
 
 ### 风险评估

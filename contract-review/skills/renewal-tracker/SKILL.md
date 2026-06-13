@@ -15,7 +15,7 @@ risk_level: low
 
 ## 注册簿位置
 
-`~/.claude/plugins/config/claude-for-legal/commercial-legal/renewal-register.yaml`
+`contract-review/renewal-register.yaml`
 
 ## Purpose
 
@@ -36,7 +36,7 @@ risk_level: low
 
 4. **`--missed`：** 已错过取消截止日的合同
 
-5. **注册簿为空且CLM已连接：** 扫描CLM中的活跃协议并批量加载
+5. **注册簿为空：** 扫描本地文件夹中的合同文档并批量加载
 
 6. **输出包含建议操作：** 通知业务负责人（来自每个登记项）、哪些合同价格无上限（在窗口关闭前获取筹码）
 
@@ -127,7 +127,7 @@ risk_level: low
   price_on_renewal: "年度涨幅不超过5%"
   annual_value: 48000
   business_owner: "业务负责人@公司.com"
-  clm_id: "合同编号"
+  contract_id: "合同编号"  # 本地合同编号或文件名
   status: "active"  # active | cancelled | renewed | lapsed
   notes: "价格有上限——续期前评估是否继续采购。备选供应商：X、Y。"
 ```
@@ -180,13 +180,13 @@ risk_level: low
 - [ ] [对手方]——价格无明确上限；在窗口关闭前获取备选供应商报价
 ```
 
-## Mode 3: 扫描CLM填充注册簿
+## Mode 3: 扫描本地文件夹填充注册簿
 
-如CLM已连接且注册簿为空或陈旧：
-1. 查询CLM中所有状态为"活跃"且有续期日期字段的协议
-2. 查询电子签名工具中过去24个月包含"订阅"/"续期"/"自动续期"的已完成信封
+如注册簿为空或陈旧：
+1. 扫描本地合同文件夹（`contract-review/`）中的所有活跃合同文档
+2. 提取文件名和元数据中的合同编号、对手方、续期日期
 3. 对每个匹配项提取续期机制并添加到注册簿
-4. 标记无法从元数据确定续期日期的合同——需要人类阅读合同
+4. 标记无法从文件名确定续期日期的合同——需要人类阅读合同
 
 ## Mode 4: 已错过窗口
 
@@ -212,7 +212,7 @@ risk_level: low
 追踪续期日期是研究。**采取行动**——发送不续期通知、让自动续期触发或签署续期表格——是有法律后果的步骤。
 
 **在继续接受或拒绝续期之前（包括发送不续期通知或让自动续期超过取消截止日）：**
-读取 `commercial-legal/CLAUDE.md` → `## Who's using this`。如 Role 为非律师：
+读取 `../CLAUDE.md` → `## Who's using this`。如 Role 为非律师：
 
 > 此步骤有法律后果（你要么承诺另一个期限，要么终止关系）。您是否已咨询律师？如果是，请继续。如果没有，以下是向他们简要说明的内容：
 >
@@ -226,7 +226,7 @@ risk_level: low
 
 ## 集成：renewal-watcher agent
 
-本插件中的 renewal-watcher agent 按计划运行此技能（默认每周），并将"即将到期"报告发布至 `commercial-legal/CLAUDE.md` → `## House style` → `续约提醒发送至` 所指定的频道。Mode 2 是该 agent 的主要输出。
+本插件中的 renewal-watcher agent 按计划运行此技能（默认每周），并将"即将到期"报告发布至 `../CLAUDE.md` → `## House style` → `续约提醒发送至` 所指定的频道。Mode 2 是该 agent 的主要输出。
 
 ---
 

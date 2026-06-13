@@ -25,7 +25,7 @@ escalation_triggers:
 
 ## Matter context
 
-**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (default for in-house users), skip this paragraph. If enabled and no active matter: ask "Which matter is this for? Run `/commercial-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md`. Write outputs to the matter folder.
+**事项上下文。** 检查 `../CLAUDE.md` 中的 `## Matter workspaces`。如 `Enabled` 为 `✗`（内场用户默认），跳过本段。如已启用且无当前事项，询问："请指定本事项归属（运行 `/shared/agent-ops:matter-workspace switch <slug>`），或回复 `practice-level`。"
 
 ## Destination check
 
@@ -33,18 +33,18 @@ Before producing output, check where it's going. If destination is outside the p
 
 ## Purpose
 
-对照团队 playbook（`commercial-legal/CLAUDE.md`）阅读供应商合同，找出每个偏离项，告知律师每个问题的处理方式——包括具体修改意见，而非模糊的"建议修改"。
+对照团队 playbook（`../CLAUDE.md`）阅读供应商合同，找出每个偏离项，告知律师每个问题的处理方式——包括具体修改意见，而非模糊的"建议修改"。
 
 输出是一份律师可一次性处理的审查备忘录。每个问题都有严重程度、业务影响说明、建议修复方案，以及需要升级时的处理建议。
 
 ## 前置条件：加载 playbook
 
-**阅读合同前，先读取 `commercial-legal/CLAUDE.md`。**
+**阅读合同前，先读取 `../CLAUDE.md`。**
 
 如 playbook 缺失或仍包含占位符，显示以下提示：
 > "您尚未配置 practice profile——这是我在 playbook 位置、升级规则和工作风格上为您定制的依据。
 > **两个选择：**
-> - 运行 `/commercial-legal:cold-start-interview`（2分钟）配置您的 profile，然后我将按您的 playbook 定制审查。
+> - 运行 `/shared/agent-ops:cold-start-interview`（2分钟）配置您的 profile，然后我将按您的 playbook 定制审查。
 > - 说 **'provisional'**，我将按通用默认值审查——中国大陆法域、中等风险偏好、律师角色、无 playbook（从基本原则标记所有常见供应商合同风险），并在每份输出上标注 `[PROVISIONAL — configure your profile for tailored output]`。"
 
 ### Provisional mode
@@ -57,7 +57,7 @@ Before producing output, check where it's going. If destination is outside the p
 - 在每份发现块上标注 `[PROVISIONAL]`
 
 在输出末尾附加：
-> "这是针对默认假设的通用运行。请运行 `/commercial-legal:cold-start-interview` 获取按您的实践定制的输出——您的 playbook、您的法域、您的风险偏好。2分钟。"
+> "这是针对默认假设的通用运行。请运行 `/shared/agent-ops:cold-start-interview` 获取按您的实践定制的输出——您的 playbook、您的法域、您的风险偏好。2分钟。"
 
 ### 判断我方角色
 
@@ -66,10 +66,10 @@ Before producing output, check where it's going. If destination is outside the p
 - **销售端：** 我方向供应商销售产品或服务（如经销商安排）
 - 如不明确（如转售协议、合作关系、收入分成），询问："[公司]在这份合同中是供应商还是客户？"
 
-读取 `commercial-legal/CLAUDE.md` → `## Playbook` → 对应端。
+读取 `../CLAUDE.md` → `## Playbook` → 对应端。
 
 如 playbook 端显示 `[Not configured]`，停止并告知：
-> "请先运行 `/commercial-legal:cold-start-interview --side <side>` 完成配置，本审查才能继续。"
+> "请先运行 `/shared/agent-ops:cold-start-interview --side <side>` 完成配置，本审查才能继续。"
 
 ## 工作流程
 
@@ -98,7 +98,7 @@ Before producing output, check where it's going. If destination is outside the p
 
 ### 第二步：红线检查
 
-先检查 `commercial-legal/CLAUDE.md` 中的"one thing"（绝对不接受条款）。如存在：
+先检查 `../CLAUDE.md` 中的"one thing"（绝对不接受条款）。如存在：
 
 ```markdown
 ## ⛔ 绝对不接受条款存在
@@ -114,14 +114,14 @@ Before producing output, check where it's going. If destination is outside the p
 
 ### 第三步：逐条对比
 
-对 `commercial-legal/CLAUDE.md` 中的每个 playbook 类别，找到对应合同条款并对比。
+对 `../CLAUDE.md` 中的每个 playbook 类别，找到对应合同条款并对比。
 
 **对每个偏离项，输出：**
 
 ```markdown
 ### [第X.X条]: [问题名称]
 
-**Playbook说：** [我们的标准位置，引用自 `commercial-legal/CLAUDE.md`]
+**Playbook说：** [我们的标准位置，引用自 `../CLAUDE.md`]
 
 **合同说：**
 > "[原文引用]"
@@ -136,7 +136,7 @@ Before producing output, check where it's going. If destination is outside the p
 **建议修改：**
 > "[具体替换语言——可直接粘贴到 markup 中]"
 
-**如对方不接受：** [来自 `commercial-legal/CLAUDE.md` 的备选，或"升级至[人员]"（如无备选）]
+**如对方不接受：** [来自 `../CLAUDE.md` 的备选，或"升级至[人员]"（如无备选）]
 ```
 
 **严重程度校准：**
@@ -148,7 +148,7 @@ Before producing output, check where it's going. If destination is outside the p
 | 🟡 中 | 第一轮推动；如这是最后开放项则接受。位于备选范围内但未达标准位置。 |
 | 🟢 低 | 记录，不花费资源。Playbook 明确容忍的条款，或纯风格偏差。 |
 
-严重程度始终**对照 `commercial-legal/CLAUDE.md` 应用**。如条款不能干净地映射到 playbook 位置，询问用户该条款属于哪个等级，并提议将答案记录在 `commercial-legal/CLAUDE.md` 中。
+严重程度始终**对照 `../CLAUDE.md` 应用**。如条款不能干净地映射到 playbook 位置，询问用户该条款属于哪个等级，并提议将答案记录在 `../CLAUDE.md` 中。
 
 ---
 
@@ -237,7 +237,7 @@ Playbook 应有直接/间接/豁免项/基数四个维度的位置。如 playboo
 
 ### 第五步：升级路由
 
-对照 `commercial-legal/CLAUDE.md` 中的升级矩阵检查：
+对照 `../CLAUDE.md` 中的升级矩阵检查：
 - 合同金额
 - 任何 🔴 关键问题
 - 任何自动升级触发项（无限责任、IP转让等）
@@ -259,7 +259,7 @@ Playbook 应有直接/间接/豁免项/基数四个维度的位置。如 playboo
 
 ## Closing action
 
-读取 `commercial-legal/CLAUDE.md` → `closing_action`。
+读取 `../CLAUDE.md` → `closing_action`。
 
 如已配置，将 closing action 原样附加在每份输出的末尾。
 
@@ -271,9 +271,9 @@ Playbook 应有直接/间接/豁免项/基数四个维度的位置。如 playboo
 ## 本技能不做什么
 
 - 不谈判。只审查和标记。
-- 不起草合同。如答案是"用我方模板"，用户从[CLM或文档系统]获取我们的模板。
+- 不起草合同。如答案是"用我方模板"，用户从[合同管理系统或文档库]获取我们的模板。
 - 不对标记的问题做决定。只将问题呈现给人类决策。
-- 不对任何合同条款表明立场。立场位于 `commercial-legal/CLAUDE.md`。
+- 不对任何合同条款表明立场。立场位于 `../CLAUDE.md`。
 
 ---
 

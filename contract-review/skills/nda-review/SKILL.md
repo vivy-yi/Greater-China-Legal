@@ -23,7 +23,7 @@ escalation_triggers:
 
 ## Matter context
 
-**Matter context.** Check `## Matter workspaces` in the practice-level CLAUDE.md. If `Enabled` is `✗` (default for in-house users), skip this paragraph. If enabled and no active matter: ask "Which matter is this for? Run `/commercial-legal:matter-workspace switch <slug>` or say `practice-level`." Load the active matter's `matter.md`. Write outputs to the matter folder.
+**事项上下文。** 检查 `../CLAUDE.md` 中的 `## Matter workspaces`（事项工作区）。如 `Enabled` 为 `✗`（内场用户默认），跳过本段。如已启用且无当前事项，询问："请指定本事项归属（运行 `/shared/agent-ops:matter-workspace switch <slug>`），或回复 `practice-level` 使用通用场景。"
 
 ## Destination check
 
@@ -42,10 +42,10 @@ Before producing output, check where it's going. If destination is outside the p
 - 采购端：我方购买产品/服务，通常用对方模板
 - 双方NDA（Mutual NDA）：仍需判断谁主导交易方向
 
-**读取配置：** `commercial-legal/CLAUDE.md` → `## Playbook` → 对应端 → `NDA triage positions`
+**读取配置：** `../CLAUDE.md` → `## Playbook` → 对应端 → `NDA triage positions`
 
-如 `commercial-legal/CLAUDE.md` 中没有 `NDA triage positions` 章节，停止并告知用户：
-> "请先运行 `/commercial-legal:cold-start-interview` 完成配置，本技能需要您的 playbook 位置才能进行分类。"
+如 `../CLAUDE.md` 中没有 `NDA triage positions` 章节，停止并告知用户：
+> "请先运行 `/shared/agent-ops:cold-start-interview` 完成配置，本技能需要您的 playbook 位置才能进行分类。"
 
 ## Scope check — 检查是否仅是NDA
 
@@ -181,7 +181,7 @@ Before producing output, check where it's going. If destination is outside the p
    **法律风险：** [🔴高 / 🟠中] | **业务影响：** [🔴阻止交易]
    建议处理：[使用我方模板 / 提出修改意见 / 终止谈判]
 
-**下一步：** 将本分类结果发送至[法务总监]。不要创建CLM记录，不要告知对方我们同意签署。
+**下一步：** 将本分类结果发送至[法务总监]。不要创建合同管理记录，不要告知对方我们同意签署。
 
 ---
 
@@ -364,7 +364,7 @@ Before producing output, check where it's going. If destination is outside the p
 
 ## Closing action
 
-读取 `commercial-legal/CLAUDE.md` → `## NDA triage preferences` → `closing_action`。
+读取 `../CLAUDE.md` → `## NDA triage preferences` → `closing_action`。
 
 如已配置，将closing action原样附加在每份输出的末尾。
 
@@ -373,11 +373,11 @@ Before producing output, check where it's going. If destination is outside the p
 
 ---
 
-## CLM 集成
+## 文档案集成
 
-如已连接CLM系统：
-- GREEN → 建议在标准NDA工作流中创建CLM记录
-- YELLOW → 建议创建CLM记录并附注标记的问题
+如已配置文档管理系统：
+- GREEN → 建议在标准NDA工作流中创建记录
+- YELLOW → 建议创建记录并附注标记的问题
 - RED → 不创建记录；由律师决定后续处理
 
 ---
@@ -385,9 +385,9 @@ Before producing output, check where it's going. If destination is outside the p
 ## 本技能不做什么
 
 - 不谈判。只做分类。
-- 不起草NDA。如答案是"用我方模板"，用户从[CLM或文档系统]获取我们的模板。
+- 不起草NDA。如答案是"用我方模板"，用户从[合同管理系统或文档库]获取我们的模板。
 - 不对YELLOW items做决定。只将问题呈现给人类决策。
-- 不对任何NDA条款表明立场。立场位于 `commercial-legal/CLAUDE.md`。
+- 不对任何NDA条款表明立场。立场位于 `../CLAUDE.md`。
 
 ---
 

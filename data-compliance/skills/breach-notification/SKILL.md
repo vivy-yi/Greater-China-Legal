@@ -180,7 +180,7 @@ escalation_triggers:
 - 监管机构回复
 - 补救措施执行情况
 
-**保存位置：** `privacy-legal/incidents/[YYYY-MM-DD]-[incident-id].md`
+**保存位置：** `../incidents/[YYYY-MM-DD]-[incident-id].md`
 
 **保存时限：** 不少于3年（PIPL 第56条）
 
