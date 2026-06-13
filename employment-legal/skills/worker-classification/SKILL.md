@@ -1,6 +1,18 @@
 ---
 name: worker-classification
 description: >
+  [DEPRECATED — 请使用 b-scenes/labor-arbitration/skills/dispute-classifier]
+  B-phase版本提供完整的劳动关系确认判断树。
+superseded_by: b-scenes/labor-arbitration/skills/dispute-classifier
+deprecated: true
+deprecated_reason: >
+  B-phase版本(dispute-classifier)为CN劳动关系确认的完整判断树，
+  本版本为US翻译遗留，判断逻辑基于US的IC/ABC test。
+---
+
+---
+name: worker-classification
+description: >
   中国大陆用工类型认定 — 劳动关系/劳务派遣/非全日制/实习生/劳务关系的区分，
   法定标准、认定要件、合规风险核查。适用情形：用户说"这个人是劳动关系还是劳务关系"、
   "可以用实习生吗"、"这个人算不算公司员工"、"外包/派遣有什么风险"。

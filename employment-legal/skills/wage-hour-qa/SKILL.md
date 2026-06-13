@@ -1,6 +1,20 @@
 ---
 name: wage-hour-qa
 description: >
+  [DEPRECATED — 请使用 b-scenes/labor-arbitration/skills/compensation-calculator]
+  B-phase版本提供实时地区差异查询和自适应计算逻辑。
+superseded_by: b-scenes/labor-arbitration/skills/compensation-calculator
+see_also:
+  - b-scenes/labor-arbitration/skills/region-adjudicator
+deprecated: true
+deprecated_reason: >
+  B-phase版本(compensation-calculator+region-adjudicator)为自适应架构，
+  工资基数等地区差异数据从工具实时查询，本版本为US翻译遗留。
+---
+
+---
+name: wage-hour-qa
+description: >
   中国劳动法工时/工资/休假问答 — 工时制度认定、加班费计算、休假权利、
   工资支付合规、社保缴纳最低标准。适用情形：用户询问"这个岗位怎么定工时制"、
   "加班费怎么算"、"年休假怎么折算"、"能不能用综合工时"、

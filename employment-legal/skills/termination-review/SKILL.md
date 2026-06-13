@@ -1,6 +1,24 @@
 ---
 name: termination-review
 description: >
+  [DEPRECATED — 请使用 b-scenes/labor-arbitration/skills/dispute-classifier
+   或 b-scenes/labor-arbitration/skills/termination-legality]
+  B-phase版本为自适应架构，基于CN实际工作流（仲裁前置/地区差异实时查询）。
+  本skill仍可使用，但建议迁移到B-phase对应skills。
+superseded_by: b-scenes/labor-arbitration/skills/dispute-classifier
+superseded_by_alt: b-scenes/labor-arbitration/skills/termination-legality
+see_also:
+  - b-scenes/labor-arbitration/skills/compensation-calculator
+  - b-scenes/labor-arbitration/skills/region-adjudicator
+deprecated: true
+deprecated_reason: >
+  B-phase版本(dispute-classifier+termination-legality)为自适应架构，
+  提供完整的CN劳动仲裁判断树和实时地区差异查询，本版本为US翻译遗留。
+---
+
+---
+name: termination-review
+description: >
   中国大陆劳动合同解除审查 — 高风险情形识别、经济补偿金计算、离职程序合规性核查。
   适用情形：用户提出"审查一个解除"、"能不能解除这个人"、"解除审查"、
   或描述任何劳动合同解除情形。
