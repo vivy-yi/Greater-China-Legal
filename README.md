@@ -38,10 +38,10 @@ keywords:
 | **法域覆盖** | CN · HK · MO · TW · SG（5个） |
 | **法律场景** | 30 个（15 核心场景 + 15 精细化场景） |
 | **原子 Skills** | 478 个 |
-| **精细化子场景** | 72 个 |
+| **精细化子场景** | 0 个（已扁平化） |
 | **适配来源** | Anthropic `claude-for-legal`（⭐ 8,195） |
 
-**2026-06 完成精细化**：web3-virtual-assets、government-investigation、special-opportunity-investment、real-estate-construction、financing-business、litigation-support、contract-review、corporate-governance、ip-infringement、employment-legal、internet-finance 共 11 个场景完成深度精细化（子场景 × 3~4，每个子场景 3 个原子 Skills + 3 篇法条参考）。
+**2026-06 完成精细化**：web3-virtual-assets、government-investigation、special-opportunity-investment、real-estate-construction、financing-business、litigation-support、contract-review、corporate-governance、ip-infringement、employment-legal、internet-finance 共 11 个场景完成深度精细化（每个场景 22~35 个原子 Skills，全部平铺于 `skills/` 目录，无需嵌套）。
 
 ---
 
