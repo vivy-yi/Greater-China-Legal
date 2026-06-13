@@ -1,3 +1,16 @@
 {
-  "hooks": {}
+  "hooks": {
+    "on_feature_launch": {
+      "skill": "product-legal/launch-review",
+      "description": "产品新功能上线前触发——生成法律风险评估"
+    },
+    "on_marketing_claim": {
+      "skill": "product-legal/marketing-claims-review",
+      "description": "营销宣传内容提交时触发——合规性审查"
+    },
+    "on_matter_workspace_created": {
+      "skill": "product-legal/matter-workspace",
+      "description": "产品法务工作区创建时触发——初始化项目文件结构"
+    }
+  }
 }

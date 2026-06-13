@@ -1,3 +1,24 @@
 {
-  "hooks": {}
+  "hooks": {
+    "on_investigation_opened": {
+      "skill": "employment-legal/investigation-open",
+      "description": "内部调查立案时触发——创建privileged调查工作区和日志"
+    },
+    "on_investigation_evidence_added": {
+      "skill": "employment-legal/investigation-add",
+      "description": "调查新增证据时触发——更新证据链和时间戳"
+    },
+    "on_employee_hired": {
+      "skill": "employment-legal/hiring-review",
+      "description": "新员工入职触发——合规审查offer条款和用工风险"
+    },
+    "on_policy_updated": {
+      "skill": "employment-legal/policy-drafting",
+      "description": "员工手册/政策更新时触发——生成修订合规审查报告"
+    },
+    "on_leave_recorded": {
+      "skill": "employment-legal/log-leave",
+      "description": "请休假记录时触发——自动更新合规追踪表"
+    }
+  }
 }

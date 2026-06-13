@@ -1,3 +1,12 @@
 {
-  "hooks": {}
+  "hooks": {
+    "on_study_session_complete": {
+      "skill": "law-student/session",
+      "description": "学习会话完成时触发——记录学习进度和薄弱环节"
+    },
+    "on_exam_prep_started": {
+      "skill": "law-student/exam-forecast",
+      "description": "考试准备启动时触发——生成个性化复习计划"
+    }
+  }
 }

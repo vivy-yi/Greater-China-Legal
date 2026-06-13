@@ -1,3 +1,20 @@
 {
-  "hooks": {}
+  "hooks": {
+    "on_client_intake": {
+      "skill": "legal-clinic/client-intake",
+      "description": "新客户接待时触发——创建客户档案和事项记录"
+    },
+    "on_memo_drafted": {
+      "skill": "legal-clinic/memo",
+      "description": "法律备忘录起草完成时触发——提交 supervisor review"
+    },
+    "on_deadline_approaching": {
+      "skill": "legal-clinic/deadlines",
+      "description": "诉讼时效/法定期限届满前30天触发——提醒律师"
+    },
+    "on_client_communication": {
+      "skill": "legal-clinic/client-comms-log",
+      "description": "与客户通信后触发——自动记录通信日志"
+    }
+  }
 }

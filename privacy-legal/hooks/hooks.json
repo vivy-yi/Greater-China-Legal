@@ -1,3 +1,24 @@
 {
-  "hooks": {}
+  "hooks": {
+    "on_data_breach_detected": {
+      "skill": "data-compliance/breach-notification",
+      "description": "数据泄露事件检测时触发——启动泄露评估和监管报告流程"
+    },
+    "on_dsar_received": {
+      "skill": "data-compliance/dsar-response",
+      "description": "收到个人信息主体权利请求时触发——启动响应流程"
+    },
+    "on_pipl_assessment_complete": {
+      "skill": "data-compliance/pipl-assessment",
+      "description": "PIPL合规评估完成后触发——更新数据处理活动记录"
+    },
+    "on_data_localization_check": {
+      "skill": "data-compliance/data-localization",
+      "description": "数据出境场景检测时触发——生成数据本地化合规报告"
+    },
+    "on_privacy_policy_updated": {
+      "skill": "data-compliance/privacy-policy-update",
+      "description": "隐私政策更新时触发——生成变更影响评估"
+    }
+  }
 }

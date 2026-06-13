@@ -1,3 +1,16 @@
 {
-  "hooks": {}
+  "hooks": {
+    "on_skill_installed": {
+      "skill": "legal-builder-hub/skill-installer",
+      "description": "新skill安装成功后触发——验证安装并更新本地registry"
+    },
+    "on_skill_updated": {
+      "skill": "legal-builder-hub/auto-updater",
+      "description": "skill更新可用时触发——执行版本检查和更新提示"
+    },
+    "on_registry_sync": {
+      "skill": "legal-builder-hub/registry-sync",
+      "description": "定期同步社区skill registry——检查新版本和安全更新"
+    }
+  }
 }
