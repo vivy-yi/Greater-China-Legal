@@ -1,50 +1,78 @@
 ---
 name: matter-briefing
-description: '案件深度简报——当前姿态、变化、下一截止日期、开放问题。 适用情形：用户说"brief me on [matter]"或"案件进展如何"。
-
-  '
-argument-hint: '[slug]'
+description: |
+  matter-briefing相关法律辅助。
+  适用情形：用户提及matter-briefing相关事项。
+argument-hint: "[关键信息]"
 legal_frame: cn-mainland
+trigger_phrases:
+  - 'matter-briefing'
+  - 'litigation_support'
+legal_sources:
+  - name: '中华人民共和国民事诉讼法'
+    effective_date: '2023-01-01'
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
-trigger_phrases:
-- 案件简报
-- 法律分析
-legal_sources:
-- name: 中华人民共和国民法典
-  effective_date: '2021-01-01'
 ---
 
-# /matter-briefing — China Mainland
+# /matter-briefing
 
-## CN案件简报格式
-
-### 当前姿态
-
-- **案件阶段：** [接收/仲裁中/诉讼中/上诉中/已结]
-- **我方角色：** [原告/被告/申请人/被申请人]
-- **核心诉求：** [简要描述]
-
-### 最新进展
-
-[自上次更新以来的变化]
-
-### 下一截止日期
-
-| 截止日期 | 事项 | 距今天数 |
-|---|---|---|
-| [日期] | [事项] | N天 |
-
-### 开放问题
-
-- [问题1]
-- [问题2]
-
-### 风险重评估
-
-⚠️ **风险是否仍反映现实？**
+1. 读取用户提供的信息。
+2. 提取关键事实和法律要素。
+3. 按工作流程分析。
+4. 输出结构化建议。
+5. 升级决策门。
 
 ---
 
-*Greater China Legal — litigation-legal matter-briefing CN adapter v1.0.0*
+# matter-briefing
+
+## 目的
+
+[说明本技能的目的和功能]
+
+## 法域假设
+
+默认中国大陆法域 `[SME 核查]`。
+
+## 加载信息
+
+- [用户提供的相关信息]
+
+## 工作流程
+
+### 第一步：提取关键信息
+
+- **信息项1**：[___]
+- **信息项2**：[___]
+
+### 第二步：分析
+
+[分析逻辑和指引]
+
+### 第三步：升级决策门
+
+> "这是辅助分析，不构成法律意见。建议在采取法律行动前由专业律师审核。"
+
+## 输出格式
+
+```
+# [标题]
+
+## 关键信息
+| 要素 | 内容 |
+|------|------|
+| [___] | [___] |
+
+## 分析
+[结构化分析内容]
+
+## 建议后续行动
+- [ ] [___]
+```
+
+## 本技能不涵盖
+
+- **代理诉讼或仲裁**
+- **确认法律效力** — 所有结论标注 `[SME 核查]`

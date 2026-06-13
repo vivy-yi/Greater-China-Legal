@@ -1,42 +1,78 @@
 ---
 name: matter-update
-description: '向案件历史文件追加带日期的事件——记录新进展、状态变化、风险重评估。 适用情形：用户要"记录案件更新"、"记下新进展"。
-
-  '
-argument-hint: '[slug] [简要事件描述]'
+description: |
+  matter-update相关法律辅助。
+  适用情形：用户提及matter-update相关事项。
+argument-hint: "[关键信息]"
 legal_frame: cn-mainland
+trigger_phrases:
+  - 'matter-update'
+  - 'litigation_support'
+legal_sources:
+  - name: '中华人民共和国民事诉讼法'
+    effective_date: '2023-01-01'
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
-trigger_phrases:
-- 案件进展
-- 诉讼更新
-legal_sources:
-- name: 中华人民共和国民法典
-  effective_date: '2021-01-01'
 ---
 
-# /matter-update — China Mainland
+# /matter-update
 
-## 更新内容
-
-**事件类型：**
-- 新进展
-- 状态变化
-- 风险重评估
-- 截止日期变化
-- 和解权限变化
-
-**默认日期：** 今天
+1. 读取用户提供的信息。
+2. 提取关键事实和法律要素。
+3. 按工作流程分析。
+4. 输出结构化建议。
+5. 升级决策门。
 
 ---
 
-## 输出
+# matter-update
 
-- 追加带日期条目到 `history.md`
-- 更新 `_log.yaml` 中的 `last_updated` 为今天
-- 应用任何字段更新
+## 目的
 
----
+[说明本技能的目的和功能]
 
-*Greater China Legal — litigation-legal matter-update CN adapter v1.0.0*
+## 法域假设
+
+默认中国大陆法域 `[SME 核查]`。
+
+## 加载信息
+
+- [用户提供的相关信息]
+
+## 工作流程
+
+### 第一步：提取关键信息
+
+- **信息项1**：[___]
+- **信息项2**：[___]
+
+### 第二步：分析
+
+[分析逻辑和指引]
+
+### 第三步：升级决策门
+
+> "这是辅助分析，不构成法律意见。建议在采取法律行动前由专业律师审核。"
+
+## 输出格式
+
+```
+# [标题]
+
+## 关键信息
+| 要素 | 内容 |
+|------|------|
+| [___] | [___] |
+
+## 分析
+[结构化分析内容]
+
+## 建议后续行动
+- [ ] [___]
+```
+
+## 本技能不涵盖
+
+- **代理诉讼或仲裁**
+- **确认法律效力** — 所有结论标注 `[SME 核查]`

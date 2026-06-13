@@ -1,30 +1,78 @@
 ---
 name: foreclosure-auction-advisor
 description: |
-  司法拍卖与以物抵债。
-  为申请执行人提供司法拍卖全流程指引：评估报告异议、降价拍卖条件、以物抵债申请、优先购买权行使，辅助最大化债权回收。
-argument-hint: "业务要素 关键参数"
+  foreclosure-auction-advisor相关法律辅助。
+  适用情形：用户提及foreclosure-auction-advisor相关事项。
+argument-hint: "[关键信息]"
 legal_frame: cn-mainland
-trigger_phrases: ['司法拍卖与以物抵债', 'enforcement-execution', 'litigation-support']
+trigger_phrases:
+  - 'foreclosure-auction-advisor'
+  - 'litigation_support'
 legal_sources:
-  - name: '中华人民共和国民法典'
-    effective_date: '2021-01-01'
+  - name: '中华人民共和国民事诉讼法'
+    effective_date: '2023-01-01'
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
 ---
 
-# 司法拍卖与以物抵债
+# /foreclosure-auction-advisor
 
-## 一、适用情形
+1. 读取用户提供的信息。
+2. 提取关键事实和法律要素。
+3. 按工作流程分析。
+4. 输出结构化建议。
+5. 升级决策门。
 
-## 二、核心分析
+---
 
-## 三、输出
+# foreclosure-auction-advisor
 
-## 升级决策门
+## 目的
 
-以下情况须移交专业律师：
-- 涉及法院裁定或司法程序
-- 涉及监管部门审批
-- 存在重大法律风险
+[说明本技能的目的和功能]
+
+## 法域假设
+
+默认中国大陆法域 `[SME 核查]`。
+
+## 加载信息
+
+- [用户提供的相关信息]
+
+## 工作流程
+
+### 第一步：提取关键信息
+
+- **信息项1**：[___]
+- **信息项2**：[___]
+
+### 第二步：分析
+
+[分析逻辑和指引]
+
+### 第三步：升级决策门
+
+> "这是辅助分析，不构成法律意见。建议在采取法律行动前由专业律师审核。"
+
+## 输出格式
+
+```
+# [标题]
+
+## 关键信息
+| 要素 | 内容 |
+|------|------|
+| [___] | [___] |
+
+## 分析
+[结构化分析内容]
+
+## 建议后续行动
+- [ ] [___]
+```
+
+## 本技能不涵盖
+
+- **代理诉讼或仲裁**
+- **确认法律效力** — 所有结论标注 `[SME 核查]`

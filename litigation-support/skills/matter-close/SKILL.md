@@ -1,69 +1,78 @@
 ---
 name: matter-close
-description: '关闭案件——记录结果、最终风险敞口和教训，存档而不删除记录。 适用情形：用户说"[案件]结束了"或"记录和解/判决结果"。
-
-  '
-argument-hint: '[slug]'
+description: |
+  matter-close相关法律辅助。
+  适用情形：用户提及matter-close相关事项。
+argument-hint: "[关键信息]"
 legal_frame: cn-mainland
+trigger_phrases:
+  - 'matter-close'
+  - 'litigation_support'
+legal_sources:
+  - name: '中华人民共和国民事诉讼法'
+    effective_date: '2023-01-01'
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
-trigger_phrases:
-- 结案
-- 案件终结
-legal_sources:
-- name: 中华人民共和国民法典
-  effective_date: '2021-01-01'
 ---
 
-# /matter-close — China Mainland
+# /matter-close
 
-## CN案件关闭工作流
-
-### 记录结果
-
-**结果类型：**
-- 和解（settled）
-- 撤诉（dismissed）
-- 判决我方胜诉（judgment-for）
-- 判决对方胜诉（judgment-against）
-- 撤回（withdrawn）
-- 合并（consolidated）
-
-### 最终敞口/成本
-
-- 律师费
-- 赔偿金额（如有）
-- 机会成本
-
-### 经验教训
-
-- [学到什么]
-- [下次如何改进]
+1. 读取用户提供的信息。
+2. 提取关键事实和法律要素。
+3. 按工作流程分析。
+4. 输出结构化建议。
+5. 升级决策门。
 
 ---
 
-## CN案件关闭特殊说明
+# matter-close
 
-**劳动争议：**
-- 仲裁裁决后15日内可向法院起诉
-- 一裁终局案件（小额）不可起诉
+## 目的
 
-**合同纠纷：**
-- 调解书可申请强制执行
-- 和解协议须明确履行期限
+[说明本技能的目的和功能]
 
----
+## 法域假设
 
-## 输出
+默认中国大陆法域 `[SME 核查]`。
 
-更新 `_log.yaml`：
-- `status: closed`
-- `closed: YYYY-MM-DD`
-- `outcome:` 字段
+## 加载信息
 
-追加到最后一条 `history.md`。
+- [用户提供的相关信息]
 
----
+## 工作流程
 
-*Greater China Legal — litigation-legal matter-close CN adapter v1.0.0*
+### 第一步：提取关键信息
+
+- **信息项1**：[___]
+- **信息项2**：[___]
+
+### 第二步：分析
+
+[分析逻辑和指引]
+
+### 第三步：升级决策门
+
+> "这是辅助分析，不构成法律意见。建议在采取法律行动前由专业律师审核。"
+
+## 输出格式
+
+```
+# [标题]
+
+## 关键信息
+| 要素 | 内容 |
+|------|------|
+| [___] | [___] |
+
+## 分析
+[结构化分析内容]
+
+## 建议后续行动
+- [ ] [___]
+```
+
+## 本技能不涵盖
+
+- **代理诉讼或仲裁**
+- **确认法律效力** — 所有结论标注 `[SME 核查]`
