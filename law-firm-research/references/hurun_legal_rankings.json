@@ -1,0 +1,1579 @@
+{
+  "platform": "hurun_legal_rankings",
+  "name": "2026胡润智榜·大中华区卓越推荐律所TOP100",
+  "source": "https://hurun.net/zh-cn/info/detail?num=EYKWKBLUFTIX",
+  "total": 100,
+  "explored": 0,
+  "category": "legal",
+  "firms": [
+    {
+      "rank": 1,
+      "name": "北京市金杜律师事务所",
+      "website": "https://www.kingandwood.com",
+      "practice_url": "/expertise",
+      "team_url": "/team",
+      "career_url": "/careers",
+      "news_url": "/insights",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 2,
+      "name": "国浩律师事务所",
+      "website": "https://www.grandall.com.cn",
+      "practice_url": "/ghsd/list.aspx",
+      "team_url": "/lsss/index.aspx",
+      "career_url": null,
+      "news_url": "/ghdt/list.aspx",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 3,
+      "name": "北京市中伦律师事务所",
+      "website": "https://www.zhonglun.com",
+      "practice_url": "/business/zgndzbsc.html",
+      "team_url": "/team",
+      "career_url": "/career",
+      "news_url": "/news/trade",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 4,
+      "name": "北京德恒律师事务所",
+      "website": "https://www.dehenglaw.com",
+      "practice_url": "/professional-field",
+      "team_url": "/lawyer",
+      "career_url": "/join",
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 5,
+      "name": "上海市锦天城律师事务所",
+      "website": "https://www.allbrightlaw.com",
+      "practice_url": "/CN/03.aspx",
+      "team_url": "/CN/0502.aspx",
+      "career_url": "/CN/09.aspx",
+      "news_url": "/CN/02.aspx",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 6,
+      "name": "北京市嘉源律师事务所",
+      "website": "https://www.jiayuan-law.com",
+      "practice_url": "/cn/Practices.aspx?Lan=CN&MenuID=00000000000000000003",
+      "team_url": "/cn/Team.aspx?Lan=CN&MenuID=00000000000000000004",
+      "career_url": "/cn/Join.aspx?Lan=CN&MenuID=00000000000000000009",
+      "news_url": "/cn/News.aspx?Lan=CN&MenuID=00000000000000000006",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 7,
+      "name": "北京大成律师事务所",
+      "website": "https://www.dacheng.com",
+      "practice_url": "/Industrysector.html",
+      "team_url": "/popup.html",
+      "career_url": "/CareerDevelopment.html",
+      "news_url": "/firmnews_yj.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 8,
+      "name": "北京市天元律师事务所",
+      "website": "https://www.tylaw.com.cn",
+      "practice_url": "/professionals/",
+      "team_url": "/professionals/",
+      "career_url": null,
+      "news_url": null,
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 9,
+      "name": "北京市君合律师事务所",
+      "website": "https://junhe.com",
+      "practice_url": "/practices",
+      "team_url": "/professionals/search",
+      "career_url": "/careers",
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 10,
+      "name": "北京市通商律师事务所",
+      "website": "https://www.tongshang.com",
+      "practice_url": null,
+      "team_url": "/offices/",
+      "career_url": null,
+      "news_url": "/news/news/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 11,
+      "name": "北京市盈科律师事务所",
+      "website": "https://testwww.yingkelawyer.com",
+      "practice_url": "/zyly/list.html",
+      "team_url": "/lst/list.html",
+      "career_url": "/joinus.html",
+      "news_url": "/news.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 12,
+      "name": "上海市方达律师事务所",
+      "website": "https://www.fangdalaw.com",
+      "practice_url": "/bussiness/",
+      "team_url": "/team/",
+      "career_url": "/talent/",
+      "news_url": "/news/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 13,
+      "name": "北京市康达律师事务所",
+      "website": "https://www.kangdalawyers.com",
+      "practice_url": "/about",
+      "team_url": "/team",
+      "career_url": null,
+      "news_url": "/xinwenzixun",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 14,
+      "name": "北京市竞天公诚律师事务所",
+      "website": "https://www.jingtian.com",
+      "practice_url": "/zyly/",
+      "team_url": "/zyry/search.html",
+      "career_url": "/jobs/",
+      "news_url": "/news/bsxw/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 15,
+      "name": "北京国枫律师事务所",
+      "website": "https://www.grandwaylaw.com",
+      "practice_url": "/zhuanyelingyu",
+      "team_url": "/zhuanyetuandui",
+      "career_url": "/lvshizhoapin",
+      "news_url": "/xinwenzixun",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 16,
+      "name": "北京观韬中茂律师事务所",
+      "website": "https://www.guantao.com",
+      "status": "explored",
+      "practice_url": "/CN/03.aspx",
+      "team_url": "/CN/05.aspx",
+      "career_url": "/CN/09.aspx",
+      "news_url": "/CN/07.aspx",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 17,
+      "name": "北京金诚同达律师事务所",
+      "website": "https://www.jtn.com",
+      "practice_url": "/CN/BusinessField.aspx",
+      "team_url": "/CN/lawyer.aspx",
+      "career_url": null,
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 18,
+      "name": "北京中银律师事务所",
+      "website": "https://www.zhongyinlawyer.com",
+      "practice_url": null,
+      "team_url": "/Home/Lawyer",
+      "career_url": null,
+      "news_url": "/Home/News",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 19,
+      "name": "浙江天册律师事务所",
+      "website": "https://www.tclawfirm.com/",
+      "practice_url": "/about-11.html",
+      "team_url": "/list-5.html",
+      "career_url": "/about-13.html",
+      "news_url": "/list-4.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 20,
+      "name": "泰和泰律师事务所",
+      "website": "https://www.tahota.com",
+      "practice_url": "/CN/03.aspx",
+      "team_url": "/CN/05.aspx",
+      "career_url": "/CN/09.aspx",
+      "news_url": "/CN/07.aspx",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 21,
+      "name": "北京天驰君泰律师事务所",
+      "website": "https://tiantailaw.com",
+      "practice_url": "/zyly",
+      "team_url": "/zyry",
+      "career_url": null,
+      "news_url": "/xwsd",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 22,
+      "name": "上海市通力律师事务所",
+      "website": "https://www.llinkslaw.com",
+      "practice_url": "/index.php?a=lists&catid=10",
+      "team_url": "/index.php?a=lists&catid=9",
+      "career_url": "/index.php?a=lists&catid=11",
+      "news_url": "/index.php?a=lists&catid=12",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 23,
+      "name": "北京浩天律师事务所",
+      "website": "https://www.hylandslaw.com",
+      "practice_url": null,
+      "team_url": "/team/",
+      "career_url": null,
+      "news_url": "/news/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 24,
+      "name": "北京市海问律师事务所",
+      "website": "http://www.haiwen-law.com",
+      "practice_url": "/27/",
+      "team_url": "/26/",
+      "career_url": "/36/",
+      "news_url": "/34/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 25,
+      "name": "北京市炜衡律师事务所",
+      "website": "https://www.weihenglaw.com",
+      "practice_url": null,
+      "team_url": "/teams/",
+      "career_url": "/contact/join-us",
+      "news_url": "/news-center/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 26,
+      "name": "北京市中伦文德律师事务所",
+      "website": "https://www.zhonglun.com",
+      "practice_url": "/business/zgndzbsc.html",
+      "team_url": "/team",
+      "career_url": "/career",
+      "news_url": "/news/trade",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 27,
+      "name": "北京市君泽君律师事务所",
+      "website": "https://www.junzejun.com",
+      "practice_url": null,
+      "team_url": null,
+      "career_url": "/Careers/",
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": false,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 28,
+      "name": "广东华商律师事务所",
+      "website": "https://www.huashanglawyer.com/",
+      "practice_url": "/profession",
+      "team_url": "/lvshi",
+      "career_url": "/campus",
+      "news_url": "/xinwen",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 29,
+      "name": "上海市建纬律师事务所",
+      "website": "https://www.jianwei.com",
+      "practice_url": "/business",
+      "team_url": null,
+      "career_url": null,
+      "news_url": "/literaryWorks",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": false,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 30,
+      "name": "广东信达律师事务所",
+      "website": "https://www.sundiallawfirm.com",
+      "practice_url": "/foreignaffairs",
+      "team_url": "/professionals/1009.html",
+      "career_url": null,
+      "news_url": null,
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 31,
+      "name": "北京市汉坤律师事务所",
+      "website": "https://www.hankunlaw.com/",
+      "practice_url": "/portal/list/index/id/1.html",
+      "team_url": "/portal/list/index/id/2.html",
+      "career_url": "/portal/list/index/id/5.html",
+      "news_url": "/portal/list/index/id/3.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 32,
+      "name": "北京德和衡律师事务所",
+      "website": "https://www.deheheng.com",
+      "practice_url": "/about",
+      "team_url": "/about",
+      "career_url": "/job/",
+      "news_url": "/dongtai/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 33,
+      "name": "北京隆安律师事务所",
+      "website": "http://www.longanlaw.com/",
+      "status": "explored",
+      "practice_url": "/practices",
+      "team_url": null,
+      "career_url": "/careers",
+      "news_url": "/news",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": false,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 34,
+      "name": "北京海润天睿律师事务所",
+      "website": "https://www.hairunlawyer.com/",
+      "practice_url": "/field/",
+      "team_url": "/personnel/",
+      "career_url": "/join/",
+      "news_url": "/news/xinwe/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 35,
+      "name": "上海市汇业律师事务所",
+      "website": "https://www.huiyelaw.com",
+      "practice_url": null,
+      "team_url": "/zyry-208.html",
+      "career_url": "/article-44.html",
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 36,
+      "name": "北京市京师律师事务所",
+      "website": "https://jingsh.com",
+      "practice_url": "/category/expertise/",
+      "team_url": "/team",
+      "career_url": "/join",
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 37,
+      "name": "北京市万商天勤律师事务所",
+      "website": "https://www.vtlaw.cn/",
+      "practice_url": "/business",
+      "team_url": "/professionals",
+      "career_url": "/contact/join-us",
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 38,
+      "name": "北京市中闻律师事务所",
+      "website": "https://www.zhongwenlaw.com",
+      "practice_url": null,
+      "team_url": "/professionals",
+      "career_url": null,
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 39,
+      "name": "湖南启元律师事务所",
+      "website": "http://www.qiyuan.com/",
+      "practice_url": "/news/14/",
+      "team_url": "/product/43/",
+      "career_url": "/job.html",
+      "news_url": "/news/10/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 40,
+      "name": "上海市海华永泰律师事务所",
+      "website": "https://www.hiwayslaw.com",
+      "practice_url": "/CN/专业领域",
+      "team_url": null,
+      "career_url": "/CN/1002.aspx",
+      "news_url": null,
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": false,
+        "招聘": true,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 41,
+      "name": "北京天达共和律师事务所",
+      "website": "http://www.east-concord.com",
+      "practice_url": null,
+      "team_url": "/tuandui/",
+      "career_url": "/gzzp/",
+      "news_url": null,
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 42,
+      "name": "上海中联律师事务所",
+      "website": "https://www.sgla.com",
+      "practice_url": "/Practices",
+      "team_url": "/Professionals",
+      "career_url": null,
+      "news_url": "/News",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 43,
+      "name": "上海兰迪律师事务所",
+      "website": "https://landinglawyer.com",
+      "practice_url": null,
+      "team_url": "/about",
+      "career_url": "/careers",
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 44,
+      "name": "北京市兰台律师事务所",
+      "website": "https://www.lantai.cn",
+      "practice_url": "/sv_complex.aspx",
+      "team_url": "/team.html",
+      "career_url": "/join.html",
+      "news_url": "/news.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 45,
+      "name": "上海段和段律师事务所",
+      "website": "https://www.duanduan.com",
+      "practice_url": "/field",
+      "team_url": "/team",
+      "career_url": null,
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 46,
+      "name": "北京市华泰律师事务所",
+      "website": "https://www.huatailawfirm.com",
+      "practice_url": "/professional.html",
+      "team_url": "/team.html",
+      "career_url": "/careers.html",
+      "news_url": "/news.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 47,
+      "name": "北京恒都律师事务所",
+      "website": "https://www.hengdulaw.com",
+      "practice_url": "/Cn/Index/listView/catid/19.html",
+      "team_url": "/Cn/Index/listView/catid/14.html",
+      "career_url": "/Cn/Index/listView/catid/31.html",
+      "news_url": "/Cn/Index/listView/catid/29.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 48,
+      "name": "上海汉盛律师事务所",
+      "website": "https://www.hanshenglaw.cn/",
+      "practice_url": "/CN/03.aspx",
+      "team_url": "/CN/05.aspx",
+      "career_url": "/CN/0902.aspx",
+      "news_url": "/CN/07.aspx",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 49,
+      "name": "北京市东卫律师事务所",
+      "website": "https://www.dongweilawyer.com",
+      "practice_url": null,
+      "team_url": "/team",
+      "career_url": null,
+      "news_url": "/news",
+      "status": "partial",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 50,
+      "name": "北京安杰世泽律师事务所",
+      "website": "https://www.anjielaw.com/",
+      "practice_url": "/practice/",
+      "team_url": "/people/",
+      "career_url": "/careers/",
+      "news_url": "/insights/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 51,
+      "name": "北京市两高律师事务所",
+      "website": "https://www.lglawyer.cn",
+      "practice_url": "/Area/details_1.html",
+      "team_url": "/team/",
+      "career_url": "/JoinUs/",
+      "news_url": "/LawFirmNews/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 52,
+      "name": "广东广和律师事务所",
+      "website": "https://www.ghlawyer.net",
+      "practice_url": "/business.aspx?cid=2",
+      "team_url": "/team.aspx?cid=3",
+      "career_url": "/join.aspx?cid=6",
+      "news_url": "/news.aspx?cid=12",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 53,
+      "name": "广东国晖律师事务所",
+      "website": "http://www.sunlawyers.com",
+      "practice_url": "/guohuijianjie_6.html",
+      "team_url": "/guohuituandui.html",
+      "career_url": "/zhaopin.html",
+      "news_url": "/dynamicsList.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 54,
+      "name": "北京市百瑞律师事务所",
+      "website": "http://www.brlf.com.cn/",
+      "practice_url": null,
+      "team_url": "/index.php?c=major&m=team",
+      "career_url": "/index.php?c=job&m=join",
+      "news_url": null,
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 55,
+      "name": "安徽天禾律师事务所",
+      "website": "https://www.tianhelaw.cn",
+      "practice_url": "/cn/index_14.aspx",
+      "team_url": "/cn/list_23.aspx",
+      "career_url": "/cn/list_17.aspx",
+      "news_url": "/cn/list_32.aspx",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 56,
+      "name": "北京市安理律师事务所",
+      "website": "https://www.anlilaw.com/",
+      "practice_url": "/100025/",
+      "team_url": "/100024/",
+      "career_url": "/100027/",
+      "news_url": "/100030/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 57,
+      "name": "北京市北斗鼎铭律师事务所",
+      "website": "https://bdlawyer.com.cn/",
+      "practice_url": null,
+      "team_url": "/zhuan-ye-ren-yuan/",
+      "career_url": null,
+      "news_url": "/xin-wen-dong-tai/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 58,
+      "name": "上海市协力律师事务所",
+      "website": "http://www.co-effort.com",
+      "practice_url": "/zh_field?cid=172",
+      "team_url": "/zh_personnel/personnel_list",
+      "career_url": "/zh_joinus",
+      "news_url": "/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 59,
+      "name": "北京市邦盛律师事务所",
+      "website": "https://www.baclaw.cn/",
+      "practice_url": "/33/",
+      "team_url": "/33/",
+      "career_url": "/45/",
+      "news_url": "/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 60,
+      "name": "北京市惠诚律师事务所",
+      "website": "https://www.huichenglawyer.com",
+      "practice_url": "/about-us/",
+      "team_url": null,
+      "career_url": null,
+      "news_url": "/news/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": false,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 61,
+      "name": "北京市尚公律师事务所",
+      "website": "https://www.splf.com.cn",
+      "practice_url": "/CN/03.aspx",
+      "team_url": "/CN/04.aspx",
+      "career_url": "/CN/0901.aspx",
+      "news_url": "/CN/07.aspx",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 62,
+      "name": "湖南旷真律师事务所",
+      "website": "https://www.kuangzhen.com.cn",
+      "practice_url": null,
+      "team_url": null,
+      "career_url": null,
+      "news_url": null,
+      "status": "homepage_only",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": false,
+        "招聘": false,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 63,
+      "name": "北京乾成律师事务所",
+      "website": "https://www.qianchenglaw.com/",
+      "practice_url": "/info.php?class_id=115",
+      "team_url": "/info.php?class_id=105",
+      "career_url": "/info.php?class_id=124",
+      "news_url": "/info.php?class_id=106",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 64,
+      "name": "广东广信君达律师事务所",
+      "website": "https://www.etrlawfirm.com",
+      "practice_url": "/cn/zylyMH/index_9.aspx",
+      "team_url": "/cn/hhr/list_11.aspx",
+      "career_url": "/cn/zxns/index_30.aspx",
+      "news_url": "/cn/xwzx/list_72.aspx",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 65,
+      "name": "北京市鑫诺律师事务所",
+      "website": "https://www.sino-law.cn",
+      "practice_url": "/CN/04.aspx",
+      "team_url": "/CN/03.aspx",
+      "career_url": null,
+      "news_url": "/CN/06.aspx",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 66,
+      "name": "北京策略律师事务所",
+      "website": "https://www.celuelaw.com/",
+      "practice_url": "/index.php/professionalField",
+      "team_url": "/index.php/teamlist/3",
+      "career_url": "/index.php/joinlist/37",
+      "news_url": "/index.php/newslist/30",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 67,
+      "name": "北京市中盾律师事务所",
+      "website": "http://www.zhongdunlawyer.com/",
+      "practice_url": "/index.php?c=content&a=list&catid=175",
+      "team_url": "/index.php?c=content&a=list&catid=361",
+      "career_url": "/index.php?c=content&a=list&catid=56",
+      "news_url": "/index.php?c=content&a=list&catid=36",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 68,
+      "name": "上海申浩律师事务所",
+      "website": "https://www.sunhold.com.cn",
+      "practice_url": null,
+      "team_url": "/Cn/Index/querys/catid=2",
+      "career_url": null,
+      "news_url": "/Cn/Index/listView/catid/44",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 69,
+      "name": "广东卓建律师事务所",
+      "website": "https://www.lawzj.cn/",
+      "practice_url": "/team",
+      "team_url": "/team",
+      "career_url": "/team",
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 70,
+      "name": "上海博和汉商律师事务所",
+      "website": "https://www.bhslaw.cn/",
+      "practice_url": "/service_01.html",
+      "team_url": "/teams/",
+      "career_url": null,
+      "news_url": "/news.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 71,
+      "name": "山东国曜琴岛律师事务所",
+      "website": "https://www.guoyaoqindao.com",
+      "practice_url": "/field/business.html",
+      "team_url": "/professional/index.html",
+      "career_url": null,
+      "news_url": "/news/list_8.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 72,
+      "name": "中豪律师事务所",
+      "website": "https://www.zhhlaw.com",
+      "practice_url": "/business",
+      "team_url": "/teams",
+      "career_url": "/jobs",
+      "news_url": "/article",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 73,
+      "name": "四川发现律师事务所",
+      "website": "https://www.faxianlaw.com/",
+      "practice_url": "/profession",
+      "team_url": "/lawyers",
+      "career_url": "/news",
+      "news_url": "/contact",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 74,
+      "name": "浙江京衡律师事务所",
+      "website": "https://www.celg.cn/",
+      "practice_url": "/aboutus_1191.html",
+      "team_url": "/team",
+      "career_url": "/news",
+      "news_url": "/careers",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 75,
+      "name": "上海功承瀛泰律师事务所",
+      "website": "https://www.wintell.cn",
+      "practice_url": "/Front/ServicePage",
+      "team_url": "/Front/WebsitePage",
+      "career_url": null,
+      "news_url": null,
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 76,
+      "name": "上海正策律师事务所",
+      "website": "https://www.joint-win.com/",
+      "practice_url": "/",
+      "team_url": "/Cn/new/index/catid/39",
+      "career_url": "/Cn/new/index/catid/39",
+      "news_url": "/Cn/new/index/catid/39",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 77,
+      "name": "福建至理律师事务所",
+      "website": "http://www.zenithlawyer.com",
+      "practice_url": "/home/Service",
+      "team_url": "/home/Lawyer",
+      "career_url": "/home/JoinUs",
+      "news_url": "/home/News",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 78,
+      "name": "北京市金台律师事务所",
+      "website": "http://www.ktlawyer.com/",
+      "practice_url": "/",
+      "team_url": "/index.php?m=content&c=index&a=lists&catid=9",
+      "career_url": "/index.php?m=content&c=index&a=lists&catid=40",
+      "news_url": "/index.php?m=content&c=index&a=lists&catid=17",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 79,
+      "name": "广东金桥百信律师事务所",
+      "website": "https://www.gdjqbx.com/",
+      "practice_url": "/practiceareas",
+      "team_url": "/lawyers",
+      "career_url": "/news",
+      "news_url": "/contactus",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 80,
+      "name": "浙江泽大律师事务所",
+      "website": "https://www.zeda.net",
+      "practice_url": null,
+      "team_url": "/attorney/",
+      "career_url": null,
+      "news_url": "/news/FirmNews/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 81,
+      "name": "上海德禾翰通律师事务所",
+      "website": "https://www.dehehantong.com",
+      "practice_url": "/professional/major/",
+      "team_url": "/personnel/",
+      "career_url": null,
+      "news_url": "/news/",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 82,
+      "name": "四川明炬律师事务所",
+      "website": "https://www.mjlsh.com",
+      "practice_url": "/index/lists/bmjj.html",
+      "team_url": "/index/lists/hhr.html",
+      "career_url": null,
+      "news_url": "/index/lists/mjdt.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 83,
+      "name": "上海市华诚律师事务所",
+      "website": "http://www.watson-band.com",
+      "practice_url": null,
+      "team_url": null,
+      "career_url": null,
+      "news_url": null,
+      "status": "pending",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": false,
+        "招聘": false,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 84,
+      "name": "北京市京都律师事务所",
+      "website": "https://www.king-capital.com",
+      "practice_url": null,
+      "team_url": "/team.html",
+      "career_url": "/recruit.html",
+      "news_url": null,
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 85,
+      "name": "北京市道可特律师事务所",
+      "website": "https://www.dtlawyers.com.cn",
+      "practice_url": "/page/business/index.html",
+      "team_url": "/page/team/index.html",
+      "career_url": "/page/career/index.html",
+      "news_url": "/page/news/index.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 86,
+      "name": "湖南弘一律师事务所",
+      "website": "https://www.hyilawyer.com",
+      "practice_url": "/zyly.htm",
+      "team_url": "/hytd.htm",
+      "career_url": null,
+      "news_url": null,
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 87,
+      "name": "重庆百君律师事务所",
+      "website": "http://www.baijus.net/",
+      "practice_url": "/special",
+      "team_url": "/team",
+      "career_url": "/news",
+      "news_url": "/join",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 88,
+      "name": "北京硕合中鸿律师事务所",
+      "website": "http://www.alliancelawfirm.com/",
+      "status": "explored",
+      "practice_url": "/page-30082.html",
+      "team_url": "/cate-31133.html",
+      "career_url": "/cate-31232.html",
+      "news_url": "/list-30089.html",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 89,
+      "name": "湖北今天律师事务所",
+      "website": "http://jintianls.com",
+      "practice_url": "/portal/list/index/id/8.html",
+      "team_url": "/portal/list/index/id/9.html",
+      "career_url": null,
+      "news_url": null,
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 90,
+      "name": "贵州贵达律师事务所",
+      "website": "http://guidalaw.cn",
+      "practice_url": null,
+      "team_url": null,
+      "career_url": null,
+      "news_url": null,
+      "status": "homepage_only",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": false,
+        "招聘": false,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 91,
+      "name": "浙江六和律师事务所",
+      "website": "https://www.liuhelaw.com",
+      "practice_url": "/pertise",
+      "team_url": "/team",
+      "career_url": "/JoinUs",
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 92,
+      "name": "山东众成清泰律师事务所",
+      "website": "https://www.jointide.com",
+      "practice_url": "/channels/19.html",
+      "team_url": "/teams",
+      "career_url": "/channels/21.html",
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 93,
+      "name": "上海邦信阳律师事务所",
+      "website": "https://www.boss-young.com",
+      "practice_url": "/business",
+      "team_url": "/team",
+      "career_url": "/join",
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 94,
+      "name": "江苏法德东恒律师事务所",
+      "website": "https://www.fddhlaw.com",
+      "practice_url": null,
+      "team_url": "/team.asp",
+      "career_url": null,
+      "news_url": "/news.asp",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 95,
+      "name": "广东法制盛邦律师事务所",
+      "website": "https://www.everwinlawyer.cn",
+      "practice_url": "/about.html",
+      "team_url": "/team.html",
+      "career_url": "/join.html",
+      "news_url": "/news.html",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": true,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 96,
+      "name": "重庆坤源衡泰律师事务所",
+      "website": "https://www.kyhtlaw.com",
+      "practice_url": "/zyzx",
+      "team_url": "/zyls/10",
+      "career_url": null,
+      "news_url": "/news",
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": true
+      }
+    },
+    {
+      "rank": 97,
+      "name": "陕西稼轩律师事务所",
+      "website": "https://www.jiaxuanlawfirm.com",
+      "practice_url": "/About.html",
+      "team_url": "/LawyerTeam/p-8-8.html",
+      "career_url": null,
+      "news_url": null,
+      "status": "explored",
+      "capabilities_summary": {
+        "专业领域": true,
+        "专业人员": true,
+        "招聘": false,
+        "新闻": false
+      }
+    },
+    {
+      "rank": 98,
+      "name": "湖北得伟君尚律师事务所",
+      "website": "https://www.dewellcn.com",
+      "practice_url": null,
+      "team_url": null,
+      "career_url": null,
+      "news_url": "/list-6.html",
+      "status": "partial",
+      "capabilities_summary": {
+        "专业领域": false,
+        "专业人员": false,
+        "招聘": false,
+        "新闻": true
+      }
+    }
+  ],
+  "total_firms": 98
+}
