@@ -1,14 +1,19 @@
 ---
 name: evidence-organizer
-description: >
-  证据组织整理——按争议焦点组织证据，准备证据目录。
-  适用情形：起诉/应诉前，系统整理证据，形成完整证据链。
-  核心：按争议焦点分组证据，标注证据来源和证明目的。
-argument-hint: "[案件类型+核心争议焦点+已有证据]"
+description: '证据组织整理——按争议焦点组织证据，准备证据目录。 适用情形：起诉/应诉前，系统整理证据，形成完整证据链。 核心：按争议焦点分组证据，标注证据来源和证明目的。
+
+  '
+argument-hint: '[案件类型+核心争议焦点+已有证据]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06-13
 version: 1.1.0
 risk_level: high
+trigger_phrases:
+- 证据整理
+- 举证
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /evidence-organizer — 证据组织整理

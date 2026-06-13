@@ -1,37 +1,40 @@
 ---
 name: hiring-review
-description: >
-  中国大陆入职 offer letter / 劳动合同审查 — 试用期合规、竞业限制条款、
-  保密义务、社保登记、合同类型认定。适用情形：用户说"审查这份offer"、
-  "入职合规检查"、"签劳动合同要注意什么"、
-  "竞业限制怎么写"或附上劳动合同文本。
-argument-hint: "[offer letter文件，或描述拟录用的岗位]"
+description: '中国大陆入职 offer letter / 劳动合同审查 — 试用期合规、竞业限制条款、 保密义务、社保登记、合同类型认定。适用情形：用户说"审查这份offer"、
+  "入职合规检查"、"签劳动合同要注意什么"、 "竞业限制怎么写"或附上劳动合同文本。
+
+  '
+argument-hint: '[offer letter文件，或描述拟录用的岗位]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Contract Law of the PRC
-    article: Articles 10-25 (Labor Contract execution, probation), Articles 23-25 (Confidentiality, non-compete)
-    effective_date: 2012-07-01
-    jurisdiction: cn-mainland
-  - type: statute
-    name: Labor Law of the PRC
-    article: Articles 3, 12-13
-    effective_date: 2018-12-29
-    jurisdiction: cn-mainland
-  - type: regulation
-    name: Administrative Measures for Employee Probes
-    effective_date: 2022-03-25
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Contract Law of the PRC
+  article: Articles 10-25 (Labor Contract execution, probation), Articles 23-25 (Confidentiality,
+    non-compete)
+  effective_date: 2012-07-01
+  jurisdiction: cn-mainland
+- type: statute
+  name: Labor Law of the PRC
+  article: Articles 3, 12-13
+  effective_date: 2018-12-29
+  jurisdiction: cn-mainland
+- type: regulation
+  name: Administrative Measures for Employee Probes
+  effective_date: 2022-03-25
+  jurisdiction: cn-mainland
 risk_level: medium
 escalation_triggers:
-  - 竞业限制适用人员超出高管/高级技术人员/负有保密义务人员范围
-  - 竞业限制期限超过2年（劳动合同法第24条）
-  - 试用期约定违法（期限超出规定或工资低于80%/最低工资）
-  - offer不含社保缴纳约定或登记时间
-  - 涉及外籍员工、港澳台员工（特殊管理规定）
+- 竞业限制适用人员超出高管/高级技术人员/负有保密义务人员范围
+- 竞业限制期限超过2年（劳动合同法第24条）
+- 试用期约定违法（期限超出规定或工资低于80%/最低工资）
+- offer不含社保缴纳约定或登记时间
+- 涉及外籍员工、港澳台员工（特殊管理规定）
+trigger_phrases:
+- 招聘合规
+- 入职审查
 ---
 
 # /hiring-review

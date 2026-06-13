@@ -1,15 +1,21 @@
 ---
 name: review-proposals
-description: >
-  审查并批准（或拒绝）playbook-monitor agent 待处理的 playbook 更新提案，
-  并将批准变更应用到 practice profile。
-  适用情形：playbook-monitor agent 提出提案，用户说"审查 playbook 提案"、
-  "有哪些待处理更新"，或想要逐步审查偏差驱动的 playbook 变更。
-argument-hint: "[无需参数——从待处理提案文件工作]"
+description: '审查并批准（或拒绝）playbook-monitor agent 待处理的 playbook 更新提案， 并将批准变更应用到 practice
+  profile。 适用情形：playbook-monitor agent 提出提案，用户说"审查 playbook 提案"、 "有哪些待处理更新"，或想要逐步审查偏差驱动的
+  playbook 变更。
+
+  '
+argument-hint: '[无需参数——从待处理提案文件工作]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 合同提案
+- 审查建议
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /review-proposals — China Mainland

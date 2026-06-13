@@ -1,13 +1,19 @@
 ---
 name: aia-generation
-description: >
-  AI影响评估——结构化分析、CN监管分类、政策一致性diff和建议。
-  适用情形：用户说"AI影响评估"、"评估这个AI用例"、"生成AIA"。
-argument-hint: "[描述AI用例或系统]"
+description: 'AI影响评估——结构化分析、CN监管分类、政策一致性diff和建议。 适用情形：用户说"AI影响评估"、"评估这个AI用例"、"生成AIA"。
+
+  '
+argument-hint: '[描述AI用例或系统]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- AI合规
+- 评估生成
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /aia-generation — China Mainland

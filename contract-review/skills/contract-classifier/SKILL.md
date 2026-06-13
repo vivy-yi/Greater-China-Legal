@@ -1,14 +1,19 @@
 ---
 name: contract-classifier
-description: >
-  合同类型判断——识别合同属于哪类典型合同，确定适用规则。
-  适用情形：合同审查的第一步，判断合同类型后选择对应的审查逻辑。
-  核心：CN民法典合同编将合同分为19类，合同类型决定权利义务和风险。
-argument-hint: "[合同文本或描述]"
+description: '合同类型判断——识别合同属于哪类典型合同，确定适用规则。 适用情形：合同审查的第一步，判断合同类型后选择对应的审查逻辑。 核心：CN民法典合同编将合同分为19类，合同类型决定权利义务和风险。
+
+  '
+argument-hint: '[合同文本或描述]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 合同分类
+- 类型识别
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

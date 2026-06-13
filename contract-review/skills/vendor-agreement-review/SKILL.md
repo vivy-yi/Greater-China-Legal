@@ -1,24 +1,29 @@
 ---
 name: vendor-agreement-review
-description: >
-  中国供应商合同审查 — 对照团队 playbook 审查收到的供应商合同，
-  标记偏离项，评估风险，生成具体修改意见，路由至正确审批人。
-  适用情形：用户说"审一下这份供应商合同"、"评估这个MSA"、
-  "这个服务协议有什么风险"。内置于 /commercial-legal:review，
-  当检测到供应商 MSA、服务协议或类似文件时自动加载。
-argument-hint: "[交易对手名称] 或 [附加文档]"
+description: '中国供应商合同审查 — 对照团队 playbook 审查收到的供应商合同， 标记偏离项，评估风险，生成具体修改意见，路由至正确审批人。
+  适用情形：用户说"审一下这份供应商合同"、"评估这个MSA"、 "这个服务协议有什么风险"。内置于 /commercial-legal:review， 当检测到供应商
+  MSA、服务协议或类似文件时自动加载。
+
+  '
+argument-hint: '[交易对手名称] 或 [附加文档]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
 escalation_triggers:
-  - 无限责任条款
-  - 知识产权全转让给供应商
-  - 适用美国法律或境外法院管辖
-  - 违约金超过合同总价50%
-  - 合同金额超过人民币500万元
-  - 数据跨境传输相关条款
-  - PIPL违规相关（无DPA或DPA不符合要求）
+- 无限责任条款
+- 知识产权全转让给供应商
+- 适用美国法律或境外法院管辖
+- 违约金超过合同总价50%
+- 合同金额超过人民币500万元
+- 数据跨境传输相关条款
+- PIPL违规相关（无DPA或DPA不符合要求）
+trigger_phrases:
+- 供应商合同
+- 采购合同
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # Vendor Agreement Review — China Mainland

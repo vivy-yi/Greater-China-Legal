@@ -1,14 +1,19 @@
 ---
 name: capital-change
-description: >
-  注册资本变更——增资/减资流程和法律文件。
-  适用情形：公司融资/调整股权结构时办理增资；经营不善时办理减资。
-  核心：增资须验资+工商变更，减资须公告+债权人保护。
-argument-hint: "[增资/减资] [金额] [原因]"
+description: '注册资本变更——增资/减资流程和法律文件。 适用情形：公司融资/调整股权结构时办理增资；经营不善时办理减资。 核心：增资须验资+工商变更，减资须公告+债权人保护。
+
+  '
+argument-hint: '[增资/减资] [金额] [原因]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 注册资本
+- 股权变更
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

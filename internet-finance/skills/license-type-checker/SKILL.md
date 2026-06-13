@@ -1,14 +1,19 @@
 ---
 name: license-type-checker
-description: >
-  牌照类型判断——判断业务需要哪类金融牌照。
-  适用情形：互联网公司开展金融相关业务，判断是否须持牌/须哪类牌照。
-  核心：不同业务类型对应不同牌照，不同牌照监管机构不同。
-argument-hint: "[业务类型描述，如'小贷/消费分期/信用支付/理财代销']"
+description: '牌照类型判断——判断业务需要哪类金融牌照。 适用情形：互联网公司开展金融相关业务，判断是否须持牌/须哪类牌照。 核心：不同业务类型对应不同牌照，不同牌照监管机构不同。
+
+  '
+argument-hint: '[业务类型描述，如''小贷/消费分期/信用支付/理财代销'']'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 牌照类型
+- 资质
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /license-type-checker — 牌照类型判断

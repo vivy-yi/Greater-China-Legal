@@ -1,14 +1,20 @@
 ---
 name: negotiation-redlines
-description: >
-  合同修改建议生成——识别风险条款，生成修改建议和谈判话术。
-  适用情形：合同谈判阶段，基于term-analyzer的风险分析生成具体修改方案。
+description: '合同修改建议生成——识别风险条款，生成修改建议和谈判话术。 适用情形：合同谈判阶段，基于term-analyzer的风险分析生成具体修改方案。
   核心：给出可操作的修改建议和谈判策略，而非泛泛的风险提示。
-argument-hint: "[合同文本] [风险条款列表] [我方谈判立场]"
+
+  '
+argument-hint: '[合同文本] [风险条款列表] [我方谈判立场]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 合同谈判
+- 条款协商
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

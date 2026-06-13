@@ -1,13 +1,19 @@
 ---
 name: brief-section-drafter
-description: >
-  按内部风格起草法律文书章节——每个事实须有引用，每个案例须核实。
-  适用情形：用户要求起草"事实陈述"、"论证第二节"等文书章节。
-argument-hint: "[章节名称 — 如'statement of facts'/'argument II']"
+description: '按内部风格起草法律文书章节——每个事实须有引用，每个案例须核实。 适用情形：用户要求起草"事实陈述"、"论证第二节"等文书章节。
+
+  '
+argument-hint: '[章节名称 — 如''statement of facts''/''argument II'']'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 法律文书
+- 代理词
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /brief-section-drafter — China Mainland

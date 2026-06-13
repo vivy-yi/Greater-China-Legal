@@ -1,13 +1,19 @@
 ---
 name: demand-received
-description: >
-  分类收到的律师函——提取字段、检查案件组合、评估价值、提出应对建议。
-  适用情形：用户说"收到律师函"、"评估这个demand"。
-argument-hint: "[path-to-incoming] [--slug=custom-slug]"
+description: '分类收到的律师函——提取字段、检查案件组合、评估价值、提出应对建议。 适用情形：用户说"收到律师函"、"评估这个demand"。
+
+  '
+argument-hint: '[path-to-incoming] [--slug=custom-slug]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 收到律师函
+- 对方主张
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /demand-received — China Mainland

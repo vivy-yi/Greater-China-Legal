@@ -1,13 +1,19 @@
 ---
 name: oc-status
-description: >
-  外部律师状态更新——追踪当前代理、费用预估和案件进展。
-  适用情形：用户要"查看外部律师状态"或"更新外聘律师进展"。
-argument-hint: "[slug]"
+description: '外部律师状态更新——追踪当前代理、费用预估和案件进展。 适用情形：用户要"查看外部律师状态"或"更新外聘律师进展"。
+
+  '
+argument-hint: '[slug]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 诉前调解
+- 庭外和解
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /oc-status — China Mainland

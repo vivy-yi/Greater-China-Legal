@@ -1,14 +1,20 @@
 ---
 name: escalation-flagger
-description: >
-  根据 ../CLAUDE.md 中的升级矩阵，将合同问题路由至正确审批人，
-  并草拟升级请求。适用情形：用户说"谁需要审批这个"、"升级这个"、
+description: '根据 ../CLAUDE.md 中的升级矩阵，将合同问题路由至正确审批人， 并草拟升级请求。适用情形：用户说"谁需要审批这个"、"升级这个"、
   "这个需要法务总监签字吗"，或其他 skill 发现超出审查人权限的问题。
-argument-hint: "[描述问题，或引用审查备忘录]"
+
+  '
+argument-hint: '[描述问题，或引用审查备忘录]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: low
+trigger_phrases:
+- 合同升级
+- 风险标记
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /escalation-flagger — China Mainland

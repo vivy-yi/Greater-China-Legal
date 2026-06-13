@@ -1,13 +1,19 @@
 ---
 name: vendor-ai-review
-description: >
-  审查第三方AI供应商——供应商AI系统的监管合规状态和风险评估。
-  适用情形：采购AI供应商或使用第三方AI API时须评估合规风险。
-argument-hint: "[供应商名称或AI产品描述]"
+description: '审查第三方AI供应商——供应商AI系统的监管合规状态和风险评估。 适用情形：采购AI供应商或使用第三方AI API时须评估合规风险。
+
+  '
+argument-hint: '[供应商名称或AI产品描述]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 供应商AI
+- 审查
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /vendor-ai-review — China Mainland

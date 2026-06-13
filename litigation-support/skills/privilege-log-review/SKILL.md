@@ -1,13 +1,19 @@
 ---
 name: privilege-log-review
-description: >
-  审查特权日志——检查特权通信的标记、维护和完整性。
-  适用情形：用户要求"审查特权日志"或"检查特权标记"。
-argument-hint: "[--review | --fix]"
+description: '审查特权日志——检查特权通信的标记、维护和完整性。 适用情形：用户要求"审查特权日志"或"检查特权标记"。
+
+  '
+argument-hint: '[--review | --fix]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 特权
+- 律师-当事人
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /privilege-log-review — China Mainland

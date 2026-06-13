@@ -1,40 +1,43 @@
 ---
 name: leave-tracker
-description: >
-  中国大陆员工休假管理跟踪 — 年休假、病假、产假、陪产假、婚假、丧假、工伤假等
-  法定休假权益跟踪与期限提醒。适用情形：用户说"有哪些休假需要处理"、"本周/月有哪些休假到期"、
+description: '中国大陆员工休假管理跟踪 — 年休假、病假、产假、陪产假、婚假、丧假、工伤假等 法定休假权益跟踪与期限提醒。适用情形：用户说"有哪些休假需要处理"、"本周/月有哪些休假到期"、
   "员工休假状态跟踪"。
-argument-hint: "[无参数 — 从休假登记文件或HR系统读取数据]"
+
+  '
+argument-hint: '[无参数 — 从休假登记文件或HR系统读取数据]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Law of the PRC
-    article: Articles 45-50 (Annual leave, wages)
-    effective_date: 2018-12-29
-    jurisdiction: cn-mainland
-  - type: regulation
-    name: Regulations on Paid Annual Leave for Employees
-    article: Full text
-    effective_date: 2008-01-01
-    jurisdiction: cn-mainland
-  - type: statute
-    name: Social Insurance Law of the PRC
-    article: Articles 53-56 (Maternity insurance)
-    effective_date: 2018-12-29
-    jurisdiction: cn-mainland
-  - type: statute
-    name: Population and Family Planning Regulations (various provinces)
-    article: Province-specific
-    effective_date: varies by province
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Law of the PRC
+  article: Articles 45-50 (Annual leave, wages)
+  effective_date: 2018-12-29
+  jurisdiction: cn-mainland
+- type: regulation
+  name: Regulations on Paid Annual Leave for Employees
+  article: Full text
+  effective_date: 2008-01-01
+  jurisdiction: cn-mainland
+- type: statute
+  name: Social Insurance Law of the PRC
+  article: Articles 53-56 (Maternity insurance)
+  effective_date: 2018-12-29
+  jurisdiction: cn-mainland
+- type: statute
+  name: Population and Family Planning Regulations (various provinces)
+  article: Province-specific
+  effective_date: varies by province
+  jurisdiction: cn-mainland
 risk_level: low
 escalation_triggers:
-  - 产假天数超过法定标准（部分省市有额外延长）
-  - 年休假未休且未支付300%工资报酬（须在年度内安排或支付补偿）
-  - 病假工资低于当地最低工资标准的80%（各省市规定不同）
+- 产假天数超过法定标准（部分省市有额外延长）
+- 年休假未休且未支付300%工资报酬（须在年度内安排或支付补偿）
+- 病假工资低于当地最低工资标准的80%（各省市规定不同）
+trigger_phrases:
+- 请假
+- 休假管理
 ---
 
 # /leave-tracker

@@ -1,15 +1,20 @@
 ---
 name: risk-clause-database
-description: >
-  中国合同风险条款数据库——识别合同中的高/中/低风险条款，
-  对照民法典/民诉法标注法律依据并给出修改建议。
-  适用情形：用户说"审一下这份合同有什么风险"、"查一下这个条款的法律依据"、
+description: '中国合同风险条款数据库——识别合同中的高/中/低风险条款， 对照民法典/民诉法标注法律依据并给出修改建议。 适用情形：用户说"审一下这份合同有什么风险"、"查一下这个条款的法律依据"、
   "违约金过高吗"、"格式条款有效吗"。
-argument-hint: "[合同文本] 或 [具体条款内容]"
+
+  '
+argument-hint: '[合同文本] 或 [具体条款内容]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 风险条款
+- 合同条款库
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # 风险条款数据库

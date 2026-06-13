@@ -1,14 +1,20 @@
 ---
 name: financing-cycle
-description: >
-  融资轮次合规——从天使到Pre-IPO各阶段的股权结构设计和法律文件。
-  适用情形：企业进行融资时（天使/A/B/C/Pre-IPO），评估条款、控制权、税务。
+description: '融资轮次合规——从天使到Pre-IPO各阶段的股权结构设计和法律文件。 适用情形：企业进行融资时（天使/A/B/C/Pre-IPO），评估条款、控制权、税务。
   核心：对赌协议效力/优先清算权/反稀释/董事会席位。
-argument-hint: "[融资阶段：天使/A/B/C/Pre-IPO] [融资额] [估值]"
+
+  '
+argument-hint: '[融资阶段：天使/A/B/C/Pre-IPO] [融资额] [估值]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 融资
+- 资金周期
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

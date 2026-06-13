@@ -1,14 +1,19 @@
 ---
 name: infringement-detector
-description: >
-  知识产权侵权类型判断——识别是商标/专利/著作权/商业秘密侵权。
-  适用情形：发现疑似侵权或被控侵权时，首先判断属于哪种IP类型。
-  核心：不同IP类型侵权判断标准完全不同，选错类型会导致维权失败。
-argument-hint: "[涉嫌侵权的产品/行为描述]"
+description: '知识产权侵权类型判断——识别是商标/专利/著作权/商业秘密侵权。 适用情形：发现疑似侵权或被控侵权时，首先判断属于哪种IP类型。 核心：不同IP类型侵权判断标准完全不同，选错类型会导致维权失败。
+
+  '
+argument-hint: '[涉嫌侵权的产品/行为描述]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 侵权检测
+- 盗版
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /infringement-detector — IP侵权类型判断

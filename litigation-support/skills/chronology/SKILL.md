@@ -1,13 +1,19 @@
 ---
 name: chronology
-description: >
-  从案件文件构建或更新年表——提取有日期的事件、去重、标注重要性。
-  适用情形：用户要求从案件材料构建年表或时间线。
-argument-hint: "[slug] [--format=working|sof|witness]"
+description: '从案件文件构建或更新年表——提取有日期的事件、去重、标注重要性。 适用情形：用户要求从案件材料构建年表或时间线。
+
+  '
+argument-hint: '[slug] [--format=working|sof|witness]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 时间线
+- 事实梳理
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /chronology — China Mainland

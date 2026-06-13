@@ -1,13 +1,19 @@
 ---
 name: takedown
-description: >
-  著作权侵权通知（--send）或处理收到的侵权通知（--respond）或反通知（--counter）。
-  适用情形：主张著作权要求平台删除侵权内容，或处理收到的侵权通知。
-argument-hint: "<--send | --respond | --counter> [上下文或通知路径]"
+description: '著作权侵权通知（--send）或处理收到的侵权通知（--respond）或反通知（--counter）。 适用情形：主张著作权要求平台删除侵权内容，或处理收到的侵权通知。
+
+  '
+argument-hint: <--send | --respond | --counter> [上下文或通知路径]
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 下架
+- 删除通知
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /takedown — China Mainland

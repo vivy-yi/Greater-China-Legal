@@ -1,13 +1,20 @@
 ---
 name: subpoena-triage
-description: >
-  传票/调查令triage——评估文件披露要求、豁免权和响应策略。
-  适用情形：用户收到法院调查令/传票要求提供文件。
-argument-hint: "[path-to-subpoena] [--respond | --challenge]"
+description: '传票/调查令triage——评估文件披露要求、豁免权和响应策略。 适用情形：用户收到法院调查令/传票要求提供文件。
+
+  '
+argument-hint: '[path-to-subpoena] [--respond | --challenge]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 传票
+- 送达
+- 诉讼文书
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /subpoena-triage — China Mainland

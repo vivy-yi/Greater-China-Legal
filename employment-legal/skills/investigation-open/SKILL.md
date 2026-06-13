@@ -1,34 +1,38 @@
 ---
 name: investigation-open
-description: >
-  启动新内部调查事项 — 采集立案信息、生成来源清单、创建保密调查日志。
-  适用情形：收到举报或指控，需要建立 privileged 调查工作区。
-argument-hint: "[举报/指控的简要描述]"
+description: '启动新内部调查事项 — 采集立案信息、生成来源清单、创建保密调查日志。 适用情形：收到举报或指控，需要建立 privileged 调查工作区。
+
+  '
+argument-hint: '[举报/指控的简要描述]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Contract Law of the PRC
-    article: Article 39 (Employer's right to dissolve)
-    effective_date: 2012-07-01
-    jurisdiction: cn-mainland
-  - type: statute
-    name: Anti-Unfair Competition Law of the PRC
-    article: Article 9 (Commercial secrets)
-    effective_date: 2019-04-23
-    jurisdiction: cn-mainland
-  - type: statute
-    name: Criminal Law of the PRC
-    article: Articles 163-164 (Commercial bribery), Article 271 (Embezzlement), Article 272 (挪用资金)
-    effective_date: 2023-04-20
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Contract Law of the PRC
+  article: Article 39 (Employer's right to dissolve)
+  effective_date: 2012-07-01
+  jurisdiction: cn-mainland
+- type: statute
+  name: Anti-Unfair Competition Law of the PRC
+  article: Article 9 (Commercial secrets)
+  effective_date: 2019-04-23
+  jurisdiction: cn-mainland
+- type: statute
+  name: Criminal Law of the PRC
+  article: Articles 163-164 (Commercial bribery), Article 271 (Embezzlement), Article
+    272 (挪用资金)
+  effective_date: 2023-04-20
+  jurisdiction: cn-mainland
 risk_level: high
 escalation_triggers:
-  - 调查涉及高管（须同时上报董事会/监事会）
-  - 发现刑事犯罪线索（须评估向公安机关报案的必要性）
-  - 上市公司调查涉及证券披露义务
+- 调查涉及高管（须同时上报董事会/监事会）
+- 发现刑事犯罪线索（须评估向公安机关报案的必要性）
+- 上市公司调查涉及证券披露义务
+trigger_phrases:
+- 开启调查
+- 立案
 ---
 
 # /investigation-open

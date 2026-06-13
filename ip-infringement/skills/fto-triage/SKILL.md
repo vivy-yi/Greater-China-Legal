@@ -1,14 +1,19 @@
 ---
 name: fto-triage
-description: >
-  自由实施初步检索——识别潜在阻碍专利的结构化初检，不是FTO意见。
-  适用情形：产品/工艺/功能评估侵权风险、评估是否可上市。
-  本技能不得出具"产品可自由实施"的结论。
-argument-hint: "[描述产品/工艺/功能及管辖区域]"
+description: '自由实施初步检索——识别潜在阻碍专利的结构化初检，不是FTO意见。 适用情形：产品/工艺/功能评估侵权风险、评估是否可上市。 本技能不得出具"产品可自由实施"的结论。
+
+  '
+argument-hint: '[描述产品/工艺/功能及管辖区域]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- FTO分析
+- 自由实施
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /fto-triage — China Mainland

@@ -1,14 +1,19 @@
 ---
 name: invention-intake
-description: >
-  发明披露初步筛选——新颖性/创造性/实用性/保密期/战略价值评估。
-  适用情形：发明披露进来后决定是否做现有技术检索和专利代理师审查。
-  本技能不得出具"可专利"结论。
-argument-hint: "[描述发明披露内容，或仅标题，我方询问]"
+description: '发明披露初步筛选——新颖性/创造性/实用性/保密期/战略价值评估。 适用情形：发明披露进来后决定是否做现有技术检索和专利代理师审查。 本技能不得出具"可专利"结论。
+
+  '
+argument-hint: '[描述发明披露内容，或仅标题，我方询问]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 发明披露
+- 专利申请
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /invention-intake — China Mainland

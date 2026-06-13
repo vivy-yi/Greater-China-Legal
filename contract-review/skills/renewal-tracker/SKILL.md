@@ -1,14 +1,20 @@
 ---
 name: renewal-tracker
-description: >
-  合同续期追踪——显示即将到期的取消截止日，在通知窗口关闭前预警，
-  基于维护的续期登记簿工作。适用情形：用户说"有哪些合同即将续期"、
-  "我们是否错过了取消窗口"、"把这个加到续期追踪"。接收来自 saas-msa-review 的交接。
-argument-hint: "[--days N 更改窗口 | --missed 已错过窗口]"
+description: '合同续期追踪——显示即将到期的取消截止日，在通知窗口关闭前预警， 基于维护的续期登记簿工作。适用情形：用户说"有哪些合同即将续期"、 "我们是否错过了取消窗口"、"把这个加到续期追踪"。接收来自
+  saas-msa-review 的交接。
+
+  '
+argument-hint: '[--days N 更改窗口 | --missed 已错过窗口]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: low
+trigger_phrases:
+- 合同续期
+- 续约
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /renewal-tracker — China Mainland

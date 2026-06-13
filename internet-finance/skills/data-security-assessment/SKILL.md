@@ -1,14 +1,19 @@
 ---
 name: data-security-assessment
-description: >
-  数据安全评估——评估互联网金融业务的数据安全措施。
-  适用情形：定期数据安全评估或监管要求的数据安全检查。
-  核心：数据分级分类/等保三级/个人信息保护三维度。
-argument-hint: "[业务类型+数据处理范围+现有安全措施]"
+description: '数据安全评估——评估互联网金融业务的数据安全措施。 适用情形：定期数据安全评估或监管要求的数据安全检查。 核心：数据分级分类/等保三级/个人信息保护三维度。
+
+  '
+argument-hint: '[业务类型+数据处理范围+现有安全措施]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 数据安全
+- 评估
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /data-security-assessment — 数据安全评估

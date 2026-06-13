@@ -1,15 +1,20 @@
 ---
 name: review
-description: >
-  根据 playbook 审查供应商合同、NDA或SaaS订阅协议。
-  从标题识别协议结构，路由至正确审查技能（vendor-agreement-review、nda-review、saas-msa-review），
-  并将输出整合为一份备忘录。
-  适用情形：用户说"审一下这份合同"、"评估这个MSA"、"这个NDA可以吗"。
+description: '根据 playbook 审查供应商合同、NDA或SaaS订阅协议。 从标题识别协议结构，路由至正确审查技能（vendor-agreement-review、nda-review、saas-msa-review），
+  并将输出整合为一份备忘录。 适用情形：用户说"审一下这份合同"、"评估这个MSA"、"这个NDA可以吗"。
+
+  '
 argument-hint: '[文件路径 | 合同编号 | 粘贴文本]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 合同审查
+- 审核
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /review — China Mainland

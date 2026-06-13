@@ -1,14 +1,19 @@
 ---
 name: dispute-handler
-description: >
-  合同履约争议处理路径——识别履约争议类型，给出解决路径建议。
-  适用情形：合同履行过程中发生争议，选择和解/调解/仲裁/诉讼路径。
-  核心：争议金额/时效/证据充分性三维判断，选择最优争议解决路径。
-argument-hint: "[争议类型] [争议金额] [合同履行情况]"
+description: '合同履约争议处理路径——识别履约争议类型，给出解决路径建议。 适用情形：合同履行过程中发生争议，选择和解/调解/仲裁/诉讼路径。 核心：争议金额/时效/证据充分性三维判断，选择最优争议解决路径。
+
+  '
+argument-hint: '[争议类型] [争议金额] [合同履行情况]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06-13
 version: 1.1.0
 risk_level: high
+trigger_phrases:
+- 合同纠纷
+- 争议解决
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

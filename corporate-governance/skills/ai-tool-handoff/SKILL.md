@@ -1,14 +1,19 @@
 ---
 name: ai-tool-handoff
-description: >
-  检测批量审查工具（合同审查AI如幂律/秘塔/通义等）的使用场景，
-  批量条款提取后进行质量核验。适用情形：用户说"批量审查"、
-  "AI提取"、"上传到审查工具"、"大量合同审查"。
-argument-hint: "[工具名称 + 合同批次 + 提取目标]"
+description: '检测批量审查工具（合同审查AI如幂律/秘塔/通义等）的使用场景， 批量条款提取后进行质量核验。适用情形：用户说"批量审查"、 "AI提取"、"上传到审查工具"、"大量合同审查"。
+
+  '
+argument-hint: '[工具名称 + 合同批次 + 提取目标]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- AI工具
+- 交接
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /ai-tool-handoff — China Mainland

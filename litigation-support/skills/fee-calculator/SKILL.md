@@ -1,14 +1,19 @@
 ---
 name: fee-calculator
-description: >
-  诉讼费用计算——计算诉讼费/保全费/律师费/鉴定费等。
-  适用情形：起诉前评估诉讼成本，或与律师讨论费用安排时使用。
-  核心：诉讼费有法定标准，律师费协商确定，风险代理有最高限制。
-argument-hint: "[诉讼标的金额+案件类型]"
+description: '诉讼费用计算——计算诉讼费/保全费/律师费/鉴定费等。 适用情形：起诉前评估诉讼成本，或与律师讨论费用安排时使用。 核心：诉讼费有法定标准，律师费协商确定，风险代理有最高限制。
+
+  '
+argument-hint: '[诉讼标的金额+案件类型]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 律师费
+- 诉讼费用
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /fee-calculator — 诉讼费用计算

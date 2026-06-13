@@ -1,14 +1,19 @@
 ---
 name: damage-calculator
-description: >
-  IP侵权损害赔偿计算——计算侵权损害赔偿金额。
-  适用情形：提起民事诉讼或协商赔偿时，计算应索赔金额。
-  核心：四种计算方式（实际损失/侵权获利/许可费/法定赔偿），按顺序适用。
-argument-hint: "[IP类型+已知数据（销量/利润/许可费等）]"
+description: 'IP侵权损害赔偿计算——计算侵权损害赔偿金额。 适用情形：提起民事诉讼或协商赔偿时，计算应索赔金额。 核心：四种计算方式（实际损失/侵权获利/许可费/法定赔偿），按顺序适用。
+
+  '
+argument-hint: '[IP类型+已知数据（销量/利润/许可费等）]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 侵权赔偿
+- 损害计算
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /damage-calculator — IP侵权损害赔偿计算

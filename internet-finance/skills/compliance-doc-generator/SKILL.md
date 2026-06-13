@@ -1,14 +1,19 @@
 ---
 name: compliance-doc-generator
-description: >
-  金融合规文书生成——生成合规自查报告/整改计划/监管报送材料。
-  适用情形：须向监管机构提交合规报告或内部合规自查时使用。
-  核心：监管报告须按模板格式，内容须真实准确。
-argument-hint: "[文书类型（自查报告/整改计划/投诉处理报告）+产品类型]"
+description: '金融合规文书生成——生成合规自查报告/整改计划/监管报送材料。 适用情形：须向监管机构提交合规报告或内部合规自查时使用。 核心：监管报告须按模板格式，内容须真实准确。
+
+  '
+argument-hint: '[文书类型（自查报告/整改计划/投诉处理报告）+产品类型]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 合规文档
+- 生成
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /compliance-doc-generator — 金融合规文书生成

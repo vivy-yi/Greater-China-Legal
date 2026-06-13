@@ -1,13 +1,20 @@
 ---
 name: demand-intake
-description: >
-  律师函发送前的预起草信息收集——写入intake.md供demand-draft读取。
-  适用情形：用户要求"准备律师函"、"运行intake后再起草"。
-argument-hint: "[标题] [--full]"
+description: '律师函发送前的预起草信息收集——写入intake.md供demand-draft读取。 适用情形：用户要求"准备律师函"、"运行intake后再起草"。
+
+  '
+argument-hint: '[标题] [--full]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 律师函
+- 催告
+- 权利要求
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /demand-intake — China Mainland

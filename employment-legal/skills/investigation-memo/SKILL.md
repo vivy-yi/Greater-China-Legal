@@ -1,23 +1,26 @@
 ---
 name: investigation-memo
-description: >
-  从调查日志起草或更新保密调查报告。适用情形：调查已有足够信息起草第一份报告，
-  或新数据添加后需要更新现有草稿。
-argument-hint: "[事项名称]"
+description: '从调查日志起草或更新保密调查报告。适用情形：调查已有足够信息起草第一份报告， 或新数据添加后需要更新现有草稿。
+
+  '
+argument-hint: '[事项名称]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Contract Law of the PRC
-    article: Article 39 (Employer's right to dissolve)
-    effective_date: 2012-07-01
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Contract Law of the PRC
+  article: Article 39 (Employer's right to dissolve)
+  effective_date: 2012-07-01
+  jurisdiction: cn-mainland
 risk_level: medium
 escalation_triggers:
-  - 调查报告涉及高管（须上报董事会/监事会）
-  - 发现刑事犯罪线索（须评估是否向公安机关报案）
+- 调查报告涉及高管（须上报董事会/监事会）
+- 发现刑事犯罪线索（须评估是否向公安机关报案）
+trigger_phrases:
+- 调查备忘录
+- 法律意见
 ---
 
 # /investigation-memo

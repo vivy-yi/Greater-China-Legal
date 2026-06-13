@@ -1,13 +1,19 @@
 ---
 name: infringement-triage
-description: >
-  商标/著作权/专利/商业秘密侵权 triage——出具标志列表而非结论。
-  适用情形：评估他人是否侵犯你的IP，或你可能侵犯他人IP。
-argument-hint: "[描述事实及权利类型，或仅描述事实，我方询问]"
+description: '商标/著作权/专利/商业秘密侵权 triage——出具标志列表而非结论。 适用情形：评估他人是否侵犯你的IP，或你可能侵犯他人IP。
+
+  '
+argument-hint: '[描述事实及权利类型，或仅描述事实，我方询问]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 侵权分类
+- 初步判断
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /infringement-triage — China Mainland

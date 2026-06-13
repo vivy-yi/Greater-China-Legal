@@ -1,13 +1,19 @@
 ---
 name: oss-review
-description: >
-  开源许可证合规审查——依赖列表/单库/ outbound代码的许可证检查。
-  适用情形：审查package.json/requirements.txt/go.mod等依赖清单的许可证合规。
-argument-hint: "[文件路径 | 包名 | 代码仓库路径]"
+description: '开源许可证合规审查——依赖列表/单库/ outbound代码的许可证检查。 适用情形：审查package.json/requirements.txt/go.mod等依赖清单的许可证合规。
+
+  '
+argument-hint: '[文件路径 | 包名 | 代码仓库路径]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 开源软件
+- 许可证
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /oss-review — China Mainland

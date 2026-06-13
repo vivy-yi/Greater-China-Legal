@@ -1,18 +1,24 @@
 ---
 name: international-expansion
-description: >
-  跨国用工扩张规划参考框架 — EOR vs 自设实体判断、跨部门触发事项、
-  外部律师简报请求、持续缺口跟踪器。
-  被 /expansion-kickoff 和 /expansion-update 调用，不直接由用户调用。
+description: '跨国用工扩张规划参考框架 — EOR vs 自设实体判断、跨部门触发事项、 外部律师简报请求、持续缺口跟踪器。 被 /expansion-kickoff
+  和 /expansion-update 调用，不直接由用户调用。
+
+  '
 user_invocable: false
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
 escalation_triggers:
-  - 涉及外派中国员工至其他国家（须评估目的地国税务和社保义务）
-  - 上市公司跨境扩张（须评估证券披露义务）
-  - 涉及高风险国家/地区（须评估ODI合规）
+- 涉及外派中国员工至其他国家（须评估目的地国税务和社保义务）
+- 上市公司跨境扩张（须评估证券披露义务）
+- 涉及高风险国家/地区（须评估ODI合规）
+trigger_phrases:
+- 海外扩张
+- 国际
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /international-expansion

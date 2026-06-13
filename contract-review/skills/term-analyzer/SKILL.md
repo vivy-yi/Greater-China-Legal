@@ -1,14 +1,20 @@
 ---
 name: term-analyzer
-description: >
-  合同核心条款风险分析——识别条款风险，给出修改建议。
-  适用情形：contract-classifier判断类型后，对合同进行逐条风险分析。
+description: '合同核心条款风险分析——识别条款风险，给出修改建议。 适用情形：contract-classifier判断类型后，对合同进行逐条风险分析。
   核心：担保/赔偿/知识产权/违约责任/争议解决五类核心条款。
-argument-hint: "[合同文本] [合同类型]"
+
+  '
+argument-hint: '[合同文本] [合同类型]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 合同条款
+- 术语分析
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

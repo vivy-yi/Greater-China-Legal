@@ -1,29 +1,31 @@
 ---
 name: investigation-add
-description: >
-  向开放调查事项添加数据 — 文档、访谈笔录或观察记录。
-  批量处理文档，标记相关项，记录所有已审查文档。
-  适用情形：新证据、访谈笔录或文档收到，需要添加到开放调查中。
-argument-hint: "[事项名称或slug，然后粘贴或附加数据]"
+description: '向开放调查事项添加数据 — 文档、访谈笔录或观察记录。 批量处理文档，标记相关项，记录所有已审查文档。 适用情形：新证据、访谈笔录或文档收到，需要添加到开放调查中。
+
+  '
+argument-hint: '[事项名称或slug，然后粘贴或附加数据]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Contract Law of the PRC
-    article: Article 39 (Employer's right to dissolve)
-    effective_date: 2012-07-01
-    jurisdiction: cn-mainland
-  - type: statute
-    name: Anti-Unfair Competition Law of the PRC
-    article: Article 9 (Commercial secrets)
-    effective_date: 2019-04-23
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Contract Law of the PRC
+  article: Article 39 (Employer's right to dissolve)
+  effective_date: 2012-07-01
+  jurisdiction: cn-mainland
+- type: statute
+  name: Anti-Unfair Competition Law of the PRC
+  article: Article 9 (Commercial secrets)
+  effective_date: 2019-04-23
+  jurisdiction: cn-mainland
 risk_level: medium
 escalation_triggers:
-  - 发现新的刑事犯罪线索（须重新评估是否向公安机关报案）
-  - 发现高管涉案（须通知董事会/监事会）
+- 发现新的刑事犯罪线索（须重新评估是否向公安机关报案）
+- 发现高管涉案（须通知董事会/监事会）
+trigger_phrases:
+- 补充调查
+- 追加
 ---
 
 # /investigation-add

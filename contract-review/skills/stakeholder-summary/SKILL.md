@@ -1,15 +1,20 @@
 ---
 name: stakeholder-summary
-description: >
-  将合同审查结果转化为业务相关方实际会阅读的摘要。
-  不是法律备忘录——而是"我能签吗，我需要知道什么"的2分钟回答。
-  适用情形：用户说"给业务做个摘要"、"写给[利益相关方]"、
+description: '将合同审查结果转化为业务相关方实际会阅读的摘要。 不是法律备忘录——而是"我能签吗，我需要知道什么"的2分钟回答。 适用情形：用户说"给业务做个摘要"、"写给[利益相关方]"、
   "解释给采购"、"非法律人员摘要"，或审查完成后需要发给法律部门以外的人。
-argument-hint: "[合同审查结果] 或 [合同文本] [目标受众：采购/财务/部门负责人]"
+
+  '
+argument-hint: '[合同审查结果] 或 [合同文本] [目标受众：采购/财务/部门负责人]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: low
+trigger_phrases:
+- 合同概要
+- 利益相关方
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # Stakeholder Summary — China Mainland

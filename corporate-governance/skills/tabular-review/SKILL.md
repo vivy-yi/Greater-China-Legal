@@ -1,15 +1,20 @@
 ---
 name: tabular-review
-description: >
-  表格化批量审查——每个文档一行，每个数据点一列，每格注明来源。
-  适用于M&A尽调（"审查200份合同中的控制权变更/转让/ MAC条款"）
-  或任何需要批量比对文档的审查。适用情形：用户说"表格审查"、
-  "审查表格"、"从这些合同提取字段"、"批量比对"。
-argument-hint: "[--schema <file> --docs <folder> --output <xlsx|csv>]"
+description: '表格化批量审查——每个文档一行，每个数据点一列，每格注明来源。 适用于M&A尽调（"审查200份合同中的控制权变更/转让/ MAC条款"）
+  或任何需要批量比对文档的审查。适用情形：用户说"表格审查"、 "审查表格"、"从这些合同提取字段"、"批量比对"。
+
+  '
+argument-hint: '[--schema <file> --docs <folder> --output <xlsx|csv>]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 表格审查
+- 合规表
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /tabular-review — China Mainland

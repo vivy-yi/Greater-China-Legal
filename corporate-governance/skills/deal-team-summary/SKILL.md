@@ -1,14 +1,20 @@
 ---
 name: deal-team-summary
-description: >
-  将尽调发现汇总为交易团队简报——按受众层级输出：高层摘要/团队工作摘要。
-  适用情形：用户说"简报交易团队"、"尽调状态汇总"、"给领导汇报"、
+description: '将尽调发现汇总为交易团队简报——按受众层级输出：高层摘要/团队工作摘要。 适用情形：用户说"简报交易团队"、"尽调状态汇总"、"给领导汇报"、
   "交易更新"、"总结发现"。
-argument-hint: "[受众层级 + 交易代码]"
+
+  '
+argument-hint: '[受众层级 + 交易代码]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 交易团队
+- 项目组
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /deal-team-summary — China Mainland

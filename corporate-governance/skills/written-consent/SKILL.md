@@ -1,13 +1,19 @@
 ---
 name: written-consent
-description: >
-  生成书面决议——在未召开会议的情况下，由全体股东/董事签署的决议。
-  适用情形：用户说"写个书面决议"、"不出席写个决定"、"一致同意写个文件"。
-argument-hint: "[决议内容 + 适用公司类型]"
+description: '生成书面决议——在未召开会议的情况下，由全体股东/董事签署的决议。 适用情形：用户说"写个书面决议"、"不出席写个决定"、"一致同意写个文件"。
+
+  '
+argument-hint: '[决议内容 + 适用公司类型]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 书面决议
+- 股东决定
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /written-consent — China Mainland

@@ -1,14 +1,20 @@
 ---
 name: clearance
-description: >
-  商标初步检索——绝对理由审查 + 近似商标检索，输出风险标志列表而非注册意见。
-  适用情形：提案新商标、查询商标可用性、评估混淆可能性。
+description: '商标初步检索——绝对理由审查 + 近似商标检索，输出风险标志列表而非注册意见。 适用情形：提案新商标、查询商标可用性、评估混淆可能性。
   本技能不得出具"商标可注册"的结论。
-argument-hint: "[描述提案商标、商品/服务、申请类别和管辖区域]"
+
+  '
+argument-hint: '[描述提案商标、商品/服务、申请类别和管辖区域]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- IP清除
+- 侵权检索
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /clearance — China Mainland

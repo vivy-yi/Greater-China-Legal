@@ -1,36 +1,38 @@
 ---
 name: expansion-kickoff
-description: >
-  启动新国家/地区用工扩张规划 — 采集信息、EOR vs 自设实体判断、
-  跨部门问题清单、地区特殊问题标记、创建持续跟踪器。
-  适用情形：用户说"要在[国家/地区]招聘"、"扩张到[国家/地区]"、
+description: '启动新国家/地区用工扩张规划 — 采集信息、EOR vs 自设实体判断、 跨部门问题清单、地区特殊问题标记、创建持续跟踪器。 适用情形：用户说"要在[国家/地区]招聘"、"扩张到[国家/地区]"、
   "在[国家/地区]的首次招聘"。
-argument-hint: "[国家/地区名称]"
+
+  '
+argument-hint: '[国家/地区名称]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Contract Law of the PRC
-    article: Article 10-17 (Labor relationship establishment)
-    effective_date: 2012-07-01
-    jurisdiction: cn-mainland
-  - type: statute
-    name: Social Insurance Law of the PRC
-    article: Full text
-    effective_date: 2018-12-29
-    jurisdiction: cn-mainland
-  - type: statute
-    name: Regulations on the Administration of Foreign-Funded Enterprises
-    article: Full text
-    effective_date: 2020-01-01
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Contract Law of the PRC
+  article: Article 10-17 (Labor relationship establishment)
+  effective_date: 2012-07-01
+  jurisdiction: cn-mainland
+- type: statute
+  name: Social Insurance Law of the PRC
+  article: Full text
+  effective_date: 2018-12-29
+  jurisdiction: cn-mainland
+- type: statute
+  name: Regulations on the Administration of Foreign-Funded Enterprises
+  article: Full text
+  effective_date: 2020-01-01
+  jurisdiction: cn-mainland
 risk_level: medium
 escalation_triggers:
-  - 涉及外籍员工（须就业许可证）
-  - 涉及香港/澳门/台湾员工（特殊程序）
-  - 上市公司跨境用工（须评估证券披露义务）
+- 涉及外籍员工（须就业许可证）
+- 涉及香港/澳门/台湾员工（特殊程序）
+- 上市公司跨境用工（须评估证券披露义务）
+trigger_phrases:
+- 扩张启动
+- 项目启动
 ---
 
 # /expansion-kickoff

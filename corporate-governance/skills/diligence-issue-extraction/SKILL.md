@@ -1,14 +1,19 @@
 ---
 name: diligence-issue-extraction
-description: >
-  从尽职调查文件中提取法律问题——审查尽职调查报告，识别关键风险点。
-  适用情形：用户说"提取尽调问题"、"审一下尽调报告的法律风险"、
-  "尽调发现了什么"、"法律尽调摘要"。
-argument-hint: "[尽调报告文件 + 关注领域]"
+description: '从尽职调查文件中提取法律问题——审查尽职调查报告，识别关键风险点。 适用情形：用户说"提取尽调问题"、"审一下尽调报告的法律风险"、 "尽调发现了什么"、"法律尽调摘要"。
+
+  '
+argument-hint: '[尽调报告文件 + 关注领域]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 尽调
+- 尽职调查
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /diligence-issue-extraction — China Mainland

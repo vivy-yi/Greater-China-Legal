@@ -1,14 +1,19 @@
 ---
 name: qualification-gap-assessment
-description: >
-  牌照资质差距评估——对照牌照申请要求，评估现有资质差距。
-  适用情形：计划申请牌照时，评估现有条件是否满足申请要求。
-  核心：从注册资本/风控体系/信息系统/高管资质/股东资质五维评估。
-argument-hint: "[目标牌照类型+现有资质]"
+description: '牌照资质差距评估——对照牌照申请要求，评估现有资质差距。 适用情形：计划申请牌照时，评估现有条件是否满足申请要求。 核心：从注册资本/风控体系/信息系统/高管资质/股东资质五维评估。
+
+  '
+argument-hint: '[目标牌照类型+现有资质]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 资质差距
+- 评估
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /qualification-gap-assessment — 牌照资质差距评估

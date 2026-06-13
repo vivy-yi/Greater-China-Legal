@@ -1,13 +1,19 @@
 ---
 name: demand-draft
-description: >
-  根据完成接收的案件起草律师函——须通过特权/保密检查。
-  适用情形：用户说"起草律师函"、"写催告函"。
-argument-hint: "[slug] [--skip-gate] [--version=N]"
+description: '根据完成接收的案件起草律师函——须通过特权/保密检查。 适用情形：用户说"起草律师函"、"写催告函"。
+
+  '
+argument-hint: '[slug] [--skip-gate] [--version=N]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 律师函起草
+- 催款函
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /demand-draft — China Mainland

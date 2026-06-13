@@ -1,13 +1,19 @@
 ---
 name: cease-desist
-description: >
-  发送警告函（--send）或处理收到的警告函（--receive）。
-  适用情形：主张权利要求侵权人停止侵权，或分析收到的侵权警告函。
-argument-hint: "<--send | --receive> [事实/对方当事人/警告函路径]"
+description: '发送警告函（--send）或处理收到的警告函（--receive）。 适用情形：主张权利要求侵权人停止侵权，或分析收到的侵权警告函。
+
+  '
+argument-hint: <--send | --receive> [事实/对方当事人/警告函路径]
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 停止侵权
+- 警告函
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /cease-desist — China Mainland

@@ -1,14 +1,19 @@
 ---
 name: risk-triage
-description: >
-  合同风险等级初筛——快速判断合同风险高低，决定审查深度。
-  适用情形：合同量大时，快速判断哪些合同需要详细审查。
-  核心：合同类型×金额×合作方信用三维评估。
-argument-hint: "[合同类型] [合同金额] [合作方信息]"
+description: '合同风险等级初筛——快速判断合同风险高低，决定审查深度。 适用情形：合同量大时，快速判断哪些合同需要详细审查。 核心：合同类型×金额×合作方信用三维评估。
+
+  '
+argument-hint: '[合同类型] [合同金额] [合作方信息]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 合同风险
+- 风险评估
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

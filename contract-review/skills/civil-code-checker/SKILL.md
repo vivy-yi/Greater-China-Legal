@@ -1,14 +1,19 @@
 ---
 name: civil-code-checker
-description: >
-  民法典合同编合规检查——逐条核对合同是否符合民法典规定。
-  适用情形：合同审查的最后一步，确认合同条款的合法性。
-  核心：法定权利义务/效力性强制性规定/提示和说明义务。
-argument-hint: "[合同文本]"
+description: '民法典合同编合规检查——逐条核对合同是否符合民法典规定。 适用情形：合同审查的最后一步，确认合同条款的合法性。 核心：法定权利义务/效力性强制性规定/提示和说明义务。
+
+  '
+argument-hint: '[合同文本]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 民法典
+- 合同合规
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

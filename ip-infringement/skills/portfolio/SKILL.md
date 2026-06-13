@@ -1,13 +1,19 @@
 ---
 name: portfolio
-description: >
-  IP组合管理——注册/续展/年费/使用声明追踪。
-  适用情形：检查即将续展的IP、添加/更新资产、审计注册簿漏洞。
-argument-hint: "[--report [--days N] | --add | --update | --audit]"
+description: 'IP组合管理——注册/续展/年费/使用声明追踪。 适用情形：检查即将续展的IP、添加/更新资产、审计注册簿漏洞。
+
+  '
+argument-hint: '[--report [--days N] | --add | --update | --audit]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 知识产权组合
+- 商标专利
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /portfolio — China Mainland

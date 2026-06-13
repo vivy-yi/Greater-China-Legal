@@ -1,14 +1,20 @@
 ---
 name: statute-of-limitations
-description: >
-  中国法律时效数据库——查询和计算民事诉讼时效、劳动仲裁时效、仲裁时效、
-  举证期限、上诉期限、执行期限、保全期限。适用情形：用户说"这个案子还有效吗"、
+description: '中国法律时效数据库——查询和计算民事诉讼时效、劳动仲裁时效、仲裁时效、 举证期限、上诉期限、执行期限、保全期限。适用情形：用户说"这个案子还有效吗"、
   "诉讼时效过了吗"、"劳动仲裁时效从什么时候开始算"。
-argument-hint: "[案件类型] [事件日期] 或 [具体时效问题]"
+
+  '
+argument-hint: '[案件类型] [事件日期] 或 [具体时效问题]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 时效
+- 诉讼时效
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # 中国法律时效数据库

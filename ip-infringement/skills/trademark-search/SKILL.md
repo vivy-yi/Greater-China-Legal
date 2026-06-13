@@ -1,14 +1,20 @@
 ---
 name: trademark-search
-description: >
-  商标侵权查询——查询商标注册状态和近似商标，评估混淆可能性。
-  适用情形：确认自身商标是否被侵权，或确认是否侵犯他人在先商标。
-  核心：尼斯分类确定商品类别 + 音形义三维度判断近似。
-argument-hint: "[我方商标+对方商标+商品类别]"
+description: '商标侵权查询——查询商标注册状态和近似商标，评估混淆可能性。 适用情形：确认自身商标是否被侵权，或确认是否侵犯他人在先商标。 核心：尼斯分类确定商品类别
+  + 音形义三维度判断近似。
+
+  '
+argument-hint: '[我方商标+对方商标+商品类别]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 商标检索
+- 近似查询
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /trademark-search — 商标查询与近似判断

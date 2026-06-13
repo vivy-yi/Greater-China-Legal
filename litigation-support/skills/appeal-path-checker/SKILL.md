@@ -1,14 +1,19 @@
 ---
 name: appeal-path-checker
-description: >
-  上诉/再审路径核查——判断是否有上诉/再审机会，评估成功率。
-  适用情形：一审败诉后，判断是否上诉/申请再审，以及成功概率。
-  核心：上诉是当事人权利，再审须满足特定条件，成功率差异大。
-argument-hint: "[一审结果+一审法院+败诉原因]"
+description: '上诉/再审路径核查——判断是否有上诉/再审机会，评估成功率。 适用情形：一审败诉后，判断是否上诉/申请再审，以及成功概率。 核心：上诉是当事人权利，再审须满足特定条件，成功率差异大。
+
+  '
+argument-hint: '[一审结果+一审法院+败诉原因]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 上诉
+- 申诉
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /appeal-path-checker — 上诉/再审路径核查

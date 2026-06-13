@@ -1,14 +1,20 @@
 ---
 name: odi-compliance
-description: >
-  对外直接投资（ODI）合规——境内企业境外投资须办理的合规手续。
-  适用情形：境内企业向境外（香港/美国等）设立公司或汇出投资款时使用。
+description: '对外直接投资（ODI）合规——境内企业境外投资须办理的合规手续。 适用情形：境内企业向境外（香港/美国等）设立公司或汇出投资款时使用。
   核心：ODI备案/核准 + 37号文登记 + 外汇登记。
-argument-hint: "[投资目的地] [投资主体类型] [投资金额]"
+
+  '
+argument-hint: '[投资目的地] [投资主体类型] [投资金额]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: critical
+trigger_phrases:
+- ODI备案
+- 境外投资
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

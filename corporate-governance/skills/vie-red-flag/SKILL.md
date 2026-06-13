@@ -1,14 +1,20 @@
 ---
 name: vie-red-flag
-description: >
-  VIE结构风险识别——判断是否需要/可以采用VIE结构及风险点。
-  适用情形：境外融资/境外上市时，判断是否涉及须用VIE结构的限制/禁止行业。
+description: 'VIE结构风险识别——判断是否需要/可以采用VIE结构及风险点。 适用情形：境外融资/境外上市时，判断是否涉及须用VIE结构的限制/禁止行业。
   核心：负面清单判断 + VIE协议效力 + ODI合规。
-argument-hint: "[主营业务描述] [目标融资/上市地]"
+
+  '
+argument-hint: '[主营业务描述] [目标融资/上市地]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: critical
+trigger_phrases:
+- VIE风险
+- 红筹
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

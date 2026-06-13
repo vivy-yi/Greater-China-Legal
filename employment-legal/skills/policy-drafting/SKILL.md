@@ -1,37 +1,40 @@
 ---
 name: policy-drafting
-description: >
-  中国大陆员工规章制度/政策起草 — 加班管理、考勤、年休假、病假、薪酬、
-  保密竞业、奖惩、离职管理等政策起草。适用情形：用户说"起草一份[主题]制度"、
+description: '中国大陆员工规章制度/政策起草 — 加班管理、考勤、年休假、病假、薪酬、 保密竞业、奖惩、离职管理等政策起草。适用情形：用户说"起草一份[主题]制度"、
   "我们需要一份关于[主题]的规定"、"制定[主题]政策"。
-argument-hint: "[政策主题 — 如'加班申请制度'、'考勤制度'、'年休假管理'、'薪酬制度']"
+
+  '
+argument-hint: '[政策主题 — 如''加班申请制度''、''考勤制度''、''年休假管理''、''薪酬制度'']'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Contract Law of the PRC
-    article: Article 4 (Rules and regulations), Article 17 (Contract terms), Article 35 (Contract changes)
-    effective_date: 2012-07-01
-    jurisdiction: cn-mainland
-  - type: statute
-    name: Labor Law of the PRC
-    article: Articles 3, 36-45 (Working hours, rest), Articles 44-47 (Wages, overtime)
-    effective_date: 2018-12-29
-    jurisdiction: cn-mainland
-  - type: regulation
-    name: Regulations on Paid Annual Leave for Employees
-    article: Articles 2-5
-    effective_date: 2008-01-01
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Contract Law of the PRC
+  article: Article 4 (Rules and regulations), Article 17 (Contract terms), Article
+    35 (Contract changes)
+  effective_date: 2012-07-01
+  jurisdiction: cn-mainland
+- type: statute
+  name: Labor Law of the PRC
+  article: Articles 3, 36-45 (Working hours, rest), Articles 44-47 (Wages, overtime)
+  effective_date: 2018-12-29
+  jurisdiction: cn-mainland
+- type: regulation
+  name: Regulations on Paid Annual Leave for Employees
+  article: Articles 2-5
+  effective_date: 2008-01-01
+  jurisdiction: cn-mainland
 risk_level: medium
 escalation_triggers:
-  - 起草涉及低于法定标准的条款（该条款无效且可能影响整体合规性）
-  - 涉及员工重大切身利益（工资、休假、解除权）须经民主程序
-  - 涉及孕期/哺乳期/工伤等特殊保护群体的政策
-  - 涉及罚款/扣款权力（须符合劳动合同法第4条及工资支付规定）
-  - 政策可能被视为变更劳动合同的情形（须协商一致，劳动合同法第35条）
+- 起草涉及低于法定标准的条款（该条款无效且可能影响整体合规性）
+- 涉及员工重大切身利益（工资、休假、解除权）须经民主程序
+- 涉及孕期/哺乳期/工伤等特殊保护群体的政策
+- 涉及罚款/扣款权力（须符合劳动合同法第4条及工资支付规定）
+- 政策可能被视为变更劳动合同的情形（须协商一致，劳动合同法第35条）
+trigger_phrases:
+- policy drafting
 ---
 
 # /policy-drafting

@@ -1,14 +1,19 @@
 ---
 name: evidence-guide
-description: >
-  知识产权侵权证据收集——指导收集哪类证据、固定哪些证据链。
-  适用情形：确认侵权后，指导权利人如何收集和固定证据。
-  核心：证据须形成完整链，工商查处/公证/鉴定各有优劣。
-argument-hint: "[IP类型+侵权场景]"
+description: '知识产权侵权证据收集——指导收集哪类证据、固定哪些证据链。 适用情形：确认侵权后，指导权利人如何收集和固定证据。 核心：证据须形成完整链，工商查处/公证/鉴定各有优劣。
+
+  '
+argument-hint: '[IP类型+侵权场景]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 证据指导
+- 举证
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /evidence-guide — IP侵权证据收集指引

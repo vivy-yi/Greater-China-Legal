@@ -1,13 +1,19 @@
 ---
 name: legal-hold
-description: >
-  发出/刷新/释放/报告法律保留通知——更新_log.yaml中的legal_hold字段。
-  适用情形：用户说"发出保留"、"刷新保留"、"释放保留"。
-argument-hint: "[slug] [--issue | --refresh | --release | --status]"
+description: '发出/刷新/释放/报告法律保留通知——更新_log.yaml中的legal_hold字段。 适用情形：用户说"发出保留"、"刷新保留"、"释放保留"。
+
+  '
+argument-hint: '[slug] [--issue | --refresh | --release | --status]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 证据保全
+- 诉讼保全
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /legal-hold — China Mainland

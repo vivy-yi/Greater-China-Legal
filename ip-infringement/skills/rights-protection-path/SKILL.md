@@ -1,14 +1,19 @@
 ---
 name: rights-protection-path
-description: >
-  维权路径选择——根据证据充分性和侵权严重程度选择最优路径。
-  适用情形：确认侵权后，选择协商/行政投诉/民事诉讼/刑事报案。
-  核心：刑事报案须"情节严重"，证据不足时先走行政固定证据。
-argument-hint: "[IP类型+侵权严重程度+证据充分性]"
+description: '维权路径选择——根据证据充分性和侵权严重程度选择最优路径。 适用情形：确认侵权后，选择协商/行政投诉/民事诉讼/刑事报案。 核心：刑事报案须"情节严重"，证据不足时先走行政固定证据。
+
+  '
+argument-hint: '[IP类型+侵权严重程度+证据充分性]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 维权路径
+- 知识产权保护
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /rights-protection-path — 维权路径选择

@@ -1,22 +1,27 @@
 ---
 name: nda-review
-description: >
-  中国商业秘密保护协议（NDA）快速分类 — 将收到的NDA分为 GREEN/YELLOW/RED，
-  确保只有需要律师介入的协议才会消耗法务资源。
-  适用情形：用户说"审一下这份保密协议"、"评估这个NDA"、"分类这份NDA"。
-  内置于 /commercial-legal:review，当检测到NDA时自动加载。
-argument-hint: "[交易对手名称] 或 [附加文档]"
+description: '中国商业秘密保护协议（NDA）快速分类 — 将收到的NDA分为 GREEN/YELLOW/RED， 确保只有需要律师介入的协议才会消耗法务资源。
+  适用情形：用户说"审一下这份保密协议"、"评估这个NDA"、"分类这份NDA"。 内置于 /commercial-legal:review，当检测到NDA时自动加载。
+
+  '
+argument-hint: '[交易对手名称] 或 [附加文档]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
 escalation_triggers:
-  - 单边NDA（我方仅接收保密信息，对方不披露任何信息）
-  - 合同期限超过3年或无明确终止日期
-  - 包含竞业限制条款（须结合中国法律评估可执行性）
-  - 适用境外法律或境外仲裁条款
-  - 数据跨境传输相关保密义务（PIPL合规）
-  - 违约金条款超过合同总价30%
+- 单边NDA（我方仅接收保密信息，对方不披露任何信息）
+- 合同期限超过3年或无明确终止日期
+- 包含竞业限制条款（须结合中国法律评估可执行性）
+- 适用境外法律或境外仲裁条款
+- 数据跨境传输相关保密义务（PIPL合规）
+- 违约金条款超过合同总价30%
+trigger_phrases:
+- 保密协议
+- NDA审查
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # NDA Review — China Mainland

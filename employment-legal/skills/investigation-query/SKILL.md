@@ -1,22 +1,25 @@
 ---
 name: investigation-query
-description: >
-  针对开放调查日志提问 — 证人说了什么、陈述在哪里矛盾、证据缺口是什么、
-  各问题最强证据是什么。适用情形：律师需要查询调查记录而不重读每条日志。
-argument-hint: "[事项名称] [问题]"
+description: '针对开放调查日志提问 — 证人说了什么、陈述在哪里矛盾、证据缺口是什么、 各问题最强证据是什么。适用情形：律师需要查询调查记录而不重读每条日志。
+
+  '
+argument-hint: '[事项名称] [问题]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Contract Law of the PRC
-    article: Article 39 (Employer's right to dissolve)
-    effective_date: 2012-07-01
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Contract Law of the PRC
+  article: Article 39 (Employer's right to dissolve)
+  effective_date: 2012-07-01
+  jurisdiction: cn-mainland
 risk_level: low
 escalation_triggers:
-  - 发现重大证据矛盾可能影响调查结论（须律师评估）
+- 发现重大证据矛盾可能影响调查结论（须律师评估）
+trigger_phrases:
+- 调查询问
+- 访谈
 ---
 
 # /investigation-query

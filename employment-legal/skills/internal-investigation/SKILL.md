@@ -1,20 +1,25 @@
 ---
 name: internal-investigation
-description: >
-  内部调查框架 Skill（不直接调用）— 被 /investigation-open、/investigation-add、
-  /investigation-query、/investigation-memo、/investigation-summary 调用。
-  管理从立案到最终调查报告的全流程：保密调查日志、文档处理、来源覆盖跟踪、
-  Q&A 查询、调查报告起草、受众摘要。
+description: '内部调查框架 Skill（不直接调用）— 被 /investigation-open、/investigation-add、 /investigation-query、/investigation-memo、/investigation-summary
+  调用。 管理从立案到最终调查报告的全流程：保密调查日志、文档处理、来源覆盖跟踪、 Q&A 查询、调查报告起草、受众摘要。
+
+  '
 user_invocable: false
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
 escalation_triggers:
-  - 调查涉及高管或董事会成员（须上报董事会/监事会）
-  - 涉及刑事犯罪线索（须评估是否向公安机关报案）
-  - 涉及证券违规（上市公司须评估是否须披露）
-  - 涉及外籍员工或跨境因素（须考虑适用外国法律）
+- 调查涉及高管或董事会成员（须上报董事会/监事会）
+- 涉及刑事犯罪线索（须评估是否向公安机关报案）
+- 涉及证券违规（上市公司须评估是否须披露）
+- 涉及外籍员工或跨境因素（须考虑适用外国法律）
+trigger_phrases:
+- 内部调查
+- 合规调查
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /internal-investigation

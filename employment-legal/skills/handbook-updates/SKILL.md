@@ -1,37 +1,40 @@
 ---
 name: handbook-updates
-description: >
-  中国大陆员工手册/规章制度修订审查 — 变更比对、跨章节影响、
-  劳动法合规性检查、地方规定影响分析。适用情形：用户说"更新员工手册"、
+description: '中国大陆员工手册/规章制度修订审查 — 变更比对、跨章节影响、 劳动法合规性检查、地方规定影响分析。适用情形：用户说"更新员工手册"、
   "在手册里加这条"、"规章制度修订"、"变更考勤制度"。
-argument-hint: "[手册章节，或描述拟变更的内容]"
+
+  '
+argument-hint: '[手册章节，或描述拟变更的内容]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Contract Law of the PRC
-    article: Articles 4 (Employer rules and regulations), Articles 38-39 (Employee rights)
-    effective_date: 2012-07-01
-    jurisdiction: cn-mainland
-  - type: statute
-    name: Labor Law of the PRC
-    article: Articles 3, 25-26 (Employee rights, employer obligations)
-    effective_date: 2018-12-29
-    jurisdiction: cn-mainland
-  - type: regulation
-    name: Rules for the Implementation of the Labor Contract Law of the PRC
-    article: Articles 16-19 (Handbook and rules)
-    effective_date: 2012-12-31
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Contract Law of the PRC
+  article: Articles 4 (Employer rules and regulations), Articles 38-39 (Employee rights)
+  effective_date: 2012-07-01
+  jurisdiction: cn-mainland
+- type: statute
+  name: Labor Law of the PRC
+  article: Articles 3, 25-26 (Employee rights, employer obligations)
+  effective_date: 2018-12-29
+  jurisdiction: cn-mainland
+- type: regulation
+  name: Rules for the Implementation of the Labor Contract Law of the PRC
+  article: Articles 16-19 (Handbook and rules)
+  effective_date: 2012-12-31
+  jurisdiction: cn-mainland
 risk_level: medium
 escalation_triggers:
-  - 变更涉及法定标准以下的内容（员工福利低于法定最低标准无效）
-  - 变更扩大用人单位单方解除权（须合法性论证）
-  - 变更涉及孕期/哺乳期/工伤等特殊保护群体
-  - 新增罚款/扣款条款（最高罚款不得超过当月工资20%且不低于最低工资）
-  - 变更引起较大面积员工异议或集体劳动争议风险
+- 变更涉及法定标准以下的内容（员工福利低于法定最低标准无效）
+- 变更扩大用人单位单方解除权（须合法性论证）
+- 变更涉及孕期/哺乳期/工伤等特殊保护群体
+- 新增罚款/扣款条款（最高罚款不得超过当月工资20%且不低于最低工资）
+- 变更引起较大面积员工异议或集体劳动争议风险
+trigger_phrases:
+- 员工手册
+- 制度更新
 ---
 
 # /handbook-updates

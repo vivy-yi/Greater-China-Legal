@@ -1,13 +1,19 @@
 ---
 name: ip-clause-review
-description: >
-  审查协议中的IP条款——权利归属/许可/担保/赔偿。
-  适用情形：审查雇佣/咨询/服务合同/供应商合同中的IP条款。
-argument-hint: "[文件路径 | 粘贴协议文本]"
+description: '审查协议中的IP条款——权利归属/许可/担保/赔偿。 适用情形：审查雇佣/咨询/服务合同/供应商合同中的IP条款。
+
+  '
+argument-hint: '[文件路径 | 粘贴协议文本]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- IP条款
+- 知识产权条款
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /ip-clause-review — China Mainland

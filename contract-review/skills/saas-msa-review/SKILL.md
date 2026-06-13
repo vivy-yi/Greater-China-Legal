@@ -1,23 +1,28 @@
 ---
 name: saas-msa-review
-description: >
-  中国SaaS订阅协议审查——专注订阅交易中最关键的条款：
-  自动续期机制、价格上涨、数据迁移、SLA正常运行时间、子处理者权利。
-  适用情形：用户说"审一下这个SaaS合同"、"评估这个订阅协议"。
+description: '中国SaaS订阅协议审查——专注订阅交易中最关键的条款： 自动续期机制、价格上涨、数据迁移、SLA正常运行时间、子处理者权利。 适用情形：用户说"审一下这个SaaS合同"、"评估这个订阅协议"。
   内置于 /commercial-legal:review，当检测到SaaS或订阅协议时自动加载。
-argument-hint: "[供应商名称] 或 [附加文档]"
+
+  '
+argument-hint: '[供应商名称] 或 [附加文档]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
 escalation_triggers:
-  - 自动续期无通知窗口或窗口少于30日
-  - 价格涨幅无上限（无CPI或固定百分比限制）
-  - 无数据导出权利或导出费用过高
-  - 无SLA或SLA低于99.5%
-  - 子处理者变更无通知权
-  - AI训练权相关条款（涉及PIPL合规）
-  - PIPL不合规（无DPA或DPA不符合要求）
+- 自动续期无通知窗口或窗口少于30日
+- 价格涨幅无上限（无CPI或固定百分比限制）
+- 无数据导出权利或导出费用过高
+- 无SLA或SLA低于99.5%
+- 子处理者变更无通知权
+- AI训练权相关条款（涉及PIPL合规）
+- PIPL不合规（无DPA或DPA不符合要求）
+trigger_phrases:
+- SaaS协议
+- 服务协议
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # SaaS / Subscription Agreement Review — China Mainland

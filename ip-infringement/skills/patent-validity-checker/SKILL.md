@@ -1,14 +1,19 @@
 ---
 name: patent-validity-checker
-description: >
-  专利有效性核查——核查专利是否有效、是否可被无效。
-  适用情形：被控专利侵权时，首先核查对方专利是否有效。
-  核心：专利有效须满足新颖性/创造性/实用性，且未过期/未缴纳年费。
-argument-hint: "[专利号/专利名称]"
+description: '专利有效性核查——核查专利是否有效、是否可被无效。 适用情形：被控专利侵权时，首先核查对方专利是否有效。 核心：专利有效须满足新颖性/创造性/实用性，且未过期/未缴纳年费。
+
+  '
+argument-hint: '[专利号/专利名称]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 专利有效性
+- 无效
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /patent-validity-checker — 专利有效性核查

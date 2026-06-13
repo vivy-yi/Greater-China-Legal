@@ -1,34 +1,37 @@
 ---
 name: log-leave
-description: >
-  中国大陆员工休假登记 — 将新休假记录录入休假跟踪系统，启动年休假/病假/产假/陪产假/
-  婚假/丧假/工伤假的期限跟踪。适用情形：员工开始休假，在休假跟踪系统中登记。
-argument-hint: "[员工姓名/职位、工作地点、休假类型、起始日期、预计结束日期]"
+description: '中国大陆员工休假登记 — 将新休假记录录入休假跟踪系统，启动年休假/病假/产假/陪产假/ 婚假/丧假/工伤假的期限跟踪。适用情形：员工开始休假，在休假跟踪系统中登记。
+
+  '
+argument-hint: '[员工姓名/职位、工作地点、休假类型、起始日期、预计结束日期]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Law of the PRC
-    article: Articles 45-50 (Annual leave, wages)
-    effective_date: 2018-12-29
-    jurisdiction: cn-mainland
-  - type: regulation
-    name: Regulations on Paid Annual Leave for Employees
-    article: Full text
-    effective_date: 2008-01-01
-    jurisdiction: cn-mainland
-  - type: statute
-    name: Population and Family Planning Regulations (various provinces)
-    article: Province-specific
-    effective_date: varies by province
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Law of the PRC
+  article: Articles 45-50 (Annual leave, wages)
+  effective_date: 2018-12-29
+  jurisdiction: cn-mainland
+- type: regulation
+  name: Regulations on Paid Annual Leave for Employees
+  article: Full text
+  effective_date: 2008-01-01
+  jurisdiction: cn-mainland
+- type: statute
+  name: Population and Family Planning Regulations (various provinces)
+  article: Province-specific
+  effective_date: varies by province
+  jurisdiction: cn-mainland
 risk_level: low
 escalation_triggers:
-  - 产假天数超过法定98天（部分省市有额外生育奖励假）
-  - 病假连续超过医疗期期限（须评估劳动合同处理）
-  - 工伤假期满未做劳动能力鉴定（须申请鉴定）
+- 产假天数超过法定98天（部分省市有额外生育奖励假）
+- 病假连续超过医疗期期限（须评估劳动合同处理）
+- 工伤假期满未做劳动能力鉴定（须申请鉴定）
+trigger_phrases:
+- 请假记录
+- 休假
 ---
 
 # /log-leave

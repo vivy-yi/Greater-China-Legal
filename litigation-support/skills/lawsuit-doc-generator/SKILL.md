@@ -1,14 +1,20 @@
 ---
 name: lawsuit-doc-generator
-description: >
-  诉讼文书生成——生成起诉状/答辩状/上诉状等诉讼文书。
-  适用情形：须向法院提交诉讼文书时使用。
-  核心：格式须符合《民事诉讼法》规定，要素须完整。
-argument-hint: "[文书类型（起诉状/答辩状/上诉状）+案件信息]"
+description: '诉讼文书生成——生成起诉状/答辩状/上诉状等诉讼文书。 适用情形：须向法院提交诉讼文书时使用。 核心：格式须符合《民事诉讼法》规定，要素须完整。
+
+  '
+argument-hint: '[文书类型（起诉状/答辩状/上诉状）+案件信息]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 起诉状
+- 答辩状
+- 诉讼文书
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /lawsuit-doc-generator — 诉讼文书生成

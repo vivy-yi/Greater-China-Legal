@@ -1,14 +1,20 @@
 ---
 name: integration-management
-description: >
-  投后整合追踪——分阶段工作计划、审批追踪、合同移交、每周状态报告。
-  适用情形：用户说"整合"、"交割后"、"投后管理"、"还剩什么没完成"、
+description: '投后整合追踪——分阶段工作计划、审批追踪、合同移交、每周状态报告。 适用情形：用户说"整合"、"交割后"、"投后管理"、"还剩什么没完成"、
   "合同移交"、"整合状态"。
-argument-hint: "[--init | --contracts | --report | --update | --export]"
+
+  '
+argument-hint: '[--init | --contracts | --report | --update | --export]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 整合管理
+- 并购
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /integration-management — China Mainland

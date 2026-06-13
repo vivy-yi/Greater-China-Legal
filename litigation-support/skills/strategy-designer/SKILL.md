@@ -1,18 +1,23 @@
 ---
 name: strategy-designer
-description: >
-  诉讼策略制定——根据案件事实和证据，设计最优诉讼策略，构建完整论证链条。
-  适用情形：决定起诉或应诉后，制定整体诉讼策略和论证方案。
-  核心：诉讼请求设计 + 论证链条构建 + 防御层设计。
-  本skill整合了THUYRan argument-chain-construction的方法论。
-argument-hint: "[我方地位（原告/被告）+案件类型+核心争议点]"
+description: '诉讼策略制定——根据案件事实和证据，设计最优诉讼策略，构建完整论证链条。 适用情形：决定起诉或应诉后，制定整体诉讼策略和论证方案。 核心：诉讼请求设计
+  + 论证链条构建 + 防御层设计。 本skill整合了THUYRan argument-chain-construction的方法论。
+
+  '
+argument-hint: '[我方地位（原告/被告）+案件类型+核心争议点]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06-13
 version: 1.1.0
 risk_level: high
 references:
-  - name: argument-chain-construction
-    source: THUYRan/Legal-Skills-Chinese
+- name: argument-chain-construction
+  source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+- 诉讼策略
+- 法律策略
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /strategy-designer — 诉讼策略制定 + 论证链条构建

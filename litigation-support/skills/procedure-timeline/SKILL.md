@@ -1,14 +1,19 @@
 ---
 name: procedure-timeline
-description: >
-  诉讼程序时间线——根据案件类型给出各程序阶段的时间节点。
-  适用情形：了解诉讼大概需要多长时间，各个阶段的时间节点。
-  核心：一审普通程序6个月，简易程序3个月，二审3个月，再审6个月。
-argument-hint: "[案件类型+管辖法院级别]"
+description: '诉讼程序时间线——根据案件类型给出各程序阶段的时间节点。 适用情形：了解诉讼大概需要多长时间，各个阶段的时间节点。 核心：一审普通程序6个月，简易程序3个月，二审3个月，再审6个月。
+
+  '
+argument-hint: '[案件类型+管辖法院级别]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 诉讼时效
+- 程序期限
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /procedure-timeline — 诉讼程序时间线

@@ -1,14 +1,19 @@
 ---
 name: closing-checklist
-description: >
-  交易交割清单——M&A/股权交易/资产收购完成前的法律合规检查。
-  适用情形：用户说"交割前检查一下"、"这个交易能关闭了吗"、
-  "并购交割清单"、"交易完成前还要做什么"。
-argument-hint: "[交易类型 + 交割条件 + 已完成事项]"
+description: '交易交割清单——M&A/股权交易/资产收购完成前的法律合规检查。 适用情形：用户说"交割前检查一下"、"这个交易能关闭了吗"、 "并购交割清单"、"交易完成前还要做什么"。
+
+  '
+argument-hint: '[交易类型 + 交割条件 + 已完成事项]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 交割清单
+- checklist
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /closing-checklist — China Mainland

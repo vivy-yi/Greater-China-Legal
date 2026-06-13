@@ -1,14 +1,19 @@
 ---
 name: governance-design
-description: >
-  公司治理结构设计——章程/股东会/董事会/监事会设计。
-  适用情形：公司设立或股权结构变更时，设计治理结构。
-  核心：控制权分配/表决机制/议事规则。
-argument-hint: "[公司类型] [股东结构] [控制权需求]"
+description: '公司治理结构设计——章程/股东会/董事会/监事会设计。 适用情形：公司设立或股权结构变更时，设计治理结构。 核心：控制权分配/表决机制/议事规则。
+
+  '
+argument-hint: '[公司类型] [股东结构] [控制权需求]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 治理结构
+- 设计
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

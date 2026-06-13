@@ -1,14 +1,19 @@
 ---
 name: consumer-protection-checker
-description: >
-  消费者保护合规检查——评估消保措施是否满足监管要求。
-  适用情形：消费金融/互联网贷款产品上线前或定期合规检查。
-  核心：信息披露/利率透明/催收规范/个人信息保护四维检查。
-argument-hint: "[产品类型，如'现金贷/消费分期/信用支付']"
+description: '消费者保护合规检查——评估消保措施是否满足监管要求。 适用情形：消费金融/互联网贷款产品上线前或定期合规检查。 核心：信息披露/利率透明/催收规范/个人信息保护四维检查。
+
+  '
+argument-hint: '[产品类型，如''现金贷/消费分期/信用支付'']'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 消费者保护
+- 合规
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /consumer-protection-checker — 消费者保护合规检查

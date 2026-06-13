@@ -1,13 +1,21 @@
 ---
 name: deposition-prep
-description: >
-  为证人构建 deposition outline — 从案件理论组织话题，呈现弹劾材料。
-  适用情形：用户要求"某证人depo prep"或"构建depo outline"。
-argument-hint: "[证人名称]"
+description: '为证人构建 deposition outline — 从案件理论组织话题，呈现弹劾材料。 适用情形：用户要求"某证人depo prep"或"构建depo
+  outline"。
+
+  '
+argument-hint: '[证人名称]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 取证
+- 询问
+- 质证
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /deposition-prep — China Mainland

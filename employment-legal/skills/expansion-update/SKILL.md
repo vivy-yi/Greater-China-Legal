@@ -1,23 +1,26 @@
 ---
 name: expansion-update
-description: >
-  更新进行中的跨国扩张项目状态 — 重新计算已解锁项、标记逾期项、
-  呈现下一优先事项。适用情形：自上次会面后有工作进展，需要更新扩张跟踪器。
-argument-hint: "[国家/地区名称]"
+description: '更新进行中的跨国扩张项目状态 — 重新计算已解锁项、标记逾期项、 呈现下一优先事项。适用情形：自上次会面后有工作进展，需要更新扩张跟踪器。
+
+  '
+argument-hint: '[国家/地区名称]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Contract Law of the PRC
-    article: Article 10-17 (Labor relationship establishment)
-    effective_date: 2012-07-01
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Contract Law of the PRC
+  article: Article 10-17 (Labor relationship establishment)
+  effective_date: 2012-07-01
+  jurisdiction: cn-mainland
 risk_level: low
 escalation_triggers:
-  - 扩张项目逾期超过30天（须评估是否继续推进）
-  - 发现目标国家/地区法律重大变化（须重新评估合规方案）
+- 扩张项目逾期超过30天（须评估是否继续推进）
+- 发现目标国家/地区法律重大变化（须重新评估合规方案）
+trigger_phrases:
+- 业务扩张
+- 人员扩充
 ---
 
 # /expansion-update

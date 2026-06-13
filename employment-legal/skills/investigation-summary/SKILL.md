@@ -1,22 +1,25 @@
 ---
 name: investigation-summary
-description: >
-  从保密调查报告起草面向特定受众的摘要 — HR版、管理层版、外部律师版。
-  适用情形：调查报告需要传达给不应看到完整保密工作成果的受众。
-argument-hint: "[事项名称] [受众: hr / leadership / outside-counsel]"
+description: '从保密调查报告起草面向特定受众的摘要 — HR版、管理层版、外部律师版。 适用情形：调查报告需要传达给不应看到完整保密工作成果的受众。
+
+  '
+argument-hint: '[事项名称] [受众: hr / leadership / outside-counsel]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 user_invocable: true
 legal_sources:
-  - type: statute
-    name: Labor Contract Law of the PRC
-    article: Article 39 (Employer's right to dissolve)
-    effective_date: 2012-07-01
-    jurisdiction: cn-mainland
+- type: statute
+  name: Labor Contract Law of the PRC
+  article: Article 39 (Employer's right to dissolve)
+  effective_date: 2012-07-01
+  jurisdiction: cn-mainland
 risk_level: low
 escalation_triggers:
-  - 向外部律师披露前须确认律师-委托人特权状态（中国大陆无强制特权，但须评估）
+- 向外部律师披露前须确认律师-委托人特权状态（中国大陆无强制特权，但须评估）
+trigger_phrases:
+- 调查报告
+- 总结
 ---
 
 # /investigation-summary

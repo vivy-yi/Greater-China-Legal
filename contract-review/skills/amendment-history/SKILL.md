@@ -1,15 +1,20 @@
 ---
 name: amendment-history
-description: >
-  合同变更历史追溯——追踪合同基础协议及所有补充协议的变化，
-  输出所有变更的摘要，或特定条款的演变路径。
-  适用情形：用户说"合同变更历史"、"哪里是最新条款"、
+description: '合同变更历史追溯——追踪合同基础协议及所有补充协议的变化， 输出所有变更的摘要，或特定条款的演变路径。 适用情形：用户说"合同变更历史"、"哪里是最新条款"、
   "这个条款是怎么演变的"、或上传多个版本的协议。
-argument-hint: "[文件路径 | 合同编号] [--provision <条款名称>]"
+
+  '
+argument-hint: '[文件路径 | 合同编号] [--provision <条款名称>]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: low
+trigger_phrases:
+- 合同变更
+- 补充协议
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /amendment-history — China Mainland

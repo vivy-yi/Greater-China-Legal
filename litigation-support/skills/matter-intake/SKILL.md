@@ -1,13 +1,19 @@
 ---
 name: matter-intake
-description: >
-  新案件接收——统一询问覆盖识别、冲突检查、风险分级和关键日期。
-  适用情形：用户说"新建案件"、"接收此案件"。
-argument-hint: "[案件名称]"
+description: '新案件接收——统一询问覆盖识别、冲突检查、风险分级和关键日期。 适用情形：用户说"新建案件"、"接收此案件"。
+
+  '
+argument-hint: '[案件名称]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 案件受理
+- 咨询
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /matter-intake — China Mainland

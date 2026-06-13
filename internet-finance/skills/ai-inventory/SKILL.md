@@ -1,13 +1,19 @@
 ---
 name: ai-inventory
-description: >
-  CN AI系统清单管理——跟踪算法推荐/深度合成/生成式AI系统的备案状态和风险等级。
-  适用情形：用户说"ai清单"、"添加AI系统"、"我的系统有哪些"、"CAC备案"。
-argument-hint: "[list | add | edit <id> | classify <id> | show <id>]"
+description: 'CN AI系统清单管理——跟踪算法推荐/深度合成/生成式AI系统的备案状态和风险等级。 适用情形：用户说"ai清单"、"添加AI系统"、"我的系统有哪些"、"CAC备案"。
+
+  '
+argument-hint: '[list | add | edit <id> | classify <id> | show <id>]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- AI清单
+- 人工智能
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /ai-inventory — China Mainland

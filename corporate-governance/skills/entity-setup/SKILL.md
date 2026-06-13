@@ -1,14 +1,19 @@
 ---
 name: entity-setup
-description: >
-  公司设立类型选择——有限责任公司/股份有限公司/合伙企业选择。
-  适用情形：创业者/企业家设立公司时，判断哪种类型最适合。
-  核心：控制权/融资需求/税务/治理复杂度四维权衡。
-argument-hint: "[主营业务] [融资计划] [创始人数量] [控制权需求]"
+description: '公司设立类型选择——有限责任公司/股份有限公司/合伙企业选择。 适用情形：创业者/企业家设立公司时，判断哪种类型最适合。 核心：控制权/融资需求/税务/治理复杂度四维权衡。
+
+  '
+argument-hint: '[主营业务] [融资计划] [创始人数量] [控制权需求]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 公司设立
+- 注册
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 ## 加载上下文

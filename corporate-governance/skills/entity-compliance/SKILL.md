@@ -1,15 +1,20 @@
 ---
 name: entity-compliance
-description: >
-  公司合规追踪——初始化、报告即将到期的备案、更新状态、执行健康审计、导出CSV。
-  根据公司类型和管辖机关计算备案截止日期，显示未来30/60/90天到期的事项。
-  适用情形：用户说"公司合规"、"备案截止日"、"工商年报"、"公司状态"、
-  "有什么要到期了"、"公司健康检查"。
-argument-hint: "[--init | --report [--days N] | --update | --sweep | --audit | --export]"
+description: '公司合规追踪——初始化、报告即将到期的备案、更新状态、执行健康审计、导出CSV。 根据公司类型和管辖机关计算备案截止日期，显示未来30/60/90天到期的事项。
+  适用情形：用户说"公司合规"、"备案截止日"、"工商年报"、"公司状态"、 "有什么要到期了"、"公司健康检查"。
+
+  '
+argument-hint: '[--init | --report [--days N] | --update | --sweep | --audit | --export]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 公司合规
+- 合规管理
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /entity-compliance — China Mainland

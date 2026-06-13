@@ -1,13 +1,19 @@
 ---
 name: policy-starter
-description: >
-  起草CN AI合规政策——算法推荐管理/深度合成管理/生成式AI管理政策。
-  适用情形：须制定或更新AI合规政策。
-argument-hint: "[政策类型]"
+description: '起草CN AI合规政策——算法推荐管理/深度合成管理/生成式AI管理政策。 适用情形：须制定或更新AI合规政策。
+
+  '
+argument-hint: '[政策类型]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 政策起草
+- 合规
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /policy-starter — China Mainland

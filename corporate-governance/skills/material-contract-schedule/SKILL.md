@@ -1,13 +1,19 @@
 ---
 name: material-contract-schedule
-description: >
-  生成重大合同披露清单——根据尽调发现和购买协议的"重大合同"定义构建。
-  适用情形：用户说"生成合同清单"、"披露清单"、"重大合同列表"。
-argument-hint: "[购买协议路径或粘贴Material Contract定义]"
+description: '生成重大合同披露清单——根据尽调发现和购买协议的"重大合同"定义构建。 适用情形：用户说"生成合同清单"、"披露清单"、"重大合同列表"。
+
+  '
+argument-hint: '[购买协议路径或粘贴Material Contract定义]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 重大合同
+- 合同清单
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /material-contract-schedule — China Mainland

@@ -1,13 +1,19 @@
 ---
 name: matter-close
-description: >
-  关闭案件——记录结果、最终风险敞口和教训，存档而不删除记录。
-  适用情形：用户说"[案件]结束了"或"记录和解/判决结果"。
-argument-hint: "[slug]"
+description: '关闭案件——记录结果、最终风险敞口和教训，存档而不删除记录。 适用情形：用户说"[案件]结束了"或"记录和解/判决结果"。
+
+  '
+argument-hint: '[slug]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+- 结案
+- 案件终结
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /matter-close — China Mainland

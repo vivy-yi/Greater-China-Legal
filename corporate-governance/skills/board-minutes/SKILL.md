@@ -1,14 +1,20 @@
 ---
 name: board-minutes
-description: >
-  生成董事会/股东会会议记录——符合《公司法》要求，包含法定内容和签名栏。
-  适用情形：用户说"写一下董事会决议"、"准备股东会会议记录"、"生成会议纪要"、
+description: '生成董事会/股东会会议记录——符合《公司法》要求，包含法定内容和签名栏。 适用情形：用户说"写一下董事会决议"、"准备股东会会议记录"、"生成会议纪要"、
   "这个决议怎么写"。
-argument-hint: "[会议类型 + 议题 + 参会人员 + 决议内容]"
+
+  '
+argument-hint: '[会议类型 + 议题 + 参会人员 + 决议内容]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 董事会决议
+- 会议记录
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /board-minutes — China Mainland

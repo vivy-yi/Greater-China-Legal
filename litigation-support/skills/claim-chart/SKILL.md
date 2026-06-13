@@ -1,13 +1,19 @@
 ---
 name: claim-chart
-description: >
-  构建或审查要素图表——专利权利要求图表或民事要素图表。
-  适用情形：用户要求构建要素图表、侵权图表、无效图表。
-argument-hint: "[--patent | --civil] [--infringement | --invalidity | --review]"
+description: '构建或审查要素图表——专利权利要求图表或民事要素图表。 适用情形：用户要求构建要素图表、侵权图表、无效图表。
+
+  '
+argument-hint: '[--patent | --civil] [--infringement | --invalidity | --review]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 诉请
+- 请求权
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /claim-chart — China Mainland

@@ -1,14 +1,19 @@
 ---
 name: ongoing-compliance-monitor
-description: >
-  持续合规监控——建立日常合规监控机制，识别监管动态和合规风险。
-  适用情形：持牌互联网金融公司日常合规监控，定期跟踪监管动态。
-  核心：关注金融监管总局/央行/证监会政策动态，及时调整合规措施。
-argument-hint: "[企业类型（已持牌/申请中）+当前合规状态]"
+description: '持续合规监控——建立日常合规监控机制，识别监管动态和合规风险。 适用情形：持牌互联网金融公司日常合规监控，定期跟踪监管动态。 核心：关注金融监管总局/央行/证监会政策动态，及时调整合规措施。
+
+  '
+argument-hint: '[企业类型（已持牌/申请中）+当前合规状态]'
 legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+- 合规监控
+- 持续
+legal_sources:
+- name: 中华人民共和国民法典
+  effective_date: '2021-01-01'
 ---
 
 # /ongoing-compliance-monitor — 持续合规监控
