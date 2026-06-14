@@ -13,27 +13,8 @@ risk_level: medium
 
 ## 数据源与判断框架引用
 
-本 skill 引用以下 plugin 根级 references 与 CLAUDE.md：
-
-- **判断框架**：`../../references/判断框架.md`（4 场景簇路由 + 各场景判断树 + 督导审核 + 升级决策门）
-- **数据源清单**：`../../references/数据源清单.md`（[YD]/[WKL]/[GOV]/[BD]/[model] + 法援场景适用 + 隐私保护）
-- **查询路径**：`../../references/查询路径.md`（法援法规/案例/案件档案/争议程序/应急检索）
-- **CLAUDE.md**：`../../CLAUDE.md`（CN 法律援助体系 + 申请流程）
-- **B 重构规范**：`../../../scene-design/README.md`（场景簇定义 + 数据源锚定）
-- **货币触发主题**：`../../../references/currency-watch.md`
-- **时效范围配置（核心）**：`../../references/plausibility-bands/cn-mainland.md`（按 C1-C4 场景的时效合理性检查）
-
-本 skill 所属场景簇：`legal-clinic`（参见 `../../references/判断框架.md` §一）
-
-⚠️ **法援场景特别提示**：
-- 本 skill 输出**必须经督导复核**（除 client-comms-log / ramp 等元数据 skill）
-- 当事人陈述标注 `[user]`，事实陈述与法律评价须明确区分
-- 案件档案脱敏处理，遵循 `../../references/数据源清单.md` §九
-- 关键结论须 2-3 个数据源交叉验证（详见 `../../references/数据源清单.md` §六）
-
-升级条件详见 `../../references/判断框架.md` §六。
-
----
+本 skill 引用场景级配置 `../../CLAUDE.md`。
+来源标注规范（[YD]/[WKL]/[BD]/[GOV]/[model]）参见场景级 references/ 目录。
 
 # /deadlines — China Mainland（B 重构 v2.1.0）
 

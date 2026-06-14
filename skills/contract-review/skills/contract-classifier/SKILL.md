@@ -18,21 +18,8 @@ legal_sources:
 
 ## 数据源与判断框架引用
 
-本 skill 引用以下 plugin 根级 references 与 CLAUDE.md：
-
-- **判断框架**：`../../references/判断框架.md`（合同生命周期路由 + 风险分级 + 效力判断 + 解除/违约金/格式条款判断）
-- **数据源清单**：`../../references/数据源清单.md`（[YD]/[WKL]/[GOV]/[BD]/[model] + 合同范本 + 案例库）
-- **查询路径**：`../../references/查询路径.md`（违约金/效力/管辖/解除 4 个常用查询场景 + 风险提示模板）
-- **CLAUDE.md**：`../../CLAUDE.md`（公司基本信息 + 合同类型覆盖 + 数据源配置）
-- **货币触发主题**：`../../../references/currency-watch.md`
-- **数据源注册表**：`../../../references/data-source-registry.md`
-
-来源标注规范（[YD]/[WKL]/[BD]/[GOV]/[model]）详见 `../../references/数据源清单.md` §八。
-
-合同风险等级（high/medium/low）与升级触发条件详见 `../../references/判断框架.md` §四。
-## 加载上下文
-
-**首次使用时：** 读取 `../CLAUDE.md` 获取场景级配置（法域足迹/数据源/置信度规则）。
+本 skill 引用场景级配置 `../../CLAUDE.md`。
+来源标注规范（[YD]/[WKL]/[BD]/[GOV]/[model]）参见场景级 references/ 目录。
 
 # /contract-classifier — 合同类型判断
 
