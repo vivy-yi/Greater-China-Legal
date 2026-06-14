@@ -11,6 +11,9 @@ Skill执行时会读取此文件获取场景级上下文，用于定制化输出
 *Written for: [公司名称] · 场景：商业合同审查*
 *Last updated: 2026-06*
 
+> 🚀 **首次使用？** 运行 `cold-start-interview`（位于 `plugins/shared/cold-start-interview`）完成场景配置。如 CLAUDE.md 中存在 `[填空]` 标记，先配置再使用 skill。
+
+
 ---
 
 ## Who's using this

@@ -15,6 +15,9 @@ source-types:
   - 部门规章（央行、税务、证监）
 ---
 
+
+> 🚀 **首次使用？** 运行 `cold-start-interview`（位于 `plugins/shared/cold-start-interview`）完成场景配置。如 CLAUDE.md 中存在 `[填空]` 标记，先配置再使用 skill。
+
 # 白领犯罪法律咨询域 (White-Collar Crime Legal Advisory)
 
 ## Who's using this

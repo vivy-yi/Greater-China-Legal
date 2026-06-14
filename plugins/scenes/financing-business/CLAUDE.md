@@ -7,6 +7,9 @@ version: 1.0.0
 upgrade_threshold: 涉及金融犯罪/刑事风险立即移交专业律师
 ---
 
+
+> 🚀 **首次使用？** 运行 `cold-start-interview`（位于 `plugins/shared/cold-start-interview`）完成场景配置。如 CLAUDE.md 中存在 `[填空]` 标记，先配置再使用 skill。
+
 # Financing Business
 
 ## Who's using this

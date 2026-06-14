@@ -9,6 +9,9 @@ gcl_scope: 中国大陆 + 香港SFC + 美国SEC/FCPA
 upgrade_threshold: 进入刑事程序立即移交专业律师
 ---
 
+
+> 🚀 **首次使用？** 运行 `cold-start-interview`（位于 `plugins/shared/cold-start-interview`）完成场景配置。如 CLAUDE.md 中存在 `[填空]` 标记，先配置再使用 skill。
+
 # 政府监管与调查应对
 
 ## Who's using this

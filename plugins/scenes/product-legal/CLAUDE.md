@@ -31,6 +31,9 @@ Rules for every skill, command, and agent in this plugin:
 
 ---
 
+
+> 🚀 **首次使用？** 运行 `cold-start-interview`（位于 `plugins/shared/cold-start-interview`）完成场景配置。如 CLAUDE.md 中存在 `[填空]` 标记，先配置再使用 skill。
+
 ## Who we are
 
 [Company] makes [product]. [Consumer/B2B/both]. Regulated by [none/list]. International: [regions]. *(Company name, industry, and jurisdictions come from company-profile.md — edit there to change across all plugins)*
