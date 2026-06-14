@@ -22,6 +22,7 @@ description: >
 | 完整 Agent 文档 | https://open.chineselaw.com/llms-full.txt |
 | 短索引（LLM 入口） | https://open.chineselaw.com/llms.txt |
 | API JSON 目录 | https://open.chineselaw.com/api/apis?pageNum=1&pageSize=200&sortBy=latest |
+| MCP 配置生成器 | https://open.chineselaw.com/mcp-config |
 | 文档中心 | https://open.chineselaw.com/docs |
 | 订阅 API Key | https://open.chineselaw.com |
 | MCP Health | https://open.chineselaw.com/mcp/health |
