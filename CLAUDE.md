@@ -8,16 +8,25 @@
 
 ```
 Greater-China-Legal/
-├── CLAUDE.md                     ← 本文件：AI Agent 运行时上下文（你在读的就是）
-├── skills/<scene>/               ← 31 个法律场景（核心交付）
-│   ├── CLAUDE.md                 ← 场景级实践画像 + 运行时配置
-│   ├── skills/<name>/SKILL.md    ← 原子 Skill（可独立执行）
-│   ├── agents/<name>.md          ← 定时调度 Agent
-│   ├── hooks/hooks.json          ← 事件驱动钩子
-│   └── references/               ← 场景内参考文件
+├── CLAUDE.md                     ← 本文件：AI Agent 运行时上下文
+├── plugins/
+│   ├── scenes/<scene>/           ← 31 个法律场景
+│   │   ├── CLAUDE.md             ← 场景级实践画像 + 角色 + 数据源 + 推理原子能力
+│   │   ├── skills/<skill>/SKILL.md ← 原子 Skill（可独立执行）
+│   │   ├── agents/<agent>.md     ← 定时调度 Agent（可选）
+│   │   ├── hooks/hooks.json      ← 事件驱动钩子（可选）
+│   │   └── references/           ← 场景内参考文件
+│   ├── legal-atomic/             ← 37 个推理原子能力（跨场景复用）
+│   │   ├── deductive-reasoning/  ← P-F-C三段论
+│   │   ├── legal-element-extraction/ ← 法律要素提取
+│   │   ├── legal-norm-validity-check/ ← 法条效力核查
+│   │   └── ...（共37个）
+│   └── shared/                   ← 跨场景共享 skill
+│       ├── cold-start-interview/ ← 场景冷启动配置
+│       ├── customize/            ← 自定义配置
+│       └── matter-workspace/     ← 案件工作区管理
 ├── LEGAL_FRAMES/                 ← 五法域法律框架基线
 ├── references/                   ← 全局共享模板
-├── shared/agent-ops/             ← 共享 Agent ops skills
 ├── managed-agent-cookbooks/      ← CMA 部署模板
 ├── scripts/                      ← 验证/部署工具
 └── scene-design/                 ← B 阶段设计规范
