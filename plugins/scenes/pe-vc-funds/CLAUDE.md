@@ -81,6 +81,29 @@
 | 6 | `legal-risk-assessment` | 在风险分级判断时调用 |
 | 7 | `case-retrieval` | 需要检索类案时调用 |
 
+### 追问规则（关键）
+
+legal-element-extraction 的输出包含 `## 待补充事实` 节。如果该节非空：
+
+1. **暂停当前分析流程**
+2. 向用户逐一提问待补充事实，例如：
+   > "请问合同中关于[知识产权归属/数据存储位置/价格调整机制]的条款是什么？这会影响后续判断。"
+3. 用户补充后，**回到 Step 0 重新执行 legal-element-extraction**，将新信息并入结构化事实
+4. 当待补充事实清空后，继续后续分析
+
+**不得在待补充事实未清空的情况下输出最终结论。** 缺失关键事实的结论标注为「推定结论，须在事实补全后复核」。
+
+| 顺序 | 原子 Skill | 调用时机 |
+|------|-----------|---------|
+| 0 | `legal-element-extraction` | 收到用户输入后立即调用，将非结构化叙述转化为结构化法律事实 |
+| 1 | `legal-norm-validity-check` | 在任何法条引用前调用，验证法条是否现行有效 |
+| 2 | `deductive-reasoning` | 在分析阶段，将待判断的问题转化为 P-F-C 三段论格式 |
+| 3 | `conflict-resolution` | 发现多个法条或请求权可能竞合时调用 |
+| 4 | `evidence-argument-chain` | 需要组织证据与主张对应关系时调用 |
+| 5 | `argument-strength-evaluation` | 输出结论前，标注论证强度（强/中/弱/存疑） |
+| 6 | `legal-risk-assessment` | 在风险分级判断时调用 |
+| 7 | `case-retrieval` | 需要检索类案时调用 |
+
 每个 scene skill 的工作流程第一步应为「法律要素提取」，最后一步前应为「论证强度评估」。
 
 
