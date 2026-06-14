@@ -153,7 +153,7 @@ risk_level: low
 | 初始化 | `gcl init` | 创建 ~/.gcl/config.json |
 | 启用 NPC 数据库 | `gcl config set npc_api.enabled true` | 免费数据源 |
 | 启用元典 MCP | 设置 `yuandian_mcp.api_key` | 须有元典订阅 |
-| 启用北大法宝 MCP | 设置 `pkulaw_mcp.api_key` | 须有北大法宝订阅 |
+| 启用北大法宝 MCP | 设置 `pkulaw_mcp.api_key`（详见 references/pkulaw-mcp.md） | 须有北大法宝订阅 |
 | 查看状态 | `cat ~/.gcl/config.json` | 各数据源启用状态 |
 | 测试连接 | `gcl law 民法典 第1条` | 验证数据源可用性 |
 
