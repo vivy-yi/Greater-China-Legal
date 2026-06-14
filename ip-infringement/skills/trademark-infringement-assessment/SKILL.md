@@ -40,6 +40,20 @@ escalation_triggers:
   - 涉及知名商标/驰名商标保护
 ---
 
+## 数据源与判断框架引用
+
+本 skill 引用以下 plugin 根级 references 与 CLAUDE.md：
+
+- **判断框架**：`../../references/判断框架.md`（4 类型 IP 场景簇 + 商标/专利/著作权/商业秘密侵权判断 + 维权路径 + 赔偿计算 + 开源合规）
+- **数据源清单**：`../../references/数据源清单.md`（[YD]/[WKL]/[GOV]/[BD]/[model] + CNIPA/版权局/海关 + 专利商标数据库 + 典型判例）
+- **查询路径**：`../../references/查询路径.md`（主管机关 + 检索平台 + 案例库）
+- **CLAUDE.md**：`../../CLAUDE.md`（公司基本信息 + IP 资产 + 数据源配置）
+- **货币触发主题**：`../../../references/currency-watch.md`
+- **数据源注册表**：`../../../references/data-source-registry.md`
+
+来源标注规范（[YD]/[WKL]/[BD]/[GOV]/[model]）详见 `../../references/数据源清单.md` §八。
+IP 类型判断与维权路径详见 `../../references/判断框架.md` §一/§七。
+
 # 商标侵权认定评估
 
 ## 加载上下文
