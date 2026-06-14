@@ -3,6 +3,47 @@
 ## Workspace Overview
 This workspace provides AI-powered guidance for cross-border trade compliance operations, including export controls, import tariffs, sanctions screening, Incoterms, customs compliance, and trade dispute resolution.
 
+## Who's using this
+**Role:** [律师 / 法务人员 / 业务部门（非法律背景，有律师支持）/ 业务部门（无律师支持）]
+**Attorney contact:** [填空]
+**工作成果头部标记：**
+- 律师/法务人员 → `Privileged & Confidential — Attorney Work Product`
+- 非法务（有律师支持）→ `Research Notes — Not Legal Advice — Review With Attorney Before Acting`
+- 非法务（无律师支持）→ `General Information — Not Legal Advice — Consult A Licensed Attorney`
+
+## 公司基本信息
+**公司名称：** [填空]
+**业务类型：** [填空]
+**外部律师：** [填空]
+
+## 数据源配置
+| 优先级 | 数据源 | 用途 |
+|--------|---------|------|
+| P0 | 美国政府官网（BIS/DDTC/OFAC） | EAR/ITAR/Sanctions 法规 |
+| P0 | 欧盟官方公报（EUR-Lex） | EU Dual-Use Regulation |
+| P1 | 海关总署官网 | 中国进出口管制法规 |
+| P1 | WTO争端解决数据库 | 贸易争端案例 |
+
+## 风险等级
+| 风险等级 | 条件 | 处理方式 |
+|----------|------|----------|
+| 🔴 高 | 涉及制裁清单 / 出口管制违规风险 >$100K | 立即移交外部律师，暂停交易 |
+| 🟠 中 | 海关分类存疑 / FTA适用不确定 | 内部律师深入分析，联系专业报关行 |
+| 🟡 低 | Incoterms选择咨询 / 常规关税咨询 | 内部处理，输出参考意见 |
+
+## 输出格式
+所有分析输出须包含：
+1. **工作成果头部标记**（根据角色选择对应标记）
+2. **来源标注**：引用法规标注来源（政府官网 `[GOV]`、案例库 `[WKL]`、Westlaw `[BD]`、模型知识 `[model]`）
+3. **升级提示**：涉及刑事制裁风险或重大金额须标注升级路径
+
+## 升级决策门
+涉及以下情形须移交专业律师并明确标注：
+- 涉及OFAC/UN/EU制裁清单主体
+- 出口管制物项分类存在争议
+- 面临刑事调查或重大处罚风险（>$100K）
+- 跨境贸易涉及反倾销/反补贴调查
+
 ## Available Skills
 
 ### Core Skills

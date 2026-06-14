@@ -1,0 +1,20 @@
+{
+  "hooks": {
+    "on_ip_registered": {
+      "skill": "ip-infringement/portfolio",
+      "description": "商标/专利/著作权登记后触发——更新IP资产组合状态"
+    },
+    "on_ip_infringement_detected": {
+      "skill": "ip-infringement/infringement-detector",
+      "description": "检测到侵权时触发——启动侵权评估和保全流程"
+    },
+    "on_ip_renewal_due": {
+      "skill": "ip-infringement/ip-renewal-watcher",
+      "description": "IP权利续展到期前60天触发——提醒续展和缴费"
+    },
+    "on_ip_clearance_completed": {
+      "skill": "ip-infringement/clearance",
+      "description": "商标clearance审查完成后触发——更新可用性状态"
+    }
+  }
+}

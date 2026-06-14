@@ -1,130 +1,121 @@
-# CLAUDE.md
+# Greater China Legal — AI Agent Context
 
-Guidance for working on this repo. `claude-for-legal` is a Claude Code plugin
-marketplace — twelve first-party legal plugins, one vendor plugin, and five
-managed-agent cookbooks. Most work here is editing prompt content (skills,
-agents, hooks), plugin metadata, or cookbook config — not application code.
+本项目是 **大中华区法律 AI Agent Skill 体系**，基于 Anthropic `claude-for-legal` 深度适配中国大陆/香港/澳门/台湾/新加坡五大法域，覆盖 31 个法律场景、475 个原子 Skills。
 
-## Layout
+---
+
+## 项目架构
 
 ```
-.claude-plugin/marketplace.json   # the marketplace manifest — one entry per plugin
-<plugin>/                         # 12 first-party plugins (commercial-legal, privacy-legal, ...)
-  .claude-plugin/plugin.json      # plugin manifest (name, version, description, author)
-  .mcp.json                       # MCP servers the plugin connects to
-  CLAUDE.md                       # practice-profile TEMPLATE (see "Plugin CLAUDE.md" below)
-  README.md                       # per-plugin docs
-  skills/<name>/SKILL.md          # one skill per directory
-  agents/<name>.md                # subagent definitions
-  hooks/hooks.json                # hook config (most plugins ship an empty stub)
-  .gitignore
-external_plugins/<vendor>/        # vendor-maintained plugins (CoCounsel)
-managed-agent-cookbooks/<name>/   # CMA agent.yaml + subagents/ + steering-examples.json
-scripts/                          # validate.py, lint-tool-scope.py, orchestrate.py,
-                                  # deploy-managed-agent.sh, test-cookbooks.sh
-references/                       # shared templates (company-profile, dashboard)
+Greater-China-Legal/
+├── CLAUDE.md                     ← 本文件：AI Agent 运行时上下文（你在读的就是）
+├── skills/<scene>/               ← 31 个法律场景（核心交付）
+│   ├── CLAUDE.md                 ← 场景级实践画像 + 运行时配置
+│   ├── skills/<name>/SKILL.md    ← 原子 Skill（可独立执行）
+│   ├── agents/<name>.md          ← 定时调度 Agent
+│   ├── hooks/hooks.json          ← 事件驱动钩子
+│   └── references/               ← 场景内参考文件
+├── LEGAL_FRAMES/                 ← 五法域法律框架基线
+├── references/                   ← 全局共享模板
+├── shared/agent-ops/             ← 共享 Agent ops skills
+├── managed-agent-cookbooks/      ← CMA 部署模板
+├── scripts/                      ← 验证/部署工具
+└── scene-design/                 ← B 阶段设计规范
 ```
 
-## Validation — run before opening a PR
+---
 
-This repo follows the same conventions `anthropics/claude-plugins-official`
-enforces in CI. Run the equivalent checks locally:
+## 场景结构
 
-```bash
-# 1. Marketplace + per-plugin schema validation (source of truth)
-claude plugin validate .claude-plugin/marketplace.json
-for d in */; do [ -f "$d/.claude-plugin/plugin.json" ] && claude plugin validate "$d"; done
-claude plugin validate external_plugins/cocounsel-legal
+每个 scene 由四层构成：
 
-# 2. Cookbook tool-scope lint (orchestrators must not over-grant tools)
-python3 scripts/lint-tool-scope.py
-
-# 3. JSON/YAML sanity
-python3 -c "import json,glob; [json.load(open(f)) for f in glob.glob('**/*.json', recursive=True)]"
+```
+┌─────────────────────────────────┐
+│  CLAUDE.md — 场景级配置          │ ← 公司基本信息 + 数据源 + 角色 + 输出格式
+│  (AI 每次进入该场景先读这个)       │
+├─────────────────────────────────┤
+│  skills/<skill>/SKILL.md        │ ← 原子 Skill，200-500行，判断树结构
+│  (每一条独立法律能力)             │
+├─────────────────────────────────┤
+│  agents/<name>.md               │ ← 定时调度 Agent（可选）
+│  (续约监控、盘后复盘等)           │
+├─────────────────────────────────┤
+│  hooks/hooks.json               │ ← 事件驱动钩子（可选）
+│  (完成后自动触发其他 skill)       │
+└─────────────────────────────────┘
 ```
 
-### Marketplace invariants (I1–I11)
+协作链路示例：
+```
+用户审查合同 → review SKILL.md
+  → hooks: on_contract_review_complete → 更新续约注册簿
+  → agents/deal-debrief.md (每周) → 复盘偏差
+```
 
-`claude-plugins-official` layers these on top of the schema check. They apply
-here too — the ones most likely to trip a contributor:
+---
 
-- **I1** — `plugins[]` should be alpha-sorted by name (case-insensitive).
-  *Currently a known warning: the array is in a curated display order. If you
-  add a plugin, ask before re-sorting the whole array.*
-- **I2** — no duplicate plugin names.
-- **I3** — `description` 10–2000 chars, no leading/trailing whitespace.
-- **I8** — every vendored `source` (`"./<dir>"`) must point at a directory that
-  contains `.claude-plugin/plugin.json`.
-- **I9** — `source` paths/URLs must contain no shell metacharacters or `..`.
-- **I10** — no hidden Unicode (zero-width chars, bidi controls) in
-  `name`/`description`.
-- **I11** — `name` must match `^[a-z0-9][a-z0-9-]{1,63}$`.
+## 使用规范
 
-### Frontmatter requirements
+### 场景选择
 
-Every `agents/*.md` needs `name` and `description`. Every
-`skills/<name>/SKILL.md` needs `description`. Every `commands/*.md` needs
-`description`. Multi-line descriptions use `>` block scalars and that's fine —
-`claude plugin validate` parses them correctly.
+用户的问题对应哪个 scene，通过 SKILL.md 的 `trigger_phrases` 匹配。skill 名 = kebab-case。
 
-## Conventions
+### 角色感知
 
-### Keep `marketplace.json` in sync with `plugin.json`
+每个场景的 CLAUDE.md 有 `## Who's using this` 节，定义了当前 AI 的输出角色：
 
-For first-party plugins, `marketplace.json`'s `name`, `description`, and
-`author` should match the plugin's own `.claude-plugin/plugin.json` field for
-field. If you change a plugin's description in one place, change it in the
-other.
+| Role | 特权标记 |
+|------|---------|
+| 律师/法务人员 | `Privileged & Confidential — Attorney Work Product` |
+| 非法务（有律师支持） | `Research Notes — Not Legal Advice — Review With Attorney Before Acting` |
+| 非法务（无律师支持） | `General Information — Not Legal Advice — Consult A Licensed Attorney` |
 
-### Skill names in prose must be canonical
+执行 skill 前必须先检查 Role 字段。如 Role 含 `[填空]`，要求用户先设置或选择适用角色。
 
-When a `SKILL.md` (especially `customize` or `cold-start-interview`) tells the
-user "run `/foo`," `foo` must be the actual `skills/<foo>/` directory name.
-Short forms like `/triage` for `/use-case-triage` look right in prose but are
-dead commands — the user types them and nothing happens. Refs to Claude Code
-built-ins (`/mcp`, `/plugin`) and to other plugins (`/<other-plugin>:<skill>`)
-are fine.
+### 数据源标注
 
-### Plugin CLAUDE.md is a template, not project context
+所有输出必须标注来源：
 
-Each `<plugin>/CLAUDE.md` is a practice-profile template that the
-`cold-start-interview` skill copies to `~/.claude/plugins/config/claude-for-legal/<plugin>/CLAUDE.md`
-on the user's machine. It is *not* loaded as project context when the plugin is
-installed — `claude plugin validate` warns about this and the warning is
-expected. Don't "fix" it by moving the content into a skill.
+| 标注 | 含义 |
+|------|------|
+| `[YD]` | 元典 MCP 实际返回 |
+| `[WKL]` | 裁判文书网/无讼 |
+| `[BD]` | 北达检索 |
+| `[GOV]` | 政府平台 |
+| `[web]` | 网络搜索 |
+| `[model]` | 模型推理（须核实）|
 
-### `external_plugins/` is vendor-maintained
+标注必须诚实——不能因"引用看起来是对的"就把 `[model]` 标为 `[YD]`。关键结论须多源交叉验证。
 
-Plugins under `external_plugins/` are built and maintained by the vendor
-(README.md has the policy). Don't change vendor-authored content without
-checking with them first; whitespace normalization and formatting are usually
-fine since the vendor lands changes via PR rather than mirroring a fork.
+### 升级决策门
 
-### Formatting
+所有 skill 在输出前必须检查场景 CLAUDE.md 中的升级条件。涉及刑事风险、重大金额、跨境执法等情形，必须移交专业律师并在输出中明确标注。
 
-- 2-space indent in all JSON and `.mcp.json` files.
-- Final newline at end of every text file.
-- No trailing whitespace.
-- Markdown tables: pipe-aligned columns are nice but not required; just keep
-  the column count consistent.
+---
 
-## Cookbooks
+## 法域支持
 
-Each `managed-agent-cookbooks/<name>/` has `agent.yaml` (the orchestrator),
-`subagents/*.yaml` (the leaves), `steering-examples.json`, and `README.md`. Two
-rules that `scripts/lint-tool-scope.py` enforces:
+`LEGAL_FRAMES/` 定义了 5 个法域的法律框架基线：
 
-1. The orchestrator gets local-only tools (`read`, `grep`, `glob`,
-   `agent_toolset`); MCP and write tools belong to specific subagent leaves.
-2. The README's security table and the `agent.yaml` comments must match what
-   the YAML actually grants. Don't claim a tool a subagent doesn't have.
+| 法域 | 标识 | 说明 |
+|------|------|------|
+| 中国大陆 | `cn-mainland` | 默认法域 |
+| 香港 | `hk` | 普通法系 |
+| 澳门 | `mo` | 大陆法系 |
+| 台湾 | `tw` | 大陆法系 |
+| 新加坡 | `sg` | 普通法系 |
 
-## Things to leave alone
+SKILL.md 通过 YAML frontmatter 的 `legal_frame` 字段锚定。
 
-- Per-plugin `.gitignore` files differ slightly across plugins. Probably
-  intentional; ask before unifying.
-- `hooks/hooks.json` is missing in two plugins. Hooks are optional; the missing
-  files are not a bug.
-- `references/` lives only at repo root and is not shipped inside any plugin
-  directory. Several plugin `CLAUDE.md` templates reference it as if it were —
-  that's a known gap, not a thing to silently move.
+---
+
+## 开发者规范（供参考）
+
+- CI 验证规则见 `scripts/validate-skills.py`
+- 数据结构见 `SKILL_MD_SCHEMA.md`
+- 贡献指南见 `CONTRIBUTING.md`
+- 上游追踪见 `UPSTREAM_TRACKING.md`
+
+---
+
+*此文件为 AI Agent 运行时上下文，非开发者 CI 文档。*

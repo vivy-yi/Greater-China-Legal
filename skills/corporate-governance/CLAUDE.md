@@ -8,6 +8,20 @@ Skill执行时会读取此文件获取场景级上下文，用于定制化输出
 
 # Corporate Governance Scene — Practice Profile
 
+## Who's using this
+
+**Role:** [律师 / 法务人员 / 业务部门（非法律背景，有律师支持）/ 业务部门（无律师支持）]
+**Attorney contact:** [填空]
+
+**工作成果头部标记：**
+- 律师/法务人员 → `Privileged & Confidential — Attorney Work Product`
+- 非法务（有律师支持）→ `Research Notes — Not Legal Advice — Review With Attorney Before Acting`
+- 非法务（无律师支持）→ `General Information — Not Legal Advice — Consult A Licensed Attorney`
+
+在产出工作成果前，必须先检查 Role 字段。如果 Role 为 `[填空]`，要求用户先设置角色。
+
+---
+
 *Written for: [公司名称] · 场景：公司治理/融资/股权*
 *Last updated: 2026-06*
 

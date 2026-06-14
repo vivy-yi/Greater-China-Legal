@@ -1,0 +1,24 @@
+{
+  "hooks": {
+    "on_contract_review_complete": {
+      "skill": "contract-review/review",
+      "description": "合同审查完成后触发——自动更新续期注册簿"
+    },
+    "on_contract_signed": {
+      "skill": "contract-review/renewal-tracker",
+      "description": "合同签署后触发——登记合同到续期监控注册簿"
+    },
+    "on_contract_amendment": {
+      "skill": "contract-review/amendment-history",
+      "description": "合同变更/补充协议签订后触发——更新合同版本历史"
+    },
+    "on_escalation_flagged": {
+      "skill": "contract-review/escalation-flagger",
+      "description": "合同风险被标记为RED/YELLOW时触发——通知法务总监"
+    },
+    "on_renewal_reminder": {
+      "skill": "contract-review/renewal-tracker",
+      "description": "续期到期前30天自动触发——提醒相关业务负责人"
+    }
+  }
+}

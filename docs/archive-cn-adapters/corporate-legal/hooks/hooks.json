@@ -1,0 +1,20 @@
+{
+  "hooks": {
+    "on_matter_opened": {
+      "skill": "corporate-governance/entity-compliance",
+      "description": "公司设立/变更事项启动时触发——初始化合规追踪文件"
+    },
+    "on_entity_created": {
+      "skill": "corporate-governance/entity-setup",
+      "description": "新法律实体设立后触发——生成合规清单和时间表"
+    },
+    "on_capital_change": {
+      "skill": "corporate-governance/capital-change",
+      "description": "注册资本变更时触发——更新工商备案合规状态"
+    },
+    "on_odi_filing_required": {
+      "skill": "corporate-governance/odi-compliance",
+      "description": "境外直接投资备案触发事项时——生成ODI合规检查清单"
+    }
+  }
+}

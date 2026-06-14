@@ -1,3 +1,11 @@
+## Who's using this
+**Role:** [律师 / 法务人员 / 业务部门（非法律背景，有律师支持）/ 业务部门（无律师支持）]
+**Attorney contact:** [填空]
+**工作成果头部标记：**
+- 律师/法务人员 → `Privileged & Confidential — Attorney Work Product`
+- 非法务（有律师支持）→ `Research Notes — Not Legal Advice — Review With Attorney Before Acting`
+- 非法务（无律师支持）→ `General Information — Not Legal Advice — Consult A Licensed Attorney`
+
 <!--
 CONFIGURATION LOCATION
 

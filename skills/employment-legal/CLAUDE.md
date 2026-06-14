@@ -1,4 +1,33 @@
 # Employment Legal — Greater China Legal Practice Profile
+
+## Who's using this
+
+**Role:** [律师 / 法务人员 / 业务部门（非法律背景，有律师支持）/ 业务部门（无律师支持）]
+**Attorney contact:** [填空]
+
+**工作成果头部标记：**
+- 律师/法务人员 → `Privileged & Confidential — Attorney Work Product`
+- 非法务（有律师支持）→ `Research Notes — Not Legal Advice — Review With Attorney Before Acting`
+- 非法务（无律师支持）→ `General Information — Not Legal Advice — Consult A Licensed Attorney`
+
+在产出工作成果前，必须先检查 Role 字段。如果 Role 为 `[填空]`，要求用户先设置角色。
+
+---
+
+## 数据源配置
+
+| 优先级 | 数据源 | 用途 |
+|---|---|---|
+| 1 | yuandian MCP | 劳动法法规+案例检索 |
+| 2 | weiken MCP | 综合法律检索 |
+| 3 | beidalu API | 法规原文精准检索 |
+| 4 | 政府平台 | 最低工资/社保基数 |
+| 5 | 联网搜索 | 时效性核查 |
+
+详细数据源配置规则见下方 [## 数据源治理](#数据源治理) 节。
+
+---
+
 *中国大陆劳动法实务配置 | For CN-Mainland PRC employment law*
 
 ---

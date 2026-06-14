@@ -1,0 +1,20 @@
+{
+  "hooks": {
+    "on_reg_change_detected": {
+      "skill": "tax-compliance/reg-feed-watcher",
+      "description": "新法规/政策文件发布时触发——启动影响评估流程"
+    },
+    "on_reg_gap_identified": {
+      "skill": "tax-compliance/gap-surfacer",
+      "description": "合规缺口识别时触发——录入追踪系统并通知负责人"
+    },
+    "on_comment_deadline_approaching": {
+      "skill": "tax-compliance/comments",
+      "description": "监管意见征询截止前21天触发——提醒并催促意见草稿"
+    },
+    "on_tax_dispute_raised": {
+      "skill": "tax-compliance/tax-dispute-handler",
+      "description": "税务争议/稽查触发——生成应对策略和文件清单"
+    }
+  }
+}
