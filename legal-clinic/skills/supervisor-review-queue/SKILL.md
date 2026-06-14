@@ -29,6 +29,8 @@ risk_level: medium
 - 案件档案脱敏处理，遵循 `../../references/数据源清单.md` §九
 - 关键结论须 2-3 个数据源交叉验证（详见 `../../references/数据源清单.md` §六）
 
+- **时效合理性校验**：`../../references/plausibility-bands/cn-mainland.md`（deadlines skill 录入时自动触发）
+
 升级条件详见 `../../references/判断框架.md` §六。
 
 # /supervisor-review-queue — China Mainland（B 重构 v2.0.0）
