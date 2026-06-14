@@ -17,6 +17,19 @@ legal_sources:
   effective_date: '2021-01-01'
 ---
 
+## 数据源与判断框架引用
+
+本 skill 引用以下 plugin 根级 references：
+
+- **判断框架**：`../../references/判断框架.md`（公司全生命周期 + 治理主题 + 公司类型判断 + 股权设计 + ESOP + 融资 + 董监高 + 股权转让 + 关联交易 + VIE + ODI + 收购 + 少数股东保护 + 利润分配）
+- **数据源清单**：`../../references/数据源清单.md`（[YD]/[WKL]/[GOV]/[BD]/[model] + 市场监管总局/证监会/交易所 + 公司法司法解释 + 上市公司治理准则 + VIE 监管 + ODI 监管）
+- **查询路径**：`../../references/查询路径.md`（工商登记 + 司法解释 + 案例库）
+- **货币触发主题**：`../../../references/currency-watch.md`
+- **数据源注册表**：`../../../references/data-source-registry.md`
+
+来源标注规范（[YD]/[WKL]/[BD]/[GOV]/[model]）详见 `../../references/数据源清单.md` §九。
+公司类型判断与股权设计详见 `../../references/判断框架.md` §三/§四。
+
 # /deal-team-summary — China Mainland
 
 ## Purpose
