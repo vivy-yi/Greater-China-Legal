@@ -10,6 +10,19 @@ version: 1.0.0
 risk_level: medium
 ---
 
+## 数据源与判断框架引用
+
+本 skill 引用以下 plugin 根级 references 与 CLAUDE.md：
+
+- **判断框架**：`../../references/判断框架.md`（跨 skill 决策路由 + 5 节点判断 + 解除子流程）
+- **数据源清单**：`../../references/数据源清单.md`（[YD]/[WKL]/[GOV]/[BD]/[model] 标注规则 + 路由优先级）
+- **查询路径**：`../../references/查询路径.md`（法规/案例/地方数据实际检索入口）
+- **CLAUDE.md**：`../../CLAUDE.md`（核心法规 + 高风险情形 + 各省市差异 + 计算框架）
+- **货币触发主题**：`../../../references/currency-watch.md`（高频更新主题清单）
+- **数据源注册表**：`../../../references/data-source-registry.md`（GCL 全局数据源治理）
+
+来源标注规范（[YD]/[WKL]/[BD]/[GOV]/[model]）详见 `../../references/数据源清单.md` §六。
+
 # 职场性骚扰投诉处理与法律路径咨询
 
 ## 1. 目的与范围
