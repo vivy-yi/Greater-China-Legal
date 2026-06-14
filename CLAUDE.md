@@ -83,18 +83,22 @@ Greater-China-Legal/
 
 ### 数据源标注
 
-所有输出必须标注来源：
+所有输出必须标注来源，标注通过 `gcl-data-service` 实现：
 
-| 标注 | 含义 |
-|------|------|
-| `[YD]` | 元典 MCP 实际返回 |
-| `[WKL]` | 裁判文书网/无讼 |
-| `[BD]` | 北达检索 |
-| `[GOV]` | 政府平台 |
-| `[web]` | 网络搜索 |
-| `[model]` | 模型推理（须核实）|
+| 标注 | 含义 | 数据源 |
+|------|------|--------|
+| `[YD]` | 元典 MCP | `gcl data` — 须 API key |
+| `[WKL]` | 北大法宝/无讼 | `gcl cases` — 须 API key |
+| `[BD]` | 北达检索 | 预留 |
+| `[GOV]` | 政府平台 | `gcl law` — 免费（NPC/政府网站） |
+| `[web]` | 网络搜索 | `gcl search` — 免费备选 |
+| `[model]` | 模型推理（须核实） | 无外部数据源 |
 
-标注必须诚实——不能因"引用看起来是对的"就把 `[model]` 标为 `[YD]`。关键结论须多源交叉验证。
+标注必须诚实——不能因"引用看起来是对的"就把 `[model]` 标为 `[YD]`。
+关键结论须多源交叉验证。查询通过 `plugins/shared/gcl-data-service` 统一管理。
+
+gcl CLI 安装：`pip3 install ???` 或直接使用 `python3 scripts/gcl`。
+MCP 集成：运行 `gcl mcp-config` 生成 Claude Code 配置。
 
 ### 升级决策门
 
