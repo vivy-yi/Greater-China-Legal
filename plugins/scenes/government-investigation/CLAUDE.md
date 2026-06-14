@@ -86,6 +86,23 @@ upgrade_threshold: 进入刑事程序立即移交专业律师
 - 企业高管被留置/拘留
 
 ## 推理原子能力
+## 推理原子能力调用流程
+
+本场景的工作流程中，按以下顺序调用 `legal-atomic` 原子能力：
+
+| 顺序 | 原子 Skill | 调用时机 |
+|------|-----------|---------|
+| 0 | `legal-element-extraction` | 收到用户输入后立即调用，将非结构化叙述转化为结构化法律事实 |
+| 1 | `legal-norm-validity-check` | 在任何法条引用前调用，验证法条是否现行有效 |
+| 2 | `deductive-reasoning` | 在分析阶段，将待判断的问题转化为 P-F-C 三段论格式 |
+| 3 | `conflict-resolution` | 发现多个法条或请求权可能竞合时调用 |
+| 4 | `evidence-argument-chain` | 需要组织证据与主张对应关系时调用 |
+| 5 | `argument-strength-evaluation` | 输出结论前，标注论证强度（强/中/弱/存疑） |
+| 6 | `legal-risk-assessment` | 在风险分级判断时调用 |
+| 7 | `case-retrieval` | 需要检索类案时调用 |
+
+每个 scene skill 的工作流程第一步应为「法律要素提取」，最后一步前应为「论证强度评估」。
+
 
 本场景在执行 legal analysis 时，按需调用以下 `legal-atomic` 原子 skill：
 
