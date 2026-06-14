@@ -1,35 +1,62 @@
 ---
 name: study-plan
 description: >
-  CN法考备考学习计划——阶段目标和复习安排。
-  适用情形：制定长期备考计划。
-argument-hint: "[考试类型] [--days <天数>]"
+  长期/中期/短期学习计划（S1+S2）。
+argument-hint: "[输入]"
 legal_frame: cn-mainland
+scene_cluster: law-student
 last_reviewed: 2026-06
-version: 1.0.0
+version: 2.0.0
 risk_level: low
 ---
 
-# /study-plan — China Mainland
+# /study-plan — China Mainland（B 重构 v2.0.0）
 
-## CN法考备考学习计划
+## 一、场景识别
 
-### 基础阶段（1-2个月）
-- 民法（民法典全文+司法解释）
-- 刑法（刑法典+指导案例）
+**核心定位：** 长期/中期/短期学习计划
 
-### 强化阶段（1-2个月）
-- 民诉+刑诉
-- 行政法+行政诉讼法
+**所属场景：** S1+S2
 
-### 冲刺阶段（1个月）
-- 商法+经济法
-- 法理+宪法+法制史
+## 二、判断树
 
-### 模拟考试
-- 每周一套客观题
-- 考前两周做主观题模拟
+**Node 1：** 目标考试？
+  - 法考/学硕/JD/期末
+
+**Node 2：** 距考试？
+  - 12月+/6月/3月/1月
+
+**Node 3：** 每日可用时间？
+  - 2h/4h/8h/全职
+**最终输出：** 基于判断树结果，给出针对性输出。
+
+## 三、场景差异
+
+| 场景 | 说明 |
+|---|---|
+| 法考客观题 | 6-9月三轮复习 |
+| 学硕 | 12月统考前3-6个月冲刺 |
+| JD | 各校培养方案不同 |
+
+## 四、数据源锚定
+
+- **主要数据源：** [BD] 学生进度 / [model] 计划生成
+- **辅助源：** [model] 法律推理
+- **更新策略：** 法条/案例数据实时校对（[YD]）
+
+## 五、升级决策门
+
+触发以下任一情形，建议咨询专业指导或转人工：
+- 涉及具体案件的法律意见
+- 跨学科综合问题
+- 学术规范争议（需导师复核）
+
+## 六、输出路径
+
+```
+law-student/study-plan/[session-id]/output.md
+```
 
 ---
 
-*Greater China Legal — law-student study-plan CN adapter v1.0.0*
+*Greater China Legal — law-student study-plan B-phase v2.0.0（场景优先重构）*

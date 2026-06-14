@@ -1,43 +1,65 @@
 ---
 name: semester-handoff
 description: >
-  CN法律援助学期交接——将案件移交给下一任志愿者。
-  适用情形：学期结束时的案件交接。
-argument-hint: "[学期] [--export | --import]"
+  学期末案件交接——确保连续性（通用（学期交接））。
+argument-hint: "[输入]"
 legal_frame: cn-mainland
+scene_cluster: legal-clinic
 last_reviewed: 2026-06
-version: 1.0.0
-risk_level: high
+version: 2.0.0
+risk_level: medium
 ---
 
-# /semester-handoff — China Mainland
+# /semester-handoff — China Mainland（B 重构 v2.0.0）
 
-## CN法律援助学期交接
+## 一、场景识别
 
-### 交接内容
+**核心定位：** 学期末案件交接——确保连续性
 
-1. 进行中的案件列表
-2. 案件状态和进展
-3. 待跟进事项
-4. 重要截止日期
+**所属场景：** 通用（学期交接）
 
----
+## 二、判断树
 
-### 交接报告格式
+**Node 1：** 交接类型？
+  - 完整交接/临时交接/紧急交接
+
+**Node 2：** 案件阶段？
+  - 受理/审理中/结案前
+
+**Node 3：** 交接对象？
+  - 下届学生/其他诊所/督导
+**最终输出：** 基于判断树结果，给出针对性输出。
+
+## 三、场景差异
+
+| 场景 | 说明 |
+|---|---|
+| 学期中 | 工作日志+文件夹 |
+| 学期末 | 全套档案+案件评估 |
+| 紧急 | 电子移交+电话确认 |
+
+## 四、数据源锚定
+
+- **主要数据源：** [BD] 学期交接档案
+- **辅助源：** [model] 法律推理
+- **更新策略：** 法条/案例数据实时校对（[YD]）
+
+## 五、升级决策门
+
+触发以下任一情形，必须升级至督导/专业律师：
+- 涉及具体案件的法律意见
+- 案件复杂程度超过学生能力（须督导介入）
+- 时效紧迫或金额重大
+- 刑事案件会见/阅卷/辩护意见
+- 行政诉讼复议前置/被告主体认定
+- 跨学科/跨法域问题
+
+## 六、输出路径
 
 ```
-## 学期交接报告 — [学期]
-
-### 进行中案件
-[案件ID] — [类型] — [进展] — [须跟进事项]
-
-### 已结案案件
-[案件ID] — [类型] — [结果]
-
-### 重要提醒
-[须特别关注的事项]
+legal-clinic/semester-handoff/[client-id]/output.md
 ```
 
 ---
 
-*Greater China Legal — legal-clinic semester-handoff CN adapter v1.0.0*
+*Greater China Legal — legal-clinic semester-handoff B-phase v2.0.0（场景优先重构）*

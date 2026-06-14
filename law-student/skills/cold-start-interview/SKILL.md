@@ -1,30 +1,62 @@
 ---
 name: cold-start-interview
 description: >
-  法学生学习助手冷启动——了解学习目标和考试类型。
-  适用情形：首次使用或 [--redo]。
-argument-hint: "[--redo | --check-integrations]"
+  识别学生目标与起点（通用）。
+argument-hint: "[输入]"
 legal_frame: cn-mainland
+scene_cluster: law-student
 last_reviewed: 2026-06
-version: 1.0.0
+version: 2.0.0
 risk_level: low
 ---
 
-# /cold-start-interview — China Mainland
+# /cold-start-interview — China Mainland（B 重构 v2.0.0）
 
-## CN法学生学习助手初始化
+## 一、场景识别
 
-### 学习目标
-- 法考备考
-- 法学考研
-- 本科课程辅助
-- 法律实务学习
+**核心定位：** 识别学生目标与起点
 
-### 考试类型
-- 国家统一法律职业资格考试（客观题+主观题）
-- 法学硕士入学考试
-- 其他法律考试
+**所属场景：** 通用
+
+## 二、判断树
+
+**Node 1：** 你是哪类学生？
+  - 本科/学硕/JD/法考备考
+
+**Node 2：** 当前学期？
+  - 开学/期中/期末/假期
+
+**Node 3：** 主攻方向？
+  - 法考/考研/JD/课程
+**最终输出：** 基于判断树结果，给出针对性输出。
+
+## 三、场景差异
+
+| 场景 | 说明 |
+|---|---|
+| 法考 | 9月+10月两个考试节点 |
+| 学硕 | 12月统考 |
+| JD | 各校自主，时间不统一 |
+
+## 四、数据源锚定
+
+- **主要数据源：** [BD] 学生画像 / [model] 推理
+- **辅助源：** [model] 法律推理
+- **更新策略：** 法条/案例数据实时校对（[YD]）
+
+## 五、升级决策门
+
+触发以下任一情形，建议咨询专业指导或转人工：
+- 涉及具体案件的法律意见
+- 跨学科综合问题
+- 学术规范争议（需导师复核）
+
+## 六、输出路径
+
+```
+law-student/cold-start-interview/[session-id]/output.md
+```
 
 ---
 
-*Greater China Legal — law-student cold-start-interview CN adapter v1.0.0*
+*Greater China Legal — law-student cold-start-interview B-phase v2.0.0（场景优先重构）*

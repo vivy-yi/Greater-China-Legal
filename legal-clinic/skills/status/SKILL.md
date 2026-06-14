@@ -1,27 +1,65 @@
 ---
 name: status
 description: >
-  CN法律援助案件状态更新——追踪案件进展。
-  适用情形：更新案件状态或查看所有案件状态。
-argument-hint: "[案件ID] [--status | --list]"
+  案件当前状态更新（通用（案件状态））。
+argument-hint: "[输入]"
 legal_frame: cn-mainland
+scene_cluster: legal-clinic
 last_reviewed: 2026-06
-version: 1.0.0
+version: 2.0.0
 risk_level: medium
 ---
 
-# /status — China Mainland
+# /status — China Mainland（B 重构 v2.0.0）
 
-## CN法律援助案件状态
+## 一、场景识别
 
-| 状态 | 说明 |
+**核心定位：** 案件当前状态更新
+
+**所属场景：** 通用（案件状态）
+
+## 二、判断树
+
+**Node 1：** 案件阶段？
+  - 受理/研究/调解/立案/审理/执行
+
+**Node 2：** 下一步？
+  - 等待/主动/待审核
+
+**Node 3：** 时间节点？
+  - 立案前/审限中/上诉期/执行期
+**最终输出：** 基于判断树结果，给出针对性输出。
+
+## 三、场景差异
+
+| 场景 | 说明 |
 |---|---|
-| pending | 待审核 |
-| approved | 已批准援助 |
-| in-progress | 办理中 |
-| awaiting-review | 待督导审查 |
-| closed | 已结案 |
+| 民事 | 6个月/9个月审限 |
+| 劳动仲裁 | 45 日+15 日 |
+| 行政 | 3 个月/6 个月 |
+
+## 四、数据源锚定
+
+- **主要数据源：** [BD] 案件状态日志
+- **辅助源：** [model] 法律推理
+- **更新策略：** 法条/案例数据实时校对（[YD]）
+
+## 五、升级决策门
+
+触发以下任一情形，必须升级至督导/专业律师：
+- 涉及具体案件的法律意见
+- 案件复杂程度超过学生能力（须督导介入）
+- 时效紧迫或金额重大
+- 刑事案件会见/阅卷/辩护意见
+- 行政诉讼复议前置/被告主体认定
+- 跨学科/跨法域问题
+
+## 六、输出路径
+
+```
+legal-clinic/status/[client-id]/output.md
+```
 
 ---
 
-*Greater China Legal — legal-clinic status CN adapter v1.0.0*
+*Greater China Legal — legal-clinic status B-phase v2.0.0（场景优先重构）*

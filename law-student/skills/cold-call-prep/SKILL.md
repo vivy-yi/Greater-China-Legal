@@ -1,25 +1,61 @@
 ---
 name: cold-call-prep
 description: >
-  课堂冷叫（cold call）准备——法律问题分析和应答准备。
-  适用情形：准备课堂被点到时能准确回答。
-argument-hint: "[法律话题]"
+  Socratic 课堂 cold call 准备（S3+S4）。
+argument-hint: "[输入]"
 legal_frame: cn-mainland
+scene_cluster: law-student
 last_reviewed: 2026-06
-version: 1.0.0
+version: 2.0.0
 risk_level: low
 ---
 
-# /cold-call-prep — China Mainland
+# /cold-call-prep — China Mainland（B 重构 v2.0.0）
 
-## 课堂冷叫准备
+## 一、场景识别
 
-### 回答结构
-1. 清晰定义相关法律概念
-2. 说明法律规则的依据
-3. 将规则应用到具体问题
-4. 承认不确定性和复杂因素
+**核心定位：** Socratic 课堂 cold call 准备
+
+**所属场景：** S3+S4
+
+## 二、判断树
+
+**Node 1：** 案例篇幅？
+  - 短案（5页内）/长案（10页+）
+
+**Node 2：** 涉及学科？
+  - 宪法/民法/刑法/行政
+
+**Node 3：** 学生水平？
+  - 本科一年级/高年级/JD
+**最终输出：** 基于判断树结果，给出针对性输出。
+
+## 三、场景差异
+
+| 场景 | 说明 |
+|---|---|
+| JD 试点院校 | 案例教学为主，类似美国法学院 |
+| 传统法学本科 | 以讲授为主，cold call 较少 |
+
+## 四、数据源锚定
+
+- **主要数据源：** [model] 案例推理 / [WKL] 真实案例
+- **辅助源：** [model] 法律推理
+- **更新策略：** 法条/案例数据实时校对（[YD]）
+
+## 五、升级决策门
+
+触发以下任一情形，建议咨询专业指导或转人工：
+- 涉及具体案件的法律意见
+- 跨学科综合问题
+- 学术规范争议（需导师复核）
+
+## 六、输出路径
+
+```
+law-student/cold-call-prep/[session-id]/output.md
+```
 
 ---
 
-*Greater China Legal — law-student cold-call-prep CN adapter v1.0.0*
+*Greater China Legal — law-student cold-call-prep B-phase v2.0.0（场景优先重构）*

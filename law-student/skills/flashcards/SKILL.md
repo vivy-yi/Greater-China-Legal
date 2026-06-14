@@ -1,36 +1,58 @@
 ---
 name: flashcards
 description: >
-  CN法律概念闪卡——民法/刑法/行政法核心概念。
-  适用情形：快速记忆法律概念和关键法条。
-argument-hint: "[科目] [--topic <话题>] [--count <数量>]"
+  Anki/抽认卡生成（S1+S2）。
+argument-hint: "[输入]"
 legal_frame: cn-mainland
+scene_cluster: law-student
 last_reviewed: 2026-06
-version: 1.0.0
+version: 2.0.0
 risk_level: low
 ---
 
-# /flashcards — China Mainland
+# /flashcards — China Mainland（B 重构 v2.0.0）
 
-## CN法律闪卡格式
+## 一、场景识别
+
+**核心定位：** Anki/抽认卡生成
+
+**所属场景：** S1+S2
+
+## 二、判断树
+
+**Node 1：** 记忆类型？
+  - 法条/概念/案例/流程
+
+**Node 2：** 遗忘曲线？
+  - 新卡/复习卡/困难卡
+**最终输出：** 基于判断树结果，给出针对性输出。
+
+## 三、场景差异
+
+| 场景 | 说明 |
+|---|---|
+| 民法典 | 1260 条，分编记忆 |
+| 刑法 | 452 条，重点在分则 |
+
+## 四、数据源锚定
+
+- **主要数据源：** [BD] 学生记忆库 / [YD] 法条原文
+- **辅助源：** [model] 法律推理
+- **更新策略：** 法条/案例数据实时校对（[YD]）
+
+## 五、升级决策门
+
+触发以下任一情形，建议咨询专业指导或转人工：
+- 涉及具体案件的法律意见
+- 跨学科综合问题
+- 学术规范争议（需导师复核）
+
+## 六、输出路径
 
 ```
-### 概念
-[法律概念名称]
-
-### 定义
-[概念的准确法律定义]
-
-### 法条依据
-《民法典》第XXX条
-
-### 示例
-[生活中的例子]
-
-### 关联概念
-[相关概念]
+law-student/flashcards/[session-id]/output.md
 ```
 
 ---
 
-*Greater China Legal — law-student flashcards CN adapter v1.0.0*
+*Greater China Legal — law-student flashcards B-phase v2.0.0（场景优先重构）*
