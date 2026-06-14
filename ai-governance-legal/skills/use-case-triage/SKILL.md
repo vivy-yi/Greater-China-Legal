@@ -8,6 +8,21 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - AI应用场景合规
+  - 这个功能需要ICP许可吗
+  - AI产品需要哪些牌照
+  - 业务场景合规审查
+  - 互联网金融业务资质
+legal_sources:
+  - name: 互联网信息服务管理办法
+    effective_date: 2011-04-25
+  - name: 电信业务经营许可证管理办法
+    effective_date: 2017-07-19
+  - name: 生成式AI服务管理暂行办法（网信办2023）
+    effective_date: 2023-08-15
+  - name: 网络借贷信息中介机构业务活动管理暂行办法
+    effective_date: 2016-08-17
 ---
 
 # /use-case-triage — China Mainland
