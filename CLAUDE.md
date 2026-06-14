@@ -102,6 +102,59 @@ Greater-China-Legal/
 
 ---
 
+## 跨场景路由
+
+当用户查询涉及多个法律领域时，按以下流程执行：
+
+### Step 1：调用 legal-element-extraction
+
+读取 `plugins/legal-atomic/legal-element-extraction/SKILL.md`，提取用户输入中的法律事实。从提取结果中推断涉及的法律领域。
+
+### Step 2：映射到场景
+
+根据法律领域确定需要加载的场景：
+
+| 法律领域关键词 | 对应场景 |
+|--------------|---------|
+| 并购/股权/资产收购/尽职调查 | `m-and-a`、`corporate-governance`、`tax-compliance` |
+| 合同/供应商/采购/NDA | `contract-review` |
+| 诉讼/仲裁/争议解决 | `litigation-support`、`commercial-arbitration` |
+| 数据/隐私/PIPL/个人信息 | `data-compliance`、`ai-governance-legal` |
+| 知识产权/商标/专利/著作权 | `ip-infringement` |
+| 劳动/员工/解除/社保 | `employment-legal`、`labor-arbitration` |
+| 税务/发票/转让定价 | `tax-compliance` |
+| 破产/重整/清算 | `bankruptcy-restructuring` |
+| 监管/牌照/合规 | `regulatory-compliance` |
+| 虚拟资产/NFT/Web3 | `web3-virtual-assets` |
+| 白领犯罪/反舞弊/调查 | `white-collar-crime`、`government-investigation` |
+| 投资/基金/私募/对赌 | `pe-vc-funds`、`financing-business` |
+| 资本市场/IPO/发债 | `capital-markets` |
+| 跨境贸易/进出口 | `cross-border-trade` |
+| 房地产/建设工程 | `real-estate-construction` |
+| 财富传承/信托/遗嘱 | `wealth-succession` |
+
+### Step 3：逐场景加载执行
+
+对于每个涉及场景：
+
+1. 读取 `plugins/scenes/<scene>/CLAUDE.md`（含 Role、数据源、推理原子能力调用流程）
+2. 按该场景 CLAUDE.md 的「推理原子能力调用流程」执行
+3. 调用 `legal-atomic` 中的对应原子 skill
+4. 输出该场景的分析结论
+
+场景间顺序：按「核心场景→辅助场景」执行。如并购尽调：先跑 `m-and-a`，再并行跑 `ip-infringement`、`data-compliance`、`employment-legal`、`tax-compliance`。
+
+### Step 4：汇总输出
+
+1. 合并各场景结论
+2. 如某结论在不同场景间矛盾（如税务场景认为重组方案可行，劳动场景认为存在障碍），标注矛盾点
+3. 整体论证强度评估（调用 `argument-strength-evaluation`）
+4. 输出最终跨场景报告
+
+场景隔离：每个场景在独立的上下文中执行。场景 A 的中间结论不泄漏到场景 B。
+
+---
+
 ## 法域支持
 
 `LEGAL_FRAMES/` 定义了 5 个法域的法律框架基线：
