@@ -10,6 +10,21 @@ version: 2.0.0
 risk_level: low
 ---
 
+## 数据源与判断框架引用
+
+本 skill 引用以下 plugin 根级 references 与 CLAUDE.md：
+
+- **判断框架**：`../../references/判断框架.md`（4 场景簇路由 + 考试判断节点 + 学习阶段 + IRAC 案例分析）
+- **数据源清单**：`../../references/数据源清单.md`（[YD]/[WKL]/[GOV]/[BD]/[model] + 学习场景适用）
+- **查询路径**：`../../references/查询路径.md`（法条/案例/真题/教材/英美判例检索入口）
+- **CLAUDE.md**：`../../CLAUDE.md`（CN 法学体系 + 考试类型基础信息）
+- **B 重构规范**：`../../../scene-design/README.md`（场景簇定义 + 数据源锚定规范）
+- **货币触发主题**：`../../../references/currency-watch.md`（高频更新主题清单）
+
+来源标注规范（[YD]/[WKL]/[BD]/[GOV]/[model]）详见 `../../references/数据源清单.md` §七。
+
+本 skill 所属场景簇：`law-student`（参见 `../../references/判断框架.md` §一）
+
 # /socratic-drill — China Mainland（B 重构 v2.0.0）
 
 ## 一、场景识别
