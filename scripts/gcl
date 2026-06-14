@@ -2,37 +2,33 @@
 """
 gcl — Greater China Legal CLI
 
-统一法律数据查询接口。支持法条检索、案例查询、法条效力验证。
-数据源优先级：MCP > 公开API > web_search。
-
 用法：
-  gcl law <法条名>         查法条文本
-  gcl cases <关键词>       查案例
-  gcl verify <法条名>      验证法条现行效力
-  gcl search <关键词>      通用搜索（法条+案例+解读）
-  gcl mcp-config           输出 MCP server 配置
-  gcl version              版本信息
+  gcl init [--force]        初始化配置
+  gcl law <法条名>          查法条文本
+  gcl cases <关键词>        查案例
+  gcl verify <法条名>       验证法条效力
+  gcl search <关键词>       通用搜索
+  gcl mcp-config            输出 MCP server 配置
+  gcl version               版本信息
 """
 
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
-import re
-import urllib.request
 import urllib.parse
+import urllib.request
 from pathlib import Path
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 CONFIG_DIR = Path.home() / ".gcl"
 CONFIG_FILE = CONFIG_DIR / "config.json"
 
-# ── 配置 ─────────────────────────────────────────────
-
 DEFAULT_CONFIG = {
     "data_sources": {
-        "npc_api": {"enabled": True, "url": "https://flk.npc.gov.cn/api"},
+        "npc_api": {"enabled": True},
         "web_search": {"enabled": True},
         "yuandian_mcp": {"enabled": False, "api_key": ""},
         "pkulaw_mcp": {"enabled": False, "api_key": ""},
@@ -46,10 +42,8 @@ def load_config():
     if CONFIG_FILE.exists():
         try:
             cfg = json.loads(CONFIG_FILE.read_text())
-            # merge with defaults
             for k, v in DEFAULT_CONFIG.items():
-                if k not in cfg:
-                    cfg[k] = v
+                cfg.setdefault(k, v)
             return cfg
         except Exception:
             pass
@@ -61,159 +55,180 @@ def save_config(cfg):
     CONFIG_FILE.write_text(json.dumps(cfg, ensure_ascii=False, indent=2))
 
 
-# ── 数据源：web_search ──────────────────────────────
+from typing import Optional
 
-def web_search(query: str, limit: int = 3) -> list[dict]:
-    """URL-based search fallback. Uses multiple strategies."""
+
+def url_fetch(url: str) -> Optional[str]:
+    """Fetch a URL with timeout and browser-like UA."""
+    try:
+        req = urllib.request.Request(
+            url,
+            headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"},
+        )
+        with urllib.request.urlopen(req, timeout=10) as r:
+            return r.read().decode("utf-8", errors="replace")
+    except Exception:
+        return None
+
+
+def web_search(query: str, limit: int = 5) -> list[dict]:
+    """Web search via multiple strategies."""
     results = []
     encoded = urllib.parse.quote(query)
 
-    # Strategy 1: DuckDuckGo lite HTML
+    # Strategy 1: Try direct NPC / legal database access
+    # (most reliable for Chinese legal queries, no search engine needed)
     try:
-        url = f"https://lite.duckduckgo.com/lite/?q={encoded}"
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"})
-        with urllib.request.urlopen(req, timeout=8) as resp:
-            html = resp.read().decode("utf-8", errors="replace")
-            for m in re.finditer(r'<a[^>]*href="(https?://[^"]+)"[^>]*>(.*?)</a>', html):
-                url = m.group(1)
-                title = re.sub(r"<[^>]+>", "", m.group(2)).strip()
-                if title and url.startswith("http") and "duckduckgo.com" not in url:
-                    results.append({"title": title, "url": url, "source": "web"})
+        # Try to access the law directly by name from known sites
+        sites_to_try = [
+            f"https://flk.npc.gov.cn/law?q={encoded}",
+            f"https://www.gov.cn/search?q={encoded}",
+        ]
+        have_data = False
+        for site_url in sites_to_try:
+            try:
+                req = urllib.request.Request(site_url, headers={"User-Agent": "Mozilla/5.0"})
+                with urllib.request.urlopen(req, timeout=5) as r:
+                    body = r.read().decode("utf-8", errors="replace")
+                    if len(body) > 5000 and "404" not in body[:100]:
+                        results.append({
+                            "title": f"查询结果: {urllib.parse.unquote(encoded)[:50]}",
+                            "url": site_url,
+                        })
+                        have_data = True
+                        break
+            except Exception:
+                continue
+    except Exception:
+        pass
+
+    # Strategy 2: Try Brave Search API (free tier, 2000 queries/month)
+    # Requires BRAVE_API_KEY env var or config. If not set, skip.
+    try:
+        import os as _os
+        brave_key = _os.environ.get("BRAVE_API_KEY") or None
+        if brave_key:
+            import json as _json
+            import ssl as _ssl
+            ctx = _ssl.create_default_context()
+            url = f"https://api.search.brave.com/res/v1/web/search?q={encoded}&count={limit}"
+            req = urllib.request.Request(url, headers={"Accept": "application/json", "X-Subscription-Token": brave_key})
+            with urllib.request.urlopen(req, timeout=8, context=ctx) as r:
+                data = _json.loads(r.read())
+                for item in (data.get("web", {}) or {}).get("results", []):
+                    results.append({"title": item.get("title", ""), "url": item.get("url", "")})
                     if len(results) >= limit:
                         break
     except Exception:
         pass
 
-    # Strategy 2: Direct site query for known legal databases
-    if len(results) < limit:
-        try:
-            sites = ["www.gov.cn", "pkulaw.com", "flk.npc.gov.cn", "court.gov.cn"]
-            site_query = f"site:{' OR site:'.join(sites[:2])} {query}"
-            site_encoded = urllib.parse.quote(site_query)
-            url = f"https://lite.duckduckgo.com/lite/?q={site_encoded}"
-            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-            with urllib.request.urlopen(req, timeout=8) as resp:
-                html = resp.read().decode("utf-8", errors="replace")
-                for m in re.finditer(r'<a[^>]*href="(https?://[^"]+)"[^>]*>(.*?)</a>', html):
-                    url = m.group(1)
-                    title = re.sub(r"<[^>]+>", "", m.group(2)).strip()
-                    if title and url.startswith("http") and "duckduckgo.com" not in url:
-                        results.append({"title": title, "url": url, "source": "gov"})
-                        if len(results) >= limit:
-                            break
-        except Exception:
-            pass
-
     return results
+
+
+def print_section(heading: str, items: list[dict], tag: str):
+    """Print a section of results."""
+    if not items:
+        return
+    print(f"─── {heading} ───\n")
+    for item in items:
+        print(f"🔗 {item['title']}")
+        print(f"   {item['url']}")
+        print(f"   来源: [{tag}]\n")
 
 
 # ── 法条查询 ─────────────────────────────────────────
 
-def cmd_law(queries: list[str], cfg: dict):
-    """查询法条文本"""
+def cmd_law(queries: list[str]):
     query = " ".join(queries)
     print(f"─── 法条查询: {query} ───\n")
 
-    # Try NPC database API
-    if cfg["data_sources"]["npc_api"]["enabled"]:
-        try:
-            base = cfg["data_sources"]["npc_api"]["url"]
-            params = urllib.parse.urlencode({"search": query, "page": "1", "size": "5"})
-            url = f"{base}?{params}"
-            req = urllib.request.Request(url, headers={"User-Agent": "gcl-cli/0.1"})
-            with urllib.request.urlopen(req, timeout=8) as resp:
-                data = json.loads(resp.read())
-                if data and data.get("data"):
-                    for item in data["data"]:
-                        title = item.get("title", "")
-                        publish = item.get("publish", "")
-                        print(f"📘 {title}")
-                        print(f"   发布: {publish}")
-                        print(f"   来源: [NPC]\n")
-                    return
-        except Exception:
-            pass
+    # Strategy 1: Try NPC database (free government source)
+    # The NPC database is a SPA; direct API calls may not work.
+    # Try known legal data sites directly.
+    site_queries = [
+        f"site:flk.npc.gov.cn {query}",
+        f"site:gov.cn {query} 条文",
+        f"{query} 条文 民法典",
+    ]
+    found = False
+    for sq in site_queries:
+        items = web_search(sq, limit=3)
+        if items:
+            print_section("国家法律法规数据库", items, "GOV")
+            found = True
+            break
 
-    # Fallback: web search
-    print("⚠️ 国家法律法规数据库不可用，使用 web_search 备选\n")
-    results = web_search(query)
-    for r in results:
-        print(f"🔗 {r['title']}")
-        print(f"   {r['url']}")
-        print(f"   来源: [web]\n")
-
-    if not results:
-        print('未找到结果。建议补充法条全称（如「中华人民共和国民法典」）')
+    if not found:
+        print(f"""⚠️ 外部数据源未返回结果。
+   查询内容: {query}
+   建议:
+   • 直接访问 flk.npc.gov.cn（国家法律法规数据库）
+   • 设置 BRAVE_API_KEY 环境变量启用 Brave Search
+     export BRAVE_API_KEY=your_key
+     免费注册: https://api.search.brave.com/app/dashboard
+   • 运行 gcl init 重新配置
+""")
 
 
 # ── 案例查询 ─────────────────────────────────────────
 
-def cmd_cases(queries: list[str], cfg: dict):
-    """查询案例"""
+def cmd_cases(queries: list[str]):
     query = " ".join(queries)
     print(f"─── 案例查询: {query} ───\n")
 
-    results = web_search(f"{query} 裁判文书 案号")
-    for r in results:
-        print(f"⚖️ {r['title']}")
-        print(f"   {r['url']}")
-        print(f"   来源: [web]\n")
-
-    if not results:
-        print("未找到相关案例。建议尝试更具体的关键词。")
-
+    items = web_search(f"{query} 裁判文书 案号", limit=5)
+    if items:
+        print_section("裁判文书 / 案例检索", items, "web")
+    else:
+        print("""⚠️ 未找到相关案例。
+   建议到 wenshu.court.gov.cn 或 pkulaw.com 检索。
+   来源: [model] — 须核实
+""")
 
 # ── 法条效力验证 ─────────────────────────────────────
 
-def cmd_verify(queries: list[str], cfg: dict):
-    """验证法条是否为现行有效"""
+def cmd_verify(queries: list[str]):
     query = " ".join(queries)
     print(f"─── 效力验证: {query} ───\n")
 
-    results = web_search(f"{query} 现行有效 已被修订")
-    found = False
-    for r in results:
-        title_lower = r["title"].lower()
-        if any(k in title_lower for k in ["修订", "废止", "失效", "现行", "有效"]):
-            print(f"🔍 {r['title']}")
-            print(f"   {r['url']}")
-            print(f"   来源: [web]\n")
-            found = True
-
-    if not found:
-        print("✅ 未发现废止/修订公告，可视为现行有效（建议到 NPC 数据库确认）")
-        print()
+    items = web_search(f"{query} 修订 废止 现行有效", limit=5)
+    if items:
+        print_section("修订/废止公告检索", items, "web")
+        print("💡 未发现修订/废止公告可视为现行有效，建议到 NPC 数据库确认。")
+    else:
+        print("""⚠️ 未找到相关公告。
+   建议直接访问 flk.npc.gov.cn 查询该法条的现行状态。
+   来源: [model] — 须核实
+""")
 
 
 # ── 通用搜索 ─────────────────────────────────────────
 
-def cmd_search(queries: list[str], cfg: dict):
-    """通用搜索"""
+def cmd_search(queries: list[str]):
     query = " ".join(queries)
     print(f"─── 通用搜索: {query} ───\n")
-    cmd_law(queries, cfg)
+    cmd_law(queries)
     print()
-    cmd_cases(queries, cfg)
+    cmd_cases(queries)
 
 
-# ── MCP 配置生成 ───────────────────────────────────
+# ── MCP 配置 ─────────────────────────────────────────
 
-def cmd_mcp_config(cfg: dict):
-    """生成 Claude Code MCP server 配置"""
+def cmd_mcp_config():
     config = {
         "mcpServers": {
             "gcl-law": {
-                "command": sys.argv[0],
+                "command": sys.argv[0] if sys.argv[0] != "" else "gcl",
                 "args": ["law"],
                 "description": "中国法律法规查询",
             },
             "gcl-cases": {
-                "command": sys.argv[0],
+                "command": sys.argv[0] if sys.argv[0] != "" else "gcl",
                 "args": ["cases"],
-                "description": "中国法律案例查询",
+                "description": "中国法律案例检索",
             },
             "gcl-verify": {
-                "command": sys.argv[0],
+                "command": sys.argv[0] if sys.argv[0] != "" else "gcl",
                 "args": ["verify"],
                 "description": "法条效力验证",
             },
@@ -221,32 +236,28 @@ def cmd_mcp_config(cfg: dict):
     }
     print(json.dumps(config, ensure_ascii=False, indent=2))
     print()
-    print("# 添加到 ~/.claude/.mcp.json 或项目根目录 .mcp.json")
-    print("# 然后在 Claude Code 中使用:")
+    print("# 复制到 ~/.claude/.mcp.json 后:")
     print("#   /gcl:law 民法典第585条")
-    print("#   /gcl:cases 合同违约 纠纷")
-    print("#   /gcl:verify 民法典 第585条 现行有效")
+    print("#   /gcl:cases 合同纠纷 违约金")
 
 
 # ── 配置初始化 ───────────────────────────────────────
 
-def cmd_init():
-    """初始化配置"""
-    if CONFIG_FILE.exists():
+def cmd_init(force: bool = False):
+    if CONFIG_FILE.exists() and not force:
         print(f"配置文件已存在: {CONFIG_FILE}")
-        resp = input("重新初始化？(y/N): ")
-        if resp.lower() != "y":
-            return
+        print("使用 --force 重新初始化")
+        return
     save_config(DEFAULT_CONFIG)
-    print(f"✅ 配置文件已创建: {CONFIG_FILE}")
+    print(f"✅ 配置文件: {CONFIG_FILE}")
     print()
-    print("数据源状态:")
+    print("数据源:")
     print("  ✅ 国家法律法规数据库 (flk.npc.gov.cn)")
     print("  ✅ web_search 备选")
-    print("  ❌ 元典 MCP (须填写 API key)")
-    print("  ❌ 北大法宝 MCP (须填写 API key)")
+    print("  ❌ 元典 MCP (须 API key, config 中设置)")
+    print("  ❌ 北大法宝 MCP (须 API key, config 中设置)")
     print()
-    print("运行 gcl setup 可配置付费数据源 API key")
+    print("用法: gcl law 民法典第585条")
 
 
 # ── 入口 ─────────────────────────────────────────────
@@ -255,37 +266,36 @@ def main():
     cfg = load_config()
 
     parser = argparse.ArgumentParser(
-        description="gcl — Greater China Legal CLI",
+        description=f"gcl v{VERSION} — Greater China Legal CLI",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例:
-  gcl law 民法典第585条
-  gcl cases 买卖合同 纠纷 违约金
-  gcl verify 劳动合同法 第39条
-  gcl search 数据出境安全评估
-  gcl mcp-config
-        """,
+  gcl init                    初始化配置
+  gcl init --force            重新初始化
+  gcl law 民法典第585条       查法条
+  gcl cases 合同 违约金       查案例
+  gcl verify 民法典 第585条   验证效力
+  gcl search 数据出境         通用搜索
+  gcl mcp-config              生成 MCP 配置
+""",
     )
 
     sub = parser.add_subparsers(dest="command")
 
-    p_law = sub.add_parser("law", help="查询法条文本")
-    p_law.add_argument("query", nargs="+", help="法条名称或关键词")
-
-    p_cases = sub.add_parser("cases", help="查询案例")
-    p_cases.add_argument("query", nargs="+", help="案例关键词")
-
-    p_verify = sub.add_parser("verify", help="验证法条效力")
-    p_verify.add_argument("query", nargs="+", help="法条名称")
-
-    p_search = sub.add_parser("search", help="通用搜索")
-    p_search.add_argument("query", nargs="+", help="搜索关键词")
-
-    p_mcp = sub.add_parser("mcp-config", help="输出 MCP server 配置")
-
     p_init = sub.add_parser("init", help="初始化配置")
+    p_init.add_argument("--force", action="store_true", help="强制重新初始化")
 
-    p_version = sub.add_parser("version", help="版本信息")
+    for name, help_text in [
+        ("law", "查询法条文本"),
+        ("cases", "查询案例"),
+        ("verify", "验证法条效力"),
+        ("search", "通用搜索"),
+    ]:
+        p = sub.add_parser(name, help=help_text)
+        p.add_argument("query", nargs="+", help="搜索关键词")
+
+    sub.add_parser("mcp-config", help="输出 MCP server 配置")
+    sub.add_parser("version", help="版本信息")
 
     args = parser.parse_args()
 
@@ -293,21 +303,19 @@ def main():
         parser.print_help()
         return
 
-    if args.command == "law":
-        cmd_law(args.query, cfg)
-    elif args.command == "cases":
-        cmd_cases(args.query, cfg)
-    elif args.command == "verify":
-        cmd_verify(args.query, cfg)
-    elif args.command == "search":
-        cmd_search(args.query, cfg)
-    elif args.command == "mcp-config":
-        cmd_mcp_config(cfg)
-    elif args.command == "init":
-        cmd_init()
-    elif args.command == "version":
-        print(f"gcl v{VERSION}")
-        print(f"Config: {CONFIG_FILE}")
+    cmd_map = {
+        "init": lambda: cmd_init(getattr(args, "force", False)),
+        "law": lambda: cmd_law(args.query),
+        "cases": lambda: cmd_cases(args.query),
+        "verify": lambda: cmd_verify(args.query),
+        "search": lambda: cmd_search(args.query),
+        "mcp-config": cmd_mcp_config,
+        "version": lambda: print(f"gcl v{VERSION} — Config: {CONFIG_FILE}"),
+    }
+
+    cmd = cmd_map.get(args.command)
+    if cmd:
+        cmd()
 
 
 if __name__ == "__main__":
