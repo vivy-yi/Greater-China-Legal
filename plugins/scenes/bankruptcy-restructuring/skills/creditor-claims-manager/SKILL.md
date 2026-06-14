@@ -5,10 +5,15 @@ description: >
   适用情形：债权人申报债权、管理人对申报债权进行审查和确认、对存疑债权进行分类处理。
   核心：债权分类（有担保/职工/税款/普通）、债权审查（真实性/合法性/金额准确性）、异议债权处理。
 argument-hint: "[破产案件信息] [申报债权清单] [债权证据材料]"
-legal_frame: 《企业破产法》第44-58条、司法解释（三）第1-8条
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 破产
+  - 清算
+  - 重整
+  - creditor claims
 ---
 
 # /creditor-claims-manager — 债权申报管理

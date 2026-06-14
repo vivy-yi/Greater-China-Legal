@@ -5,7 +5,15 @@ description: >
   learns your risk calibration. Use on fresh install, when onboarding product
   counsel, or when the plugin config has placeholders. Run with --redo to
   re-interview, or --check-integrations to re-probe connectors only.
+legal_frame: cn-mainland
+last_reviewed: 2026-06
+version: 1.0.0
 argument-hint: "[--redo] [--check-integrations to re-probe integrations only]"
+trigger_phrases:
+  - '产品发布'
+  - '营销'
+  - '合规'
+  - '风险'
 ---
 
 # /cold-start-interview

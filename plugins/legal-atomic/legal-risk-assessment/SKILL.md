@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: legal-risk-assessment
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 法律风险
+  - 风险评估
+  - 风险分析
+  - 合规风险
+  - 风险等级
 ---
 
 # /legal-risk-assessment — 监管风险评估

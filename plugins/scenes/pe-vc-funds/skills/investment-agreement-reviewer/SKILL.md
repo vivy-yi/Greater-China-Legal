@@ -1,15 +1,16 @@
 ---
-name: investment-agreement-reviewer
+name:
+description: "PE/VC investment agreement reviewer — 专业法律分析" investment-agreement-reviewer
 version: 1.0.0
 last_reviewed: 2026-06
 legal_frame: cn-mainland
 domain: pe-vc-funds
-
-
-
-
-
-
+trigger_phrases:
+  - '投资'
+  - '审查'
+  - '私募'
+  - '基金'
+  - '对赌'
 ---
 
 # Investment Agreement Reviewer

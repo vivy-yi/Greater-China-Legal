@@ -1,15 +1,16 @@
 ---
-name: capital-call-calculator
+name:
+description: "PE/VC capital call calculator — 专业法律分析" capital-call-calculator
 version: 1.0.0
 last_reviewed: 2026-06
 legal_frame: cn-mainland
 domain: pe-vc-funds
-
-
-
-
-
-
+trigger_phrases:
+  - '资本'
+  - '计算'
+  - '私募'
+  - '基金'
+  - '投资'
 ---
 
 # Capital Call Calculator

@@ -5,7 +5,14 @@ description: >
   适用于多客户/多项目法务场景，确保一个客户的上下文不会泄露到另一个。
   适用情形：用户说"新建案件"、"切换案件"、"列出我的案件"。
 argument-hint: "<new | list | switch | close | none> [slug]"
+trigger_phrases:
+  - 案件
+  - 工作区
+  - 案件管理
+  - 新建案件
+  - 案件切换
 last_reviewed: 2026-06
+legal_frame: cn-mainland
 version: 1.0.0
 risk_level: low
 ---

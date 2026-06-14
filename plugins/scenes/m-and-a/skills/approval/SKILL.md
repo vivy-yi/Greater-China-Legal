@@ -3,10 +3,15 @@ name: domestic-ma-approval-checker
 description: >
   境内并购重组审批核查
 argument-hint: "业务类型 关键要素"
-legal_frame: 《上市公司重大资产重组管理办法》《上市公司收购管理办法》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '并购'
+  - '股权收购'
+  - '资产收购'
+  - '退市'
 ---
 # 境内上市公司并购重组审批流程技能
 

@@ -7,7 +7,7 @@ description: >
   "家族信托税务"、"CRS信息交换"、"境外资产税务申报"、
   "税收居民身份选择"、"移民税务规划"。
 argument-hint: "[资产规模 + 资产所在地 + 收入来源 + 居民身份 + 家族架构]"
-legal_frame: 《个人所得税法》《个人所得税法实施条例》《CRS管理办法》
+legal_frame: cn-mainland
   《企业所得税法》《信托法》
 last_reviewed: 2026-06
 version: 1.0.0
@@ -17,6 +17,12 @@ escalation_triggers:
   - 涉及境外未申报资产的主动合规（CRS情报交换后）
   - 涉及家族信托的税务法律架构设计
   - 涉及移民前税务筹划的合法性争议
+trigger_phrases:
+  - '税务'
+  - '优化'
+  - '所得税'
+  - '增值税'
+  - '转让定价'
 ---
 
 # /high-net-worth-tax-optimization — China Mainland

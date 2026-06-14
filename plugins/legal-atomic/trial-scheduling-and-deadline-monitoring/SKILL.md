@@ -13,6 +13,12 @@ risk_level: medium
 references:
   - name: trial-scheduling-and-deadline-monitoring
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 开庭排期
+  - 期限监控
+  - 时效管理
+  - 日程管理
+  - 截止日期
 ---
 
 # /trial-scheduling-and-deadline-monitoring — 庭审排期与程序时限监控

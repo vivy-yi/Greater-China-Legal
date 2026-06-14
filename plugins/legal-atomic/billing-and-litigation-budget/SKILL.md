@@ -13,6 +13,12 @@ risk_level: medium
 references:
   - name: billing-and-litigation-budget
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 诉讼预算
+  - 律师费用
+  - 费用管理
+  - 诉讼成本
+  - 收费评估
 ---
 
 # /billing-and-litigation-budget — 工时计费与诉讼预算控制

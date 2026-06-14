@@ -10,6 +10,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '尽调'
+  - '检查'
+  - '并购'
+  - '股权收购'
+  - '资产收购'
 ---
 
 # 尽职调查技能 (Due Diligence Checker)

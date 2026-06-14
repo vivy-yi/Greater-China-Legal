@@ -1,15 +1,16 @@
 ---
-name: lp-due-diligence
+name:
+description: "PE/VC lp due diligence — 专业法律分析" lp-due-diligence
 version: 1.0.0
 last_reviewed: 2026-06
 legal_frame: cn-mainland
 domain: pe-vc-funds
-
-
-
-
-
-
+trigger_phrases:
+  - '尽调'
+  - '私募'
+  - '基金'
+  - '投资'
+  - '对赌'
 ---
 
 # LP Due Diligence

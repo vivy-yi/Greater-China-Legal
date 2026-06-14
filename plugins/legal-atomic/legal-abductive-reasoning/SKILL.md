@@ -14,6 +14,12 @@ risk_level: high
 references:
   - name: Legal-Abductive-Reasoning
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 溯因推理
+  - 回溯推理
+  - 最佳解释
+  - 推理假设
+  - 因果推理
 ---
 
 # /legal-abductive-reasoning — 法律溯因推理

@@ -13,6 +13,12 @@ risk_level: medium
 references:
   - name: other-legal-retrieval
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 法律检索
+  - 信息检索
+  - 综合检索
+  - 资料查找
+  - 法律查询
 ---
 
 # /other-legal-retrieval — 其他法律检索

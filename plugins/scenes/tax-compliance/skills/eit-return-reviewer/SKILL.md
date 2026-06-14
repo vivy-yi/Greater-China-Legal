@@ -7,7 +7,7 @@ description: >
   表格怎么填"、"企业所得税年度纳税申报表审核"、
   "汇算清缴风险点"、"申报表逻辑关系检查"。
 argument-hint: "[企业类型 + 上年度申报表 + 重大调整事项 + 行业]"
-legal_frame: 《企业所得税法》《企业所得税法实施条例》《企业所得税年度纳税申报表（A类/B类）填报说明》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
@@ -16,6 +16,12 @@ escalation_triggers:
   - 涉及税收优惠享受但条件不充分
   - 以前年度存在补税记录或税务稽查历史
   - 申报数据与财务数据存在重大差异
+trigger_phrases:
+  - '审查'
+  - '税务'
+  - '所得税'
+  - '增值税'
+  - '转让定价'
 ---
 
 # /eit-return-reviewer — China Mainland

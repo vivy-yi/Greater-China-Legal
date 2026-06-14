@@ -3,10 +3,16 @@ name: employee-misconduct-investigator
 description: >
   employee-misconduct-investigator — 职务侵占认定/员工舞弊调查/追偿程序。适用情形：用户说"employee-misconduct-investigator"...
 argument-hint: "业务要素 关键参数"
-legal_frame: 《刑法》第270-271条《公司法》第147-149条
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '员工'
+  - '不当行为'
+  - '白领犯罪'
+  - '商业贿赂'
+  - '舞弊'
 ---
 
 ## 数据源与判断框架引用

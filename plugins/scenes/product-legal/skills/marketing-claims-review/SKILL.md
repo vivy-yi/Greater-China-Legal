@@ -8,6 +8,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '营销'
+  - '审查'
+  - '产品发布'
+  - '合规'
+  - '风险'
 ---
 
 # /marketing-claims-review — China Mainland

@@ -5,10 +5,15 @@ description: >
   适用情形：出口前物项分类、技术转让前审查、产品设计阶段的管制合规评估。
   核心：比对《两用物项出口管制清单》及多国管控清单的物项描述和技术参数，判断管制物项类别。
 argument-hint: "[产品名称] [技术规格] [技术参数] [HS编码（如有）] [出口目的国]"
-legal_frame: 《出口管制法》《两用物项出口管制清单》、EAR(15 CFR 730-774)、EU Dual-Use Regulation 2021/821
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 跨境
+  - 进出口
+  - 海关
+  - dual use goods
 ---
 
 # /dual-use-goods-classifier — 两用物项分类

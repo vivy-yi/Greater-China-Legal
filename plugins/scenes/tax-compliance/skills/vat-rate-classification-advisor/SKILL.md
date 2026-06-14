@@ -8,7 +8,7 @@ description: >
   "农产品增值税税率"、"不动产租赁和销售税率"、
   "出口退税零税率适用条件"。
 argument-hint: "[销售类型 + 产品/服务描述 + 行业 + 是否涉及跨境]"
-legal_frame: 《增值税暂行条例》第2条《增值税暂行条例实施细则》《营业税改征增值税试点实施办法》
+legal_frame: cn-mainland
   《增值税税目注释》
 last_reviewed: 2026-06
 version: 1.0.0
@@ -18,6 +18,12 @@ escalation_triggers:
   - 出口退税零税率/免税的适用条件争议
   - 税务机关对历史税率适用进行稽查
   - 税率适用涉及较大金额差异
+trigger_phrases:
+  - '增值税'
+  - '顾问'
+  - '税务'
+  - '所得税'
+  - '转让定价'
 ---
 
 # /vat-rate-classification-advisor — China Mainland

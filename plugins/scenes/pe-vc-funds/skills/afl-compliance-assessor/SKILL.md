@@ -3,10 +3,16 @@ name: afl-compliance-assessor
 description: >
   afl-compliance-assessor — 外商投资法（AFL）合规性评估，核查外商投资是否触及《外商投资安全审查办法》及负面清单，评估外商在私募基金中的合规条件
 argument-hint: "投资者国籍 投资金额 目标公司行业 基金架构 外资比例"
-legal_frame: 《中华人民共和国外商投资法》《外商投资安全审查办法》《外商投资准入特别管理措施（负面清单）》《私募投资基金监督管理条例》
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - '合规'
+  - '评估'
+  - '私募'
+  - '基金'
+  - '投资'
 ---
 
 ## CN 外商投资法合规性评估

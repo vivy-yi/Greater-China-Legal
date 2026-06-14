@@ -3,10 +3,15 @@ name: corporate-bond-disclosure-monitor
 description: >
   公司债信息披露监控
 argument-hint: "业务类型 关键要素"
-legal_frame: 《公司债券发行与交易管理办法》《公开发行公司债券年度报告内容与格式准则》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 资本市场
+  - IPO
+  - 发债
+  - information disclosure
 ---
 # Skill: information-disclosure-monitor（信息披露监控）
 

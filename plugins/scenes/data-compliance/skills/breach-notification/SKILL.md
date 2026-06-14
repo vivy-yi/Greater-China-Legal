@@ -11,6 +11,11 @@ deprecated: true
 deprecated_reason: >
   B-phase版本(pipl-assessment+cac-enforcement)为完整的CN数据泄露合规链，
   含CAC执法案例对照，本版本为US GDPR遗留。
+trigger_phrases:
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 ---

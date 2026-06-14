@@ -9,6 +9,10 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06-13
 version: 1.1.0
 risk_level: high
+trigger_phrases:
+  - 劳动仲裁
+  - 劳动争议
+  - dispute
 ---
 
 # /dispute-classifier — 劳动争议类型判断

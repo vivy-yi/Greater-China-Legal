@@ -5,10 +5,16 @@ description: >
   起草建议与谈判策略，覆盖中国公司法框架下的少数股东保护与多数股东控制权协调。
   适用情形：用户说"审一下拖带权和随售权"、"drag-along条款怎么看"、"共同出售权分析"。
 argument-hint: "[协议类型：股东协议/增资协议/公司章程] [股东结构图谱] [争议条款原文]"
-legal_frame: 《公司法》第71条（股权转让）、第84条（优先购买权）、《最高人民法院关于适用〈中华人民共和国公司法〉若干问题的规定（四）》
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - '审查'
+  - '私募'
+  - '基金'
+  - '投资'
+  - '对赌'
 ---
 
 ## CN 拖售权/随售权条款审查（Drag-along & Tag-along）

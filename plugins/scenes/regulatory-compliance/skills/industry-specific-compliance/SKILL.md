@@ -8,6 +8,11 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '合规'
+  - '监管'
+  - '牌照'
+  - '安全'
 ---
 
 ## 数据源与判断框架引用

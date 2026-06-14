@@ -7,7 +7,7 @@ description: >
   "差旅费进项抵扣"、"农产品增值税抵扣"、"免税项目进项转出"、
   "简易计税进项税额"。
 argument-hint: "[采购业务描述 + 发票类型 + 用途 + 纳税人类型]"
-legal_frame: 《增值税暂行条例》《增值税暂行条例实施细则》《营业税改征增值税试点实施办法》
+legal_frame: cn-mainland
   《增值税专用发票使用规定》
 last_reviewed: 2026-06
 version: 1.0.0
@@ -17,6 +17,12 @@ escalation_triggers:
   - 大规模进项税转出涉及金额重大
   - 税务机关对进项抵扣进行专项稽查
   - 善意取得虚开发票须补税
+trigger_phrases:
+  - '税务'
+  - '检查'
+  - '所得税'
+  - '增值税'
+  - '转让定价'
 ---
 
 # /input-tax-credit-checker — China Mainland

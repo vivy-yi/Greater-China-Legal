@@ -13,6 +13,12 @@ risk_level: low
 references:
   - name: structured-element-extraction
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 结构化提取
+  - 要素提取
+  - 结构化分析
+  - 数据提取
+  - 字段提取
 ---
 
 # /structured-element-extraction — 结构化要素清单

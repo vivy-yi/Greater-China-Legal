@@ -3,10 +3,16 @@ name: testament-formality-checker
 description: >
   testament-formality-checker — 遗嘱形式审查/家族信托架构/税务筹划。适用情形：用户说"testament-formality-checker"...
 argument-hint: "业务要素 关键参数"
-legal_frame: 《民法典》继承编《信托法》《遗嘱信托司法解释》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '检查'
+  - '财富传承'
+  - '信托'
+  - '遗嘱'
+  - '继承'
 ---
 
 ## 数据源与判断框架引用

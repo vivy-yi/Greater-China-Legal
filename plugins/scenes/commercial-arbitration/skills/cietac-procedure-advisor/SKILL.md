@@ -3,10 +3,15 @@ name: cietac-procedure-advisor
 description: >
   cietac-procedure-advisor — 中国国际经济贸易仲裁委员会（CIETAC）仲裁程序的全程指引，包含案件受理、组庭、审理、裁决各阶段的实务操作与时间节点
 argument-hint: "争议金额 仲裁地 合同准据法 是否已提交仲裁申请"
-legal_frame: 《中国国际经济贸易仲裁委员会仲裁规则》（2024版）《中华人民共和国仲裁法》《CIETAC仲裁员守则》
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - cietac procedure
 ---
 
 ## CN CIETAC仲裁程序全程指引

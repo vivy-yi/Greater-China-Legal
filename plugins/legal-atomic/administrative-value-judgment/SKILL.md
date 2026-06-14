@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: administrative-value-judgment
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 行政价值
+  - 行政裁量
+  - 比例原则
+  - 行政判断
+  - 合理性审查
 ---
 
 # /administrative-value-judgment — 行政价值判断

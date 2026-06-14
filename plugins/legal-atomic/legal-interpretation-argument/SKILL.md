@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: legal-interpretation-argument
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 法律解释
+  - 解释方法
+  - 文义解释
+  - 目的解释
+  - 体系解释
 ---
 
 # /legal-interpretation-argument — 法律解释论证

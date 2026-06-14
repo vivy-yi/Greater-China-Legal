@@ -3,10 +3,16 @@ name: bribery-risk-assessor
 description: >
   bribery-risk-assessor — 商业贿赂风险评估/合规制度设计/调查应对。适用情形：用户说"bribery-risk-assessor"...
 argument-hint: "业务要素 关键参数"
-legal_frame: 《刑法》第163/164/389-391条《反不正当竞争法》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '贿赂'
+  - '评估'
+  - '白领犯罪'
+  - '商业贿赂'
+  - '舞弊'
 ---
 
 ## 数据源与判断框架引用

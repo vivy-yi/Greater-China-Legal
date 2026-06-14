@@ -13,6 +13,12 @@ risk_level: low
 references:
   - name: multi-document-summarization
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 多文档摘要
+  - 综合摘要
+  - 多文件总结
+  - 信息整合
+  - 综合概括
 ---
 
 # /multi-document-summarization — 多源文档归纳

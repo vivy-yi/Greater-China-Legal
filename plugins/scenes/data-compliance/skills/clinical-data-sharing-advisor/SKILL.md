@@ -6,7 +6,7 @@ description: >
   "临床试验数据对外提供"、"患者数据给第三方分析"、"医院间数据协作"、
   "真实世界研究数据流转"。
 argument-hint: "[共享目的 + 数据类型 + 接收方性质 + 是否涉及跨境]"
-legal_frame: 《数据安全法》《个人信息保护法》《国家健康医疗大数据标准安全和服务管理办法》《人类遗传资源管理条例》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: critical
@@ -15,6 +15,12 @@ escalation_triggers:
   - 涉及大规模患者医疗记录共享
   - 接收方为境外药企/研究机构
   - 共享目的超出原患者知情同意范围
+trigger_phrases:
+  - '数据'
+  - '顾问'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
 ---
 
 # /clinical-data-sharing-advisor — China Mainland

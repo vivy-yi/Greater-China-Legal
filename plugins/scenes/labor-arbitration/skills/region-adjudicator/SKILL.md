@@ -10,6 +10,10 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 劳动仲裁
+  - 劳动争议
+  - region adjudicator
 ---
 
 ## 加载上下文

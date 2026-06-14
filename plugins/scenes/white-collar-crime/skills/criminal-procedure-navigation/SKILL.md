@@ -3,10 +3,15 @@ name: criminal-procedure-navigation
 description: >
   criminal-procedure-navigation — 逃税罪认定/自查自纠/刑事程序导航。适用情形：用户说"criminal-procedure-navigation"...
 argument-hint: "业务要素 关键参数"
-legal_frame: 《刑法》第201-204条《税收征收管理法》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '白领犯罪'
+  - '商业贿赂'
+  - '舞弊'
+  - '调查'
 ---
 
 ## 数据源与判断框架引用

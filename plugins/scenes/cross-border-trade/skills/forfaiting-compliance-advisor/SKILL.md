@@ -5,10 +5,15 @@ description: >
   适用情形：银行/金融机构在从事福费廷业务时对基础资产进行合规审查、出口商寻求福费廷融资前的准备。
   核心：基础交易真实性审查（单据/运输/货物）、票据有效性（背书/承兑/追索权）、制裁风险穿透审查。
 argument-hint: "[基础贸易合同摘要] [票据信息] [债务人/承兑人] [融资金额] [期限]"
-legal_frame: 《票据法》《国际福费廷业务惯例》、UCP600、URC522
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 跨境
+  - 进出口
+  - 海关
+  - forfaiting compliance
 ---
 
 # /forfaiting-compliance-advisor — 福费廷合规顾问

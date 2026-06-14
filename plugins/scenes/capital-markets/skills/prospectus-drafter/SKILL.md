@@ -3,10 +3,15 @@ name: a-share-ipo-prospectus-drafter
 description: >
   A股IPO招股说明书起草
 argument-hint: "业务类型 关键要素"
-legal_frame: 《证券法》《公开发行证券的公司信息披露内容与格式准则第1号》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 资本市场
+  - IPO
+  - 发债
+  - prospectus
 ---
 # 招股说明书起草技能 (prospectus-drafter)
 

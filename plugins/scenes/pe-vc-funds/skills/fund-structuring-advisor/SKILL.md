@@ -3,10 +3,16 @@ name: fund-structuring-advisor
 description: >
   fund-structuring-advisor — 私募股权/创投基金的设立架构设计，覆盖公司型/合伙型/契约型三种基金形式的选择、GP/LP架构方案、管理人与基金双轨架构、税务筹划
 argument-hint: "基金规模 LP类型 投资方向 退出策略 税务要求"
-legal_frame: 《私募投资基金监督管理条例》《私募投资基金合同指引1-3号》《合伙企业法》《公司法》《证券投资基金法》
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - '基金'
+  - '架构'
+  - '顾问'
+  - '私募'
+  - '投资'
 ---
 
 ## CN 私募基金设立架构设计

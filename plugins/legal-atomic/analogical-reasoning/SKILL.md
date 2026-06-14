@@ -14,6 +14,12 @@ risk_level: high
 references:
   - name: analogical-reasoning
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 类比推理
+  - 类推适用
+  - 类比论证
+  - 类似案件
+  - 类比分析
 ---
 
 # /analogical-reasoning — 类比推理

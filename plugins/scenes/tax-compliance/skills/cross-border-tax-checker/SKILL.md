@@ -9,6 +9,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '跨境'
+  - '税务'
+  - '检查'
+  - '所得税'
+  - '增值税'
 ---
 
 # /cross-border-tax-checker — 跨境税务核查

@@ -3,10 +3,16 @@ name: telecom-license-advisor
 description: >
   telecom-license-advisor — 电信牌照/互联网内容/数据本地化。适用情形：用户说"telecom-license-advisor"...
 argument-hint: "业务要素 关键参数"
-legal_frame: 《电信条例》《互联网信息服务管理办法》《网络安全法》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '牌照'
+  - '顾问'
+  - '监管'
+  - '安全'
+  - '合规'
 ---
 
 ## 数据源与判断框架引用

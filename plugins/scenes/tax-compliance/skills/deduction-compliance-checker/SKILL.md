@@ -7,7 +7,7 @@ description: >
   扣除限额"、"捐赠支出能扣多少"、"职工福利费税前扣除"、
   "无票支出怎么办"、"资产减值损失能税前扣除吗"。
 argument-hint: "[费用类型 + 金额 + 发票/凭证 + 业务关联性]"
-legal_frame: 《企业所得税法》第8条《企业所得税法实施条例》《企业所得税税前扣除凭证管理办法》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
@@ -16,6 +16,12 @@ escalation_triggers:
   - 扣除项目涉及关联交易或转让定价调整
   - 税务机关对扣除项目提出质疑
   - 扣除金额巨大可能触发税务稽查
+trigger_phrases:
+  - '合规'
+  - '检查'
+  - '税务'
+  - '所得税'
+  - '增值税'
 ---
 
 # /deduction-compliance-checker — China Mainland

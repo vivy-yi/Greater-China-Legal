@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: internal-compliance-risk-identification
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 合规风险
+  - 内部合规
+  - 风险识别
+  - 合规检查
+  - 内控风险
 ---
 
 # /internal-compliance-risk-identification — 内部合规风险识别

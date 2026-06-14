@@ -13,6 +13,12 @@ risk_level: low
 references:
   - name: legal-document-summarization
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 法律摘要
+  - 文书摘要
+  - 文档总结
+  - 案情摘要
+  - 文件概括
 ---
 
 # /legal-document-summarization — 法律文书摘要

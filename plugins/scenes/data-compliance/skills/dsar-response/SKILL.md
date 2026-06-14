@@ -7,6 +7,11 @@ superseded_by: b-scenes/data-compliance/skills/subject-rights
 deprecated: true
 deprecated_reason: >
   B-phase版本(subject-rights)为CN主体权利响应的完整流程，本版本为US GDPR/CCPA遗留。
+trigger_phrases:
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 ---

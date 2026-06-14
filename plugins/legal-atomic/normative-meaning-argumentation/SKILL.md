@@ -13,6 +13,12 @@ risk_level: medium
 references:
   - name: Normative-Meaning-Argumentation
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 规范意义
+  - 规范论证
+  - 规范解释
+  - 意义论证
+  - 规范分析
 ---
 
 # /normative-meaning-argumentation — 规范意义论证

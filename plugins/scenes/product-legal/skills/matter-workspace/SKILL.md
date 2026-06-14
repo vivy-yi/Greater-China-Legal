@@ -6,6 +6,11 @@ description: >
   need to create, list, switch, close, or detach the active matter so context from
   one engagement doesn't leak into another.
 argument-hint: "<new | list | switch | close | none> [slug]"
+trigger_phrases:
+  - '产品发布'
+  - '营销'
+  - '合规'
+  - '风险'
 ---
 
 # /matter-workspace

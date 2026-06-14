@@ -4,10 +4,15 @@ description: >
   ABS/SPV隔离结构设计顾问 — 指导SPV隔离结构设计要点，判断资产是否实现真实出售，
   适用情形：用户说"SPV隔离怎么做"、"真实出售如何判断"、"资产转让登记"...
 argument-hint: "原始权益人 资产类型 交易结构"
-legal_frame: 《证券公司资产证券化业务管理规定》《破产法》第31条
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 资本市场
+  - IPO
+  - 发债
+  - asset segregation
 ---
 
 ## 一、适用情形

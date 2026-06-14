@@ -6,6 +6,11 @@ description: >
 allowed-tools:
   - mcp
   - Bash
+trigger_phrases:
+  - 协作
+  - 律师
+  - 案件管理
+  - deep research
 ---
 
 # Westlaw Deep Research

@@ -3,10 +3,15 @@ name: bilateral-investment-advisor
 description: >
   bilateral-investment-advisor — 投资者-东道国投资争端仲裁，基于中国BIT体系和ICSID规则提供仲裁可行性、管辖权和实体保护标准分析
 argument-hint: "投资者国籍 东道国 投资类型 争议事实 投资金额"
-legal_frame: 《解决国家与他国国民间投资争端公约》（ICSID公约）UNCITRAL Arbitration Rules 中国对外签订的双边投资协定（BIT）
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - bilateral investment
 ---
 
 ## CN 双边投资条约仲裁分析

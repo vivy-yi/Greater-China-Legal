@@ -7,7 +7,7 @@ description: >
   有哪些"、"等保和个保认证的关系"、"认证对出境的帮助"、
   "TC260认证"、"网络安全认证"。
 argument-hint: "[产品/服务类型 + 用户规模 + 认证目的 + 行业]"
-legal_frame: 《个人信息保护法》第38条《网络安全法》第23条《信息安全技术 个人信息安全规范》
+legal_frame: cn-mainland
   《个人信息保护认证实施规则》（TC260-PG-20222A）
 last_reviewed: 2026-06
 version: 1.0.0
@@ -17,6 +17,12 @@ escalation_triggers:
   - 认证过程发现重大安全缺陷
   - 涉及CII采购网络产品的安全认证
   - 认证被暂停或撤销
+trigger_phrases:
+  - '顾问'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 # /security-certification-advisor — China Mainland

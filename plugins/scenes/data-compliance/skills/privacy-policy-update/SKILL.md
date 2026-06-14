@@ -8,6 +8,12 @@ deprecated: true
 deprecated_reason: >
   B-phase版本(pipl-assessment)为CN隐私政策PIPL五模块合规checklist，
   本版本为US COPPA/CCPA遗留。
+trigger_phrases:
+  - '隐私'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 ---

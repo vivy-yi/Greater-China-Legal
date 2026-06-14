@@ -3,10 +3,16 @@ name: drag-along-tag-along-advisor
 description: >
   drag-along-tag-along-advisor — 拖售权（Drag-along）和共同出售权（Tag-along/Co-sale）条款的审查、起草与谈判策略，覆盖中国法下少数股东的保护机制
 argument-hint: "股东结构 触发条件 出售比例 估值门槛 其他股东权利"
-legal_frame: 《公司法》第71条（股权转让规则）第84条（优先购买权）最高人民法院公司法司法解释（四）
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - '顾问'
+  - '私募'
+  - '基金'
+  - '投资'
+  - '对赌'
 ---
 
 ## CN 拖售权与共同出售权分析

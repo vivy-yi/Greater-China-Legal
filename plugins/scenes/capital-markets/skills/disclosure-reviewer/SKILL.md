@@ -3,10 +3,15 @@ name: a-share-ipo-disclosure-reviewer
 description: >
   A股IPO信息披露审查
 argument-hint: "业务类型 关键要素"
-legal_frame: 《证券法》《首发办法》《信息披露格式准则》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 资本市场
+  - IPO
+  - 发债
+  - disclosure
 ---
 # 信息披露审查技能 (disclosure-reviewer)
 

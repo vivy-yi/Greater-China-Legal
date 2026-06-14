@@ -3,10 +3,15 @@ name: asset-preservation-advisor
 description: >
   asset-preservation-advisor — 仲裁前和仲裁中的资产保全（财产保全/证据保全/行为保全）策略设计与申请，分析各法域保全制度的差异与衔接
 argument-hint: "对方主体信息 财产线索 争议金额 仲裁机构 紧急程度"
-legal_frame: 《中华人民共和国民事诉讼法》第103-106条《中华人民共和国仲裁法》第28条《最高人民法院关于人民法院办理仲裁执行案件若干问题的规定》
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - asset preservation
 ---
 
 ## CN 仲裁资产保全策略

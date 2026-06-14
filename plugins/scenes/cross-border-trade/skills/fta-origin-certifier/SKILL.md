@@ -5,10 +5,15 @@ description: >
   适用情形：出口商利用FTA优惠关税出口时确认原产地合规、进口商申报FTA优惠税率时验证供应商的原产地文件。
   核心：原产地规则判定（完全获得/实质性改变-税则归类变更/区域价值成分/特定加工工序）及直接运输规则。
 argument-hint: "[商品描述] [HS编码] [FTA协定名称] [生产工序说明] [原材料来源] [运输路线]"
-legal_frame: 中国已生效FTA协定（RCEP/中国-东盟/中韩/中澳/中瑞等）及各协定原产地规则章节
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - 跨境
+  - 进出口
+  - 海关
+  - fta origin certifier
 ---
 
 # /fta-origin-certifier — FTA原产地认定

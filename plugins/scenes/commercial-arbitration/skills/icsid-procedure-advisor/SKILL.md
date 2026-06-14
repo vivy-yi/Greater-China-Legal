@@ -3,10 +3,15 @@ name: icsid-procedure-advisor
 description: >
   icsid-procedure-advisor — 解决投资争端国际中心（ICSID）仲裁程序的全程指引，涵盖ICSID公约2022版仲裁规则下的案件受理、仲裁庭组成、管辖裁决与实体审理
 argument-hint: "投资者国籍 东道国 投资金额 争议性质 BIT名称"
-legal_frame: 《解决国家与他国国民间投资争端公约》（ICSID公约）ICSID Arbitration Rules 2022 UNCITRAL Arbitration Rules
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - icsid procedure
 ---
 
 ## CN ICSID仲裁程序全程指引

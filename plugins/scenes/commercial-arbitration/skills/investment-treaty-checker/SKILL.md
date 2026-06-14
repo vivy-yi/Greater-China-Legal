@@ -3,10 +3,15 @@ name: investment-treaty-checker
 description: >
   investment-treaty-checker — 核查中国对外签订的BIT/FTA投资章节是否适用特定投资争议，评估条约保护范围和程序路径，判定投资者能否提起国际投资仲裁
 argument-hint: "投资者国籍 投资标的 东道国 投资注册地 争议事实 投资时序"
-legal_frame: 《解决国家与他国国民间投资争端公约》中国对外签订的双边投资协定（BIT）及相关FTA投资章节
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - investment treaty
 ---
 
 ## CN 投资条约适用性核查

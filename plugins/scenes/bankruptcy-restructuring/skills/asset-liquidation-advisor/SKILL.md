@@ -5,10 +5,15 @@ description: >
   适用情形：破产管理人/债权人/债务人询问资产变现路径、变价程序合规性、分配方案合法性。
   核心：区分破产财产与非破产财产，按法定顺序编制变价方案，确保分配方案不违反《企业破产法》第113条清偿顺序。
 argument-hint: "[债务人名称] [资产清单] [担保情况] [债权分类数据]"
-legal_frame: 《企业破产法》第112-116条、《破产审判工作会议纪要》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 破产
+  - 清算
+  - 重整
+  - asset liquidation
 ---
 
 # /asset-liquidation-advisor — 资产清算顾问

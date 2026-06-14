@@ -5,10 +5,15 @@ description: >
   适用情形：进出口申报前的HS编码预审、海关归类质疑处理、新产品的归类研究。
   核心：HS归类六项总规则（GIR 1-6）的适用顺序判断，品目注释和子目注释的准确使用。
 argument-hint: "[商品名称] [材质/成分] [功能/用途] [加工工艺] [HS编码申报值（如有）]"
-legal_frame: 《海关法》《进出口税则》《进出口商品名称及编码协调制度公约》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - 跨境
+  - 进出口
+  - 海关
+  - tariff classification
 ---
 
 # /tariff-classification-advisor — 关税分类顾问

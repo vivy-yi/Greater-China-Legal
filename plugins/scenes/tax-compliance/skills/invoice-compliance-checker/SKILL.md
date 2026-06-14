@@ -9,6 +9,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '合规'
+  - '检查'
+  - '税务'
+  - '所得税'
+  - '增值税'
 ---
 
 # /invoice-compliance-checker — 发票合规检查

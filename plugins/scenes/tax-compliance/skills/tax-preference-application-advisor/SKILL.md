@@ -7,7 +7,7 @@ description: >
   "怎么申请高企优惠"、"研发加计扣除怎么做"、"小微企业
   所得税优惠"、"软件企业即征即退"、"税收优惠资格认定"。
 argument-hint: "[企业类型 + 行业 + 研发活动 + 营收/资产/人员]"
-legal_frame: 《企业所得税法》第28/30条《高新技术企业认定管理办法》《研发费用加计扣除政策》
+legal_frame: cn-mainland
   《增值税暂行条例》《软件企业/集成电路企业税收优惠政策》
 last_reviewed: 2026-06
 version: 1.0.0
@@ -17,6 +17,12 @@ escalation_triggers:
   - 享受税收优惠后被税务机关后续管理质疑
   - 税收优惠叠加适用存在冲突
   - 企业重组后税收优惠资格承继问题
+trigger_phrases:
+  - '税务'
+  - '顾问'
+  - '所得税'
+  - '增值税'
+  - '转让定价'
 ---
 
 # /tax-preference-application-advisor — China Mainland

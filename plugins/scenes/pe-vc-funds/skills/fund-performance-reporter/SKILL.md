@@ -1,15 +1,16 @@
 ---
-name: fund-performance-reporter
+name:
+description: "PE/VC fund performance reporter — 专业法律分析" fund-performance-reporter
 version: 1.0.0
 last_reviewed: 2026-06
 legal_frame: cn-mainland
 domain: pe-vc-funds
-
-
-
-
-
-
+trigger_phrases:
+  - '基金'
+  - '报告'
+  - '私募'
+  - '投资'
+  - '对赌'
 ---
 
 # Fund Performance Reporter

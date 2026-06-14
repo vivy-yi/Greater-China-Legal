@@ -9,6 +9,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '个人信息保护'
+  - '评估'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
 ---
 
 ## 加载上下文

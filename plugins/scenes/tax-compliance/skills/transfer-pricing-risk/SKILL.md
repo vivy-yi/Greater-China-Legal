@@ -9,6 +9,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '转让'
+  - '定价'
+  - '税务'
+  - '所得税'
+  - '增值税'
 ---
 
 # /transfer-pricing-risk — 转让定价风险评估

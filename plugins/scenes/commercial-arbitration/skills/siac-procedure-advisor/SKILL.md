@@ -3,10 +3,15 @@ name: siac-procedure-advisor
 description: >
   siac-procedure-advisor — 新加坡国际仲裁中心（SIAC）仲裁程序的全程指引，覆盖2016版规则下的快速程序、紧急仲裁员、仲裁庭组成和裁决执行
 argument-hint: "争议金额 仲裁地 合同准据法 当事人国籍"
-legal_frame: SIAC Arbitration Rules 2016 (7th Edition, SIAC Rules 2016), Singapore International Arbitration Act (IAA)
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - siac procedure
 ---
 
 ## CN SIAC仲裁程序全程指引

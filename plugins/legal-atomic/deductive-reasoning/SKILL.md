@@ -20,6 +20,12 @@ last_reviewed: "2026-06-13"
 references:
   - name: THUYRan deductive-reasoning
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 法律推理
+  - 三段论
+  - 演绎推理
+  - 法律逻辑
+  - 推理链条
 ---
 
 # 演绎推理（P-F-C三段论）

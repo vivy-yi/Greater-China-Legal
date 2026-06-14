@@ -7,7 +7,7 @@ description: >
   评估"、"关联交易利润率太低怎么办"、"预约定价安排"、
   "转让定价调查应对"、"关联交易同期资料准备"。
 argument-hint: "[关联交易类型 + 金额 + 定价方法 + 功能风险分析]"
-legal_frame: 《企业所得税法》第41条《特别纳税调整实施办法》《关联申报和同期资料管理公告》
+legal_frame: cn-mainland
   《预约定价安排公告》
 last_reviewed: 2026-06
 version: 1.0.0
@@ -17,6 +17,12 @@ escalation_triggers:
   - 被税务机关通知特别纳税调查
   - 关联交易涉及避税地实体
   - 需要申请预约定价安排（APA）
+trigger_phrases:
+  - '转让'
+  - '定价'
+  - '检查'
+  - '税务'
+  - '所得税'
 ---
 
 # /transfer-pricing-checker — China Mainland

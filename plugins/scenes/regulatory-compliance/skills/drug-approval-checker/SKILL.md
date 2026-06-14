@@ -3,10 +3,16 @@ name: drug-approval-checker
 description: >
   drug-approval-checker — 药品生产/注册/医疗器械监管。适用情形：用户说"drug-approval-checker"...
 argument-hint: "业务要素 关键参数"
-legal_frame: 《药品管理法》《医疗器械监督管理条例》《GMP规范》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '检查'
+  - '监管'
+  - '牌照'
+  - '安全'
+  - '合规'
 ---
 
 ## 数据源与判断框架引用

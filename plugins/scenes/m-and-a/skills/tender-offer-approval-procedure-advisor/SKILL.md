@@ -3,10 +3,16 @@ name: tender-offer-approval-advisor
 description: >
   要约收购程序顾问
 argument-hint: "业务类型 关键要素"
-legal_frame: 《上市公司收购管理办法》《证券法》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '顾问'
+  - '并购'
+  - '股权收购'
+  - '资产收购'
+  - '退市'
 ---
 # 要约收购技能3：收购完成与后续整合
 

@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: formal-legal-consequence
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 法律后果
+  - 法律效果
+  - 法律效力
+  - 法律结果
+  - 后果分析
 ---
 
 # /formal-legal-consequence — 形式化推导法律后果

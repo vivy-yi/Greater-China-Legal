@@ -7,7 +7,7 @@ description: >
   "健康医疗大数据分类标准"、"数据安全法医疗数据分类"、
   "医院数据分类分级怎么做"。
 argument-hint: "[数据类型 + 数据来源 + 涉及患者范围 + 使用场景]"
-legal_frame: 《数据安全法》第21条《国家健康医疗大数据标准安全和服务管理办法》
+legal_frame: cn-mainland
   《个人信息保护法》《卫生健康行业数据分类分级指南》
 last_reviewed: 2026-06
 version: 1.0.0
@@ -17,6 +17,12 @@ escalation_triggers:
   - 大规模医疗数据（>100万人）分类分级
   - 数据分级与安全保护措施存在重大差距
   - 涉及人类遗传资源数据
+trigger_phrases:
+  - '数据'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 # /medical-data-classification — China Mainland

@@ -8,6 +8,11 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 破产
+  - 清算
+  - 重整
+  - restructuring plan
 ---
 
 ## 一、核心判断框架

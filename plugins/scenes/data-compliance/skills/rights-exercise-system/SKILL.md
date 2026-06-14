@@ -7,7 +7,7 @@ description: >
   的数据怎么办"、"个人信息删除请求处理"、"数据可携权"、
   "权利响应时效"、"撤回同意流程"。
 argument-hint: "[请求类型 + 请求人身份 + 信息范围 + 响应时限]"
-legal_frame: 《个人信息保护法》（PIPL）第44-50条《个人信息安全规范》（GB/T 35273）第8章
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
@@ -16,6 +16,11 @@ escalation_triggers:
   - 请求涉及重大隐私争议或敏感信息
   - 拒绝请求可能引发诉讼或监管关注
   - 请求涉及第三方权利冲突
+trigger_phrases:
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 # /rights-exercise-system — China Mainland

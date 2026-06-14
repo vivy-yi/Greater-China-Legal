@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: legal-terminology
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 法律术语
+  - 法律词汇
+  - 专业术语
+  - 法言法语
+  - 术语解释
 ---
 
 # /legal-terminology — 法律术语规范表达

@@ -10,12 +10,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
-
-
-
-
-
-
+trigger_phrases:
+  - '基金'
+  - '检查'
+  - '私募'
+  - '投资'
+  - '对赌'
 ---
 
 # Fund Formation Checker

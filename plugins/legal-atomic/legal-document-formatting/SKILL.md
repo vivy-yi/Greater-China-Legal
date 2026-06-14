@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: legal-document-formatting
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 文书格式
+  - 法律格式
+  - 文档排版
+  - 格式规范
+  - 文书规范
 ---
 
 # /legal-document-formatting — 法律文书格式适用

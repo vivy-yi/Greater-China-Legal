@@ -3,10 +3,15 @@ name: cross-border-ma-fem-procedures
 description: >
   跨境并购外汇管理程序顾问
 argument-hint: "业务类型 关键要素"
-legal_frame: 《外汇管理条例》《关于进一步简化和改进直接投资外汇管理政策的通知》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '并购'
+  - '股权收购'
+  - '资产收购'
+  - '退市'
 ---
 # 技能文件三：外汇管理操作实务技能
 

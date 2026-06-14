@@ -9,6 +9,10 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - 劳动仲裁
+  - 劳动争议
+  - compensation
 ---
 
 # 劳动争议赔偿计算器

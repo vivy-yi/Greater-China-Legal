@@ -6,7 +6,7 @@ description: >
   适用情形：用户说"AI辅助诊断产品合规"、"医疗AI需要什么审批"、
   "医疗AI训练数据合规"、"AI医疗器械注册"、"临床决策支持系统合规"。
 argument-hint: "[产品类型 + 预期用途 + 数据来源 + 审批路径]"
-legal_frame: 《医疗器械监督管理条例》《人工智能医疗器械注册审查指导原则》
+legal_frame: cn-mainland
   《个人信息保护法》《数据安全法》《国家健康医疗大数据标准安全和服务管理办法》
 last_reviewed: 2026-06
 version: 1.0.0
@@ -16,6 +16,12 @@ escalation_triggers:
   - 训练数据包含患者未授权的临床数据
   - AI算法存在可解释性缺陷或偏见风险
   - 涉及人类遗传资源处理
+trigger_phrases:
+  - '合规'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 # /healthcare-ai-compliance — China Mainland

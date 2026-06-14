@@ -96,7 +96,7 @@ risk_level: low
     - file: plugins/scenes/xxx/skills/zzz/SKILL.md
       severity: error
       issue: missing_legal_frame
-      detail: "legal_frame: 字段缺失"
+      detail: "legal_frame: cn-mainland 字段缺失"
 ```
 
 ## 本技能不做什么

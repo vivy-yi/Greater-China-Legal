@@ -7,7 +7,7 @@ description: >
   "限制性股票个税计算"、"非上市公司股权激励递延纳税"、
   "员工持股计划税务处理"、"股权激励12366政策"。
 argument-hint: "[激励类型 + 公司类型（上市/非上市）+ 授予日/行权日 + 激励对象]"
-legal_frame: 《个人所得税法》《财政部 税务总局关于完善股权激励和技术入股有关所得税政策的通知》（财税[2016]101号）
+legal_frame: cn-mainland
   《关于上市公司股权激励个人所得税政策的通知》（财税[2005]35号）
 last_reviewed: 2026-06
 version: 1.0.0
@@ -17,6 +17,12 @@ escalation_triggers:
   - 离任员工期权处理争议
   - 激励对象为外籍员工（涉及税收协定）
   - 涉及VIE架构下的股权激励税务处理
+trigger_phrases:
+  - '股权'
+  - '税务'
+  - '顾问'
+  - '所得税'
+  - '增值税'
 ---
 
 # /equity-incentive-tax-advisor — China Mainland

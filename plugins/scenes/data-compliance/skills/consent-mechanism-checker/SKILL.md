@@ -6,7 +6,7 @@ description: >
   "同意机制是否合规"、"用户授权页面设计"、"撤回同意流程"、
   "是否需要单独同意"、"未成年人同意怎么处理"。
 argument-hint: "[同意机制描述 + 数据场景 + 用户群体]"
-legal_frame: 《个人信息保护法》（PIPL）第13-31条《个人信息安全规范》（GB/T 35273）
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
@@ -15,6 +15,12 @@ escalation_triggers:
   - 涉及未成年人个人信息处理
   - 同意机制存在"捆绑同意"或"强制同意"设计
   - 用户投诉或监管关注
+trigger_phrases:
+  - '检查'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 # /consent-mechanism-checker — China Mainland

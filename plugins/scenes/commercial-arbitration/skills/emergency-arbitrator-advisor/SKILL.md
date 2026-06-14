@@ -3,10 +3,15 @@ name: emergency-arbitrator-advisor
 description: >
   emergency-arbitrator-advisor — 紧急仲裁员程序的启动策略与申请文书准备，覆盖CIETAC/HKIAC/SIAC/ICC/SCC五家机构的紧急仲裁规则
 argument-hint: "仲裁机构 紧急情况性质 保全类型 争议金额 合同"
-legal_frame: 《民事诉讼法》《仲裁法》CIETAC Rules 2024 Art.25 HKIAC Rules 2018 Sch.4 SIAC Rules 2016 Sch.1 ICC Rules 2021 Art.29
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - emergency arbitrator
 ---
 
 ## CN 紧急仲裁员程序应用

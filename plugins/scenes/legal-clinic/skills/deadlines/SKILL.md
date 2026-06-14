@@ -9,6 +9,10 @@ scene_cluster: legal-clinic
 last_reviewed: 2026-06
 version: 2.1.0
 risk_level: medium
+trigger_phrases:
+  - 法律诊所
+  - 法援
+  - deadlines
 ---
 
 ## 数据源与判断框架引用

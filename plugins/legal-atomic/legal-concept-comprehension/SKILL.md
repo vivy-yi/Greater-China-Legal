@@ -13,6 +13,12 @@ risk_level: medium
 references:
   - name: legal-concept-comprehension
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 法律概念
+  - 概念理解
+  - 法律定义
+  - 概念分析
+  - 法理概念
 ---
 
 # /legal-concept-comprehension — 法律概念理解

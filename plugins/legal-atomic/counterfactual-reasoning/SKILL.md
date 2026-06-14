@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: counterfactual-reasoning
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 反事实推理
+  - 假设推理
+  - 条件推理
+  - 虚拟推理
+  - 反事实分析
 ---
 
 # /counterfactual-reasoning — 反事实推理

@@ -10,6 +10,10 @@ deprecated: true
 deprecated_reason: >
   B-phase版本(compensation-calculator+region-adjudicator)为自适应架构，
   工资基数等地区差异数据从工具实时查询，本版本为US翻译遗留。
+trigger_phrases:
+  - 劳动仲裁
+  - 劳动争议
+  - wage hour qa
 ---
 
 ---

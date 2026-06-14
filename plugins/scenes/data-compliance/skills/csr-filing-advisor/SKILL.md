@@ -6,7 +6,7 @@ description: >
   需要申报吗"、"CII采购安全审查流程"、"数据安全审查申报"、
   "申报材料怎么准备"、"审查不通过的后果"、"外资背景安全审查"。
 argument-hint: "[企业性质 + 采购/数据处理活动描述 + 是否涉及外商投资]"
-legal_frame: 《网络安全审查办法》（2021）《网络安全法》《数据安全法》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: critical
@@ -15,6 +15,12 @@ escalation_triggers:
   - 涉及外资收购/控制CII运营者
   - 境外上市涉及数据处理活动
   - 申报被要求补充材料或审查不通过
+trigger_phrases:
+  - '备案'
+  - '顾问'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
 ---
 
 # /csr-filing-advisor — China Mainland

@@ -7,7 +7,7 @@ description: >
   "国别报告需要准备吗"、"CbCR threshold"、"主体文档和
   本地文档"、"利润转移风险"、"全球税务合规"。
 argument-hint: "[集团收入 + 关联交易规模 + 运营国家数 + 集团架构]"
-legal_frame: 《企业所得税法》第41条《特别纳税调整实施办法》《BEPS行动计划》（OECD/G20）
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
@@ -16,6 +16,12 @@ escalation_triggers:
   - 存在跨境利润转移安排
   - 被税务机关实施特别纳税调查
   - 涉及"双支柱"规则下的数字服务税
+trigger_phrases:
+  - '合规'
+  - '顾问'
+  - '税务'
+  - '所得税'
+  - '增值税'
 ---
 
 # /beps-compliance-advisor — China Mainland

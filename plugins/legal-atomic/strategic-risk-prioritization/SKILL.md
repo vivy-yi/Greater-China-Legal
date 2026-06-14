@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: strategic-risk-prioritization
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 风险优先级
+  - 风险排序
+  - 策略风险
+  - 风险分级
+  - 风险权重
 ---
 
 # /strategic-risk-prioritization — 战略风险优先级排序

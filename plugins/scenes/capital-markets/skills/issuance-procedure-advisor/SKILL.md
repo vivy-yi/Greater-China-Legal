@@ -3,10 +3,15 @@ name: corporate-bond-procedure-advisor
 description: >
   公司债发行程序顾问
 argument-hint: "业务类型 关键要素"
-legal_frame: 《公司债券发行与交易管理办法》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 资本市场
+  - IPO
+  - 发债
+  - issuance procedure
 ---
 # Skill: issuance-procedure-advisor（债券发行程序指导）
 

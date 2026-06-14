@@ -5,10 +5,15 @@ description: >
   适用情形：出口商在签订出口合同前、向海关申报前检查许可证合规要求。
   核心：基于分类结果+目的地+最终用途+最终用户的四维判断，匹配适用的许可证类型和申请路径。
 argument-hint: "[商品分类结果/EAR/清单编号] [出口目的国] [最终用户信息] [最终用途] [合同金额]"
-legal_frame: 《出口管制法》《两用物项出口管制条例》、EAR 15 CFR 748、EU Dual-Use Regulation
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 跨境
+  - 进出口
+  - 海关
+  - export license
 ---
 
 # /export-license-assessment — 出口许可证评估

@@ -28,6 +28,12 @@ references:
   - name: 北大法宝
     url: https://www.pkulaw.com
     usage: 法条修订/废止历史查询
+trigger_phrases:
+  - 法条效力
+  - 法规核查
+  - 法律有效性
+  - 法条时效
+  - 规范效力
 ---
 
 # 法律规范效力核查

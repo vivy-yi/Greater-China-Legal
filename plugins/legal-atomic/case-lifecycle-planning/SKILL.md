@@ -13,6 +13,12 @@ risk_level: low
 references:
   - name: case-lifecycle-planning
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 案件周期
+  - 案件规划
+  - 生命周期
+  - 案件管理
+  - 过程管理
 ---
 
 # /case-lifecycle-planning — 案件全周期规划

@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: judgment-document-generation
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 判决书生成
+  - 裁判文书
+  - 文书生成
+  - 判决起草
+  - 法律文书
 ---
 
 # /judgment-document-generation — 裁判文书生成

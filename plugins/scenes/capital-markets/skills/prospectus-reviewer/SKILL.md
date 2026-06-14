@@ -3,10 +3,15 @@ name: hk-ipo-prospectus-reviewer
 description: >
   港股招股书审查
 argument-hint: "业务类型 关键要素"
-legal_frame: Companies (Winding Up and Miscellaneous Provisions) Ordinance, SFO
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 资本市场
+  - IPO
+  - 发债
+  - prospectus
 ---
 # 招股书审查技能（prospectus-reviewer）
 

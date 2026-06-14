@@ -8,6 +8,11 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '并购'
+  - '股权收购'
+  - '资产收购'
+  - '退市'
 ---
 
 # 交易结构设计技能 (Deal Structurer)

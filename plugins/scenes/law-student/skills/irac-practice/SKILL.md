@@ -8,6 +8,11 @@ scene_cluster: law-student
 last_reviewed: 2026-06
 version: 2.0.0
 risk_level: low
+trigger_phrases:
+  - 法考
+  - 学习
+  - 案例
+  - irac practice
 ---
 
 ## 数据源与判断框架引用

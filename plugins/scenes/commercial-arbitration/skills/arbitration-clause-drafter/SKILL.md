@@ -3,10 +3,15 @@ name: arbitration-clause-drafter
 description: >
   arbitration-clause-drafter — 起草符合ICC/SIAC/HKIAC/CIETAC/SCIA等主流仲裁机构要求的仲裁条款，提供争议发生前的条款设计与谈判建议
 argument-hint: "合同类型 交易对方所在地 标的金额 拟选仲裁机构"
-legal_frame: 《中华人民共和国仲裁法》《联合国国际贸易法委员会仲裁规则》《中国国际经济贸易仲裁委员会仲裁规则》《最高人民法院关于适用〈中华人民共和国仲裁法〉若干问题的解释》
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - arbitration clause
 ---
 
 ## CN 仲裁条款起草与定制

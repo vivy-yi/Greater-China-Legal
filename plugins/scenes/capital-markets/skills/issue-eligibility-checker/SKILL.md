@@ -3,10 +3,15 @@ name: a-share-ipo-issue-eligibility-checker
 description: >
   A股IPO发行条件核查
 argument-hint: "业务类型 关键要素"
-legal_frame: 《证券法》《首发办法》《科创板办法》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 资本市场
+  - IPO
+  - 发债
+  - issue eligibility
 ---
 # 发行资格核查技能 (issue-eligibility-checker)
 

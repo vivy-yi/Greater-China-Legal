@@ -3,10 +3,16 @@ name: anti-dilution-checker
 description: >
   anti-dilution-checker — 反稀释条款（加权平均/完全棘轮）的审查、比较与谈判建议，覆盖股权投资协议中的反稀释保护机制设计
 argument-hint: "领投方持股比例 下轮估值 本轮估值 原有条款文本"
-legal_frame: 《公司法》第34条（优先认缴出资权）最高人民法院《全国法院民商事审判工作会议纪要》（九民纪要）第5条
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - '检查'
+  - '私募'
+  - '基金'
+  - '投资'
+  - '对赌'
 ---
 
 ## CN 反稀释条款审查

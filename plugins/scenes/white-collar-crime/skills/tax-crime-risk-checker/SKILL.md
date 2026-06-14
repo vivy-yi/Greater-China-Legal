@@ -7,6 +7,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '税务'
+  - '犯罪'
+  - '检查'
+  - '白领犯罪'
+  - '商业贿赂'
 ---
 
 # 涉税犯罪风险审查器 (Tax Crime Risk Checker)

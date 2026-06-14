@@ -14,6 +14,10 @@ deprecated: true
 deprecated_reason: >
   B-phase版本(dispute-classifier+termination-legality)为自适应架构，
   提供完整的CN劳动仲裁判断树和实时地区差异查询，本版本为US翻译遗留。
+trigger_phrases:
+  - 劳动仲裁
+  - 劳动争议
+  - termination
 ---
 
 ---

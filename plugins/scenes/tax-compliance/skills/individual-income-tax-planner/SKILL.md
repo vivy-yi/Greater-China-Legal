@@ -7,7 +7,7 @@ description: >
   怎么筹划"、"年终奖怎么发税最少"、"专项附加扣除怎么
   利用"、"自由职业者个税怎么缴"、"外籍个人个税优惠"。
 argument-hint: "[收入来源 + 收入金额 + 居民/非居民 + 家庭成员情况]"
-legal_frame: 《个人所得税法》《个人所得税法实施条例》《个人所得税专项附加扣除暂行办法》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
@@ -16,6 +16,12 @@ escalation_triggers:
   - 涉及跨境税收居民身份安排
   - 涉及高净值人士的复杂财产交易个税
   - 涉及税务机关已启动税务稽查或调查
+trigger_phrases:
+  - '税务'
+  - '规划'
+  - '所得税'
+  - '增值税'
+  - '转让定价'
 ---
 
 # /individual-income-tax-planner — China Mainland

@@ -12,6 +12,12 @@ deprecated: true
 deprecated_reason: >
   B-phase版本(pipl-assessment+processing-basis+data-localization)为CN数据合规完整链，
   含PIPL/CAC/数据出境，本版本为US GDPR/FedRAMP遗留。
+trigger_phrases:
+  - '分析'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 ---

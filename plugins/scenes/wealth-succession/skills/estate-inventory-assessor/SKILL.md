@@ -3,10 +3,16 @@ name: estate-inventory-assessor
 description: >
   estate-inventory-assessor — 继承公证程序/遗产清点/继承人争议。适用情形：用户说"estate-inventory-assessor"...
 argument-hint: "业务要素 关键参数"
-legal_frame: 《民法典》继承编《公证法》《遗产税暂行条例（草案）》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '遗产'
+  - '评估'
+  - '财富传承'
+  - '信托'
+  - '遗嘱'
 ---
 
 ## 数据源与判断框架引用

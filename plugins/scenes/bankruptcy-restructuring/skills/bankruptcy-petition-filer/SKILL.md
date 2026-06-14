@@ -5,10 +5,15 @@ description: >
   适用情形：债权人申请债务人破产、债务人自愿申请破产、清算义务人申请破产。
   核心：确认破产原因（《企业破产法》第2条）成立与否，审查申请主体适格性，确保材料完整性。
 argument-hint: "[申请人身份] [债务人名称] [债权/债务金额] [证据材料]"
-legal_frame: 《企业破产法》第7-10条、司法解释（一）
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 破产
+  - 清算
+  - 重整
+  - bankruptcy petition
 ---
 
 # /bankruptcy-petition-filer — 破产申请辅导

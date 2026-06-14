@@ -5,10 +5,15 @@ description: >
   适用情形：破产管理人需要处分与主营业务无关的资产以回笼资金、重整期间需要盘活闲置资产。
   核心：区分经营性资产与投资性/闲置资产，平衡快速变现与价值最大化之间的张力。
 argument-hint: "[债务人名称] [资产清单] [主营业务] [处置时限] [市场环境]"
-legal_frame: 《企业破产法》第112-113条、《拍卖法》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - 破产
+  - 清算
+  - 重整
+  - non core asset disposal
 ---
 
 # /non-core-asset-disposal-advisor — 非核心资产处置顾问

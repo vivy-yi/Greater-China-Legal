@@ -6,7 +6,7 @@ description: >
   适用情形：用户说"数据要传到国外去"、"海外子公司需要
   中国用户数据"、"跨境传输怎么做"、"SCC还是安全评估"。
 argument-hint: "[数据量 + 数据类型 + 接收方所在国 + 传输目的]"
-legal_frame: 《个人信息保护法》第38-43条《数据出境安全评估办法》《促进和规范数据跨境流动规定》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: critical
@@ -15,6 +15,12 @@ escalation_triggers:
   - CII运营者数据出境
   - 接收方所在国数据保护水平不足
   - 出境数据涉及重要数据或核心数据
+trigger_phrases:
+  - '数据'
+  - '评估'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
 ---
 
 # /data-export-assessment — China Mainland

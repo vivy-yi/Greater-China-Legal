@@ -5,10 +5,15 @@ description: >
   适用情形：债务人/债权人/投资人/法院判断是否启动或继续重整程序。
   核心：三要素分析——重整价值（企业是否具有挽救意义）、重整可能（是否有可行方案）、重整成本（是否低于清算成本）。
 argument-hint: "[企业名称] [行业] [财务数据] [债权结构] [重整计划草案（如有）]"
-legal_frame: 《企业破产法》第70-71条、第78条、第93条
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 破产
+  - 清算
+  - 重整
+  - reorganization feasibility
 ---
 
 # /reorganization-feasibility-checker — 重整可行性评估

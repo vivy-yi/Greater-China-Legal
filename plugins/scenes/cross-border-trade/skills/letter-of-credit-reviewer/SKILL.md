@@ -5,10 +5,15 @@ description: >
   适用情形：出口商收证后审证、出口商交单前准备议付/承兑/付款、进口商审单付款前检查。
   核心：单证一致和单单一致——单据与信用证条款相符，各单据之间内容不矛盾。
 argument-hint: "[信用证原文] [全套单据清单（含商业发票/提单/保险单/装箱单等）] [贸易条款]"
-legal_frame: UCP600、ISBP745、eUCP（电子交单规则）
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - 跨境
+  - 进出口
+  - 海关
+  - letter of credit
 ---
 
 # /letter-of-credit-reviewer — 信用证审单顾问

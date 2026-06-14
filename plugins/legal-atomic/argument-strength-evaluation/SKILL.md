@@ -13,6 +13,12 @@ risk_level: medium
 references:
   - name: argument-strength-evaluation
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 论证强度
+  - 论证评估
+  - 论证分析
+  - 论证力
+  - 论证评价
 ---
 
 # /argument-strength-evaluation — 论证强度评估

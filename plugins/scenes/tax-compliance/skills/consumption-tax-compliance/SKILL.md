@@ -6,7 +6,7 @@ description: >
   消费税吗"、"消费税税率是多少"、"烟酒消费税怎么缴"、
   "消费税纳税申报"、"高档化妆品消费税"、"成品油消费税"。
 argument-hint: "[产品类型 + 生产/进口/批发/零售环节 + 产品用途]"
-legal_frame: 《消费税暂行条例》《消费税暂行条例实施细则》《增值税暂行条例》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
@@ -15,6 +15,12 @@ escalation_triggers:
   - 涉及委托加工应税消费品的计税价格争议
   - 消费税出口退税争议
   - 涉及虚开消费税发票或逃税嫌疑
+trigger_phrases:
+  - '税务'
+  - '合规'
+  - '所得税'
+  - '增值税'
+  - '转让定价'
 ---
 
 # /consumption-tax-compliance — China Mainland

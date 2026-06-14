@@ -5,7 +5,14 @@ description: >
   标记，逐个生成访谈问题，收集答案后填充到文件中。
   适用情形：首次安装、CLAUDE.md 仍有 [填空] 标记、--redo 重新运行。
 argument-hint: "[场景名] [--redo]"
+trigger_phrases:
+  - 冷启动
+  - 初始化
+  - 配置向导
+  - 场景配置
+  - 首次设置
 last_reviewed: 2026-06
+legal_frame: cn-mainland
 version: 1.0.0
 risk_level: low
 ---

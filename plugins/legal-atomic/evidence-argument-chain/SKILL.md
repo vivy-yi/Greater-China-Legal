@@ -13,6 +13,12 @@ risk_level: medium
 references:
   - name: evidence-argument-chain
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 证据链
+  - 论证链
+  - 证据推理
+  - 证据分析
+  - 证据关联
 ---
 
 # /evidence-argument-chain — 组织证据论证链

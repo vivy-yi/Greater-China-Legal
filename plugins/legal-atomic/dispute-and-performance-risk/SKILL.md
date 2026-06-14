@@ -13,6 +13,12 @@ risk_level: medium
 references:
   - name: dispute-and-performance-risk
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 履约风险
+  - 争议风险
+  - 合同履行
+  - 违约风险
+  - 履约评估
 ---
 
 # /dispute-and-performance-risk — 识别争议与履约风险

@@ -1,15 +1,16 @@
 ---
-name: exit-strategy-advisor
+name:
+description: "PE/VC exit strategy advisor — 专业法律分析" exit-strategy-advisor
 version: 1.0.0
 last_reviewed: 2026-06
 legal_frame: cn-mainland
 domain: pe-vc-funds
-
-
-
-
-
-
+trigger_phrases:
+  - '顾问'
+  - '私募'
+  - '基金'
+  - '投资'
+  - '对赌'
 ---
 
 # Exit Strategy Advisor

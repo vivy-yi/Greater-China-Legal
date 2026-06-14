@@ -7,7 +7,7 @@ description: >
   适用"、"非居民企业税收协定待遇"、"申请协定待遇需要
   什么材料"、"<国家>税收居民证明"、"受益所有人认定"。
 argument-hint: "[所得类型 + 对方国家 + 收款方性质 + 金额]"
-legal_frame: 《企业所得税法》第58条《税收协定管理办法》《非居民纳税人享受协定待遇管理办法》
+legal_frame: cn-mainland
   OECD税收协定范本《国家税务总局公告2019年第35号》
 last_reviewed: 2026-06
 version: 1.0.0
@@ -17,6 +17,12 @@ escalation_triggers:
   - 税收协定待遇申请被税务机关拒绝
   - 涉及"协定滥用"或"择协避税"（Treaty Shopping）问题
   - 涉及税收协定与国内法的冲突
+trigger_phrases:
+  - '税务'
+  - '顾问'
+  - '所得税'
+  - '增值税'
+  - '转让定价'
 ---
 
 # /tax-treaty-application-advisor — China Mainland

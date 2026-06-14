@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: teleological-interpretation
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 目的解释
+  - 立法目的
+  - 立法意图
+  - 目的论解释
+  - 规范目的
 ---
 
 # /teleological-interpretation — 目的解释

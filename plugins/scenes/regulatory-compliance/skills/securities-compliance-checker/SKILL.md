@@ -3,10 +3,16 @@ name: securities-compliance-checker
 description: >
   securities-compliance-checker — 银行/证券/保险行业监管合规。适用情形：用户说"securities-compliance-checker"...
 argument-hint: "业务要素 关键参数"
-legal_frame: 《银行业监督管理法》《证券法》《保险法》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '合规'
+  - '检查'
+  - '监管'
+  - '牌照'
+  - '安全'
 ---
 
 ## 数据源与判断框架引用

@@ -8,6 +8,11 @@ description: >
   "change my [thing]", "update my profile", "edit my framework", "retune
   my calibration", or "customize".
 argument-hint: "[section name, or describe what you want to change]"
+trigger_phrases:
+  - '产品发布'
+  - '营销'
+  - '合规'
+  - '风险'
 ---
 
 # /customize

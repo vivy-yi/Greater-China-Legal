@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: judicial-value-judgment
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 价值判断
+  - 司法价值
+  - 利益衡量
+  - 价值衡量
+  - 司法裁量
 ---
 
 # /judicial-value-judgment — 司法价值判断

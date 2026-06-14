@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: legal-judgment-prediction
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 判决预测
+  - 裁判预测
+  - 结果预测
+  - 诉讼预测
+  - 胜诉率
 ---
 
 # /legal-judgment-prediction — 法律判决预测

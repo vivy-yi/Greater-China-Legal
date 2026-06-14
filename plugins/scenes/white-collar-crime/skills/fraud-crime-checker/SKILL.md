@@ -8,6 +8,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '欺诈'
+  - '犯罪'
+  - '检查'
+  - '白领犯罪'
+  - '商业贿赂'
 ---
 
 # 诈骗犯罪审查器 (Fraud Crime Checker)

@@ -5,10 +5,15 @@ description: >
   适用情形：出口前筛查、贸易融资放款前审查、并购/投资前合规尽调。
   核心：多维名单比对（SDN/NS-CMIC/UN/EU/中国管制名单），防止违反制裁法规导致民事罚款或刑事追诉。
 argument-hint: "[交易对手名称/地址/法人代表/最终受益人信息]"
-legal_frame: 《出口管制法》《反外国制裁法》、OFAC制裁项目、UN安理会制裁决议、EU制裁法规
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 跨境
+  - 进出口
+  - 海关
+  -  sanctioned entity
 ---
 
 # /sanctioned-entity-checker — 制裁实体筛查

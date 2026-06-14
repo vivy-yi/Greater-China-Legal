@@ -3,10 +3,16 @@ name: bank-supervision-advisor
 description: >
   bank-supervision-advisor — 银行/证券/保险行业监管合规。适用情形：用户说"bank-supervision-advisor"...
 argument-hint: "业务要素 关键参数"
-legal_frame: 《银行业监督管理法》《证券法》《保险法》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '顾问'
+  - '监管'
+  - '牌照'
+  - '安全'
+  - '合规'
 ---
 
 ## 数据源与判断框架引用

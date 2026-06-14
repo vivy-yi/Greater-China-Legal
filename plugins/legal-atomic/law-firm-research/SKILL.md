@@ -7,12 +7,18 @@ description: >
   "这个案子找哪个律所"、"查找金杜官网"、"律所团队页面"。
   数据来源：胡润智榜·大中华区卓越推荐律所TOP100（2026），98家律所。
 argument-hint: "[业务类型/律所名称/招聘需求/其他需求]"
-legal_frame: cn-mainland, hk, mo, tw, sg
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: low
 data_source: hurun_legal_rankings.json
 data_scope: 98 firms
+trigger_phrases:
+  - 律所研究
+  - 律师调研
+  - 律所评估
+  - 律师选择
+  - 法律市场
 ---
 
 # 律所检索

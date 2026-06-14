@@ -5,10 +5,16 @@ description: >
   覆盖估值条款、清算优先权、反稀释条款、董事会构成、保护性条款等。
   适用情形：用户说"审查Term Sheet"、"这个TS条款怎么样"、"投资意向书分析"。
 argument-hint: "[Term Sheet文本/截图] [投资方立场/融资方立场] [投资轮次]"
-legal_frame: 《私募投资基金监督管理暂行办法》《公司法》《民法典》合同编
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - '审查'
+  - '私募'
+  - '基金'
+  - '投资'
+  - '对赌'
 ---
 
 ## CN Term Sheet审查（条款清单/投资意向书分析）

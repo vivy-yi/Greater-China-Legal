@@ -5,7 +5,14 @@ description: >
   可调整：公司基本信息、角色、数据源、风险阈值、外部律师联系信息等。
   适用情形：用户说"修改[某项配置]"、"更新配置"、"变更公司信息"。
 argument-hint: "[要修改的部分名称，或描述你想改变的内容]"
+trigger_phrases:
+  - 配置
+  - 自定义
+  - 修改配置
+  - 更新设置
+  - 调整
 last_reviewed: 2026-06
+legal_frame: cn-mainland
 version: 1.0.0
 risk_level: low
 ---

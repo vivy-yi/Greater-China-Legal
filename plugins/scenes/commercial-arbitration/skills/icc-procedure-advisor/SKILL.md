@@ -3,10 +3,15 @@ name: icc-procedure-advisor
 description: >
   icc-procedure-advisor — 国际商会国际仲裁院（ICC）仲裁程序的全程指引，覆盖2021版规则下的案件受理、审理范围书、仲裁庭组成、裁决核阅等特有程序
 argument-hint: "争议金额 仲裁地 合同准据法 当事人国籍"
-legal_frame: ICC Rules of Arbitration 2021 (entry into force 1 January 2021), ICC Note to Parties and Arbitral Tribunals
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - icc procedure
 ---
 
 ## CN ICC仲裁程序全程指引

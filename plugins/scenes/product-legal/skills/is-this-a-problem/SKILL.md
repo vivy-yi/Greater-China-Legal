@@ -8,6 +8,11 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 2.0.0
 risk_level: medium
+trigger_phrases:
+  - '产品发布'
+  - '营销'
+  - '合规'
+  - '风险'
 ---
 
 # /is-this-a-problem — China Mainland

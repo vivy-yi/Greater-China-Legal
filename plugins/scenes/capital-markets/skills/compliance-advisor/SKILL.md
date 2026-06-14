@@ -3,10 +3,15 @@ name: hk-ipo-compliance-advisor
 description: >
   港股上市合规顾问
 argument-hint: "业务类型 关键要素"
-legal_frame: SFO, Main Board Listing Rules
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 资本市场
+  - IPO
+  - 发债
+  - compliance
 ---
 # 合规顾问技能（compliance-advisor）
 

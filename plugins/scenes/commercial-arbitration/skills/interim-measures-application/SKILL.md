@@ -3,10 +3,15 @@ name: interim-measures-application
 description: >
   interim-measures-application — 仲裁临时措施（财产保全/证据保全/行为保全）的申请策略、材料准备与法域协调，覆盖中国内地法院和仲裁庭临时措施的衔接
 argument-hint: "保全类型 财产线索 仲裁机构 仲裁地 紧急程度 对方主体"
-legal_frame: 《中华人民共和国民事诉讼法》第103-106条《中华人民共和国仲裁法》第28条《最高人民法院关于人民法院办理仲裁保全案件的规定》
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - interim measures application
 ---
 
 ## CN 仲裁临时措施申请策略

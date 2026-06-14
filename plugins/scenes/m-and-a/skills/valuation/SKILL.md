@@ -3,10 +3,16 @@ name: domestic-ma-valuation-advisor
 description: >
   境内并购重组估值顾问
 argument-hint: "业务类型 关键要素"
-legal_frame: 《上市公司重大资产重组管理办法》第20条《资产评估准则》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '估值'
+  - '并购'
+  - '股权收购'
+  - '资产收购'
+  - '退市'
 ---
 # 境内上市公司并购重组估值与定价技能
 

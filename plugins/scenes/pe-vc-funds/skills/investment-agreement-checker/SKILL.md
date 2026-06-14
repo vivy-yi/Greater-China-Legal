@@ -5,10 +5,16 @@ description: >
   法律条款的合规性、完整性和平衡性。覆盖增资协议、股权转让协议、股东协议等。
   适用情形：用户说"帮我审查投资协议"、"这份增资协议有什么问题"。
 argument-hint: "[投资协议文本/PDF] [投资轮次：A/B/C/Pre-IPO] [领投方/跟投方/创始方]"
-legal_frame: 《私募投资基金监督管理暂行办法》《公司法》《民法典》合同编
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - '投资'
+  - '检查'
+  - '私募'
+  - '基金'
+  - '对赌'
 ---
 
 ## CN 投资协议审查（股权投资协议合规与风险分析）

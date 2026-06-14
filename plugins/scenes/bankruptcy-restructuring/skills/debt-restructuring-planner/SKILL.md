@@ -5,10 +5,15 @@ description: >
   适用情形：企业面临债务危机但未进入破产程序（庭外重组），或已进入破产重整程序。
   核心：区分担保债务和无担保债务的不同处理策略，设计各方债权人可接受的调整方案。
 argument-hint: "[企业名称] [债务结构] [资产状况] [现金流预测] [主要债权人意向]"
-legal_frame: 《企业破产法》第70-94条、《民法典》第560-566条
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 破产
+  - 清算
+  - 重整
+  - debt restructuring
 ---
 
 # /debt-restructuring-planner — 债务重组筹划

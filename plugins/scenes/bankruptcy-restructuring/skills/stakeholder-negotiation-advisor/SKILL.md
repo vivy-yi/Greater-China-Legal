@@ -5,10 +5,15 @@ description: >
   适用情形：重整计划制定期间需要分组谈判、对某一组债权人表决不通过时的替代策略谈判。
   核心：分组谈判策略设计、让步与交换条件制定、"强裁"底线判断。
 argument-hint: "[重整计划草案] [债权分组数据] [各债权人立场] [谈判目标]"
-legal_frame: 《企业破产法》第82-87条、《破产审判工作会议纪要》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - 破产
+  - 清算
+  - 重整
+  - stakeholder negotiation
 ---
 
 # /stakeholder-negotiation-advisor — 利益相关方谈判顾问

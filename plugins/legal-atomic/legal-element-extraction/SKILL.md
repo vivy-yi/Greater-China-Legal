@@ -10,6 +10,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - 法律要素
+  - 事实提取
+  - 法律事实
+  - 要素分析
+  - 案件事实
 ---
 
 # /legal-element-extraction — 法律要素提取

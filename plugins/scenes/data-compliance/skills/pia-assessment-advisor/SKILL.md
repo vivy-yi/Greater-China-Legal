@@ -7,7 +7,7 @@ description: >
   保护影响评估怎么做"、"PIA报告模板"、"新功能上线前PIA"、
   "数据共享需要做PIA吗"。
 argument-hint: "[处理活动描述 + 数据类型 + 涉及用户规模 + 技术措施]"
-legal_frame: 《个人信息保护法》（PIPL）第55-56条《个人信息安全规范》（GB/T 35273）第11章
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
@@ -16,6 +16,12 @@ escalation_triggers:
   - 涉及敏感个人信息大规模处理（>10万人）
   - 涉及自动化决策可能对个人权益产生重大影响
   - PIA发现实际控制人或数据处理者未落实整改措施
+trigger_phrases:
+  - '评估'
+  - '顾问'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
 ---
 
 # /pia-assessment-advisor — China Mainland

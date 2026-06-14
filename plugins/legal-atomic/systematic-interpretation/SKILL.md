@@ -13,6 +13,12 @@ risk_level: medium
 references:
   - name: systematic-interpretation
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 体系解释
+  - 系统解释
+  - 法律体系
+  - 上下文解释
+  - 体系定位
 ---
 
 # /systematic-interpretation — 体系解释

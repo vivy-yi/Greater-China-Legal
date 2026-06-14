@@ -5,10 +5,15 @@ description: >
   适用情形：贸易融资放款前合规审查、信用证项下付款前的制裁筛查、银行跨境贸易融资业务全流程风控。
   核心：交易主体筛查+交易地理筛查+交易商品筛查+支付链路筛查的四维穿透审查。
 argument-hint: "[融资申请人] [交易对手] [交易国别] [商品描述] [融资金额] [支付路径]"
-legal_frame: 《反洗钱法》《金融机构大额交易和可疑交易报告管理办法》、OFAC制裁项目、FATF建议
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 跨境
+  - 进出口
+  - 海关
+  - trade finance sanctions
 ---
 
 # /trade-finance-sanctions-checker — 贸易融资制裁筛查

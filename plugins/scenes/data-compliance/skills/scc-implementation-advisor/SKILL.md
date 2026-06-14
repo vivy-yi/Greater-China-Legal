@@ -7,7 +7,7 @@ description: >
   "要签SCC"、"标准合同怎么备案"、"SCC条款怎么填"、
   "个人信息出境标准合同模板"、"SCC和安全评估有什么区别"。
 argument-hint: "[出境方信息 + 接收方信息 + 数据量 + 数据类型 + 传输目的]"
-legal_frame: 《个人信息保护法》第38条《个人信息出境标准合同办法》《个人信息出境标准合同》范本
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
@@ -16,6 +16,12 @@ escalation_triggers:
   - 境外接收方所在国数据保护法律环境发生不利变化
   - SCC涉及重要数据（非仅个人信息）
   - 出境场景触发安全评估条件（应使用SCC替代路径）
+trigger_phrases:
+  - '顾问'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 # /scc-implementation-advisor — China Mainland

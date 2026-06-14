@@ -9,6 +9,11 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06-13
 version: 1.1.0
 risk_level: medium
+trigger_phrases:
+  - skill
+  - 安装
+  - 注册表
+  - skills qa
 ---
 
 # CN Legal Skill QA Framework

@@ -15,6 +15,12 @@ escalation_triggers:
   - 无数据主体权利响应条款
   - 无跨境传输合规机制（涉及数据出境时）
   - 无安全措施或安全标准不明确
+trigger_phrases:
+  - '审查'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 # /dpa-review — China Mainland

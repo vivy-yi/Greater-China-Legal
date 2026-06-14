@@ -6,7 +6,7 @@ description: >
   "CII认定标准是什么"、"CII运营者有什么义务"、
   "网络安全审查需要做吗"、"等保三级以上算CII吗"。
 argument-hint: "[行业领域 + 业务系统描述 + 是否处理个人信息]"
-legal_frame: 《网络安全法》第31条《关键信息基础设施安全保护条例》《网络安全审查办法》（2021）
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: critical
@@ -15,6 +15,12 @@ escalation_triggers:
   - 涉及CII网络安全审查申报
   - CII数据出境安全评估
   - 发生CII安全事件
+trigger_phrases:
+  - '检查'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
+  - '跨境'
 ---
 
 # /critical-infrastructure-checker — China Mainland

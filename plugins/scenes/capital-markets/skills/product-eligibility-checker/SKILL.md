@@ -4,10 +4,15 @@ description: >
   ABS/ABN基础资产准入判断 — 判断拟入池资产是否属于ABS/ABN合格基础资产范围，
   适用情形：用户说"这个能做ABS吗"、"判断资产能否证券化"...
 argument-hint: "基础资产类型 资产特征 行业属性"
-legal_frame: 《证券公司资产证券化业务管理规定》《资产支持票据指引》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 资本市场
+  - IPO
+  - 发债
+  - product eligibility
 ---
 
 ## 一、适用情形

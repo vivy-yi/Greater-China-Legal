@@ -5,10 +5,15 @@ description: >
   适用情形：重整期间/清算前夜，债务人/管理人/投资人需要区分核心与非核心资产、对抗债权人个别执行、维持营运价值。
   核心：利用《企业破产法》第75条（重整期间担保权暂停行使）和第76条（取回权限制）保护营运价值，同时应对偏颇性清偿和可撤销交易风险。
 argument-hint: "[债务人名称] [经营范围] [资产清单] [重整/清算状态] [潜在威胁]"
-legal_frame: 《企业破产法》第75-76条、第31-33条、《破产审判工作会议纪要》第42-45条
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 破产
+  - 清算
+  - 重整
+  - core asset preservation
 ---
 
 # /core-asset-preservation-advisor — 核心资产保权顾问

@@ -8,6 +8,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '遗产'
+  - '税务'
+  - '规划'
+  - '财富传承'
+  - '信托'
 ---
 
 ## 一、遗产与赠与税务全景图

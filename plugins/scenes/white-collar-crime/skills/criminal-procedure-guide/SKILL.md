@@ -8,6 +8,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - '指南'
+  - '白领犯罪'
+  - '商业贿赂'
+  - '舞弊'
+  - '调查'
 ---
 
 # 刑事程序指南 (Criminal Procedure Guide)

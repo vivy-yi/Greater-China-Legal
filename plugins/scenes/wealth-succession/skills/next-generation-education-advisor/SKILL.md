@@ -3,10 +3,16 @@ name: next-generation-education-advisor
 description: >
   next-generation-education-advisor — 家族宪章起草/家族委员会设计/二代培养。适用情形：用户说"next-generation-education-advisor"...
 argument-hint: "业务要素 关键参数"
-legal_frame: 《民法典》《信托法》《公司法》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '顾问'
+  - '财富传承'
+  - '信托'
+  - '遗嘱'
+  - '继承'
 ---
 
 ## 数据源与判断框架引用

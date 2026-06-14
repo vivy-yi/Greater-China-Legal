@@ -8,6 +8,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '贿赂'
+  - '犯罪'
+  - '顾问'
+  - '白领犯罪'
+  - '商业贿赂'
 ---
 
 # 行贿受贿犯罪顾问 (Bribery Crime Advisor)

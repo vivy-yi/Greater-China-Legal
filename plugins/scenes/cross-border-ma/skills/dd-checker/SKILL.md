@@ -9,6 +9,11 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 跨境并购
+  - ODI
+  - 外资
+  - dd
 ---
 
 # /dd-checker — 法律尽职调查

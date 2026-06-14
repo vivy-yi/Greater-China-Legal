@@ -5,10 +5,16 @@ description: >
   管理费结构、收益分配瀑布（Waterfall）、关键人条款、咨询委员会、违约责任等。
   适用情形：用户说"起草GP-LP协议"、"设计LPA条款"、"有限合伙协议修改"。
 argument-hint: "[基金规模] [管理费率] [收益分配模型（Return Waterfall）] [关键人信息]"
-legal_frame: 《私募投资基金监督管理暂行办法》《私募投资基金合同指引3号（合伙协议必备条款指引）》《合伙企业法》
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - '起草'
+  - '私募'
+  - '基金'
+  - '投资'
+  - '对赌'
 ---
 
 ## CN GP-LP协议起草（有限合伙协议设计）

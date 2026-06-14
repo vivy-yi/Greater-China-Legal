@@ -3,10 +3,16 @@ name: cross-border-ma-odi-filing
 description: >
   跨境并购ODI备案核查
 argument-hint: "业务类型 关键要素"
-legal_frame: 《境外投资管理办法》《企业境外投资管理办法》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '备案'
+  - '并购'
+  - '股权收购'
+  - '资产收购'
+  - '退市'
 ---
 # 技能文件一：ODI登记实务操作技能
 

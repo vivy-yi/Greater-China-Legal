@@ -3,10 +3,15 @@ name: asian-arbitration-comparison
 description: >
   asian-arbitration-comparison — 横向比较CIETAC/HKIAC/SIAC/SCIA四大亚洲主流仲裁机构的规则差别、费用结构与实务要点
 argument-hint: "比较维度 拟选机构 争议金额 合同关联地"
-legal_frame: CIETAC Arbitration Rules 2024, HKIAC Arbitration Rules 2018, SIAC Arbitration Rules 2016, SCIA Arbitration Rules 2022
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - asian arbitration comparison
 ---
 
 ## CN 亚洲仲裁机构横向比较

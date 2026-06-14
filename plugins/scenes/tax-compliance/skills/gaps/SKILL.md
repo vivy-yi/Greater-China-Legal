@@ -8,6 +8,11 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - '税务'
+  - '所得税'
+  - '增值税'
+  - '转让定价'
 ---
 
 # /gaps — China Mainland

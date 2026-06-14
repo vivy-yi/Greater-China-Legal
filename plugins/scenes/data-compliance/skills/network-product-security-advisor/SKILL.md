@@ -7,7 +7,7 @@ description: >
   "网络安全产品审批"、"APP安全检测"、"IoT设备安全合规"、
   "产品上线前安全检查"。
 argument-hint: "[产品类型 + 用户群体 + 数据处理方式 + 行业]"
-legal_frame: 《网络安全法》第22-23条《网络产品安全漏洞管理规定》
+legal_frame: cn-mainland
   《APP违法违规收集使用个人信息行为认定方法》《信息安全技术 网络安全等级保护基本要求》
 last_reviewed: 2026-06
 version: 1.0.0
@@ -17,6 +17,12 @@ escalation_triggers:
   - 产品涉及CII运营者采购（触发网络安全审查）
   - 产品被检测出后门或恶意代码
   - APP被工信部/网信办通报违规
+trigger_phrases:
+  - '产品'
+  - '顾问'
+  - '数据合规'
+  - '个人信息'
+  - 'PIPL'
 ---
 
 # /network-product-security-advisor — China Mainland

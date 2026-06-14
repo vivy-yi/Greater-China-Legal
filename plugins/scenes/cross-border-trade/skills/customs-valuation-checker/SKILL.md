@@ -5,10 +5,15 @@ description: >
   适用情形：进口申报前估价合规性检查、海关质疑时的应对策略、转让定价与海关估价的衔接。
   核心：六种估价方法（成交价格法优先）的适用顺序判断，关联交易价格是否"可比"的实质性审查。
 argument-hint: "[商品名称/HS编码] [合同价格] [交易条件] [买卖双方关系] [运输/保险费用]"
-legal_frame: 《海关审定进出口货物完税价格办法》、WTO《海关估价协定》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 跨境
+  - 进出口
+  - 海关
+  - customs valuation
 ---
 
 # /customs-valuation-checker — 海关估价合规审查

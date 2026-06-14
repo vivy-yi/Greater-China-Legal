@@ -8,6 +8,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '评估'
+  - '产品发布'
+  - '营销'
+  - '合规'
+  - '风险'
 ---
 
 # /feature-risk-assessment — China Mainland

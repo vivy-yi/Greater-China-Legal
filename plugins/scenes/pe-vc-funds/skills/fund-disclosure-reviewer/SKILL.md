@@ -3,10 +3,16 @@ name: fund-disclosure-reviewer
 description: >
   fund-disclosure-reviewer — 私募基金信息披露审查，评估基金对LP的定期报告和临时报告是否满足中基协《私募投资基金信息披露管理办法》的要求
 argument-hint: "基金类型 基金规模 投资者类型 报告频次 信披文件"
-legal_frame: 《私募投资基金信息披露管理办法》《私募投资基金监督管理条例》《私募投资基金合同指引1-3号》
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - '基金'
+  - '披露'
+  - '审查'
+  - '私募'
+  - '投资'
 ---
 
 ## CN 私募基金信息披露合规审查

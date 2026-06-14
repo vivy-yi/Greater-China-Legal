@@ -14,6 +14,12 @@ risk_level: high
 references:
   - name: inductive-reasoning
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 归纳推理
+  - 案例归纳
+  - 经验总结
+  - 归纳分析
+  - 案例提炼
 ---
 
 # /inductive-reasoning — 归纳推理

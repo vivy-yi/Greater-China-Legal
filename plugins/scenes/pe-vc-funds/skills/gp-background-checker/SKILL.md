@@ -3,10 +3,16 @@ name: gp-background-checker
 description: >
   gp-background-checker — LP视角下的GP背景尽职调查，核查GP团队历史业绩、合规记录、利益冲突、投资人关系和中基协登记状态
 argument-hint: "GP/管理公司名称 中基协登记编号 目标基金名称 拟认缴金额"
-legal_frame: 《私募投资基金监督管理条例》《私募基金管理人登记须知》《私募基金管理人登记与备案指引》
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - '检查'
+  - '私募'
+  - '基金'
+  - '投资'
+  - '对赌'
 ---
 
 ## CN GP背景尽职调查

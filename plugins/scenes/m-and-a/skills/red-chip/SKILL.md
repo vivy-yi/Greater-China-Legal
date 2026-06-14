@@ -3,10 +3,15 @@ name: cross-border-ma-red-chip-advisor
 description: >
   红筹架构搭建顾问
 argument-hint: "业务类型 关键要素"
-legal_frame: 《境外投资管理办法》《证券法》《关于外国投资者并购境内企业的规定》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '并购'
+  - '股权收购'
+  - '资产收购'
+  - '退市'
 ---
 # 技能文件二：红筹架构搭建实务技能
 

@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: conflict-resolution
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 法条竞合
+  - 冲突解决
+  - 规范冲突
+  - 法律冲突
+  - 请求权竞合
 ---
 
 # /conflict-resolution — 冲突解决和优先级判定

@@ -3,10 +3,15 @@ name: hkiac-procedure-advisor
 description: >
   hkiac-procedure-advisor — 香港国际仲裁中心（HKIAC）仲裁程序的全程指引，覆盖2018版规则下的国际仲裁案件管理、时间节点与实务要点
 argument-hint: "仲裁类型 争议金额 仲裁地 是否适用《仲裁条例》"
-legal_frame: HKIAC Arbitration Rules 2018, Hong Kong Arbitration Ordinance (Cap. 609), UNCITRAL Model Law
+legal_frame: cn-mainland
 last_reviewed: 2026-06-14
 version: 2.0.0
 risk_level: high
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - hkiac procedure
 ---
 
 ## CN HKIAC仲裁程序全程指引

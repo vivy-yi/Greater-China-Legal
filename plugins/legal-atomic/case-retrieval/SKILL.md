@@ -13,6 +13,12 @@ risk_level: medium
 references:
   - name: case-retrieval
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 案例检索
+  - 类案检索
+  - 判例搜索
+  - 案例查找
+  - 类似案例
 ---
 
 # /case-retrieval — 案例检索方法论

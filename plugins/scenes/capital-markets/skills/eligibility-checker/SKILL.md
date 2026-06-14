@@ -3,10 +3,15 @@ name: hk-ipo-eligibility-checker
 description: >
   港股上市资格核查
 argument-hint: "业务类型 关键要素"
-legal_frame: Main Board Listing Rules Chapter 8, GEM Listing Rules Chapter 11
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 资本市场
+  - IPO
+  - 发债
+  - eligibility
 ---
 # 资格核查技能（eligibility-checker）
 

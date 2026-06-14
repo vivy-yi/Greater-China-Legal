@@ -9,6 +9,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - '增值税'
+  - '计算'
+  - '税务'
+  - '所得税'
+  - '转让定价'
 ---
 
 # /vat-credit-calculator — 增值税进项税额计算

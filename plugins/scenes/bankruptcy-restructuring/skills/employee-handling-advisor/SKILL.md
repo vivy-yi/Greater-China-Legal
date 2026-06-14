@@ -5,10 +5,15 @@ description: >
   适用情形：破产清算/重整中的职工安置方案制定、劳动争议预防与应对、职工债权确认。
   核心：依法保障职工合法权益（工资/社保/补偿金），同时控制用工成本，防范群体性劳动争议。
 argument-hint: "[企业名称] [职工名册] [工资数据] [社保缴纳情况] [破产程序阶段]"
-legal_frame: 《企业破产法》第113条、《劳动合同法》第41/46条、《社会保险法》
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - 破产
+  - 清算
+  - 重整
+  - employee handling
 ---
 
 # /employee-handling-advisor — 职工安置顾问

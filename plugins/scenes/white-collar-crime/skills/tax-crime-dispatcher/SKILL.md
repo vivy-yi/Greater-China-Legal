@@ -8,6 +8,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '税务'
+  - '犯罪'
+  - '白领犯罪'
+  - '商业贿赂'
+  - '舞弊'
 ---
 
 # 涉税犯罪分流器 (Tax Crime Dispatcher)

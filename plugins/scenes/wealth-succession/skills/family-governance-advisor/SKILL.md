@@ -8,6 +8,12 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: high
+trigger_phrases:
+  - '顾问'
+  - '财富传承'
+  - '信托'
+  - '遗嘱'
+  - '继承'
 ---
 
 ## 一、家族企业治理结构设计

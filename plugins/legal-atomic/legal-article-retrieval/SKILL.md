@@ -13,6 +13,12 @@ risk_level: high
 references:
   - name: legal-article-retrieval
     source: THUYRan/Legal-Skills-Chinese
+trigger_phrases:
+  - 法条检索
+  - 条文查找
+  - 法规检索
+  - 法律检索
+  - 条文定位
 ---
 
 # /legal-article-retrieval — 法律条文检索

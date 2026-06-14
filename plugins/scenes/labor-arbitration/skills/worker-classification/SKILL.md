@@ -8,6 +8,10 @@ deprecated: true
 deprecated_reason: >
   B-phase版本(dispute-classifier)为CN劳动关系确认的完整判断树，
   本版本为US翻译遗留，判断逻辑基于US的IC/ABC test。
+trigger_phrases:
+  - 劳动仲裁
+  - 劳动争议
+  - worker classification
 ---
 
 ---

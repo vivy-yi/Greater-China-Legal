@@ -8,6 +8,11 @@ legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - 仲裁
+  - 商事争议
+  - CIETAC
+  - arbitration cost estimator
 ---
 
 ## 一、核心能力

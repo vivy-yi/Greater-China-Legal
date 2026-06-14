@@ -4,10 +4,15 @@ description: >
   ABS交易结构设计顾问 — 设计优先级/次级分层、信用增级、超额覆盖方案，
   适用情形：用户说"ABS分层怎么设计"、"增信措施有哪些"、"覆盖倍数多少合适"...
 argument-hint: "资产池规模 目标评级 增信方式"
-legal_frame: 《证券公司资产证券化业务管理规定》《资产支持票据指引》
+legal_frame: cn-mainland
 last_reviewed: 2026-01-01
 version: 1.0.0
 risk_level: medium
+trigger_phrases:
+  - 资本市场
+  - IPO
+  - 发债
+  - transaction structure
 ---
 
 ## 一、适用情形
