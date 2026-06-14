@@ -18,6 +18,19 @@ legal_sources:
   effective_date: '2021-01-01'
 ---
 
+## 数据源与判断框架引用
+
+本 skill 引用以下 plugin 根级 references：
+
+- **判断框架**：`../../references/判断框架.md`（诉讼全流程 35 skill + 14 类时效 + 案由分析 + 管辖判断 + 证据规则 + 保全 + 强制措施 + 执行 + 行政复议/诉讼 + 案件管理 + 上诉 + 刑事案件 + 政府合同）
+- **数据源清单**：`../../references/数据源清单.md`（[YD]/[WKL]/[GOV]/[BD]/[model] + 最高法司法解释 + 法院体系 + 仲裁机构 + 知产法院 + 涉外）
+- **查询路径**：`../../references/查询路径.md`（法规 + 案例 + 司法解释）
+- **货币触发主题**：`../../../references/currency-watch.md`
+- **数据源注册表**：`../../../references/data-source-registry.md`
+
+来源标注规范（[YD]/[WKL]/[BD]/[GOV]/[model]）详见 `../../references/数据源清单.md` §十一。
+诉讼时效详见 `../../references/判断框架.md` §三（**时效管理是高风险点**）。
+
 # /deposition-prep — China Mainland
 
 ## CN证人准备要点
