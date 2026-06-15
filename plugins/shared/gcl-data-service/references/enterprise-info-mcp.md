@@ -47,7 +47,7 @@ description: >
 
 ### 接入方式 1：MCP（推荐）
 
-6 个 Server / 182 个工具 / 27 个 SKILL：
+6 个 Server / **181 个工具**（完整列表见 references/qcc-tools-list.md）/ 27 个 SKILL：
 
 ```json
 {
