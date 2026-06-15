@@ -138,6 +138,104 @@ def print_section(heading: str, items: list[dict], tag: str):
 
 # ── 法条查询 ─────────────────────────────────────────
 
+DATA_SOURCES = {
+    "npc": {
+        "name": "国家法律法规数据库",
+        "url": "https://flk.npc.gov.cn",
+        "type": "official",
+        "coverage": "法律法规",
+        "free": True,
+    },
+    "wenshu": {
+        "name": "中国裁判文书网",
+        "url": "https://wenshu.court.gov.cn",
+        "type": "official",
+        "coverage": "裁判文书",
+        "free": True,
+    },
+    "chinacourt": {
+        "name": "中国法院网",
+        "url": "https://www.chinacourt.org",
+        "type": "official",
+        "coverage": "法院资讯/典型案例",
+        "free": True,
+    },
+    "spp": {
+        "name": "最高人民检察院",
+        "url": "https://www.spp.gov.cn",
+        "type": "official",
+        "coverage": "检察文书/指导案例",
+        "free": True,
+    },
+    "csrc": {
+        "name": "中国证监会",
+        "url": "https://www.csrc.gov.cn",
+        "type": "official",
+        "coverage": "资本市场监管",
+        "free": True,
+    },
+    "moj": {
+        "name": "司法部",
+        "url": "https://www.moj.gov.cn",
+        "type": "official",
+        "coverage": "部门规章",
+        "free": True,
+    },
+    "yuandian": {
+        "name": "元典开放平台",
+        "url": "https://open.chineselaw.com",
+        "type": "commercial_api",
+        "coverage": "法规/案例/企业/幻觉检测",
+        "free": False,
+        "mcp": True,
+        "rest_api": True,
+    },
+    "pkulaw": {
+        "name": "北大法宝",
+        "url": "https://www.pkulaw.com",
+        "type": "commercial_api",
+        "coverage": "500万+法规/1.6亿+案例",
+        "free": False,
+        "mcp": True,
+        "cli": "@pkulaw/mcp-cli",
+    },
+    "itslaw": {
+        "name": "无讼",
+        "url": "https://www.itslaw.com",
+        "type": "commercial",
+        "coverage": "案例/法规",
+        "free": False,
+    },
+    "faxin": {
+        "name": "法信",
+        "url": "https://www.faxin.cn",
+        "type": "commercial",
+        "coverage": "人民法院出版社",
+        "free": False,
+    },
+    "lawtime": {
+        "name": "律商网",
+        "url": "https://www.lawtime.cn",
+        "type": "commercial",
+        "coverage": "综合法律检索",
+        "free": False,
+    },
+}
+
+
+def cmd_sources():
+    """列出所有已配置的数据源"""
+    print(f"─── GCL 数据源清单 ───\n")
+    print(f"{'代号':<10} {'名称':<25} {'类型':<14} {'覆盖':<30} {'免费'}")
+    print("─" * 90)
+    for k, v in DATA_SOURCES.items():
+        free = "✅" if v.get("free") else "❌"
+        print(f"{k:<10} {v['name']:<25} {v['type']:<14} {v['coverage']:<30} {free}")
+    print()
+    print(f"完整说明: plugins/shared/gcl-data-service/references/data-sources.md")
+    print(f"配置: ~/.gcl/config.json")
+
+
 def cmd_law(queries: list[str]):
     query = " ".join(queries)
     print(f"─── 法条查询: {query} ───\n")
@@ -295,6 +393,7 @@ def main():
         p.add_argument("query", nargs="+", help="搜索关键词")
 
     sub.add_parser("mcp-config", help="输出 MCP server 配置")
+    sub.add_parser("sources", help="列出所有数据源")
     sub.add_parser("version", help="版本信息")
 
     args = parser.parse_args()
@@ -310,6 +409,7 @@ def main():
         "verify": lambda: cmd_verify(args.query),
         "search": lambda: cmd_search(args.query),
         "mcp-config": cmd_mcp_config,
+        "sources": cmd_sources,
         "version": lambda: print(f"gcl v{VERSION} — Config: {CONFIG_FILE}"),
     }
 
