@@ -32,6 +32,8 @@ DEFAULT_CONFIG = {
         "web_search": {"enabled": True},
         "yuandian_mcp": {"enabled": False, "api_key": ""},
         "pkulaw_mcp": {"enabled": False, "api_key": ""},
+        "qcc_mcp": {"enabled": False, "api_key": ""},
+        "tianyancha_mcp": {"enabled": False, "api_key": ""},
     },
     "default_source": "auto",
     "output_format": "markdown",
@@ -219,6 +221,24 @@ DATA_SOURCES = {
         "type": "commercial",
         "coverage": "综合法律检索",
         "free": False,
+    },
+    "qcc": {
+        "name": "企查查智能体平台",
+        "url": "https://agent.qcc.com",
+        "type": "commercial_mcp",
+        "coverage": "182 工具/3.65亿企业/企业尽调+司法风险+知产",
+        "free": False,
+        "mcp": True,
+        "cli": "qcc-agent-cli",
+        "scenes": ["尽调", "投资", "法务", "采购"],
+    },
+    "tianyancha": {
+        "name": "天眼查开放平台",
+        "url": "https://open.tianyancha.com",
+        "type": "commercial_api",
+        "coverage": "企业信息/关联方",
+        "free": False,
+        "mcp_endpoint": "https://mcp.tianyancha.com",
     },
 }
 
