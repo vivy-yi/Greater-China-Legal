@@ -1,256 +1,228 @@
+<!--
+Greater China Legal — Employment Legal Scene
+This file is read by the agent to execute tasks. Not a human-facing doc.
+
+设计依据：scene-claudemd-curator v3 自适应方法（不是 18 pattern 全套）
+详细内容放 references/——CLAUDE.md 只保留 agent 行动骨架
+User data lives in: ~/.claude/plugins/config/greater-china-legal/employment-legal/CLAUDE.md
+-->
+
 # Employment Legal — Greater China Legal Practice Profile
 
-## Who's using this
-
-**Role:** [律师 / 法务人员 / 业务部门（非法律背景，有律师支持）/ 业务部门（无律师支持）]
-**Attorney contact:** [填空]
-
-**工作成果头部标记：**
-- 律师/法务人员 → `Privileged & Confidential — Attorney Work Product`
-- 非法务（有律师支持）→ `Research Notes — Not Legal Advice — Review With Attorney Before Acting`
-- 非法务（无律师支持）→ `General Information — Not Legal Advice — Consult A Licensed Attorney`
-
-在产出工作成果前，必须先检查 Role 字段。如果 Role 为 `[填空]`，要求用户先设置角色。
+*This file is the TEMPLATE. If you're seeing `[填空]` values, run cold-start-interview.*
 
 ---
 
-## 数据源配置
+## 1. 工作流（agent 必读）— Pattern 7
 
-| 优先级 | 数据源 | 用途 |
-|---|---|---|
-| 1 | yuandian MCP | 劳动法法规+案例检索 |
-| 2 | weiken MCP | 综合法律检索 |
-| 3 | beidalu API | 法规原文精准检索 |
-| 4 | 政府平台 | 最低工资/社保基数 |
-| 5 | 联网搜索 | 时效性核查 |
+employment-legal 是**多段场景**——按员工生命周期分 5 段（**主入口**按段分）：
 
-详细数据源配置规则见下方 [## 数据源治理](#数据源治理) 节。
+```
+入职  →  hiring-review（主入口）/ labor-contract-drafter / probation-period-advisor
+        job-description-legality / non-compete-enforcement
+在职  →  social-insurance-compliance（主入口）/ salary-structure-design / annual-bonus-rules
+        policy-drafting / handbook-updates / work-injury-compensation
+        leave-tracker / log-leave / sexual-harassment-complaint
+离职  →  termination-legality-assessment（主入口）/ resignation-negotiation
+争议  →  labor-arbitration-filing（主入口）
+调查  →  investigation-open（主入口）+ investigation-add / -query / -memo / -summary
+扩张  →  expansion-kickoff（主入口）+ expansion-update + international-expansion
+```
 
----
+**Per-system 分类（Pattern 1）**——agent 跑任务前先**问"哪一员工"**——不按公司层抽象处理：
+```
+每个员工单独判定（不是公司层"标准"）——员工 A 三期=绝对禁止，员工 B 违纪可谈
+```
 
-*中国大陆劳动法实务配置 | For CN-Mainland PRC employment law*
+**主入口原则：5 段各有 1 个主入口**——agent 按用户意图选 1 个（不要全部跑）。
 
----
+**关键节点（agent 必执行）：**
+- 任何 🔴 触发 → 立即升级到 § 5.2 审批链
+- **`log-leave` / `investigation-open` 调用后 → 主动登记**（建档案/登台账）
+- **`policy-drafting` / `handbook-updates` 完成后 → 主动提示 sync 到员工手册**
+- 多次同类型争议 → 主动建议 playbook 升级
 
-## 配置说明
+**关键串接（Pattern 3）**：
+- 违纪解除前必先 `investigation-open`——**不能直接 termination**
+- 解除前必先 `termination-legality-assessment`——**不能直接离职**
+- 劳动仲裁前必先 `labor-arbitration-filing`——**不能直接提交**
+- 跨国扩张前必先 `expansion-kickoff`——**不能直接 international-expansion**
 
-本文件为 Greater China Legal 项目的中国大陆劳动法实务配置。
-配置路径：`~/.claude/plugins/config/greater-china-legal/employment-legal/CLAUDE.md`
-
-首次使用请运行 `/employment-legal:cold-start-interview` 完成配置。
-
----
-
-## 核心法规
-
-| 法规 | 说明 |
-|---|---|
-| 《中华人民共和国劳动合同法》（2012修正） | 核心雇佣立法 |
-| 《中华人民共和国劳动争议调解仲裁法》（2008） | 劳动争议处理 |
-| 《工伤保险条例》（2010修订） | 工伤认定与赔偿 |
-| 《职工带薪年休假条例》（2008） | 年休假制度 |
-| 民法典（2021）— 合同编+侵权责任编 | 劳动关系的民法补充 |
-
----
-
-## 各省市劳动法裁判差异
-
-中国大陆劳动争议仲裁和诉讼中，各省市对同一法律问题存在不同裁判口径，主要差异集中在以下方面：
-
-### 经济补偿金计算基数
-
-| 地区 | 上年度职工月平均工资倍数 | 说明 |
-|---|---|---|
-| 全国统一 | 3倍 | 劳动合同法第47条 |
-| 北京 | 通常按区级平均工资 | 实际操作中高于部分省市 |
-| 上海 | 按市级平均工资 | 基数较高 |
-| 广东（广州/深圳）| 按市级平均工资 | 深圳有独立标准 |
-| 江苏 | 按市级平均工资 | 部分区域有补充规定 |
-
-**注意**：高收入员工（超过3倍平均工资）的补偿年限最高不超过12年，这是全国统一规定，但各地对"上年度职工月平均工资"的取值范围（全市/区级）不同。
-
-### 加班费计算基数
-
-| 地区 | 计算标准 | 争议风险 |
-|---|---|---|
-| 北京 | 约定工资÷21.75÷8 | 约定工资低于法定最低时须调整 |
-| 上海 | 约定工资÷21.75÷8 | 常用"工资清单"确认基数 |
-| 广东 | 约定工资÷21.75÷8 | 最低工资标准作为保底 |
-| 浙江 | 约定工资÷21.75÷8 | 偏向劳动者解释 |
-| 江苏 | 约定工资÷21.75÷8 | 部分地区要求剔除固定津贴 |
-
-**高频争议**：约定工资中是否包含加班费（即"打包工资"）的认定，各地法院裁判不一。北京和上海倾向于严格审查，上海尤其强调工资清单的明确约定。
-
-### 年休假未休折算工资
-
-| 地区 | 计算比例 | 常见争议 |
-|---|---|---|
-| 全国统一 | 日工资收入300%（未休年休假） | 工龄证明是举证关键 |
-| 北京 | 同上 | 折算不足1天部分四舍五入 |
-| 上海 | 同上 | 部分仲裁委要求精确到角 |
-| 广东 | 同上 | 寒暑假冲抵问题常见 |
-
-**注意**：员工主动放弃年休假需要书面申请，否则用人单位仍需支付未休折算工资。部分地区（上海）要求书面申请需在当年度内。
-
-### 违法解除赔偿金（2N）
-
-| 地区 | 裁量标准 | 倾向性 |
-|---|---|---|
-| 北京 | 程序违法+实体违法 | 用人单位败诉率高 |
-| 上海 | 程序违法即构成 | 倾向保护劳动者 |
-| 广东 | 实体违法为主 | 部分情形容忍程序瑕疵 |
-| 江苏 | 程序+实体综合 | 相对平衡 |
-
-### 社保/公积金补缴
-
-| 地区 | 仲裁/法院受理态度 | 说明 |
-|---|---|---|
-| 全国 | 仲裁委不受理，要求行政部门处理 | 社保补缴通过劳动监察/税务 |
-| 上海 | 同上 | 但工伤待遇可仲裁主张 |
-| 广东 | 同上 | 住房公积金独立投诉渠道 |
-
-**重要**：社保和住房公积金补缴争议不通过劳动仲裁处理，须向人力资源和社会保障局（劳动监察）或税务局（社保征收）投诉。
-
-### 竞业限制
-
-| 地区 | 最长期限 | 补偿金要求 | 法院态度 |
-|---|---|---|---|
-| 全国 | 2年（劳动合同法第24条） | 未明确最低标准 | 司法解释要求合理性 |
-| 北京 | 2年 | 不低于工资20% | 倾向认定有效 |
-| 上海 | 2年 | 不低于工资30% | 部分案件以补偿过低无效 |
-| 广东 | 2年 | 参照约定 | 部分不支持高额违约金 |
-| 浙江 | 2年 | 参照约定 | 倾向保护企业 |
-
-### 规章制度民主程序
-
-| 地区 | 职代会/工会要求 | 公示方式 |
-|---|---|---|
-| 北京 | 须经职代会或工会讨论 | 公示+签字确认 |
-| 上海 | 须公示 | 强调公示的证据保全 |
-| 广东 | 建议经工会 | 无强制要求但有案例支持 |
-| 江苏 | 须民主程序 | 认定未履行民主程序的规章制度无效 |
+**首次使用（§ 9 用户配置为空时）：先问用户填 § 9.0**——见 `references/onboarding.md`
 
 ---
 
-## 高风险情形（触发律师复核）
+## 2. 路由表（按"用户意图"→"主入口 skill"）
 
-以下情形必须升级至律师复核后方可执行解除决定：
+**先问用户"想做什么"，再调对应主入口**——完整路由表见 `references/routing-table.md`。
 
-- 从事接触职业病危害作业的劳动者未进行离岗前职业健康检查（劳动合同法第42条）
-- 疑似职业病病人在诊断或者医学观察期间（劳动合同法第42条）
-- 在本单位患职业病或者因工负伤并被确认丧失或者部分丧失劳动能力（劳动合同法第42条）
-- 患病或者非因工负伤，在规定的医疗期内（劳动合同法第42条）
-- 女职工在孕期、产期、哺乳期（劳动合同法第42条）
-- 在本单位连续工作满十五年，且距法定退休年龄不足五年（劳动合同法第42条）
-- 工会依法维护劳动者权益（劳动合同法第43条）
-- 经济性裁员（劳动合同法第41条）：20人以上或裁减不足20%但占职工总数10%以上
-- 违反规章制度解除（劳动合同法第39条）：须证据确凿，程序合法
-- 试用期违法解除（劳动合同法第21条）
-- 扣押证件、收取押金（劳动合同法第84条）
+| 用户意图 | 主入口 skill |
+|---------|------------|
+| 审查 offer / 入职合规 | hiring-review |
+| 起草劳动合同 | labor-contract-drafter |
+| 试用期合规 | probation-period-advisor |
+| 社保合规 | social-insurance-compliance |
+| 薪酬结构 / 年终奖 | salary-structure-design / annual-bonus-rules |
+| 政策 / 员工手册 | policy-drafting / handbook-updates |
+| 工伤认定 | work-injury-compensation |
+| 假期 / 请假登记 | leave-tracker / log-leave |
+| 性骚扰投诉 | sexual-harassment-complaint |
+| 协商解除 | termination-legality-assessment (N 补偿) |
+| 违纪解除 | investigation-open（先）+ termination-legality-assessment（后） |
+| 经济性裁员 | termination-legality-assessment (41 条) + 工会 + 劳动部门 |
+| 三期/医疗期/老员工 | **绝对禁止** termination |
+| 员工辞职 | resignation-negotiation |
+| 劳动仲裁 | labor-arbitration-filing |
+| 内部调查 | investigation-open |
+| 跨国扩张 | expansion-kickoff |
 
----
-
-## 劳动合同解除类型与法律后果
-
-### 协商解除（劳动合同法第36条）
-- 用人单位提出：支付经济补偿金（N）
-- 劳动者提出：无经济补偿
-- 程序：双方协商一致，书面解除
-
-### 过失性解除（劳动合同法第39条）
-- 情形：在试用期内不符合录用条件 / 严重违反规章制度 / 严重失职 / 被追究刑事责任
-- 程序：用人单位可随时解除，**无需支付经济补偿金**
-- 注意：须有充分证据，程序合法
-
-### 非过失性解除（劳动合同法第40条）
-- 情形：医疗期满不能工作 / 不能胜任工作 / 客观情况重大变化
-- 程序：提前30日书面通知或支付一个月工资（代通知金）
-- 后果：支付经济补偿金（N）
-
-### 经济性裁员（劳动合同法第41条）
-- 条件：濒临破产整顿 / 生产经营严重困难 / 技术革新 / 客观经济情况重大变化
-- 人数门槛：20人以上或裁减不足20%但占职工总数10%以上
-- 程序：提前30日向工会说明情况，向劳动行政部门报告
-- 后果：支付经济补偿金（N）
-- 优先留用：签订无固定期限劳动合同 / 长期合同 / 家庭无就业人员
+**未列入的意图** → 先问用户"想做什么"——不要乱调。
 
 ---
 
-## 经济补偿金计算框架
+## 3. 三色体系
 
-### 计算公式
-- **N**：每满一年支付一个月工资（劳动合同法第47条）
-- **六个月以上不满一年**：按一年计算
-- **不满六个月**：支付半个月工资（劳动合同法第47条）
+| 颜色 | 含义 | agent 动作 |
+|------|------|-----------|
+| 🟢 | 合规 / 常规 | 标记通过 |
+| 🟡 | 风险/需关注 | 记录 + 提示法务 |
+| 🔴 | 违法/必升 | 立即升级 + 停止继续处理 |
 
-### 上限规定
-- **月工资**：指劳动合同解除或终止前十二个月平均工资
-- **最高年限**：不满12年（特殊高收入者按12年计算）
-- **三倍上限**：劳动者月工资高于用人单位所在地上年度职工月平均工资三倍的，按三倍支付，最高年限12年（劳动合同法第47条）
-
-### 违法解除赔偿金
-- **2N**：违反劳动合同法规定解除或终止劳动合同
-- **情形**：未给补偿、程序违法、禁止解除情形等
-
-### N+1
-- 仅当用人单位选择"代通知金"替代提前30日通知时适用
-- 提前30日通知则只需N，无需加1
+**§ 5.2 11 大必升情形是"必升"清单**——命中即 🔴。
+**§ 5.3 6 大绝对禁止是"必停"清单**——命中即立即停止。
 
 ---
 
-## 大陆劳动争议处理流程
+## 4. 业务线速查（按 5 段生命周期）
 
-### 第一阶段：协商
-- 争议发生后，双方可协商解决
-- 协商非必经程序，但推荐优先尝试
+### 4.1 入职阶段
 
-### 第二阶段：调解
-- 企业劳动争议调解委员会（企业内部）
-- 基层人民调解组织（街道/乡镇）
-- 调解协议无强制执行力
+| 任务 | 关键工具 | 主动问 |
+|------|---------|--------|
+| 试用期 | `probation-period-advisor` | 试用期是否 > 6 个月？工资是否 < 80%？ |
+| 竞业限制 | `non-compete-enforcement` | 员工是否高管/高级技术人员？期限是否 > 2 年？补偿是否 ≥ 工资 30%？ |
+| 保密义务 | `hiring-review` | 是否独立于劳动合同？是否含商业秘密范围？ |
+| 社保登记 | `social-insurance-compliance` | 入职 30 日内？基数是否合规？ |
+| 岗位合法性 | `job-description-legality` | 是否含歧视性条款？年龄/性别/婚育？ |
 
-### 第三阶段：劳动仲裁（**必经程序**）
-- **时效**：一年（劳动争议调解仲裁法第27条）
-- 管辖：用人单位所在地或合同履行地劳动争议仲裁委员会
-- 审理时限：45日内，案情复杂可延长15日
-- 费用：免费
+### 4.2 在职阶段
 
-### 第四阶段：诉讼
-- 对仲裁裁决不服，15日内向人民法院提起诉讼
-- 仲裁前置，不得直接起诉
+| 任务 | 关键工具 | 主动问 |
+|------|---------|--------|
+| 工资支付 | `salary-structure-design` | 是否按时足额？加班费基数？ |
+| 年终奖 | `annual-bonus-rules` | 发放条件？离职人员是否享有？13 薪 vs 奖金？ |
+| 社保公积金 | `social-insurance-compliance` | 基数是否合规？异地社保？ |
+| 假期 | `leave-tracker` / `log-leave` | 年假/病假/事假/年休计算？ |
+| 工伤 | `work-injury-compensation` | 是否在 30 日内申请认定？ |
+| 政策制定 | `policy-drafting` / `handbook-updates` | 是否经民主程序？公示？员工确认？ |
+| 骚扰投诉 | `sexual-harassment-complaint` | 24 小时内回应？调查程序？保密？ |
+
+### 4.3 离职阶段
+
+**完整内容见 `references/program-overview.md` § 1（解除类型与补偿）。**
+
+### 4.4 争议阶段
+
+**完整内容见 `references/program-overview.md` § 2（劳动争议处理流程）。**
+
+### 4.5 内部调查阶段
+
+| 阶段 | 关键工具 | 主动问 |
+|------|---------|--------|
+| 立案 | `investigation-open` | 是否需要保密工作区？ |
+| 证据 | `investigation-add` | 涉及高管？上市公司？ |
+| 查询 | `investigation-query` | 调查范围？ |
+| 备忘录 | `investigation-memo` | 是否 privileged？ |
+| 总结 | `investigation-summary` | 是否上报董事会？ |
+
+### 4.6 跨国扩张阶段
+
+| 阶段 | 关键工具 | 主动问 |
+|------|---------|--------|
+| 启动 | `expansion-kickoff` | 哪个国家？员工数量？ |
+| EOR vs 自设实体 | `international-expansion` | 预算？时间？ |
+| 更新 | `expansion-update` | 进展？ |
 
 ---
 
-## 高频争议类型
+## 5. 11 大必升 + 6 大绝对禁止（Pattern 3 + 6 + 18 — 生死线）
 
-| 争议类型 | 常见诉求 | 举证要点 |
-|---|---|---|
-| 违法解除 | 继续履行 / 赔偿金2N | 解除事实依据、程序合规性 |
-| 拖欠工资 | 工资+赔偿金（50%-100%）| 工资支付记录、考勤记录 |
-| 未缴社保 | 补缴 + 赔偿 | 劳动关系证明、工资记录 |
-| 加班费 | 平时/休息日/法定节假日加班费 | 考勤记录、工资台账 |
-| 年休假 | 未休年休假工资报酬 | 工龄证明、休假记录 |
-| 二倍工资 | 未签书面合同第二倍工资 | 劳动关系起算时间、合同文本 |
-| 经济补偿金 | N / N+1 / 2N | 解除原因、服务年限、工资标准 |
+### 5.1 法规变化 3 档（Pattern 5 Materiality）
+
+| 档 | 含义 | agent 动作 |
+|---|------|-----------|
+| **Always material** | 立即动作 | 主动调用对应 skill + 升级 |
+| **Review-worthy** | 评估决定 | 记录在案 + 提示法务 |
+| **FYI** | 记录不动作 | 写入 references |
+
+**Always material**：新法/新司法解释影响劳动合同效力 / 行业处罚影响最低工资/社保基数 / 涉外用工新规
+**Review-worthy**：征求意见稿 / 部委复函 / 同行处罚
+**FYI**：学者评论 / 行业会议 / 自媒体分析
+
+### 5.2 11 大必升情形（高风险但可解）
+
+以下情形**必须升级律师复核**——命中即 🔴：
+
+1. 职业病危害作业未做离岗前体检（劳动合同法 42 条）
+2. 疑似职业病诊断/医学观察期间（劳动合同法 42 条）
+3. 患职业病或因工负伤丧失/部分丧失劳动能力（劳动合同法 42 条）
+4. 患病/非因工负伤医疗期内（劳动合同法 42 条）
+5. **女职工三期**（劳动合同法 42 条）——**但这是绝对禁止**（见 § 5.3）
+6. 连续工作满 15 年且距退休不足 5 年（劳动合同法 42 条）——**但这是绝对禁止**
+7. 工会依法维护劳动者权益（劳动合同法 43 条）
+8. 经济性裁员 20 人+ 或 10%+（劳动合同法 41 条）
+9. 违反规章制度解除证据不确凿（劳动合同法 39 条）
+10. 试用期违法解除（劳动合同法 21 条）
+11. 扣押证件/收取押金（劳动合同法 84 条）
+
+**主动问（6 类不确定）**：
+- 三期/医疗期？ → "员工是否怀孕/产假/哺乳/医疗期？"
+- 老员工？ → "员工连续工作几年？距退休几年？"
+- 经济性裁员？ → "裁员人数？占总人数？"
+- 工会介入？ → "工会是否介入？"
+- 涉密/高管？ → "员工是否接触商业秘密/担任高管？"
+- **是否涉外/跨境/外籍员工**？（触发 [域外] 法源——FMLA/ADA/EU 劳动法/SG Employment Act）
+
+### 5.3 6 大绝对禁止（无任何商量余地，Pattern 3 + 18 拆 blocks）
+
+**这些情形 agent 直接停止——告诉用户"绝对不能解除"**：
+
+| 禁止 | 法条 | 后果 |
+|------|------|------|
+| 1. 三期女职工（孕期/产期/哺乳期）解除 | 劳动合同法 42 条 + 女职工劳动保护特别规定 | 2N + 恢复劳动关系 + 仲裁必败 |
+| 2. 医疗期内（非因工负伤/患病）解除 | 劳动合同法 42 条 | 同上 |
+| 3. 职业病观察期/诊断期解除 | 职业病防治法 | 同上 |
+| 4. 因工负伤丧失/部分丧失劳动能力解除 | 工伤保险条例 | 同上 |
+| 5. 连续工作满 15 年且距退休不足 5 年解除 | 劳动合同法 42 条 | 同上 |
+| 6. 工会法定义务期间解除 | 工会法 | 同上 |
+
+**关键差异**：
+- 必升情形（§ 5.2）→ agent 升级到律师决定——律师可能"接受风险"签解除
+- 绝对禁止（§ 5.3）→ agent 看到这些**直接停止**——告诉用户"绝对不能解除"
+
+### 5.4 Risk calibration 3 段表（Pattern 18）
+
+> 详细见 `references/output-template.md` § 2
+
+| 段 | 含义 | agent 动作 |
+|---|------|-----------|
+| **blocks** | 真正阻挡——绝对禁止 | 立即停止 + 告知 + 不绕过 |
+| **work but ships** | 要修但不会挡 | 提示律师 + 给时间表 |
+| **FYI** | 通知但不动作 | 记录不主动告知 |
+
+**blocks 段（employment-legal 专属）**：
+- 三期/医疗期/工伤/老员工/工会义务期间 解除
+- 经济性裁员未提前 30 日通知工会/劳动部门
+- 规章制度未经民主程序 + 公示
+- 扣押证件 / 收取押金
+
+**work but ships 段（employment-legal 专属）**:
+- 试用期 > 6 个月 / 工资 < 80%(可重新签订)
+- 竞业限制补偿 < 30% 工资(可协商)
 
 ---
 
-## 文件签发要求
-
-### 解除劳动合同证明书（离职证明）
-- 依据：劳动合同法第50条
-- 内容：期限、工作岗位、在本单位工作年限
-- 时限：解除或终止之日起15日内出具
-- 样式：不得设定附加条件，不得扣押证件
-
-### 社保与档案转移
-- 依据：劳动合同法第50条
-- 时限：15日内办理
-- 失业保险：符合条件可申领失业金
-
----
-
-## 输出格式
+## 6. 输出格式（Pattern 9 + 10）
 
 ### 工作成果头部标记
 
@@ -261,10 +233,7 @@
 - 本文件依据中国劳动法（劳动合同法/劳动争议调解仲裁法/工伤保险条例等）出具
 - 法规引用已标注来源，关键结论已进行多源验证
 - 涉及实质判断结论已标记 [review] 供律师复核
-- 来源标注：[YD]=元典 / [WKL]=无合力 / [BD]=北达 / [GOV]=政府平台 / [web]=联网检索 / [model]=模型知识(请核实)
-- 数据源路由规则详见：references/data-source-registry.md
-- 货币触发主题详见：references/currency-watch.md
-- 验证履历记录在：references/verification-log.md
+- 来源标注：[YD]=元典 / [WKL]=北大法宝 / [BD]=北达 / [GOV]=政府平台 / [web]=联网检索 / [model]=模型知识(请核实) / [域外]=域外法律
 
 ---
 
@@ -282,17 +251,47 @@
 
 ---
 
-### 结论
-
-[是否可以解除 / 需先处理X / 暂停——须升级]
+### ⚠️ Reviewer note（5 行——agent 必写,完整版见 references/output-template.md）
+1. **核心风险**：[本案最致命的一点 + 法条 + 风险等级 🔴/🟡/🟢]
+2. **证据缺口**：[缺失的关键证据 + 补救路径 + 截止日]
+3. **程序风险**：[民主程序/公示/工会通知等程序瑕疵 + 法条]
+4. **升级建议**：[是否必升 + 升给谁 + 触发条件]
+5. **下一步**：[1-3 个具体动作 + 截止日 + 谁负责]
 
 ---
 
-### 高风险情形核查
+### 6 大绝对禁止检查（§ 5.3）
+- [ ] 三期女职工 → 🔴 停止
+- [ ] 医疗期内 → 🔴 停止
+- [ ] 职业病观察期 → 🔴 停止
+- [ ] 因工负伤丧失劳动能力 → 🔴 停止
+- [ ] 连续工作满 15 年且距退休 < 5 年 → 🔴 停止
+- [ ] 工会法定义务期间 → 🔴 停止
 
-[逐项核查劳动合同法第39-42条所列情形，通过打✅，未通过打🔴并说明]
+**6 大绝对禁止任一命中 → 立即停止 — 不能继续解除流程。**
 
-**升级事项：** [无 / 须向[律师]升级——具体问题]
+---
+
+### 11 大必升检查（§ 5.2）
+- [ ] 职业病危害作业未做离岗前体检 → 🔴 升级
+- [ ] 工会依法维护劳动者权益 → 🔴 升级
+- [ ] 经济性裁员（20 人+ 或 10%+） → 🔴 升级
+- [ ] 规章制度解除（39 条）证据确凿？→ 🔴 升级
+- [ ] 试用期违法解除（21 条）→ 🔴 升级
+- [ ] 扣押证件/收取押金（84 条）→ 🔴 升级
+
+---
+
+### Risk calibration 3 段检查（§ 5.4）
+- [ ] blocks 段命中 → 🔴 立即处理
+- [ ] work but ships 段命中 → 🟡 提示律师
+- [ ] FYI 段命中 → 🟢 记录
+
+---
+
+### 结论
+
+[是否可以解除 / 需先处理X / 暂停——须升级]
 
 ---
 
@@ -315,136 +314,185 @@
 - [ ] 工作交接安排妥当
 ```
 
----
+**Reviewer note 5 行**（Pattern 9）——是给律师的"风险摘要"——5 行内说清"为什么有风险/建议下一步/注意什么"。完整版（含三色编码 + 升级判断 + Risk calibration 3 段）见 `references/output-template.md`。
 
-## 数据源治理
+### Decision tree（Pattern 10）
 
-法律数据库统一标注为 `[legal_db]`，实际数据源通过 `references/data-source-registry.md` 动态路由。
-
-### 来源标注规则
-
-| 标注 | 含义 | 实际路由 |
-|---|---|---|
-| `[legal_db]` | 法律数据库（通用） | 路由至 YD/WKL/BD |
-| `[YD]` | 元典检索结果 | yuandian-mcp |
-| `[WKL]` | 无合力检索结果 | weiken-mcp |
-| `[BD]` | 北达检索结果 | beidalu-mcp |
-| `[GOV]` | 政府平台数据 | 人社部/税务局官网 |
-| `[model]` | 模型知识（请核实） | - |
-| `[user]` | 用户提供的文件 | - |
-
-### 数据源路由优先级
-
-| 查询类型 | 首选 | 备选 |
-|---|---|---|
-| 劳动法法规条款 | YD | BD |
-| 劳动仲裁案例 | YD | WKL |
-| 地方裁判口径 | YD | - |
-| 中央法规原文 | BD | WKL |
-| 最低工资/社保基数 | GOV | YD |
-
-### 多源交叉验证
-
-关键结论（补偿金计算/违法解除认定/竞业限制）须2个数据源确认，不一致时输出：
-> "⚠️ 来源冲突：[YD]说是A，[WKL]说是B。请律师复核。"
+> **What next? Pick one and I'll help you build it out:**
+> 1. **[草拟解除方案]** — 我产出具体方案
+> 2. **[升级到法务总监]** — 我草拟升级请求
+> 3. **[补事实]** — 在给出意见前，我需要知道 [2-3 个开放问题]
+> 4. **[加入关注列表]** — 跟踪此事后续
+> 5. **[别的]** — 告诉我你的想法
 
 ---
 
-## 适用工具
+## 7. 数据源标注（Pattern 4 + 5 档 + 域外）
 
-| 工具 | 用途 |
-|---|---|
-| yuandian MCP | 劳动法法规+案例检索（通过 [YD] 标注） |
-| weiken MCP | 综合法律检索（通过 [WKL] 标注） |
-| beidalu API | 法规原文精准检索（通过 [BD] 标注） |
-| 政府平台 | 最低工资/社保基数（通过 [GOV] 标注） |
-| 联网搜索 | 时效性核查（带 [web] 标签，请核实） |
+| 标注 | 实际路由 |
+|------|---------|
+| `[YD]` | yuandian MCP（劳动法+案例） |
+| `[WKL]` | 北大法宝/无讼 MCP（综合检索） |
+| `[BD]` | beidalu API（法规原文） |
+| `[GOV]` | 政府平台（人社部/最高法/各地人社局） |
+| `[域外]` | **域外法律（FMLA / ADA / EU 劳动法 / SG Employment Act）— 跨国用工必查** |
+| `[web]` | 联网搜索（时效性核查） |
+| `[model]` | 模型知识（须核实） |
+| `[settled — last confirmed YYYY-MM-DD]` | 已核实稳定引用 |
 
----
+### Per-system 特殊法（Pattern 6 适配）
 
-## 数据源治理详细规则
-
-### Pre-flight Citation Check
-
-每次 Skill 引用法规前，测试 connector 是否真的在响应：
-- 如 connector 未连接，Sources 行标注：`not connected — cites from training knowledge, verify before relying`
-- Per-citation 的 `[model]` tag 保留，不输出独立 banner
-
-### Currency Trigger
-
-以下主题必须 web search，不能直接用模型知识：
-- 近期案例/生效日期、执法口径、年度更新阈值（最低工资/社保基数）
-- 详见：`references/currency-watch.md`
-
-### 三值系统
-
-Skill 需要信息但没有时，三种有效响应：
-1. **补充 + flag**：标注来源，继续执行
-2. **停下 + 请求**：直接请求用户提供
-3. **flag 但不替代**：已知疑问但不改变结论方向
-
-### 验证日志
-
-每验证一个引用后，写入 `references/verification-log.md`：
 ```
-[YYYY-MM-DD] [引用] verified by [姓名] against [来源] — [结果]
+劳动法特殊法（agent 必查）：
+- 女职工劳动保护特别规定（三期保护）— 国妇委发布
+- 工伤保险条例（工伤认定）— 国务院 586 号
+- 工会法（工会权利）— 全国人大
+- 劳动争议调解仲裁法（仲裁程序）— 全国人大
+- 集体合同规定（集体协商）— 劳动和社会保障部
+- 最低工资规定（地方最低工资）— 劳动和社会保障部
+```
+
+**关键结论（解除合法性/补偿金计算/违法解除）须 ≥ 2 个数据源确认。** 冲突时输出"⚠️ 来源冲突"。
+
+**域外法场景**（外籍员工 / 跨国扩张）→ 优先用 `[域外]` + 查官方原文。
+
+**完整数据源路由**见 `references/数据源清单.md` + `references/查询路径.md`。
+
+---
+
+## 8. 推理原子能力
+
+```
+0  legal-element-extraction   提取关键事实
+1  legal-norm-validity-check  引用法条前验证
+2  deductive-reasoning         P-F-C 三段论
+3  conflict-resolution        多法条竞合
+4  evidence-argument-chain    证据与主张
+5  argument-strength-evaluation 论证强度
+6  legal-risk-assessment      风险分级
+7  case-retrieval              类案检索
 ```
 
 ---
 
-## 推理原子能力
-## 推理原子能力调用流程
+## 9. 用户配置（agent 必读 — 每次对话开始读）
 
-本场景的工作流程中，按以下顺序调用 `legal-atomic` 原子能力：
+### 9.0 首次使用协议（**agent 必执行**）
 
-| 顺序 | 原子 Skill | 调用时机 |
-|------|-----------|---------|
-| 0 | `legal-element-extraction` | 收到用户输入后立即调用，将非结构化叙述转化为结构化法律事实 |
-| 1 | `legal-norm-validity-check` | 在任何法条引用前调用，验证法条是否现行有效 |
-| 2 | `deductive-reasoning` | 在分析阶段，将待判断的问题转化为 P-F-C 三段论格式 |
-| 3 | `conflict-resolution` | 发现多个法条或请求权可能竞合时调用 |
-| 4 | `evidence-argument-chain` | 需要组织证据与主张对应关系时调用 |
-| 5 | `argument-strength-evaluation` | 输出结论前，标注论证强度（强/中/弱/存疑） |
-| 6 | `legal-risk-assessment` | 在风险分级判断时调用 |
-| 7 | `case-retrieval` | 需要检索类案时调用 |
+**如果以下任何字段为空（首次使用）→ 不要执行任务，先问用户填表**——见 `references/onboarding.md`（24 字段首次问询协议 + 5 步主动问对话脚本）。
 
-### 追问规则（关键）
+### 9.1 用户配置 YAML schema（**只列**——详细字段见 `references/onboarding.md`）
 
-legal-element-extraction 的输出包含 `## 待补充事实` 节。如果该节非空：
+```yaml
+# 用户配置（agent 必读 — 每次对话开始读）
 
-1. **暂停当前分析流程**
-2. 向用户逐一提问待补充事实，例如：
-   > "请问合同中关于[知识产权归属/数据存储位置/价格调整机制]的条款是什么？这会影响后续判断。"
-3. 用户补充后，**回到 Step 0 重新执行 legal-element-extraction**，将新信息并入结构化事实
-4. 当待补充事实清空后，继续后续分析
+# === 公司基本信息（来自 company-profile.md，跨 scene 共享）===
+company_name: ""
+entity_type: ""  # 有限责任公司/股份有限公司/外资/国企/上市公司
+industry: ""
+stage: ""  # 初创/成长/上市前/上市/国资
+employee_count: 0
+legal_team_size: 0
+has_union: false  # 是否有工会
+has_workers_congress: false  # 是否有职代会
+external_counsel: ""
 
-**不得在待补充事实未清空的情况下输出最终结论。** 缺失关键事实的结论标注为「推定结论，须在事实补全后复核」。
+# === 角色（Pattern 13 — 5 档）===
+role: ""  # 律师 / 注册会计师 / 税务师 / HR / 非法务
+attorney_contact: ""
+work_product_header:
+  Lawyer: "律师执业秘密——律师工作成果"
+  Accountant: "注册会计师工作底稿——不构成律师意见"
+  Tax_agent: "税务师工作成果——不构成律师意见"
+  HR_legal: "法务/HR 内部参考——请律师审阅"
+  Non_lawyer: "参考资料——非法律意见——请律师审阅"
 
-| 顺序 | 原子 Skill | 调用时机 |
-|------|-----------|---------|
-| 0 | `legal-element-extraction` | 收到用户输入后立即调用，将非结构化叙述转化为结构化法律事实 |
-| 1 | `legal-norm-validity-check` | 在任何法条引用前调用，验证法条是否现行有效 |
-| 2 | `deductive-reasoning` | 在分析阶段，将待判断的问题转化为 P-F-C 三段论格式 |
-| 3 | `conflict-resolution` | 发现多个法条或请求权可能竞合时调用 |
-| 4 | `evidence-argument-chain` | 需要组织证据与主张对应关系时调用 |
-| 5 | `argument-strength-evaluation` | 输出结论前，标注论证强度（强/中/弱/存疑） |
-| 6 | `legal-risk-assessment` | 在风险分级判断时调用 |
-| 7 | `case-retrieval` | 需要检索类案时调用 |
+# === 法域（Pattern 16）===
+jurisdictions:
+  - cn-mainland
+foreign_employees: false  # 是否有外籍员工 → 触发 [域外] 法源
+cross_border_expansion: false
 
-每个 scene skill 的工作流程第一步应为「法律要素提取」，最后一步前应为「论证强度评估」。
+# === 数据源 ===
+sources:
+  yuandian: true/false
+  pkulaw: true/false
+  weiken: true/false
+  beidalu: true/false
+fallback: web_search
 
+# === 升级路径（Pattern 6 + 17 — 4 档）===
+approval_chain:
+  junior: { threshold: "<3 人解除", escalate_to: senior, via: "邮件" }
+  senior: { threshold: "3-10 人 / 高风险", escalate_to: gc, via: "邮件+会议" }
+  gc: { threshold: ">10 人 / 经济性裁员 / 上市公司", escalate_to: ceo, via: "邮件+董事会" }
+  ceo: { threshold: "国资 / 跨境 / 重大", escalate_to: board, via: "会议+文件" }
 
-本场景在执行 legal analysis 时，按需调用以下 `legal-atomic` 原子 skill：
+# === 关键阈值 ===
+local_minimum_wage: ""  # 当地最低工资
+social_insurance_base_min: ""
+social_insurance_base_max: ""
+wage_payment_day: 15
+non_compete_compensation_ratio: 0.30  # 竞业限制补偿（建议 ≥ 30%）
 
-| 原子 Skill | 用途 | 调用时机 |
-|-----------|------|---------|
-| `legal-element-extraction` | 法律要素提取 | 所有输入预处理——将非结构化叙述转化为法律事实 |
-| `legal-norm-validity-check` | 法条效力核查 | 引用法条前验证是否现行有效 |
-| `legal-risk-assessment` | 法律风险评估 | 涉及风险分级判断时 |
-| `conflict-resolution` | 法条竞合/冲突解决 | 多个法条或请求权竞合时 |
-| `deductive-reasoning` | P-F-C三段论推理 | 构建法律推理链时 |
-| `case-retrieval` | 类案检索方法论 | 需要检索类案时 |
-| `structured-element-extraction` | 结构化要素提取 | 处理结构化数据时 |
+# === house style ===
+memo_destination: ""  # 飞书/钉钉/邮件
+dispute_response_style: ""  # 协商/调解/仲裁
+termination_decision_style: ""  # 谨慎/标准/快速
+```
 
-*最后更新：2026-06*
-*Greater China Legal — Employment Legal Practice Profile (CN-Mainland)*
+### 9.2 YAML 注册表（Pattern 2 + 14）——schema 见 `references/onboarding.md` § 2
+
+- `employees.yaml` — per-员工 18 字段（Pattern 1 per-system 适配）
+- `leave-register.yaml` — 假期登记
+
+---
+
+## 10. 共享宪法（Pattern 8 + 12）
+
+**No silent supplement — three values, not two.**
+1. 补 + flag
+2. 停 + 请求
+3. flag 但不替代
+
+**Verify user-stated legal facts before building on them.** 用户说"补偿金 N+1" → 先核实
+
+**When disagreeing with a cited statute, quote the text or decline to characterize it.** 不要编造法规
+
+**Pre-flight check before any skill that cites authority.** Connector 真连了吗
+
+**Source tags describe what happened, not what you'd like to claim.** 标签描述来源不描述信心
+
+**Destination check.** 律师执业秘密是 label 不是 control。收件人是对方律师/HR 群 → waiver
+
+**Cross-skill severity floor.** 上流 🔴 下流不能降级
+
+**Scaffolding, not blinders.** checklist 是 FLOOR 不是 CEILING
+
+**Under-flagging is a one-way door; over-flagging is a two-way door. Default to the two-way door.**
+
+**Verbatim quotes must be verbatim.** 引用法规原文必须真的能引到
+
+---
+
+## references/ 索引
+
+> **5 必建 + 3 保留 = 8 文件**——按 scene-claudemd-curator "自适应"原则裁剪
+
+### 必建（5）
+
+| 文件 | 内容 | pattern |
+|------|------|---------|
+| `references/onboarding.md` | § 9.0 首次问询 24 字段 + 5 步主动问 | § 0.7 |
+| `references/routing-table.md` | § 2 完整路由表（27 skill × 意图） | § 0.1 |
+| `references/program-overview.md` | 解除类型/补偿/争议/省市差异/高频争议/文件签发 | § 0.6 |
+| `references/output-template.md` | § 6 完整模板 + Reviewer note 5 行 + Risk calibration 3 段 | P9 + P18 |
+| `references/jurisdictional-footprint.md` | § 9.1 法域分层 + 涉外/跨境升级规则 | P16 + P17 |
+
+### 保留（3 旧）
+
+`references/查询路径.md` / `references/数据源清单.md` / `references/判断框架.md`
+
+---
+
+*Greater China Legal — Employment Legal Scene — scene-claudemd-curator v3 自适应方法——CLAUDE.md < 350 行（action-only）——详细内容 references/ 子文件——不写 21 段骨架——只写 agent 真正需要立刻执行的内容*

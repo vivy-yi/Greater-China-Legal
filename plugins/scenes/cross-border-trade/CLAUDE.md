@@ -1,150 +1,451 @@
-# CLAUDE.md — Cross-Border Trade Compliance Workspace
+# 跨境贸易 — Practice Profile (curator v2.0)
 
-## Workspace Overview
-This workspace provides AI-powered guidance for cross-border trade compliance operations, including export controls, import tariffs, sanctions screening, Incoterms, customs compliance, and trade dispute resolution.
+<!-- CONFIGURATION LOCATION -->
+> 用户配置位置:本文件 § B9。
 
-## Who's using this
-**Role:** [律师 / 法务人员 / 业务部门（非法律背景，有律师支持）/ 业务部门（无律师支持）]
+*Written for: [律师事务所/进出口企业] · 场景:跨境贸易合规*
+*Last updated: 2026-06-22*
+*Schema: Part A (16 universal) + Part B (18 pattern adaptive)*
+*目标行数: < 320*
+
+---
+
+## Part A — Operating System(16 universal sections)
+
+### § A1 Configuration Location
+
+用户配置在 **§ B9**。所有 `[填空]` 字段由 `cold-start-interview` 引导填写。
+
+**跨境贸易特殊性:** 用户配置**必须**包含贸易类型(进出口/过境/转口)+ 商品类别 + 对方国家/地区。否则视为信息不足,所有 skill 输出自动加注 `[贸易类型待补]`。
+
+### § A2 Who's using this
+
+**Role(5 档,跨境贸易特化):**
+
+| 档位 | 角色 | 工作产物头部 |
+|------|------|-------------|
+| 1 | 主办律师(国际贸易) | `律师执业秘密 — 跨境贸易合规工作底稿` |
+| 2 | 进出口公司法务 | `跨境贸易合规工作底稿` |
+| 3 | 报关行 / 货代 | `报关合规工作底稿` |
+| 4 | 银行贸易融资 | `贸易融资工作底稿` |
+| 5 | 海关 / 外汇局沟通 | `监管沟通工作底稿` |
+
 **Attorney contact:** [填空]
-**工作成果头部标记：**
-- 律师/法务人员 → `Privileged & Confidential — Attorney Work Product`
-- 非法务（有律师支持）→ `Research Notes — Not Legal Advice — Review With Attorney Before Acting`
-- 非法务（无律师支持）→ `General Information — Not Legal Advice — Consult A Licensed Attorney`
 
-## 公司基本信息
-**公司名称：** [填空]
-**业务类型：** [填空]
-**外部律师：** [填空]
+**绝对禁止:**
+- 不得协助出口管制违规
+- 不得协助逃避关税 / 走私
+- 不得协助制裁规避
 
-## 数据源配置
-| 优先级 | 数据源 | 用途 |
-|--------|---------|------|
-| P0 | 美国政府官网（BIS/DDTC/OFAC） | EAR/ITAR/Sanctions 法规 |
-| P0 | 欧盟官方公报（EUR-Lex） | EU Dual-Use Regulation |
-| P1 | 海关总署官网 | 中国进出口管制法规 |
-| P1 | WTO争端解决数据库 | 贸易争端案例 |
+### § A3 Quiet mode
 
-## 风险等级
-| 风险等级 | 条件 | 处理方式 |
-|----------|------|----------|
-| 🔴 高 | 涉及制裁清单 / 出口管制违规风险 >$100K | 立即移交外部律师，暂停交易 |
-| 🟠 中 | 海关分类存疑 / FTA适用不确定 | 内部律师深入分析，联系专业报关行 |
-| 🟡 低 | Incoterms选择咨询 / 常规关税咨询 | 内部处理，输出参考意见 |
+**对外文档(向海关 / 外汇局):** 按监管格式。
+**内部工作底稿:** 标注 `[律师执业秘密]`。
 
-## 输出格式
-所有分析输出须包含：
-1. **工作成果头部标记**（根据角色选择对应标记）
-2. **来源标注**：引用法规标注来源（政府官网 `[GOV]`、案例库 `[WKL]`、Westlaw `[BD]`、模型知识 `[model]`）
-3. **升级提示**：涉及刑事制裁风险或重大金额须标注升级路径
+### § A4 Available integrations
 
-## 升级决策门
-涉及以下情形须移交专业律师并明确标注：
-- 涉及OFAC/UN/EU制裁清单主体
-- 出口管制物项分类存在争议
-- 面临刑事调查或重大处罚风险（>$100K）
-- 跨境贸易涉及反倾销/反补贴调查
+| 集成 | 用途 |
+|------|------|
+| `yuandian MCP` | 海关法 + 外汇管理 + 对外贸易法 |
+| 海关总署 | 关税 / 监管 [GOV] |
+| 商务部 | 对外贸易 [GOV] |
+| 外汇局 | 外汇管理 [GOV] |
+| 商务部出口管制局 | 两用物项 [GOV] |
+| OFAC / EU / UN | 制裁清单 [域外] |
+| 商务部不可靠实体清单 | 特别管制 [域外] |
 
-## Available Skills
+### § A5 Outputs
 
-### Core Skills
-| Skill | Purpose |
-|-------|---------|
-| `export-control-reviewer` | EAR/ITAR/Commerce Control List compliance review |
-| `import-tariff-adviser` | HTS classification and duty rate advisory |
-| `trade-sanctions-checker` | OFAC, UN, EU sanctions list screening |
-| `incoterms-guide` | Incoterms 2020 rules interpretation and selection |
-| `customs-compliance-assessor` | Customs bonds, bonded warehouses, FTA utilization |
-| `trade-dispute-advisor` | WTO, anti-dumping, countervailing duty disputes |
+**Reviewer note(5 行):**
+1. 贸易基本信息:[贸易类型 / 商品 / 对方国 / 金额 / 结算货币]
+2. 主要风险:[关税 / 出口管制 / 制裁 / 外汇 / 海关估价]
+3. 程序阶段:[签约 / 报关 / 检验 / 结算 / 争议]
+4. 关键期限:[报关 14 日 / 外汇核销 / 检验 7 日]
+5. 涉外因素:[制裁清单 / 出口管制国别 / 数据出境]
 
-## Directory Structure
+**Decision tree(5 选项):**
+1. ✅ **继续推进** — 合规 / 标准贸易
+2. ⚠️ **整改 / 补正** — 单证不齐 / 申报错误
+3. 🔴 **停止 / 终止合同** — 制裁 / 出口管制
+4. 🔄 **变更贸易方式 / 路径** — 合规替代
+5. 📤 **升级主办律师** — 重大 / 跨境 / 刑事
+
+### § A6 Decision posture
+
+| 主观判断场景 | 默认姿势 |
+|--------------|----------|
+| HS 编码归类 | 取**从严**(高税率) |
+| 原产地认定 | 取**从严** |
+| 出口管制许可 | 取**从严** |
+| 制裁筛查 | 取**从严**(拒绝交易) |
+
+### § A7 Shared guardrails(9 + CN 3 + 跨境贸易特化 2)
+
+**9 + 3:** 标准 + CN 附加
+
+**跨境贸易特化 2:**
+13. **不得协助出口管制违规** — 涉《出口管制法》第 33-39 条
+14. **不得协助逃避关税 / 走私** — 涉《刑法》第 153 条走私罪
+
+### § A8 Scaffolding
+
+- 出口管制须主动建议**两用物项清单 + 许可证**
+- 制裁合规须主动建议**OFAC / 不可靠实体清单筛查**
+- 海关估价须主动建议**成交价格 + 关联交易**
+- 贸易融资须主动建议**信用证 + 福费廷合规**
+
+### § A8.1 跨境贸易特别注意 4 大块（HS 编码 + 出口管制 + 制裁 + 走私）
+
+> **核心原则**：跨境贸易监管的核心是**HS 编码归类 + 出口管制清单 + 制裁名单 + 反走私**。一票货物的归类错误 = 整个出口申报违法。
+
+#### 块 1：HS 编码归类争议（海关核心争议）
+
+**HS 编码体系（2022 修订版）：**
+
+| 章节 | 内容 | 常见争议 |
+|------|------|---------|
+| 1-5 章 | 动物 / 动物产品 | 活动物 / 食品加工品 |
+| 6-14 章 | 植物产品 | 谷物 / 油料 / 木材 |
+| 15 章 | 油脂 | 工业用 / 食用 |
+| 16-24 章 | 食品 / 烟草 | 加工食品 / 饮料 |
+| 25-27 章 | 矿产品 | **能源产品归类（最敏感）** |
+| 28-38 章 | 化工 | **化学品两用物项** |
+| 39-40 章 | 塑料 / 橡胶 | 工业 / 医疗 |
+| 41-43 章 | 皮革 / 纺织品 | 原料 / 制品 |
+| 44-46 章 | 木 / 软木 | 原木 / 制品 |
+| 50-63 章 | 纺织品 | 面料 / 服装 |
+| 64-67 章 | 鞋帽 | — |
+| 68-70 章 | 石 / 陶瓷 / 玻璃 | — |
+| 71 章 | 珠宝 | 真伪鉴别 |
+| 72-83 章 | 金属 | 钢铁 / 铝 |
+| 84-85 章 | 机电 | **半导体 / 通信设备（出口管制重点）** |
+| 86-89 章 | 运输设备 | **汽车 / 航空（敏感）** |
+| 90-92 章 | 光学 / 医疗 / 钟表 | **医疗器械** |
+| 93 章 | 武器 | **军品（绝对管制）** |
+| 94-96 章 | 杂项 | 家具 / 玩具 / 艺术品 |
+| 97 章 | 特殊 | 古董 / 收藏品 |
+
+**HS 编码归类原则：**
+
+| 原则 | 内容 |
+|------|------|
+| **类注 / 章注 / 子目注优先** | 注释法律效力高于编码本身 |
+| **从后原则** | 看起来可归多类时，按后出现类 |
+| **混合物按主要特征** | 按基本特征 / 主要用途 |
+| **零售包装 vs 工业包装** | 影响税率 |
+| **功能优先** | 多种用途按主要功能 |
+
+**HS 编码争议救济：**
+
+| 救济 | 时限 | 机关 |
+|------|------|------|
+| **预裁定申请** | 提前申请，海关书面答复 | 海关总署 / 直属海关 |
+| **归类补充申报** | 报关前申请 | 申报地海关 |
+| **归类争议行政复议** | 60 日内 | 上一级海关 |
+| **归类行政诉讼** | 6 个月内 | 北京知识产权法院 / 海事法院 |
+
+**blocks（绝对禁止 — HS 编码）**：
+- 故意错误归类逃避许可证 → **走私罪（《刑法》第 153 条）+ 海关处罚**
+- 故意错误归类逃避关税 → **走私普通货物罪 + 偷逃关税**
+- 高报 / 低报价格 → **走私罪 + 行政处罚**
+
+**work but ships（可补救）**：
+- HS 编码错误 → 主动申请更正 + 补税
+- 申报不实 → 主动报告 + 补正
+
+#### 块 2：出口管制清单 + 许可证（《出口管制法》2020）
+
+**核心法规：**
+- 《出口管制法》（2020 年 12 月生效）
+- 《两用物项出口管制条例》（2024 年 1 月生效）
+- 《军品出口管理条例》
+
+**出口管制清单 4 大类：**
+
+| 清单 | 内容 | 主管部门 |
+|------|------|---------|
+| **两用物项清单** | 化学品 / 生物 / 先进材料 / 半导体 / 传感器 / 通信设备 | 商务部 + 海关 |
+| **军品清单** | 武器 / 弹药 / 军事设备 | 国家国防科工局 |
+| **临时管制清单** | 特定国家 / 特定物项 | 商务部 + 国务院 |
+| **全面管制清单** | 临时管制升级 | 国务院 |
+
+**两用物项出口许可证申请：**
+
+| 步骤 | 时限 | 机关 |
+|------|------|------|
+| **申请** | 商务部 | 商务部许可证事务局 |
+| **审查** | 45 个工作日（可延长 30 日） | 商务部 |
+| **签发** | 通过后即时 | 商务部 |
+| **有效期限** | 1 年（可申请延长） | — |
+
+**blocks（绝对禁止 — 出口管制）**：
+- 未经许可出口管制物项 → **《出口管制法》第 33-39 条 + 走私罪（153 条）+ 5 年以下**
+- 为管制物项出口提供中介服务 → **5 年以下**
+- 伪造 / 变造 / 买卖出口许可证 → **5 年以下**
+- 出口到受制裁国家（伊朗 / 朝鲜 / 叙利亚）→ **10 年以下 + 死刑（特殊）**
+
+**work but ships（可补救）**：
+- 出口许可证过期 → 立即申请延期 / 重新申请
+- 受管制物项误出口 → 立即报告 + 申请补救
+
+#### 块 3：制裁清单筛查（OFAC + 不可靠实体清单）
+
+**主要制裁清单：**
+
+| 清单 | 范围 | 适用 |
+|------|------|------|
+| **OFAC SDN List** | 美国财政部制裁个人 / 实体 | 美国管辖（含美元结算） |
+| **OFAC 50% Rule** | SDN 持股 ≥ 50% 的子公司也受制裁 | 自动适用 |
+| **欧盟制裁清单** | 欧盟理事会制裁 | 欧盟管辖 |
+| **UN 制裁清单** | 安理会制裁 | 国际管辖 |
+| **中国不可靠实体清单** | 危害中国主权 / 安全 / 发展利益的境外实体 | 中国境内禁止交易 |
+| **中国反外国制裁法** | 配合中国反制裁 | 中国境内 |
+| **FATF 高风险国别** | 朝鲜 / 伊朗 / 缅甸 | 国际反洗钱 |
+
+**制裁筛查流程（5 步）：**
+
+| 步骤 | 内容 |
+|------|------|
+| 1. **名单比对** | OFAC / EU / UN / 中国不可靠实体清单 |
+| 2. **股权穿透** | 50% Rule + 穿透核查 |
+| 3. **地理位置** | 高风险地区（伊朗 / 朝鲜 / 叙利亚 / 克里米亚） |
+| 4. **货物核查** | 物项是否属制裁管制清单 |
+| 5. **最终客户** | 终端用户 / 终端用途审查 |
+
+**blocks（绝对禁止 — 制裁）**：
+- 与 SDN 名单实体交易（含美元结算）→ **OFAC 民事罚款 + 刑事处罚 + 上亿美元罚款**
+- 出口至受制裁国家 → **出口管制法 + OFAC + 刑事**
+- 协助规避制裁 → **OFAC 主要制裁 + 罚款 100 万美元 / 每次违规**
+
+**work but ships（可补救）**：
+- 误与 SDN 名单交易 → 立即停止 + 60 日内自愿披露（OFAC Voluntary Self-Disclosure）
+- 名单更新 → 7 日内补筛查
+
+#### 块 4：走私罪 + 海关处罚
+
+**核心法规：**
+- 《刑法》第 153 条（走私普通货物罪）
+- 《海关法》（2021 修订）
+- 《海关行政处罚实施条例》
+
+**走私罪认定标准（偷逃应缴税额）：**
+
+| 偷逃税额 | 处罚 |
+|---------|------|
+| **10 万以上** | 3 年以下 + 罚金 |
+| **50 万以上** | 3-10 年 + 罚金 |
+| **500 万以上** | 10 年以上 / 无期 + 罚金 / 没收财产 |
+| **情节特别严重** | **死刑**（如走私武器 / 核材料 / 假币） |
+
+**走私客观行为 4 类：**
+
+| 行为 | 含义 |
+|------|------|
+| **绕关走私** | 未通过设立海关地点运输 |
+| **通关走私** | 申报不实（伪报 / 瞒报 / 藏匿） |
+| **后续走私** | 进境后非法销售 |
+| **协助走私** | 提供帮助（接应 / 运输 / 储存） |
+
+**blocks（绝对禁止 — 走私）**：
+- 偷逃应缴税额 10 万 + → **走私罪**
+- 走私枪支 / 弹药 / 核材料 → **死刑**
+- 走私假币 → **无期 / 死刑**
+- 走私淫秽物品 / 珍稀动物 → **3-10 年 + 罚金**
+
+**work but ships（可补救）**：
+- 申报错误 → 主动补报 + 补税
+- 价格申报不实 → 申请价格审定 + 补税
+
+#### 块 5：4 大绝对禁止（含具体法条 + 后果分级）
+
+| 禁止 | 法条 | 后果 |
+|------|------|------|
+| 1. **未经许可出口管制物项** | 《出口管制法》第 33-39 条 | 5 年以下 + 罚金 |
+| 2. **走私普通货物（偷逃税 10 万+）** | 《刑法》第 153 条 | 3 年以下起步，500 万 + 可判死刑 |
+| 3. **与 SDN 名单交易** | OFAC | 民事 $250,000 / 项 + 刑事 |
+| 4. **出口至受制裁国** | 《出口管制法》+ OFAC | 10 年以下 + 死刑（特殊） |
+
+**关键差异（与 v3 标准一致）**：
+- **绝对禁止（blocks）** → agent 看到这些**直接停止**——告诉用户"绝对不能做"
+- **work but ships** → agent 提示整改 + 给出时限
+- **FYI** → 记录不主动告知
+
+**主动问（6 类不确定 — 跨境贸易增强版）**：
+- 商品 HS 编码 10 位 + 是否属管制清单？（出口管制触发）
+- 贸易类型 + 对方国家 / 地区？（制裁触发）
+- 是否 OFAC SDN 名单实体？（制裁筛查）
+- 海关估价 + 关联交易？（海关审查）
+- 信用证 / 福费廷 / 福费廷合规？（贸易融资）
+- 是否涉及外汇登记 / 跨境支付？（外汇管理）
+
+### § A9 Don't force a question through the wrong skill
+
+跨境贸易 15 个 skill 严格按议题分流:
+
+| 问题类型 | 路由到 |
+|----------|--------|
+| 海关估价 | `customs-valuation-checker` / `tariff-classification-advisor` |
+| 关税 | `import-tariff-adviser` / `tariff-classification-advisor` |
+| 出口管制 | `export-control-reviewer` / `export-license-assessment` / `dual-use-goods-classifier` |
+| 制裁 | `sanctioned-entity-checker` / `trade-sanctions-checker` / `trade-finance-sanctions-checker` |
+| FTA | `fta-origin-certifier` |
+| 报关 | `customs-compliance-assessor` |
+| 贸易术语 | `incoterms-guide` |
+| 信用证 | `letter-of-credit-reviewer` / `forfaiting-compliance-advisor` |
+| 贸易争议 | `trade-dispute-advisor` |
+
+### § A10-A14 精简
+
+### § A15 Tag vocabulary
+
+| Tag | 含义 |
+|-----|------|
+| `[海关法]` / `[对外贸易法]` / `[出口管制法]` | 法源 |
+| `[海关]` / `[外汇局]` / `[商务部]` / `[OFAC]` | 监管 |
+| `[GOV]` / `[YD]` / `[WKL]` / `[域外]` | 数据源 |
+
+### § A16 Large input / Large output
+
+**Large input:** 大量单证 / 合同 → 先 `legal-element-extraction`
+**Large output:** 分层输出
+
+---
+
+## Part B — Scene-Adaptive Practice Profile
+
+### § B1 工作流(主入口 + 关键节点)
+
+**主入口:** `customs-compliance-assessor`(海关合规是跨境贸易起点)
+
+**关键节点(跨境贸易 5 阶段):**
+
 ```
-/tmp/gl-work/cross-border-trade/
-├── CLAUDE.md
-├── export-control-reviewer/
-│   └── skill.md
-├── import-tariff-adviser/
-│   └── skill.md
-├── trade-sanctions-checker/
-│   └── skill.md
-├── incoterms-guide/
-│   └── skill.md
-├── customs-compliance-assessor/
-│   └── skill.md
-├── trade-dispute-advisor/
-│   └── skill.md
-└── references/
-    ├── 判断框架.md
-    ├── 查询路径.md
-    └── 数据源清单.md
+签约阶段:
+  Step 1: incoterms-guide + letter-of-credit-reviewer
+          → 贸易术语 + 结算方式
+
+报关阶段:
+  Step 2: tariff-classification-advisor + customs-valuation-checker + customs-compliance-assessor
+          → HS 编码 + 估价 + 报关
+
+检验 / 检疫:
+  Step 3: import-tariff-adviser + dual-use-goods-classifier
+          → 商品检验 + 两用物项
+
+出口管制 / 制裁:
+  Step 4: export-control-reviewer + export-license-assessment + sanctioned-entity-checker + trade-sanctions-checker
+          → 许可证 + 制裁筛查
+
+争议处理:
+  Step 5: trade-dispute-advisor + fta-origin-certifier
+          → 贸易争议 + 原产地争议
 ```
 
-## Usage Guidelines
-1. Always identify the specific trade compliance question before invoking a skill
-2. When in doubt about jurisdiction, check multiple relevant skills (e.g., US + EU for transatlantic trade)
-3. Escalate complex cases involving penalties >$100K or criminal exposure to human legal counsel
-4. Document all compliance determinations with supporting regulatory citations
+### § B2 路由表(按议题)
 
-## Key Regulatory Frameworks
-- **US**: EAR (15 CFR 730-774), ITAR (22 CFR 120-130), Customs Regulations (19 CFR)
-- **EU**: Dual-Use Regulation (EC 428/2009), EU Sanctions Framework
-- **International**: Incoterms® 2020, WTO Agreements, UN Sanctions Resolutions
+| 议题 | 主 skill |
+|------|---------|
+| 关税 / HS 编码 | tariff-classification-advisor + import-tariff-adviser |
+| 海关估价 | customs-valuation-checker |
+| 报关合规 | customs-compliance-assessor |
+| 出口管制 | export-control-reviewer + export-license-assessment + dual-use-goods-classifier |
+| 制裁 | sanctioned-entity-checker + trade-sanctions-checker |
+| 贸易融资 | letter-of-credit-reviewer + forfeiting-compliance-advisor |
+| 贸易术语 | incoterms-guide |
+| FTA | fta-origin-certifier |
+| 争议 | trade-dispute-advisor |
 
-## Quality Assurance
-- All tariff/HTS classifications should be verified against official government databases
-- Sanctions screening requires real-time database checks, not historical knowledge
-- Legal determinations involving penalty exposure require human attorney review
+### § B3 三色风险体系
 
-## 推理原子能力
-## 推理原子能力调用流程
+| 等级 | 案件类型 | 处理 |
+|------|----------|------|
+| 🔴 HIGH-1 | 制裁规避 / 出口管制违规 | **主办律师双签 + 监管沟通** |
+| 🔴 HIGH-2 | 走私 / 逃税 | 主办 + 刑事律师 |
+| 🔴 HIGH-3 | 跨境重大金额 + 制裁 | 主办 + 涉外律师 + 多法域 |
+| ⚠️ MEDIUM | 单证不齐 / 申报错误 | 主办 + 整改 |
+| ✅ LOW | 标准贸易 | 主办律师即可 |
 
-本场景的工作流程中，按以下顺序调用 `legal-atomic` 原子能力：
+### § B4 风险等级 + 审批路径
 
-| 顺序 | 原子 Skill | 调用时机 |
-|------|-----------|---------|
-| 0 | `legal-element-extraction` | 收到用户输入后立即调用，将非结构化叙述转化为结构化法律事实 |
-| 1 | `legal-norm-validity-check` | 在任何法条引用前调用，验证法条是否现行有效 |
-| 2 | `deductive-reasoning` | 在分析阶段，将待判断的问题转化为 P-F-C 三段论格式 |
-| 3 | `conflict-resolution` | 发现多个法条或请求权可能竞合时调用 |
-| 4 | `evidence-argument-chain` | 需要组织证据与主张对应关系时调用 |
-| 5 | `argument-strength-evaluation` | 输出结论前，标注论证强度（强/中/弱/存疑） |
-| 6 | `legal-risk-assessment` | 在风险分级判断时调用 |
-| 7 | `case-retrieval` | 需要检索类案时调用 |
+| 档位 | 涉案金额 | 须主办律师 | 须所务会 |
+|------|----------|-----------|----------|
+| 大型 | ≥¥1亿 | 强制 | 强制 |
+| 中型 | ¥1000万-¥1亿 | 强制 | 建议 |
+| 小型 | <¥1000万 | 主办即可 | 可选 |
 
-### 追问规则（关键）
+### § B5 升级触发(7 类)
 
-legal-element-extraction 的输出包含 `## 待补充事实` 节。如果该节非空：
+1. **出口管制违规** → 主办 + 律所 + 监管沟通
+2. **制裁规避** → 主办 + 涉外律师 + 多法域
+3. **走私 / 逃税** → 主办 + 刑事律师
+4. **跨境重大金额** → 主办 + 涉外律师 + 所务会
+5. **海关处罚** → 主办 + 海关律师
+6. **外汇违规** → 主办 + 外汇律师
+7. **贸易融资诈骗** → 主办 + 刑事律师
 
-1. **暂停当前分析流程**
-2. 向用户逐一提问待补充事实，例如：
-   > "请问合同中关于[知识产权归属/数据存储位置/价格调整机制]的条款是什么？这会影响后续判断。"
-3. 用户补充后，**回到 Step 0 重新执行 legal-element-extraction**，将新信息并入结构化事实
-4. 当待补充事实清空后，继续后续分析
+### § B6 输出格式
 
-**不得在待补充事实未清空的情况下输出最终结论。** 缺失关键事实的结论标注为「推定结论，须在事实补全后复核」。
+**Reviewer Note 5 行 + Risk Calibration 3 段**(标准模板)
 
-| 顺序 | 原子 Skill | 调用时机 |
-|------|-----------|---------|
-| 0 | `legal-element-extraction` | 收到用户输入后立即调用，将非结构化叙述转化为结构化法律事实 |
-| 1 | `legal-norm-validity-check` | 在任何法条引用前调用，验证法条是否现行有效 |
-| 2 | `deductive-reasoning` | 在分析阶段，将待判断的问题转化为 P-F-C 三段论格式 |
-| 3 | `conflict-resolution` | 发现多个法条或请求权可能竞合时调用 |
-| 4 | `evidence-argument-chain` | 需要组织证据与主张对应关系时调用 |
-| 5 | `argument-strength-evaluation` | 输出结论前，标注论证强度（强/中/弱/存疑） |
-| 6 | `legal-risk-assessment` | 在风险分级判断时调用 |
-| 7 | `case-retrieval` | 需要检索类案时调用 |
+### § B7-B8 精简
 
-每个 scene skill 的工作流程第一步应为「法律要素提取」，最后一步前应为「论证强度评估」。
+### § B9 用户配置(24 字段 YAML schema)
 
+```yaml
+# 第 1 组:贸易(6 字段)
+trade_type: [填空:出口/进口/过境/转口/...]
+goods_category: [填空:商品名称]
+hs_code: [填空:HS 编码 10 位]
+counterparty_country: [填空:对方国家/地区]
+amount: [填空:金额]
+currency: [填空:结算货币]
 
-本场景在执行 legal analysis 时，按需调用以下 `legal-atomic` 原子 skill：
+# 第 2 组:合规(6 字段)
+export_control: [填空:需要许可/不需要/受管制]
+sanctions_screening: [填空:已查/未查/命中]
+fta: [填空:已申请/未申请/...]
+customs_broker: [填空:报关行名称]
+inspection: [填空:已办/未办]
+deadline: [填空:YYYY-MM-DD]
 
-| 原子 Skill | 用途 | 调用时机 |
-|-----------|------|---------|
-| `legal-element-extraction` | 法律要素提取 | 所有输入预处理——将非结构化叙述转化为法律事实 |
-| `legal-norm-validity-check` | 法条效力核查 | 引用法条前验证是否现行有效 |
-| `deductive-reasoning` | P-F-C三段论推理 | 构建法律推理链时 |
-| `conflict-resolution` | 法条竞合/冲突解决 | 多个法条或请求权竞合时 |
-| `evidence-argument-chain` | 证据论证链 | 组织证据与主张对应关系时 |
-| `argument-strength-evaluation` | 论证强度评估 | 输出结论时标注强/中/弱/存疑 |
-| `legal-risk-assessment` | 法律风险评估 | 涉及风险分级判断时 |
-| `case-retrieval` | 类案检索方法论 | 需要检索类案时 |
+# 第 3 组:结算(4 字段)
+payment_method: [填空:信用证/托收/电汇/...]
+letter_of_credit: [填空:是/否]
+fx: [填空:是/否]
+insurance: [填空:是/否]
+
+# 第 4 组:跨境(4 字段)
+is_cross_border: [填空:是/否]
+sanctioned_country: [填空:是/否]
+controlled_goods: [填空:是/否]
+data_export: [填空:是/否]
+
+# 第 5 组:律师 + 配置(4 字段)
+partner_approval: [填空:是/否]
+attorney_contact: [填空:主办律师]
+dispute_type: [填空:无/品质/数量/...]
+case_number: [填空:海关编号]
+```
+
+**精简模式(12 字段):** trade_type / goods_category / counterparty_country / amount / export_control / sanctions_screening / payment_method / is_cross_border / deadline / attorney_contact / partner_approval / dispute_type
+
+### § B10 数据源标注
+
+```
+1. 海关法(2021 修订)        → [海关法]
+2. 对外贸易法              → [对外贸易法]
+3. 出口管制法(2020)        → [出口管制法]
+4. 外汇管理条例            → [外汇管理]
+5. 关税条例                → [关税条例]
+6. HS 编码                  → [HS编码]
+7. OFAC / EU / UN          → [域外]
+8. 商务部不可靠实体清单     → [不可靠实体]
+```
+
+### § B11-B16 余项从略(参见场景 v3 标准)
+
+---
+
+*Greater China Legal — 跨境贸易 scene*
+*curator v2.0 双层结构 · 行数 < 320*
+*最后更新:2026-06-22(从 v1.0 升级到 v2.0 一体化重写)*

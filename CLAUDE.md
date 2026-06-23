@@ -1,6 +1,6 @@
 # Greater China Legal — AI Agent Context
 
-本项目是 **大中华区法律 AI Agent Skill 体系**，基于 Anthropic `claude-for-legal` 深度适配中国大陆/香港/澳门/台湾/新加坡五大法域，覆盖 31 个法律场景、475 个原子 Skills。
+本项目是 **大中华区法律 AI Agent Skill 体系**，基于 Anthropic `claude-for-legal` 深度适配中国大陆/香港/澳门/台湾/新加坡五大法域，覆盖 **36 个**法律场景、475 个原子 Skills(2026-06 新增 criminal-defense / family-law / administrative-litigation / antitrust / enforcement / maritime / environmental 七个 P0/P1 场景)。
 
 ---
 
@@ -10,7 +10,7 @@
 Greater-China-Legal/
 ├── CLAUDE.md                     ← 本文件：AI Agent 运行时上下文
 ├── plugins/
-│   ├── scenes/<scene>/           ← 31 个法律场景
+│   ├── scenes/<scene>/           ← 36 个法律场景
 │   │   ├── CLAUDE.md             ← 场景级实践画像 + 角色 + 数据源 + 推理原子能力
 │   │   ├── skills/<skill>/SKILL.md ← 原子 Skill（可独立执行）
 │   │   ├── agents/<agent>.md     ← 定时调度 Agent（可选）

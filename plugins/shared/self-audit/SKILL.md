@@ -99,11 +99,40 @@ risk_level: low
       detail: "legal_frame: cn-mainland 字段缺失"
 ```
 
+## 作为 evolution 的辅助输入源
+
+self-audit Phase 2 的 LLM 内容质量评估（WARN/FAIL 结果）可作为 evolution REFL 阶段的**辅助输入**。
+
+**典型场景**：
+
+- self-audit 发现某 SKILL.md body < 2000b 且 Phase 2 评 FAIL → evolution 可触发"内容深度不足"反思
+- self-audit 发现 frontmatter 缺 legal_frame → evolution 不处理（结构问题 auto-test 修）
+- self-audit 发现内容"空心"（仅标题）→ evolution 可触发"骨架级 SKILL.md"反思
+
+**不直接触发 evolution**：
+
+self-audit 的输出**不直接**调用 evolution——它写到审计日志，由人工或 cron 任务决定是否升级到 evolution。
+
+升级条件（建议）：
+
+- Phase 2 FAIL 数 ≥5 个 → 建议升级到 evolution（一次性反思）
+- 同一 skill 连续 3 周 Phase 2 FAIL → 强制升级（系统性问题）
+
+**完整链路**：
+
+```
+self-audit (Phase 1 + Phase 2)
+  → 写入 _audit-log.yaml
+    → [人工/cron 判定升级]
+      → evolution REFL（参考 self-audit 报告作为辅助 evidence）
+```
+
 ## 本技能不做什么
 
 - 不修改 SKILL.md 的内容逻辑——只修复路径。
 - 不执行 AI 驱动的功能测试（仅内容质量评估）。
 - 不自动触发 cold-start——cold-start 仍由用户手动运行。
+- 不直接触发 evolution——升级由人工/cron 决定。
 
 ---
 

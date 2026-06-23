@@ -1,0 +1,60 @@
+# Evolution Mechanism Configuration
+# ============================================================
+# Strategy layer — read by scripts/evolution-runner.py.
+# Per loop-to-harness principle: behavior rules live here, NOT in Python.
+# Changing thresholds/policies here is the only place to edit them.
+# ============================================================
+
+# Patch type → required sign-off count
+# Validated against plugins/shared/evolution/SKILL.md matrix.
+signoff_required:
+  content-add: 0
+  format-fix: 0
+  restructure: 1
+  legal-source-add: 1
+  legal-source-replace: 2
+  deletion: 1
+  frame-mismatch: 3   # architect + 2 lawyers — escalation
+
+# REFL trigger thresholds
+triggers:
+  failure_rate_threshold: 0.30      # ≥30% failure rate on any eval dim → REFL
+  consecutive_failures: 3            # same case fails N times in a row → REFL
+  self_audit_phase2_fail_threshold: 5  # ≥5 Phase-2 FAILs → suggest upgrade
+
+# Law-reference normalization (regex character class)
+# Strip 《》、第、条、whitespace so "民法典 585" matches "《民法典》第 585 条".
+# Discovered during 2026-06-18 dry-run.
+law_ref_normalize_pattern: "[《》\\s第条]"
+
+# Cross-scene smoke test defaults
+smoke_test:
+  default_sample_pct: 5
+  required_adjacent_scenes: 2
+  adjacent_scene_pool:
+    - m-and-a
+    - employment-legal
+    - data-compliance
+    - litigation-support
+    - ip-infringement
+
+# Merge-log archival policy (Pattern #5 — Progressive Compaction)
+archival:
+  merge_log_archive_after_days: 90   # merge-log entries older than this get archived
+  merge_log_active_max_entries: 500  # if active log exceeds this, trigger compact
+  patterns_tier_threshold:           # promote/demote patterns based on observed_count
+    promote_to_high: 5               # observed_count ≥ 5 → high confidence tier
+    demote_to_low: 2                 # observed_count < 2 → low confidence tier (or delete)
+
+# Explore phase (Pattern #6 — Explore-Plan-Act)
+explore:
+  read_skill_md: true
+  read_git_log_commits: 20           # last N commits for context
+  read_adjacent_scenes: 2            # how many adjacent scenes to sample
+  require_human_approval: true       # explore results need human sign-off before plan
+
+# Output IDs / naming
+naming:
+  reflection_id_pattern: "rfl-{date}-{seq}"
+  proposal_id_pattern: "prp-{date}-{seq}"
+  sequence_padding: 3

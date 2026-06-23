@@ -1,248 +1,459 @@
-<!--
-Greater China Legal — Contract Review Scene Configuration
-======================================================
+# Contract Review — Practice Profile (curator v2.0)
 
-本文件为 contract-review 场景的运行时配置。
-Skill执行时会读取此文件获取场景级上下文，用于定制化输出。
--->
+<!-- CONFIGURATION LOCATION -->
+> 用户配置位置:本文件 § B9。所有 `[填空]` 标记必须由用户填写后才能跑 skill。
 
-# Contract Review Scene — Practice Profile
-
-*Written for: [公司名称] · 场景：商业合同审查*
-*Last updated: 2026-06*
-
-> 🚀 **首次使用？** 运行 `cold-start-interview`（位于 `plugins/shared/cold-start-interview`）完成场景配置。如 CLAUDE.md 中存在 `[填空]` 标记，先配置再使用 skill。
-
+*Written for: [律师事务所/公司法务部] · 场景:合同审查*
+*Last updated: 2026-06-22*
+*Schema: Part A (16 universal) + Part B (18 pattern adaptive,合同审查性质)*
+*目标行数: < 500*
 
 ---
 
-## Who's using this
+## Part A — Operating System(16 universal sections)
 
-**Role:** [律师 / 法务人员 / 业务部门（非法律背景，有律师支持）/ 业务部门（无律师支持）]
-**Attorney contact:** [填空]
+### § A1 Configuration Location
 
-**工作成果头部标记：**
-- 律师/法务人员 → `Privileged & Confidential — Attorney Work Product`
-- 非法务（有律师支持）→ `Research Notes — Not Legal Advice — Review With Attorney Before Acting`
-- 非法务（无律师支持）→ `General Information — Not Legal Advice — Consult A Licensed Attorney`
+用户配置在 **§ B9**。所有 `[填空]` 字段由 `cold-start-interview` 引导填写。
 
-在产出工作成果前，必须先检查 Role 字段。如果 Role 为 `[填空]`，要求用户先设置角色。
+**合同审查特殊性:** 用户配置**必须**包含行业 + 合同类型 + 对方身份 + 合同金额。否则视为信息不足,所有 skill 输出自动加注 `[合同主体待补]`。
 
-## 公司基本信息
+### § A2 Who's using this
 
-**公司名称：** [填空]
-**业务描述：** [填空：公司主营业务]
-**合同管理部门：** [填空：法务部/业务部门/两者共同]
-**合同管理系统：** [填空：如"无系统"/"OA审批"/"DocuSign"]
-**外部律师：** [填空：常年法律顾问/专项律师联系方式]
+**Role(5 档,合同审查特化):**
 
----
+| 档位 | 角色 | 工作产物头部 |
+|------|------|-------------|
+| 1 | 主办律师 | `律师执业秘密 — 合同审查工作底稿` |
+| 2 | 公司法务 | `法务工作底稿 — 涉商业秘密严格保密` |
+| 3 | 业务部门(自审) | **不可直接获得完整工作底稿** — 须法务审核 |
+| 4 | 外部律师协办 | `协办工作底稿 — 终稿须主办复核` |
+| 5 | 对方律师 | **不可获得任何材料** — 利益冲突 |
 
-## 合同类型覆盖
+**Attorney contact:** [填空 — 主办律师 + 执业证号 + 联系方式]
 
-### 已配置审查的合同类型
+**绝对禁止:** 律师不得同时代理合同双方当事人(利益冲突)。
 
-| 类型 | 代码 | 说明 |
-|---|---|---|
-| 买卖合同 | sales | 货物买卖 |
-| 服务合同 | service | 各类服务提供 |
-| 租赁合同 | lease | 设备/场地租赁 |
-| 股权投资 | equity | 股权转让/增资 |
-| 借款合同 | loan | 金融机构借款 |
-| 建设工程合同 | construction | 工程承包 |
-| 技术合同 | tech | 技术开发/转让/许可 |
-| 委托合同 | mandate | 代理/委托 |
+### § A3 Quiet mode for client-facing deliverables
 
-### 未覆盖合同类型处理
+**对外文档(向对方律师):**
+- 删除内部策略
+- 删除 [ASSUMPTION]
+- 保留法律事实 + 法条 + 风险提示
+- 保留 [verify]
 
-如遇到未在上表中列出的合同类型：
-1. 按"服务合同"一般规则处理
-2. 结论标注"⚠️ [合同类型] 未配置专项审查模板，建议人工审核关键条款"
+**内部工作底稿:** 保留全部。
 
----
+**特别注意:** 合同审查对外材料**严禁**威胁性 / 攻击性语言,统一以"建议修改"形式。
 
-## 数据源配置
+### § A4 Available integrations
 
-### 实时数据源
+| 集成 | 用途 | 失败回退 |
+|------|------|----------|
+| `yuandian MCP` (元典) | 民法典 / 合同法 / 司法解释检索 | `gcl search` |
+| 北大法宝 / 无讼 | 合同案例检索 | 元典 fallback |
+| 最高人民法院公报 | 合同指导案例 | [GOV] |
+| 国家企业信用信息公示系统 | 对方资信调查 | [GOV] |
+| 中国裁判文书网 | 对方涉诉情况 | [GOV] |
+| 中国执行信息公开网 | 对方失信记录 | [GOV] |
+| 国家知识产权局 | 商标 / 专利查询 | [GOV] |
 
-| 优先级 | 数据源 | 用途 |
-|---|---|---|
-| 1 | yuandian MCP | 民法典条文检索 |
-| 2 | pkulaw MCP | 合同纠纷判例检索 |
-| 3 | web_search | 备用查询 |
+**Fallback 原则:** 重要法条 / 关键事实必须双源验证。
 
-### 降级规则
+### § A5 Outputs(work-product header + reviewer note + decision tree + dashboard)
 
-| 数据源 | 不可用时的降级 |
-|---|---|
-| yuandian MCP | web_search 搜索"民法典 第[条文号]" |
-| pkulaw MCP | yuandian 或 web_search |
-| 两者均不可用 | 明确告知用户，使用法律推理 |
+**work-product header:**见 § A2 5 档。
 
----
+**Reviewer note 5 行(合同审查特化):**
+1. 合同基本信息:[类型 / 对方 / 金额 / 期限 / 行业]
+2. 主要风险:[条款风险 / 对方风险 / 履行风险]
+3. 关键条款:[争议解决 / 付款 / 违约 / 知识产权 / 保密]
+4. 主要不确定:[条款解释 / 履行可行性 / 对方资信]
+5. 涉外因素:[准据法 / 适用公约]
 
-## 合同风险等级
+**Decision tree 5 选项:**
+1. ✅ **可签** — 风险可接受
+2. ⚠️ **需修改** — 需生成 redline
+3. 🔴 **不可签** — 重大风险,需升级
+4. 🔄 **续期登记** — 长期合同需自动跟踪
+5. 📤 **升级主办律师** — 重大合同
 
-### 风险等级定义
+### § A6 Decision posture on subjective legal calls
 
-| 风险等级 | 条件 | 处理方式 |
-|---|---|---|
-| 🔴 HIGH | 涉及担保/赔偿无上限/知识产权归属对方/外国主体 | 强制法务审核 |
-| ⚠️ MEDIUM | 标准条款但有谈判空间/金额较大 | 建议审核 |
-| ✅ LOW | 标准模板/金额小/长期合作方 | 快速审查 |
+**核心原则:prefer the recoverable error.** 合同审查特化:
 
-### 合同金额阈值
+| 主观判断场景 | 默认姿势 |
+|--------------|----------|
+| 条款解释有争议 | 取**对委托方有利** |
+| 格式条款争议 | 取**不利于提供方**解释 |
+| 履行可行性 | 取**审慎评估** |
+| 涉外合同 | 取**中国法保护**倾向 |
 
-| 金额范围 | 默认审查深度 |
-|---|---|
-| < 10万 | 快速审查（10分钟） |
-| 10-100万 | 标准审查 |
-| 100-500万 | 详细审查 |
-| > 500万 | 强制法务+外部律师审核 |
+### § A7 Shared guardrails(9 + CN 附加 3 + 合同特化 2)
 
-*注：阈值可按公司风险偏好调整。*
+**9 上游 guardrails:**
+1. 不得静默补充未提供的事实
+2. 不得对不确定问题给出确定性结论
+3. 跨 skill 调用须保留原始 source tag
+4. 不得虚构条款 / 案例 / 数据
+5. 标注系统:必须使用 [民法典] / [高法解释] / [GOV] / [verify] / [review] / [ASSUMPTION] / [UNKNOWN]
+6. 不得跳级:必须按程序阶段推进
+7. severity floor:合同案件必须标不确定
+8. 不得使用"明显""毫无疑问"等绝对表述
+9. Under-flagging default:宁可多标 [verify] 不可漏标
 
----
+**CN 附加 3:**
+10. **No fake case citations** — 案号格式 `(YYYY)法院代码案由代码第N号`,虚构直接失败
+11. **Verify statutory references** — 必须引第N条 + 版本(如"《民法典》2021 第 465 条")
+12. **Local vs. central** — 涉及地方司法文件必须引具体省市
 
-## 核心审查维度
+**合同特化 2:**
+13. **不得代理合同双方** — 利益冲突绝对禁止
+14. **不得虚构对方身份** — 对方信息须核实
 
-### 必审条款（所有合同）
+### § A8 Scaffolding, not blinders
 
-- 合同标的/服务内容是否明确
-- 价款/报酬是否明确（含税约定）
-- 履行期限/地点/方式是否清晰
-- 违约责任是否公平（违约金比例是否过高）
-- 争议解决条款是否有效（仲裁/法院约定）
-- 适用法律是否明确
+本文件是 **floor**,不是 ceiling。
 
-### 按类型选审条款
+- 涉外合同须主动建议**涉外律师**
+- 大额合同须主动建议**主办律师双签**
+- 长约须主动建议**续期跟踪**
 
-| 类型 | 额外必审 |
-|---|---|
-| 买卖合同 | 质量标准/验收程序/所有权转移时间 |
-| 服务合同 | 服务标准/验收标准/成果归属 |
-| 租赁合同 | 租金支付/押金条款/提前解约条件 |
-| 股权投资 | 估值调整/优先清算/反稀释/董事会席位 |
-| 借款合同 | 利率约定/担保条款/提前还款条件 |
+### § A9 Don't force a question through the wrong skill
 
----
+合同审查 26 个 skill 严格按类型分流:
 
-## 违约金判断规则
+| 问题类型 | 路由到 |
+|----------|--------|
+| "合同分类?" | `contract-classifier` |
+| "风险分诊?" | `risk-triage` |
+| "通用审查?" | `review` |
+| "NDA?" | `nda-review` |
+| "SaaS / MSA?" | `saas-msa-review` |
+| "国际货物销售?" | `international-sales-advisor` |
+| "供应商采购?" | `vendor-agreement-review` |
+| "服务合同?" | `service-contract-reviewer` |
+| "商用租赁?" | `commercial-lease-drafter` |
+| "居住租赁?" | `housing-lease-reviewer` |
+| "土地租赁?" | `land-lease-agreement` |
+| "借款合同?" | `loan-agreement-checker` |
+| "劳动合同?" | `labor-contract-audit`(→ employment-legal) |
+| "基金合同?" | `mutual-fund-bylaws` |
+| "电商销售?" | `ecommerce-sales-contract` |
+| "催收函?" | `debt-collection-letter` |
+| "违约处理?" | `dispute-handler` |
+| "条款修改历史?" | `amendment-history` |
+| "违约预警?" | `escalation-flagger` |
+| "续期跟踪?" | `renewal-tracker` |
+| "风险条款库?" | `risk-clause-database` |
+| "标准销售?" | `standard-sales-reviewer` |
+| "条款分析?" | `term-analyzer` |
+| "供应商协议?" | `vendor-agreement-review` |
+| "提案评估?" | `review-proposals` |
+| "利益相关方摘要?" | `stakeholder-summary` |
+| "谈判红线?" | `negotiation-redlines` |
+| "民法典对照?" | `civil-code-checker` |
 
-### 过高认定标准
+**强制前置:** 任何 skill 调用前必须先读本文件 § B1(主入口)+ § B9(用户配置)。
+
+### § A10 Ad-hoc questions in this domain
+
+无显式 skill 时:走 `service-contract-reviewer`(默认)。
+
+### § A11 Proportionality
+
+| 合同复杂度 | 输出长度 |
+|------------|----------|
+| 简单(标准模板) | 1 段 + 关键风险点 |
+| 中等(典型条款) | 1 页(含 5 行 reviewer note) |
+| 复杂(涉外 / 大额) | 完整备忘录 + 决策仪表板 |
+| 高风险(争议 / 长约) | 完整工作底稿 + 主办律师双签 |
+
+### § A12 Jurisdiction recognition
+
+**默认法域:** `cn-mainland` + 中国《民法典》
+
+**涉外管辖:**
+
+| 情形 | 适用 |
+|------|------|
+| 国内合同 | 中国法 |
+| 涉外合同 | 准据法约定优先 |
+| 国际货物销售(CISG 缔约国) | CISG |
+| 港澳台 | 视具体情形 |
+
+**准据法选择考虑:**
 
 ```
-违约金 > 实际损失的130% → 可请求法院调整
+✅ 合同明示选择
+✅ 最密切联系原则
+✅ 保护弱势方原则
+✅ 国际公约优先
 ```
 
-### 调整参考
+### § A13 Retrieved-content trust
 
-| 情形 | 法院通常调整至 |
-|---|---|
-| 约定违约金过高 | 实际损失或略高于实际损失 |
-| 约定违约金过低 | 可请求增加至合理水平 |
-| 无实际损失证明 | 法院酌定 |
+- 民法典 + 司法解释须严格按版本
+- 案例检索按"争议焦点 + 合同类型"匹配
+- 地方高级法院规定须按地区标注
+
+### § A14 Handling retrieved results
+
+工具/检索结果与模型推理冲突时,**优先检索结果**,标 [verify]。
+
+### § A15 Tag vocabulary
+
+| Tag | 含义 |
+|-----|------|
+| `[民法典]` / `[合同编]` / `[高法解释]` | 法源 |
+| `[YD]` / `[WKL]` / `[GOV]` / `[model]` | 数据源 |
+| `[指导案例]` | 最高法指导案例 |
+| `[verify]` / `[review]` | 复核标记 |
+| `[续期]` / `[涉外]` / `[域外]` | 特别提示 |
+| `[ASSUMPTION]` / `[UNKNOWN]` | 不确定 |
+
+### § A16 Large input / Large output
+
+**Large input(合同可能数十页):**
+- 先 `legal-element-extraction` 抽取关键条款
+- 不全文复制到输出
+- 引用用 `第 X 条` 形式
+
+**Large output:**
+- 分层:基本信息 → 风险点 → 修改建议 → 结论
+- > 3 页输出自动生成 TOC
 
 ---
 
-## 输出格式
+## Part B — Scene-Adaptive Practice Profile
 
-### 审查报告头部
+### § B1 工作流(主入口 + 关键节点 + 主动续期 + 首次问询)
+
+**主入口:** `review`(主入口)→ 由 review 路由到具体类型 skill
+
+**关键节点(合同审查 6 阶段):**
+
+```
+Step 1: risk-triage           → 风险分诊
+Step 2: contract-classifier  → 合同类型识别
+Step 3: review               → 通用审查 + 路由
+Step 4: 类型 skill          → 专项审查
+Step 5: 三色标注           → 🟢/🟡/🔴 风险标注
+Step 6: negotiation-redlines → 生成 redline
+Step 7: escalation-flagger   → 🔴 升级
+Step 8: renewal-tracker      → 续期登记
+```
+
+**特别注意:**
+
+```
+✅ 🔴 触发 → 立即调用 escalation-flagger
+✅ 审查完成 → 主动调用 renewal-tracker(尤其 SaaS / 长约)
+✅ 用户修改条款 → 评估 playbook 更新
+✅ 多次修订同类合同 → 主动建议 playbook 升级
+```
+
+### § B2 路由表(按合同类型)
+
+**民法典合同编 19 类:**
+
+| 民法典类型 | 法条 | 调用 skill |
+|----------|------|----------|
+| 买卖合同 | 595-647 | vendor-agreement-review / ecommerce-sales-contract |
+| 借款合同 | 667-680 | loan-agreement-checker |
+| 租赁合同 | 703-734 | commercial-lease-drafter / housing-lease-reviewer / land-lease-agreement |
+| 承揽合同 | 770-787 | service-contract-reviewer |
+| 技术合同 | 843-887 | service-contract-reviewer |
+| 委托合同 | 922-936 | service-contract-reviewer |
+| 合伙合同 | 967-986 | mutual-fund-bylaws |
+| 其他 12 类 | - | service-contract-reviewer(默认) |
+
+**高频非典型合同:**
+
+| 类型 | 调用 skill |
+|------|----------|
+| **NDA / 保密协议** | nda-review |
+| **SaaS 订阅 / MSA** | saas-msa-review |
+| **国际货物销售** | international-sales-advisor |
+| **供应商采购** | vendor-agreement-review |
+| **劳动合同** | labor-contract-audit |
+| **基金合同** | mutual-fund-bylaws |
+| **商用租赁** | commercial-lease-drafter |
+| **土地租赁** | land-lease-agreement |
+| **居住租赁** | housing-lease-reviewer |
+| **电商销售** | ecommerce-sales-contract |
+| **催收函** | debt-collection-letter |
+
+### § B3 三色体系(本场景核心)
+
+| 颜色 | 含义 | agent 动作 |
+|------|------|-----------|
+| 🟢 | 可签 | 标记通过 |
+| 🟡 | 需谈 | 生成 redline,等法务确认 |
+| 🔴 | 不可签 / 必升 | 调用 escalation-flagger,停止继续审 |
+
+**NDA 触发速查:**
+
+| 信号 | 颜色 |
+|------|------|
+| 我方单方接收信息 | 🟡 |
+| 我方也须披露 | 🟢 |
+| 对方单方接收 | 🔴 |
+| 适用境外法律 | 🔴 |
+| 包含竞业限制 | 🔴 |
+
+**SaaS MSA 关键条款:**
+
+| 条款 | 🟢 | 🟡 | 🔴 |
+|------|---|-----|---|
+| 自动续期 | 通知≥60天 | 30-60天 | <30天/无 |
+| 价格上涨 | CPI/≤5% | >5%上限 | 无上限 |
+| 付款(≥3年) | - | - | 🔴 预付多年不退 → 必谈 |
+
+### § B4 风险等级 + 审批路径(P5/P6)
+
+**Materiality 3 档:**
+
+| 档位 | 合同金额 | 须主办律师 | 须所务会 |
+|------|----------|-----------|----------|
+| 大型 | ≥¥1亿 | 强制 | 强制 |
+| 中型 | ¥1000万-¥1亿 | 强制 | 建议 |
+| 小型 | <¥1000万 | 主办即可 | 可选 |
+
+### § B5 升级触发(7 类)
+
+1. **大额合同** → 主办 + 律所审批
+2. **涉外合同** → 主办 + 涉外律师
+3. **复杂长约** → 主办 + 协办 + 续期跟踪
+4. **争议合同** → 主办 + 调解 / 律师函
+5. **对方资信存疑** → 主办 + 资信调查
+6. **重大创新条款** → 主办 + 律所审批
+7. **涉及 PII / 数据** → 主办 + 数据律师(→ data-compliance)
+
+### § B6 输出模板(P9 + Reviewer note)
+
+合同审查意见书模板(从 review skill 调用):
 
 ```
 ═══════════════════════════════════════
-合同审查备忘录
+合 同 审 查 意 见 书
 ═══════════════════════════════════════
-合同名称：[自动/手动填写]
-合同类型：[自动识别]
-审查日期：[自动填写]
-风险等级：[HIGH/MEDIUM/LOW]
+合同名称:[XX]
+对方:[XX]
+我方:[XX]
+合同金额:¥X
+───────────────────────────────
+一、合同基本信息
+二、风险评估
+  🟢 可签:XXX
+  🟡 需谈:XXX
+  🔴 不可签:XXX
+三、关键条款审查
+四、修改建议
+五、结论
+───────────────────────────────
+主办律师:[签字]
+日期:[YYYY-MM-DD]
 ═══════════════════════════════════════
 ```
 
-### 风险标注格式
+### § B7 决策树(P10)
+
+| 选项 | 触发 | 动作 |
+|------|------|------|
+| ✅ 可签 | 🟢 通过 | 标记通过 |
+| ⚠️ 需修改 | 🟡 风险可谈 | 生成 redline |
+| 🔴 不可签 | 重大风险 | 升级主办律师 |
+| 🔄 续期跟踪 | 长期合同 | 登记到期日 |
+| 📤 升级 | 见 § B5 | 输出报告 |
+
+### § B8 主动问 5 类(必填 24 字段)
+
+**24 字段分 5 类:** 合同基本信息(6:类型/对方/金额/期限/行业/性质)+ 主体信息(4:对方资信/历史合作/代理人/签字权)+ 关键条款(6:争议解决/付款/违约/知识产权/保密/期限)+ 涉外(4:准据法/公约/语言/争议解决地)+ 程序(4:生效/待签/紧迫/升级)。
+
+**主动问 5 类:** 合同 / 主体 / 条款 / 涉外 / 程序
+
+### § B9 用户配置(必填,否则 [填空])
+
+```yaml
+industry: [填空:行业]
+client_role: [填空:委托方/对方/法务]
+contract_type: [填空:类型]
+counterparty_name: [填空:对方名称]
+contract_amount: [填空:合同金额]
+contract_term: [填空:期限]
+is_cross_border: [填空:是/否]
+applicable_law: [填空:中国法/准据法]
+is_long_term: [填空:是/否]
+```
+
+**用户配置为空时:** 主动问 5 类,不直接进入 skill 执行。
+
+### § B10 数据源标注(P4)
 
 ```
-🔴 HIGH RISK — [具体风险描述]
-   条款位置：[如"第X条"]
-   风险分析：[说明]
-   修改建议：[建议修改方式]
-
-⚠️ MEDIUM RISK — [具体风险描述]
-   条款位置：[如"第X条"]
-   建议：[建议处理方式]
-
-✅ LOW RISK — [无问题/已接受风险]
+1. 民法典            → [民法典]
+2. 高法司法解释      → [高法解释]
+3. 部门规章          → [部门规章]
+4. 指导性案例        → [指导案例]
+5. 地方性规定        → [地方规定]
+6. 国际公约          → [CISG / UNIDROIT]
+7. 学者观点          → [model] + [verify]
 ```
+
+### § B11 YAML 注册表复用
+
+复用 `plugins/shared/registry/`:
+- 合同类型注册表(`contract-type-registry.yaml`)
+- 风险条款库(`risk-clause-library.yaml`)
+- 行业标准条款库(`industry-clause-library.yaml`)
+
+### § B12 Per-matter Side(P7)
+
+合同审查**严格隔离:**
+
+| Side | 注意 |
+|------|------|
+| 委托方 | 服务对象 |
+| 对方 | 利益冲突,不可同时代理 |
+| 共同 | 仅调解 / 谈判阶段 |
+
+**绝对禁止:** 律师同时代理合同双方起草 + 审查。
+
+### § B13 Enforcement posture(P15)
+
+**合同执行原则:**
+
+| 事项 | 力度 |
+|------|------|
+| 合同生效 | 强 |
+| 履行跟踪 | 中 |
+| 违约追究 | 强(律师函 / 诉讼) |
+| 续期管理 | 强(避免默示续期) |
+| 合同变更 | 中(书面必要) |
+
+### § B14 Risk calibration 3 段表
+
+**段 1 识别:** 条款风险 / 对方资信 / 履行风险 / 争议风险 / 涉外风险
+**段 2 量化:** 概率 × 影响 + 缓释
+**段 3 响应:** 接受 / 缓释(redline)/ 转移(担保)/ 规避(拒签)
+
+### § B15 7 条设计哲学(合同审查特化)
+
+1. **风险预防 > 事后救济** — 合同审好省十年
+2. **条款平衡 > 形式对等** — 实质公平
+3. **履约可执行 > 条款完美** — 可执行性
+4. **续期跟踪** — 长期合同需主动跟踪
+5. **争议解决前置** — 条款设计阶段就考虑
+6. **涉外特别审查** — 准据法 + 国际公约
+7. **playbook 迭代** — 反复修订同类要更新模板
+
+### § B16 推理原子能力调用流程
+
+按 7 步调用 `legal-atomic`,特别关注 § 4 evidence-argument-chain(合同条款证据组织)。
 
 ---
 
-## 争议解决路径
-
-### 建议路径（按金额）
-
-| 金额 | 建议路径 |
-|---|---|
-| < 50万 | 协商优先 → 调解 → 仲裁 |
-| 50-500万 | 协商 → 仲裁/诉讼 |
-| > 500万 | 诉讼（便于财产保全） |
-
-
-## 推理原子能力
-## 推理原子能力调用流程
-
-本场景的工作流程中，按以下顺序调用 `legal-atomic` 原子能力：
-
-| 顺序 | 原子 Skill | 调用时机 |
-|------|-----------|---------|
-| 0 | `legal-element-extraction` | 收到用户输入后立即调用，将非结构化叙述转化为结构化法律事实 |
-| 1 | `legal-norm-validity-check` | 在任何法条引用前调用，验证法条是否现行有效 |
-| 2 | `deductive-reasoning` | 在分析阶段，将待判断的问题转化为 P-F-C 三段论格式 |
-| 3 | `conflict-resolution` | 发现多个法条或请求权可能竞合时调用 |
-| 4 | `evidence-argument-chain` | 需要组织证据与主张对应关系时调用 |
-| 5 | `argument-strength-evaluation` | 输出结论前，标注论证强度（强/中/弱/存疑） |
-| 6 | `legal-risk-assessment` | 在风险分级判断时调用 |
-| 7 | `case-retrieval` | 需要检索类案时调用 |
-
-### 追问规则（关键）
-
-legal-element-extraction 的输出包含 `## 待补充事实` 节。如果该节非空：
-
-1. **暂停当前分析流程**
-2. 向用户逐一提问待补充事实，例如：
-   > "请问合同中关于[知识产权归属/数据存储位置/价格调整机制]的条款是什么？这会影响后续判断。"
-3. 用户补充后，**回到 Step 0 重新执行 legal-element-extraction**，将新信息并入结构化事实
-4. 当待补充事实清空后，继续后续分析
-
-**不得在待补充事实未清空的情况下输出最终结论。** 缺失关键事实的结论标注为「推定结论，须在事实补全后复核」。
-
-| 顺序 | 原子 Skill | 调用时机 |
-|------|-----------|---------|
-| 0 | `legal-element-extraction` | 收到用户输入后立即调用，将非结构化叙述转化为结构化法律事实 |
-| 1 | `legal-norm-validity-check` | 在任何法条引用前调用，验证法条是否现行有效 |
-| 2 | `deductive-reasoning` | 在分析阶段，将待判断的问题转化为 P-F-C 三段论格式 |
-| 3 | `conflict-resolution` | 发现多个法条或请求权可能竞合时调用 |
-| 4 | `evidence-argument-chain` | 需要组织证据与主张对应关系时调用 |
-| 5 | `argument-strength-evaluation` | 输出结论前，标注论证强度（强/中/弱/存疑） |
-| 6 | `legal-risk-assessment` | 在风险分级判断时调用 |
-| 7 | `case-retrieval` | 需要检索类案时调用 |
-
-每个 scene skill 的工作流程第一步应为「法律要素提取」，最后一步前应为「论证强度评估」。
-
-
-本场景在执行 legal analysis 时，按需调用以下 `legal-atomic` 原子 skill：
-
-| 原子 Skill | 用途 | 调用时机 |
-|-----------|------|---------|
-| `legal-element-extraction` | 法律要素提取 | 所有输入预处理——将非结构化叙述转化为法律事实 |
-| `legal-norm-validity-check` | 法条效力核查 | 引用法条前验证是否现行有效 |
-| `deductive-reasoning` | P-F-C三段论推理 | 构建法律推理链时 |
-| `conflict-resolution` | 法条竞合/冲突解决 | 多个法条或请求权竞合时 |
-| `evidence-argument-chain` | 证据论证链 | 组织证据与主张对应关系时 |
-| `argument-strength-evaluation` | 论证强度评估 | 输出结论时标注强/中/弱/存疑 |
-| `legal-risk-assessment` | 法律风险评估 | 涉及风险分级判断时 |
-| `case-retrieval` | 类案检索方法论 | 需要检索类案时 |
-
----
-
-*Greater China Legal — B-phase contract-review scene configuration*
+*Greater China Legal — Contract Review scene*
+*curator v2.0 双层结构 · Part A 16 universal + Part B 18 pattern adaptive*
+*行数 < 500 · 最后更新:2026-06-22(从 v1 升级到 v2.0)*

@@ -1,0 +1,75 @@
+- run_at: '2026-06-18T09:14:59'
+  run_id: auto-test-run-2026-06-18
+  scene: contract-review
+  case_id: contract-review-001
+  result: FAIL
+  scores:
+    law_citation_accuracy: 0.0
+    risk_coverage: 0.0
+    advice_soundness: 0.0
+    format_compliance: 0.0
+  failed_dimensions:
+  - law_citation_accuracy
+  - risk_coverage
+  - advice_soundness
+  - format_compliance
+- run_at: '2026-06-18T09:14:59'
+  run_id: auto-test-run-2026-06-18
+  scene: contract-review
+  case_id: contract-review-001
+  result: FAIL
+  scores:
+    law_citation_accuracy: 0.0
+    risk_coverage: 0.0
+    advice_soundness: 0.0
+    format_compliance: 0.0
+  failed_dimensions:
+  - law_citation_accuracy
+  - risk_coverage
+  - advice_soundness
+  - format_compliance
+- run_at: '2026-06-18T09:14:59'
+  run_id: auto-test-run-2026-06-18
+  scene: contract-review
+  case_id: contract-review-001
+  result: FAIL
+  scores:
+    law_citation_accuracy: 0.0
+    risk_coverage: 0.0
+    advice_soundness: 0.0
+    format_compliance: 0.0
+  failed_dimensions:
+  - law_citation_accuracy
+  - risk_coverage
+  - advice_soundness
+  - format_compliance
+- run_at: '2026-06-18T09:14:59'
+  run_id: auto-test-run-2026-06-18
+  scene: contract-review
+  case_id: contract-review-001
+  result: FAIL
+  scores:
+    law_citation_accuracy: 0.0
+    risk_coverage: 0.0
+    advice_soundness: 0.0
+    format_compliance: 0.0
+  failed_dimensions:
+  - law_citation_accuracy
+  - risk_coverage
+  - advice_soundness
+  - format_compliance
+- run_at: '2026-06-18T09:15:00'
+  run_id: auto-test-run-2026-06-18
+  scene: contract-review
+  case_id: contract-review-001
+  result: FAIL
+  scores:
+    law_citation_accuracy: 0.5
+    risk_coverage: 0.0
+    advice_soundness: 0.0
+    format_compliance: 0.0
+  failed_dimensions:
+  - law_citation_accuracy
+  - risk_coverage
+  - advice_soundness
+  - format_compliance

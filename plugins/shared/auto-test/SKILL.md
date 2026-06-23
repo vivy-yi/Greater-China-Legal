@@ -188,11 +188,53 @@ expected:
 | 周五 | 剩余场景 + 汇总 + 修复确认 |
 | 周末 | 不执行 |
 
+## 与 evolution 的协作
+
+auto-test 是 **RUN + EVAL 阶段**（机械层），`plugins/shared/evolution/` 是 **REFL + PATCH + 回归阶段**（认知层）。
+
+**职责边界**：
+
+| 能力 | auto-test | evolution |
+|------|-----------|-----------|
+| 执行测试 | ✅ | ❌ |
+| 评估输出（机械评分） | ✅ | ❌ |
+| 失败归因（认知推理） | ❌ | ✅ |
+| 生成 patch 提案 | ❌ | ✅ |
+| 修复结构性问题（自动） | ✅ Step 5 | ❌（升级为 proposal） |
+| 修改法条/法律逻辑 | ❌ | ✅（需 sign-off） |
+| 跨次反思/元学习 | ❌ | ✅ |
+
+**交接契约**：auto-test 跑完后，**符合以下任一条件**应触发 evolution REFL：
+
+1. 某评估维度失败率 ≥ 30%
+2. 同一 case 连续 ≥3 次 FAIL
+3. 出现 legal-source-* 类型的失败
+4. self-audit Phase 2 标 FAIL 的 skill
+
+**不触发 evolution 的情况**（auto-test 自行处理）：
+
+- 纯结构问题（节标题命名、frontmatter 缺失）—— auto-test Step 5 自动修
+- placeholder 残留 —— 提示用户跑 cold-start
+- 一次性偶发失败 —— 写入 _results.yaml 但不触发 REFL
+
+**完整协作链路**：
+
+```
+auto-test RUN
+  → EVAL (auto-test 输出 _results.yaml + 报告)
+    → [触发条件满足] → evolution REFL（生成 reflection）
+      → evolution PATCH（生成 proposal）
+        → evolution GATE（人/律师 sign-off）
+          → evolution 回归（auto-test 再次跑 regression_test_set）
+            → merge + 写入 evolution/merge-log.yaml
+```
+
 ## 本技能不做什么
 
 - 不验证法条引用的准确性——只检查术语存在性。
 - 不替代真实律师的审核。
 - 不修改 SKILL.md 的法律逻辑——只修复结构性问题。
+- 不做归因推理——失败归因由 evolution 处理，auto-test 只产原始证据。
 
 ---
 

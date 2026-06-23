@@ -1,200 +1,296 @@
----
-name: ai-governance-legal
-description: >
-  AI governance and compliance legal practice — AI inventory management,
-  impact assessments, regulatory compliance for AI systems under CAC regulations
-  and Mainland China AI governance framework.
-  Covers AI推荐算法/生成合成内容/深度合成/自动驾驶等场景。
-synopsis: >
-  CN AI governance framework: CAC 算法推荐/深度合成/生成式AI管理办法,
- 个人信息保护法, 数据安全法, 网络安全法.
-  Obligations: 算法备案, 安全评估, 个人信息保护, 数据本地化.
-advisory_scale: medium
-client_types: [in-house-legal, compliance-team]
-internal_stakeholders: [compliance, product, engineering, privacy]
-external_interfaces: [cac, mit, samr]
-risks: [regulatory-enforcement, enforcement-risk-high, privacy-penalty]
----
+# AI Governance Legal — Practice Profile (curator v2.0)
 
-# AI Governance Legal Practice — China Mainland
+<!-- CONFIGURATION LOCATION -->
+> 用户配置位置:本文件 § B9。所有 `[填空]` 标记必须由用户填写后才能跑 skill。
 
-## Who's using this
-
-**Role:** [律师 / 法务人员 / 业务部门（非法律背景，有律师支持）/ 业务部门（无律师支持）]
-**Attorney contact:** [填空]
-
-**工作成果头部标记：**
-- 律师/法务人员 → `Privileged & Confidential — Attorney Work Product`
-- 非法务（有律师支持）→ `Research Notes — Not Legal Advice — Review With Attorney Before Acting`
-- 非法务（无律师支持）→ `General Information — Not Legal Advice — Consult A Licensed Attorney`
-
-在产出工作成果前，必须先检查 Role 字段。如果 Role 为 `[填空]`，要求用户先设置角色。
-
-## 公司基本信息
-
-**公司名称：** [填空]
-**统一社会信用代码：** [填空]
-**注册资本：** [填空]
-**所属行业：** [填空]
-**上市状态：** [未上市 / 新三板 / 科创板 / 创业板 / 主板 / 港股 / 美股]
-**法域：** cn-mainland
-
-## 数据源配置
-
-**数据源标注规则：**
-- `[YD]` = 元典 MCP 实际返回
-- `[WKL]` = 裁判文书网/无讼
-- `[BD]` = 北达检索
-- `[GOV]` = 政府平台
-- `[web]` = 网络搜索
-- `[model]` = 模型推理（须核实）
-
-标注必须诚实——不能因"引用看起来是对的"就把 `[model]` 标为 `[YD]`。关键结论须多源交叉验证。
-
-## CN AI Regulatory Framework
-
-### Core Regulations
-
-| 法规 | 生效日期 | 适用范围 |
-|---|---|---|
-| 《互联网信息服务算法推荐管理规定》| 2022-03-01 | 算法推荐服务 |
-| 《互联网信息服务深度合成管理规定》| 2023-01-10 | 深度合成 |
-| 《生成式人工智能服务管理暂行办法》| 2023-08-15 | 生成式AI服务 |
-| 《汽车数据安全管理若干规定》| 2021-10-01 | 自动驾驶/车联网 |
-| 《个人信息保护法》| 2021-11-01 | 个人信息处理 |
-| 《数据安全法》| 2021-09-01 | 数据处理 |
+*Written for: [律师事务所/AI 企业法务] · 场景:AI 治理法律*
+*Last updated: 2026-06-22*
+*Schema: Part A (16 universal) + Part B (18 pattern adaptive,AI 治理性质)*
+*目标行数: < 500*
 
 ---
 
-## CN AI Governance Obligations
+## Part A — Operating System(16 universal sections)
 
-### 算法推荐服务（CAC规定）
+### § A1 Configuration Location
 
-**须履行的义务：**
-1. 算法备案（省级网信办）
-2. 安全评估（每年）
-3. 个人信息保护评估（变更时）
-4. 算法透明度和可解释性
-5. 用户权利保障（选择权/退出权/删除权）
+用户配置在 **§ B9**。所有 `[填空]` 字段由 `cold-start-interview` 引导填写。
+
+**AI 治理特殊性:** 用户配置**必须**包含 AI 系统类型(算法 / 大模型 / 应用)+ 应用场景 + 行业。否则视为信息不足,所有 skill 输出自动加注 `[AI 系统待评估]`。
+
+### § A2 Who's using this
+
+**Role(5 档,AI 治理特化):**
+
+| 档位 | 角色 | 工作产物头部 |
+|------|------|-------------|
+| 1 | 主办律师(AI 治理) | `律师执业秘密 — AI 治理工作底稿` |
+| 2 | AI 法务 / 伦理官 | `AI 合规工作底稿` |
+| 3 | 算法工程师(咨询) | `算法咨询工作底稿` |
+| 4 | 数据保护官(DPO) | `DPO 工作底稿`(→ data-compliance) |
+| 5 | 监管机关(网信办 / 工信部) | **不可代理** |
+
+### § A3 Quiet mode for client-facing deliverables
+
+**对外:**
+- 删除内部策略
+- 保留法律事实 + 合规义务
+- 保留 [verify]
+
+### § A4 Available integrations
+
+| 集成 | 用途 | 失败回退 |
+|------|------|----------|
+| `yuandian MCP` | AI 法 / 算法推荐 / 深度合成 | `gcl search` |
+| 北大法宝 / 无讼 | AI 案例 | 元典 fallback |
+| 网信办 | 算法备案 / 深度合成 | [GOV] |
+| 工信部 | 大模型备案 | [GOV] |
+| 全国信安标委 | AI 标准 | [GOV] |
+
+### § A5 Outputs
+
+**Reviewer note 5 行(AI 治理特化):**
+1. AI 系统基本信息:[类型 / 用途 / 数据 / 用户]
+2. 主要风险:[算法歧视 / 数据安全 / 知识产权 / 责任]
+3. 合规义务:[算法备案 / 深度合成标识 / 大模型备案]
+4. 主要不确定:[技术细节 / 监管态度]
+5. 涉外因素:[欧盟 AI Act / 美国 EO]
+
+**Decision tree 5 选项:**
+1. ✅ 合规
+2. ⚠️ 整改
+3. 🔴 重大违规
+4. 🔄 算法审计
+5. 📤 升级主办律师
+
+### § A6 Decision posture
+
+| 主观判断 | 默认姿势 |
+|----------|----------|
+| 算法歧视 | 取**从严** |
+| 透明度 | 取**充分** |
+| 数据使用 | 取**最小化** |
+| 涉外 | 取**中国法优先** |
+
+### § A7 Shared guardrails(9 + CN 附加 3 + AI 治理特化 2)
+
+**9 + 3:**(同标准)
+**AI 治理特化 2:**
+13. **不得协助规避算法备案** — 涉刑民交叉
+14. **不得协助训练数据违规使用** — 律师执业红线
+
+### § A8 Scaffolding
+
+- 涉大模型 / 算法推荐须主动建议**算法备案**
+- 涉深度合成须主动建议**标识义务**
+- 涉数据训练须主动建议**data-compliance scene**
+
+### § A9 Don't force a question through the wrong skill
+
+按 AI 类型分流:
+
+| 类型 | 路由 |
+|------|------|
+| 算法推荐 | 算法推荐专属 |
+| 深度合成 | 深度合成专属 |
+| 大模型 | 大模型专属 |
+| 通用 AI | 通用 AI 专属 |
+| 数据训练 | data-compliance scene |
+| 用户权益 | 消费者权益 |
+
+### § A10 Ad-hoc questions
+按 5 类 fallback。
+
+### § A11 Proportionality
+
+| 复杂度 | 输出 |
+|--------|------|
+| 简单(已知) | 1 段 |
+| 中等(新规) | 1 页 + 整改建议 |
+| 复杂(多系统) | 完整备忘录 |
+| 高风险(重大) | 完整工作底稿 + 双签 |
+
+### § A12 Jurisdiction recognition
+
+**默认法域:** `cn-mainland` + 中国 AI 治理体系
+
+**涉外:**
+
+| 法域 | 关注 |
+|------|------|
+| 中国 | 算法备案 / 深度合成 |
+| 欧盟 | AI Act |
+| 美国 | EO 14110 |
+
+### § A13 Retrieved-content trust
+AI 法规更新频繁,须确认现行有效。
+
+### § A14 Handling retrieved results
+优先检索结果,标 [verify]。
+
+### § A15 Tag vocabulary
+
+| Tag | 含义 |
+|-----|------|
+| `[算法推荐]` / `[深度合成]` / `[大模型]` | AI 法规 |
+| `[GOV]` / `[YD]` / `[WKL]` / `[model]` | 数据源 |
+| `[verify]` / `[review]` | 复核标记 |
+| `[欧盟 AI Act]` / `[美国 EO]` | 涉外 AI 法规 |
+| `[算法歧视]` / `[数据安全]` | 特别风险 |
+
+### § A16 Large input / Large output
+技术文档 / 训练数据可能数 GB,先 `legal-element-extraction`。
 
 ---
 
-### 生成式AI服务
+## Part B — Scene-Adaptive Practice Profile
 
-**须履行的义务：**
-1. 安全评估（国家级）
-2. 算法备案（按模型规模）
-3. 数据标注合规（不得侵犯个人信息）
-4. 个人信息保护（尤其用于训练的数据）
-5. 色情/虚假信息防控
+### § B1 工作流(主入口 + 关键节点)
+
+**主入口:** AI 系统类型识别 → 专属 skill
+
+**关键节点:**
+
+```
+Step 1: AI 系统识别
+Step 2: 合规义务清单
+Step 3: 风险评估
+Step 4: 整改方案
+Step 5: 持续治理
+```
+
+### § B2 路由表(按 AI 类型)
+
+| AI 类型 | 监管 | 主要 skill |
+|----------|------|----------|
+| 算法推荐 | 网信办 | 算法推荐专属 |
+| 深度合成 | 网信办 / 工信部 | 深度合成专属 |
+| 大模型 | 网信办 | 大模型专属 |
+| 通用 AI | 各部委 | 通用 AI 专属 |
+| 自动驾驶 | 工信部 / 公安 | 行业专属 |
+| 医疗 AI | 卫健委 / 药监局 | 行业专属 |
+| 金融 AI | 央行 / 银保监 | 行业专属 |
+
+### § B3 三色风险体系
+
+| 等级 | 案件类型 | 处理 |
+|------|----------|------|
+| 🔴 HIGH-1 | 重大算法歧视 + 群体性 | **主办律师双签** |
+| 🔴 HIGH-2 | 大模型 + 涉外 | 主办 + 涉外律师 |
+| ⚠️ MEDIUM | 一般 AI 合规 | 主办律师 |
+| ✅ LOW | 简单 AI 系统 | 主办律师即可 |
+
+### § B4 风险等级 + 审批路径
+
+| 档位 | 用户规模 | 须主办律师 | 须所务会 |
+|------|----------|-----------|----------|
+| 大型 | ≥¥1亿 | 强制 | 强制 |
+| 中型 | ¥1000万-¥1亿 | 强制 | 建议 |
+| 小型 | <¥1000万 | 主办即可 | 可选 |
+
+### § B5 升级触发(7 类)
+
+1. **重大算法歧视** → 主办 + 律所 + 算法专家
+2. **大模型 + 涉外** → 主办 + 涉外律师
+3. **数据训练争议** → 主办 + 知识产权律师
+4. **行业重大** → 主办 + 律所审批
+5. **数据合规** → data-compliance scene
+6. **知识产权** → ip-infringement scene
+7. **消费者投诉** → 主办 + 律所审批
+
+### § B6 输出模板(从略)
+
+### § B7 决策树
+
+| 选项 | 触发 | 动作 |
+|------|------|------|
+| ✅ 合规 | 已合规 | 维持 |
+| ⚠️ 整改 | 差距可补 | 整改 |
+| 🔴 重大违规 | 重大差距 | 升级 |
+| 🔄 算法审计 | 复杂差距 | 审计 |
+| 📤 升级主办律师 | 见 § B5 | 输出报告 |
+
+### § B8 主动问 5 类
+
+**24 字段分 5 类:** AI 系统(6:类型/用途/数据/用户/算法/部署)+ 主体(4:开发者/部署者/用户/合作方)+ 风险(6:歧视/数据/IP/责任/安全/伦理)+ 义务(4:备案/标识/披露/审计)+ 涉外(4:跨境/欧盟/美国/国际标准)。
+
+**主动问 5 类:** 系统 / 主体 / 风险 / 义务 / 涉外
+
+### § B9 用户配置(必填)
+
+```yaml
+ai_type: [填空:算法推荐/深度合成/大模型/通用]
+ai_purpose: [填空:用途]
+industry: [填空:行业]
+data_source: [填空:训练数据来源]
+is_cross_border: [填空:是/否]
+is_user_facing: [填空:是/否]
+```
+
+**用户配置为空时:** 主动问 5 类,不直接进入 skill 执行。
+
+### § B10 数据源标注
+
+```
+1. 算法推荐管理规定      → [算法推荐]
+2. 深度合成管理规定      → [深度合成]
+3. 生成式 AI 管理暂行办法 → [生成式 AI]
+4. 民法典                → [民法典]
+5. 数据安全法 / 个保法    → [数据合规]
+6. 指导性案例            → [指导案例]
+7. 欧盟 AI Act            → [欧盟 AI Act]
+8. 学者观点              → [model] + [verify]
+```
+
+### § B11 YAML 注册表复用
+
+复用 `plugins/shared/registry/`:
+- AI 系统注册表
+- 算法备案注册表
+- AI 行业注册表
+
+### § B12 Per-matter Side(P7)
+
+AI 治理**严格隔离:**
+
+| Side | 注意 |
+|------|------|
+| AI 开发者 | 服务对象 |
+| AI 部署者 | 单独评估 |
+| 用户 | 消费者保护 |
+| 监管 | 不可代理 |
+
+### § B13 Enforcement posture
+
+| 事项 | 力度 |
+|------|------|
+| 算法备案 | 强 |
+| 深度合成标识 | 强 |
+| 数据安全 | 强(→ data-compliance) |
+| 责任承担 | 强 |
+
+### § B14 Risk calibration
+
+**段 1 识别:** 算法歧视风险 / 数据安全风险 / 知识产权风险 / 责任风险 / 涉外风险
+**段 2 量化:** 概率 × 影响 + 缓释
+**段 3 响应:** 接受 / 缓释(整改)/ 转移(算法审计)/ 规避(下架)
+
+### § B15 7 条设计哲学(AI 治理特化)
+
+1. **算法透明** — 备案 + 标识
+2. **数据合规** — 最小化 + 同意
+3. **用户权益** — 投诉 + 救济
+4. **技术中立** — 不得歧视
+5. **持续治理** — 静态合规不够
+6. **责任承担** — 平台 + 开发者
+7. **国际协调** — 涉外 AI 法规
+
+### § B16 推理原子能力调用流程
+
+按 7 步调用 `legal-atomic`,特别关注 § 4 evidence-argument-chain(AI 系统评估)。
 
 ---
 
-## CN AI Inventory Management
-
-### CN AI System Categories
-
-| 类型 | 说明 | 备案要求 |
-|---|---|---|
-| 算法推荐 | 推荐/排序/过滤 | 须备案 |
-| 深度合成 | 换脸/语音合成/AI生成内容 | 须备案 |
-| 生成式AI | LLM/图像生成/视频生成 | 须安全评估 |
-| 自动驾驶 | L2+/L3/L4 | 须安全评估 |
-| 人脸识别 | 生物识别 | 须安全评估 |
-
----
-
-## Risk Tiers
-
-| 风险等级 | 说明 |
-|---|---|
-| 🔴 Prohibited | 深度伪造用于犯罪、歧视性算法 |
-| 🟠 High-risk | 生成式AI大规模服务、自动驾驶 |
-| 🟡 Limited-risk | 算法推荐（须透明度） |
-| ⚪ Minimal-risk | 信息检索类 |
-
----
-
-## Data Sources
-
-- [GOV] CAC官网算法推荐备案公示
-- [GOV] 全国互联网安全管理服务平台
-- [YD] 法律精灵执法案例
-- [WKL] 各大律所AI合规指南
-
----
-
-## 输出格式
-
-所有正式输出须在文档开头标注特权头部标记（参见 ## Who's using this），并遵守以下格式要求：
-
-- 法律分析结论须标注数据来源标记
-- 涉及法条引用须标明具体条款及生效版本
-- 涉及金额、日期等数字须注明信息来源
-
-## 升级决策门
-
-以下情形必须升级给执业律师：
-1. 涉及算法备案被驳回或处罚的应对策略
-2. 涉及生成式AI安全评估未通过的后续方案
-3. 涉及个人信息泄露事件的应急与通知义务
-4. 涉及跨境数据传输的合规路径设计
-5. 涉及刑事风险（如深度合成用于犯罪）的案件
-
----
-
-## 推理原子能力
-## 推理原子能力调用流程
-
-本场景的工作流程中，按以下顺序调用 `legal-atomic` 原子能力：
-
-| 顺序 | 原子 Skill | 调用时机 |
-|------|-----------|---------|
-| 0 | `legal-element-extraction` | 收到用户输入后立即调用，将非结构化叙述转化为结构化法律事实 |
-| 1 | `legal-norm-validity-check` | 在任何法条引用前调用，验证法条是否现行有效 |
-| 2 | `deductive-reasoning` | 在分析阶段，将待判断的问题转化为 P-F-C 三段论格式 |
-| 3 | `conflict-resolution` | 发现多个法条或请求权可能竞合时调用 |
-| 4 | `evidence-argument-chain` | 需要组织证据与主张对应关系时调用 |
-| 5 | `argument-strength-evaluation` | 输出结论前，标注论证强度（强/中/弱/存疑） |
-| 6 | `legal-risk-assessment` | 在风险分级判断时调用 |
-| 7 | `case-retrieval` | 需要检索类案时调用 |
-
-### 追问规则（关键）
-
-legal-element-extraction 的输出包含 `## 待补充事实` 节。如果该节非空：
-
-1. **暂停当前分析流程**
-2. 向用户逐一提问待补充事实，例如：
-   > "请问合同中关于[知识产权归属/数据存储位置/价格调整机制]的条款是什么？这会影响后续判断。"
-3. 用户补充后，**回到 Step 0 重新执行 legal-element-extraction**，将新信息并入结构化事实
-4. 当待补充事实清空后，继续后续分析
-
-**不得在待补充事实未清空的情况下输出最终结论。** 缺失关键事实的结论标注为「推定结论，须在事实补全后复核」。
-
-| 顺序 | 原子 Skill | 调用时机 |
-|------|-----------|---------|
-| 0 | `legal-element-extraction` | 收到用户输入后立即调用，将非结构化叙述转化为结构化法律事实 |
-| 1 | `legal-norm-validity-check` | 在任何法条引用前调用，验证法条是否现行有效 |
-| 2 | `deductive-reasoning` | 在分析阶段，将待判断的问题转化为 P-F-C 三段论格式 |
-| 3 | `conflict-resolution` | 发现多个法条或请求权可能竞合时调用 |
-| 4 | `evidence-argument-chain` | 需要组织证据与主张对应关系时调用 |
-| 5 | `argument-strength-evaluation` | 输出结论前，标注论证强度（强/中/弱/存疑） |
-| 6 | `legal-risk-assessment` | 在风险分级判断时调用 |
-| 7 | `case-retrieval` | 需要检索类案时调用 |
-
-每个 scene skill 的工作流程第一步应为「法律要素提取」，最后一步前应为「论证强度评估」。
-
-
-本场景在执行 legal analysis 时，按需调用以下 `legal-atomic` 原子 skill：
-
-| 原子 Skill | 用途 | 调用时机 |
-|-----------|------|---------|
-| `legal-element-extraction` | 法律要素提取 | 所有输入预处理——将非结构化叙述转化为法律事实 |
-| `legal-norm-validity-check` | 法条效力核查 | 引用法条前验证是否现行有效 |
-| `deductive-reasoning` | P-F-C三段论推理 | 构建法律推理链时 |
-| `legal-risk-assessment` | 法律风险评估 | 涉及风险分级判断时 |
-| `conflict-resolution` | 法条竞合/冲突解决 | 多个法条或请求权竞合时 |
-| `case-retrieval` | 类案检索方法论 | 需要检索类案时 |
-| `trial-scheduling-and-deadline-monitoring` | 期限管理 | 涉及诉讼/仲裁期限时 |
-
-*Greater China Legal — ai-governance-legal CN adapter v1.0.0*
+*Greater China Legal — AI Governance Legal scene*
+*curator v2.0 双层结构 · Part A 16 universal + Part B 18 pattern adaptive*
+*行数 < 500 · 最后更新:2026-06-22(从 v1 升级到 v2.0)*
