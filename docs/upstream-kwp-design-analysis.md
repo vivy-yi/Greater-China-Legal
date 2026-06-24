@@ -1470,13 +1470,13 @@ run `/commercial-legal:cold-start-interview` to get interviewed.*
 | 上游 | 本项目当前 | 差距 |
 |------|----------|------|
 | 位置 1（仓库根 CLAUDE.md） | ✅ 有 `CLAUDE.md` | OK |
-| 位置 2（plugin 根 CLAUDE.md 模板） | ⚠️ 有 `plugins/scenes/<scene>/CLAUDE.md` 但**当运行配置用**（带 `[填空]`） | **反范式** |
+| 位置 2（plugin 根 CLAUDE.md 模板） | ⚠️ 有 `plugins/legal-scenes/<scene>/CLAUDE.md` 但**当运行配置用**（带 `[填空]`） | **反范式** |
 | 位置 3（用户机器 plugin CLAUDE.md） | ❌ 没有 | **缺** |
 | 位置 4（用户机器 company-profile.md） | ❌ 没有 | **缺** |
 
 **本项目具体问题**：
 
-1. **位置 2 错位**：`plugins/scenes/contract-review/CLAUDE.md` 头部是 `[填空]` 占位符，意味着**没跑过 cold-start 就把模板当运行配置**——这正是上游位置 1 警告的反模式
+1. **位置 2 错位**：`plugins/legal-scenes/contract-review/CLAUDE.md` 头部是 `[填空]` 占位符，意味着**没跑过 cold-start 就把模板当运行配置**——这正是上游位置 1 警告的反模式
 2. **缺位置 3 概念**：用户的真实 playbook 没持久化——律师改东西只能改仓库里的模板
 3. **缺位置 4 概念**：5 法域、公司基本信息没法跨 31 个 scene 共享
 4. **缺 user vs project scope 选择**：QUICKSTART 明确警告"Install user-scoped, not project-scoped"，本项目没这层

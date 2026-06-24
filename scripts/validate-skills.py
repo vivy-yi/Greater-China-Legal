@@ -16,10 +16,13 @@ from pathlib import Path
 
 LEGAL_FRAMES = {"cn-mainland", "hk", "mo", "tw", "sg"}
 PROHIBITED_TERMS = [
-    "UCC", "FRCP", "FIRREA", "Delaware law", "Delaware Corporations",
+    "FIRREA", "Delaware law", "Delaware Corporations",
     "SEC regulations", "CFTC regulations", "FINRA", "Sarbanes-Oxley",
-    "ERISA", "HIPAA", "FCPA", "Bankruptcy Code", "Title11",
+    "ERISA", "HIPAA", "Bankruptcy Code", "Title11",
 ]
+# 注：FRCP / UCC / FCPA 已从 PROHIBITED_TERMS 移除。
+# GCL 项目定位包含跨境参考（white-collar-crime / government-investigation / litigation-support 等场景真实引用美国法律），
+# 这三个词保留作为合理跨境参考。其他美国法术语保留作为"未来误用检测"。
 
 REQUIRED_FIELDS = ["name", "description", "legal_frame", "last_reviewed", "version"]
 

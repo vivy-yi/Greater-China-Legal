@@ -23,7 +23,7 @@ risk_level: low
 每个场景下有一个 `tests/` 目录，包含该场景的测试用例：
 
 ```
-plugins/scenes/<scene>/
+plugins/legal-scenes/<scene>/
 ├── CLAUDE.md
 ├── skills/<skill>/SKILL.md
 └── tests/

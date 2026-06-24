@@ -37,7 +37,7 @@ risk_level: low
 调用本技能时，按以下顺序读取：
 
 1. **本文件**（通用反射模式）
-2. `plugins/scenes/<当前场景>/evolution/meta/patterns.md`（场景专属模式）
+2. `plugins/legal-scenes/<当前场景>/evolution/meta/patterns.md`（场景专属模式）
 3. `plugins/shared/evolution/meta/patterns.global.md`（如存在，全局模式）
 
 ## 通用反射模式（顶层）
@@ -169,11 +169,11 @@ diff_summary: |
 
 请按以下步骤执行 REFL：
 1. skill_view(name="evolution-meta") 加载本文件
-2. 读取 plugins/scenes/<scene>/evolution/meta/patterns.md
+2. 读取 plugins/legal-scenes/<scene>/evolution/meta/patterns.md
 3. 比对失败模式与已有 patterns
 4. 若有 high-confidence 模式匹配，优先作为 hypothesis
 5. 生成 ≥2 个 hypothesis 并选择 root_cause
-6. 输出 reflection 产物到 plugins/scenes/<scene>/evolution/reflections/
+6. 输出 reflection 产物到 plugins/legal-scenes/<scene>/evolution/reflections/
 ```
 
 ## 本技能不做什么

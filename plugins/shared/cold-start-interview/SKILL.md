@@ -29,13 +29,13 @@ risk_level: low
 
 确定需要配置的场景：
 
-- 如用户在 `plugins/scenes/<scene>/` 目录下调用的，直接读取该场景的 CLAUDE.md
+- 如用户在 `plugins/legal-scenes/<scene>/` 目录下调用的，直接读取该场景的 CLAUDE.md
 - 如用户直接运行 `/cold-start-interview`，询问：
   > "要为哪个场景做初始化配置？可选：contract-review / data-compliance / litigation-support / ..."
 
 ### Step 1：读取场景 CLAUDE.md
 
-读取 `plugins/scenes/<scene>/CLAUDE.md`，扫描所有 `[填空]` 和 `[PLACEHOLDER]` 标记。
+读取 `plugins/legal-scenes/<scene>/CLAUDE.md`，扫描所有 `[填空]` 和 `[PLACEHOLDER]` 标记。
 
 标记示例：
 ```

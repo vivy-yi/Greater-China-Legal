@@ -1,7 +1,7 @@
 # 中国法律 Plugin CLAUDE.md 模板草案（legal-cn）
 
 > **目的**：基于 `anthropics/claude-for-legal` 上游 8 个 plugin 横向分析（commercial / litigation / privacy / ai-governance / regulatory / ip / employment / product）的 18 个核心 pattern，给 Greater China Legal 项目写一份**可直接落地**的 CLAUDE.md 模板。
-> **状态**：草案（未实施）。本文件**不替换**任何现有 `plugins/scenes/<scene>/CLAUDE.md`——它是一份"目标态"参考。
+> **状态**：草案（未实施）。本文件**不替换**任何现有 `plugins/legal-scenes/<scene>/CLAUDE.md`——它是一份"目标态"参考。
 > **来源**：见同目录 `upstream-kwp-design-analysis.md`（完整分析）
 > **位置含义**：如果将来实施，本文件内容应放到 `legal-cn/CLAUDE.md`（模板位置 2），由 `legal-cn:cold-start-interview` 复制到 `~/.claude/plugins/config/greater-china-legal/legal-cn/CLAUDE.md`（运行位置 3）
 
@@ -738,7 +738,7 @@ obligations:
 
 ### 3.1 短期（1-2 周）
 
-1. **不替换**任何现有 `plugins/scenes/<scene>/CLAUDE.md`
+1. **不替换**任何现有 `plugins/legal-scenes/<scene>/CLAUDE.md`
 2. **新建** `legal-cn/CLAUDE.md`（本文件 § 1 模板）
 3. **新建** `legal-cn/.mcp.json`（元典/法宝/企查查等连接器）
 4. **新建** 4 个 YAML 注册表路径
@@ -754,7 +754,7 @@ obligations:
 
 1. 完整迁移 31 个 scene 到 1 plugin 9 skill
 2. 实现 managed-agent-cookbooks（renewal-watcher / regulatory-monitor / dispute-monitor）
-3. 删 `plugins/scenes/` 目录
+3. 删 `plugins/legal-scenes/` 目录
 
 ---
 
@@ -762,13 +762,13 @@ obligations:
 
 | 现有项目 | 本草案的关系 |
 |--------|----------|
-| `plugins/scenes/contract-review/CLAUDE.md` | 不替换。**长期目标**是把它的核心内容合并到 `legal-cn/CLAUDE.md` 的 `## Playbook` 段 |
-| `plugins/scenes/litigation-support/CLAUDE.md` | 同上——合并到 `## Playbook` 的 Side 维度 |
-| `plugins/scenes/employment-legal/CLAUDE.md` | 同上 |
-| `plugins/scenes/data-compliance/CLAUDE.md` | 合并到 `## Data protection` 子段 + `data-inventory.yaml` |
-| `plugins/scenes/ai-governance-legal/CLAUDE.md` | 合并到 `## Risk calibration` + `## Red lines` |
-| `plugins/scenes/web3-virtual-assets/CLAUDE.md` | 合并到 `## Enforcement posture` 的 web3 子项 |
-| `plugins/scenes/cross-border-ma/CLAUDE.md` | 合并到 `## Jurisdiction-specific escalation rules` 的 cn-mainland 段 |
+| `plugins/legal-scenes/contract-review/CLAUDE.md` | 不替换。**长期目标**是把它的核心内容合并到 `legal-cn/CLAUDE.md` 的 `## Playbook` 段 |
+| `plugins/legal-scenes/litigation-support/CLAUDE.md` | 同上——合并到 `## Playbook` 的 Side 维度 |
+| `plugins/legal-scenes/employment-legal/CLAUDE.md` | 同上 |
+| `plugins/legal-scenes/data-compliance/CLAUDE.md` | 合并到 `## Data protection` 子段 + `data-inventory.yaml` |
+| `plugins/legal-scenes/ai-governance-legal/CLAUDE.md` | 合并到 `## Risk calibration` + `## Red lines` |
+| `plugins/legal-scenes/web3-virtual-assets/CLAUDE.md` | 合并到 `## Enforcement posture` 的 web3 子项 |
+| `plugins/legal-scenes/cross-border-ma/CLAUDE.md` | 合并到 `## Jurisdiction-specific escalation rules` 的 cn-mainland 段 |
 | `plugins/legal-atomic/`（37 个原子） | **不替换**——本草案不依赖 37 原子。中期可以内联到 skill |
 | `plugins/shared/gcl-data-service/` | **不替换**——本草案用 `.mcp.json` 直挂，不经过 CLI 适配 |
 | `plugins/shared/matter-workspace/` | 保留——本草案用它的"matter workspace"概念 |

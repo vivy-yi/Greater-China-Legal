@@ -86,7 +86,7 @@ risk_level: medium
 2. **不脱离 A/B 独立运行**：本机制消费 auto-test 的失败明细（EVAL 阶段产物），但本身不重新执行测试——执行归 auto-test，进化归本技能。
 3. **可降级**：人工 review 可随时介入任意阶段；agent 跑挂的环节不阻塞整体流水线。
 4. **可追溯**：每个 patch 必须可回滚、可归因到具体失败 case。
-5. **跨场景可复用**：机制本身与具体场景解耦——任何 `plugins/scenes/<scene>/` 都可挂载。
+5. **跨场景可复用**：机制本身与具体场景解耦——任何 `plugins/legal-scenes/<scene>/` 都可挂载。
 
 ## 与其他 shared skill 的关系
 
@@ -149,7 +149,7 @@ trigger_metadata:
       diff_type: missing_warning
 ```
 
-**输出契约**（写到 `plugins/scenes/<scene>/evolution/reflections/YYYY-MM-DD-<id>.md`）：
+**输出契约**（写到 `plugins/legal-scenes/<scene>/evolution/reflections/YYYY-MM-DD-<id>.md`）：
 
 ```yaml
 reflection_id: rfl-2026-06-18-001
@@ -176,7 +176,7 @@ rationale: "h1 解释力最强且 h3 是 h1 的具体表现"
 
 **执行规则**：
 
-1. 反思时**先加载** `plugins/scenes/<scene>/evolution/meta/patterns.md`，看是否有历史根因模式可复用。
+1. 反思时**先加载** `plugins/legal-scenes/<scene>/evolution/meta/patterns.md`，看是否有历史根因模式可复用。
 2. 至少生成 ≥2 个 hypothesis，单一 hypothesis 不允许。
 3. confidence 分级：
    - `high`：直接证据 ≥3 个失败 case 共享
@@ -202,13 +202,13 @@ rationale: "h1 解释力最强且 h3 是 h1 的具体表现"
 | `frame-mismatch` | 跨法域引用错误 | critical | **阻断+报警** | 架构师 + 2 律师 |
 | `deletion` | 删除现有 step/法条 | high | 律师确认 | 1 + 影响范围评估 |
 
-**输出契约**（写到 `plugins/scenes/<scene>/evolution/proposals/YYYY-MM-DD-<id>.md`）：
+**输出契约**（写到 `plugins/legal-scenes/<scene>/evolution/proposals/YYYY-MM-DD-<id>.md`）：
 
 ```yaml
 proposal_id: prp-2026-06-18-001
 reflection_ref: rfl-2026-06-18-001
 patch_type: legal-source-add
-target_file: plugins/scenes/contract-review/skills/review-payment-clause/SKILL.md
+target_file: plugins/legal-scenes/contract-review/skills/review-payment-clause/SKILL.md
 target_section: "## 违约金专项检查"
 diff_summary: |
   + 在 step 3 之后新增 step 3.5 "违约金专项检查"
@@ -317,7 +317,7 @@ regression_run:
 
 **回归后产物**：
 
-写入 `plugins/scenes/<scene>/evolution/merge-log.yaml`：
+写入 `plugins/legal-scenes/<scene>/evolution/merge-log.yaml`：
 
 ```yaml
 - proposal_id: prp-2026-06-18-001
@@ -342,7 +342,7 @@ regression_run:
 
 ### 模式沉淀
 
-`plugins/scenes/<scene>/evolution/meta/patterns.md` 累积**跨次反思+patch 的复用模式**：
+`plugins/legal-scenes/<scene>/evolution/meta/patterns.md` 累积**跨次反思+patch 的复用模式**：
 
 ```yaml
 patterns:
@@ -387,7 +387,7 @@ patterns:
 
 ### 跨场景模式同步
 
-- `plugins/scenes/<scene>/evolution/meta/patterns.md` 是场景级
+- `plugins/legal-scenes/<scene>/evolution/meta/patterns.md` 是场景级
 - `plugins/shared/evolution/meta/patterns.global.md` 是全局级（人审后从场景级晋升）
 - 晋升规则：某 pattern 在 ≥3 个场景出现，自动建议晋升
 
@@ -396,7 +396,7 @@ patterns:
 ### 场景级 evolution 目录
 
 ```
-plugins/scenes/<scene>/
+plugins/legal-scenes/<scene>/
 ├── CLAUDE.md
 ├── skills/
 ├── tests/                          # A 的测试集（未来）

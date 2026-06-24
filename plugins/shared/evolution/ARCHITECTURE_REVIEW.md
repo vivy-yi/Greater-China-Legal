@@ -2,7 +2,7 @@
 
 **Date**: 2026-06-18
 **Reviewer**: Self-audit (architecture exploration mode)
-**Scope**: `plugins/shared/evolution/` + `plugins/shared/evolution-meta/` + `scripts/evolution-runner.py` + `plugins/scenes/contract-review/evolution/`
+**Scope**: `plugins/shared/evolution/` + `plugins/shared/evolution-meta/` + `scripts/evolution-runner.py` + `plugins/legal-scenes/contract-review/evolution/`
 
 ---
 
@@ -65,7 +65,7 @@ Per loop-to-harness principle: **behavior rules live in YAML, not in Python**.
 Per-scene layout (exemplar: `contract-review`):
 
 ```
-plugins/scenes/<scene>/evolution/
+plugins/legal-scenes/<scene>/evolution/
 ├── README.md
 ├── reflections/          # REFL outputs
 │   ├── _TEMPLATE.md
@@ -108,7 +108,7 @@ plugins/scenes/<scene>/evolution/
 
 | # | Defect | Type | Resolution |
 |---|--------|------|------------|
-| 1 | Path-resolution bug: `cmd_propose` doubled the `plugins/scenes/<scene>` prefix | Real bug | Fixed: `resolve_scene_relative_path()` helper |
+| 1 | Path-resolution bug: `cmd_propose` doubled the `plugins/legal-scenes/<scene>` prefix | Real bug | Fixed: `resolve_scene_relative_path()` helper |
 | 2 | YAML colon collision in unquoted `rationale: TODO: ...` | Real bug | Fixed: quote the value in template |
 | 3 | `cmd_compact` had unbound variable warning | Type-safety | Fixed: initialize `archive_path = None` |
 | 4 | `cmd_explore` referenced `subprocess` without import | Real bug | Fixed: local import inside function |
@@ -186,7 +186,7 @@ plugins/scenes/<scene>/evolution/
 
 1. Implement `apply-proposal` subcommand with rollback safety.
 2. Create `plugins/shared/evolution/meta/patterns.global.md` once 3+ scenes have local patterns.
-3. Add CI hook: `git diff` on `plugins/scenes/<scene>/skills/` triggers auto-test.
+3. Add CI hook: `git diff` on `plugins/legal-scenes/<scene>/skills/` triggers auto-test.
 
 ### Long-term (architectural ceiling)
 

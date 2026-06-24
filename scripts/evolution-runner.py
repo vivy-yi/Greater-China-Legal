@@ -18,20 +18,20 @@ Examples:
   # Run one case
   python3 scripts/evolution-runner.py run-case \\
       --scene contract-review \\
-      --case plugins/scenes/contract-review/tests/cases/contract-review-001.md \\
+      --case plugins/legal-scenes/contract-review/tests/cases/contract-review-001.md \\
       --skill-output "..."
 
   # Generate reflection from failed case
   python3 scripts/evolution-runner.py reflect \\
       --scene contract-review \\
-      --case plugins/scenes/contract-review/tests/cases/contract-review-001.md \\
+      --case plugins/legal-scenes/contract-review/tests/cases/contract-review-001.md \\
       --scores-json '{"law_citation_accuracy": 0.0, ...}'
 
   # Regression after patch
   python3 scripts/evolution-runner.py regress \\
       --scene contract-review \\
       --regression-set case-007,case-012 \\
-      --pre-results plugins/scenes/contract-review/tests/_results.yaml \\
+      --pre-results plugins/legal-scenes/contract-review/tests/_results.yaml \\
       --post-skill-output "..."
 """
 
@@ -282,7 +282,7 @@ def resolve_scene_relative_path(path_arg: str, scene_root: Path) -> Path:
     p = Path(path_arg)
     if p.is_absolute():
         return p
-    # If user gave a full repo-relative path like 'plugins/scenes/.../foo.md',
+    # If user gave a full repo-relative path like 'plugins/legal-scenes/.../foo.md',
     # use REPO_ROOT as the base. Otherwise fall back to scene-relative.
     if path_arg.startswith("plugins/") or path_arg.startswith("/"):
         return REPO_ROOT / path_arg
@@ -370,7 +370,7 @@ def cmd_reflect(args) -> int:
         hyps_yaml=hyps_yaml,
         selected="h1",
         rationale='"TODO: explain why h1 was selected"',  # quoted to avoid YAML colon issues
-        suggested_target=f"plugins/scenes/{args.scene}/skills/<skill-name>/SKILL.md",
+        suggested_target=f"plugins/legal-scenes/{args.scene}/skills/<skill-name>/SKILL.md",
         suggested_patch_type="content-add",
         seq=seq,
     )
@@ -484,7 +484,7 @@ def cmd_propose(args) -> int:
     prp_id = f"prp-{date}-{seq}"
 
     target_file = args.target_file or refl_fm.get("next_stage_input", {}).get(
-        "target_file", f"plugins/scenes/{args.scene}/skills/<skill-name>/SKILL.md"
+        "target_file", f"plugins/legal-scenes/{args.scene}/skills/<skill-name>/SKILL.md"
     )
     target_section = args.target_section or "TODO"
 
@@ -787,7 +787,7 @@ def cmd_explore(args) -> int:
     try:
         result = subprocess.run(
             ["git", "log", "--oneline", f"-{explore_cfg['read_git_log_commits']}",
-             "--", f"plugins/scenes/{args.scene}/"],
+             "--", f"plugins/legal-scenes/{args.scene}/"],
             capture_output=True, text=True, cwd=REPO_ROOT,
             timeout=10,
         )

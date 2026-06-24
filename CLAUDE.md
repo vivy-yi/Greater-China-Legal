@@ -10,25 +10,42 @@
 Greater-China-Legal/
 ├── CLAUDE.md                     ← 本文件：AI Agent 运行时上下文
 ├── plugins/
-│   ├── scenes/<scene>/           ← 36 个法律场景
+│   ├── legal-scenes/<scene>/     ← 36 个法律场景（每场景完整业务包）
 │   │   ├── CLAUDE.md             ← 场景级实践画像 + 角色 + 数据源 + 推理原子能力
 │   │   ├── skills/<skill>/SKILL.md ← 原子 Skill（可独立执行）
 │   │   ├── agents/<agent>.md     ← 定时调度 Agent（可选）
 │   │   ├── hooks/hooks.json      ← 事件驱动钩子（可选）
-│   │   └── references/           ← 场景内参考文件
-│   ├── legal-atomic/             ← 37 个推理原子能力（跨场景复用）
+│   │   ├── references/           ← 场景内参考文件
+│   │   └── matters/<slug>/       ← 案件工作区（运行时）
+│   ├── legal-atomic/             ← 39 个推理原子能力（跨场景复用）
 │   │   ├── deductive-reasoning/  ← P-F-C三段论
 │   │   ├── legal-element-extraction/ ← 法律要素提取
 │   │   ├── legal-norm-validity-check/ ← 法条效力核查
-│   │   └── ...（共37个）
+│   │   ├── legal-document-redaction/ ← 文件脱敏（含 references/）
+│   │   ├── legal-document-restoration/ ← 脱敏稿还原
+│   │   └── ...（共39个）
+│   ├── legal-tools/              ← 外部数据/API 工具封装
+│   │   ├── gcl-data-service/     ← [YD][WKL][GOV] 数据源
+│   │   ├── law-firm-research/    ← 胡润 TOP100 律所
+│   │   ├── qcc-skills/           ← 企查查 MCP（4 类业务）
+│   │   └── qcc-tools-list.md
 │   └── shared/                   ← 跨场景共享 skill
+│       ├── auto-test/            ← 自测
 │       ├── cold-start-interview/ ← 场景冷启动配置
 │       ├── customize/            ← 自定义配置
-│       └── matter-workspace/     ← 案件工作区管理
+│       ├── evolution/            ← 自主学习闭环
+│       ├── evolution-meta/       ← 元学习视图
+│       ├── legal-builder-hub/    ← skill 构造中心
+│       ├── matter-workspace/     ← 案件工作区
+│       └── self-audit/           ← 自动 QA 循环
+├── .claude/skills/               ← 项目元管理（独立于 plugins）
+│   ├── scene-claudemd-curator/   ← scene CLAUDE.md 馆长
+│   ├── scene-sysprompt-forge/    ← scene prompt 锻造
+│   └── business-scenario-sysprompt/
 ├── LEGAL_FRAMES/                 ← 五法域法律框架基线
 ├── references/                   ← 全局共享模板
 ├── managed-agent-cookbooks/      ← CMA 部署模板
-├── scripts/                      ← 验证/部署工具
+├── scripts/                      ← 验证/部署工具（validate-skills.py / fix-skills-frontmatter.py 等）
 └── scene-design/                 ← B 阶段设计规范
 ```
 
@@ -95,7 +112,7 @@ Greater-China-Legal/
 | `[model]` | 模型推理（须核实） | 无外部数据源 |
 
 标注必须诚实——不能因"引用看起来是对的"就把 `[model]` 标为 `[YD]`。
-关键结论须多源交叉验证。查询通过 `plugins/shared/gcl-data-service` 统一管理。
+关键结论须多源交叉验证。查询通过 `plugins/legal-tools/gcl-data-service` 统一管理。
 
 gcl CLI 安装：`pip3 install ???` 或直接使用 `python3 scripts/gcl`。
 MCP 集成：运行 `gcl mcp-config` 生成 Claude Code 配置。
@@ -141,7 +158,7 @@ MCP 集成：运行 `gcl mcp-config` 生成 Claude Code 配置。
 
 对于每个涉及场景：
 
-1. 读取 `plugins/scenes/<scene>/CLAUDE.md`（含 Role、数据源、推理原子能力调用流程）
+1. 读取 `plugins/legal-scenes/<scene>/CLAUDE.md`（含 Role、数据源、推理原子能力调用流程）
 2. 按该场景 CLAUDE.md 的「推理原子能力调用流程」执行
 3. 调用 `legal-atomic` 中的对应原子 skill
 4. 输出该场景的分析结论
@@ -174,6 +191,57 @@ MCP 集成：运行 `gcl mcp-config` 生成 Claude Code 配置。
 SKILL.md 通过 YAML frontmatter 的 `legal_frame` 字段锚定。
 
 ---
+
+## 安装到 Claude Code
+
+> 这些 skill 是给 Claude Code agent runtime 装上后使用的工具集。律师/法务无需读代码——按以下步骤安装即可使用。
+
+### 三步安装
+
+```bash
+# 1. 复制 plugins/ 到 Claude Code skills 目录
+cp -r plugins/* ~/.claude/skills/
+
+# 2. 验证 skill 被 Claude Code 发现
+python3 scripts/validate-skills.py
+# 应输出：✅ All SKILL.md files passed validation
+
+# 3. 重启 Claude Code（或 reload skill）
+# Claude Code 会自动读取 trigger_phrases 和 description
+```
+
+### 安装位置
+
+| 路径 | 内容 |
+|---|---|
+| `~/.claude/skills/` | Claude Code 默认 skill 目录（**目标位置**） |
+| `plugins/` | 本项目的 skill 源目录 |
+| `SKILL_INDEX.md` | **律师向**索引——"你能问什么 + 怎么问" |
+| `plugins/legal-research-templates/` | **agent 向**模板——"用户问 X 时怎么跑" |
+
+### 安装后第一步
+
+让律师读 `SKILL_INDEX.md`，里面有：
+- 6 大能力 + sample prompts
+- 跨法域支持
+- 常见任务完整流程示例
+- 故障排查
+
+### 升级
+
+```bash
+# 拉取新版本后，重新复制
+cp -r plugins/* ~/.claude/skills/
+# Claude Code 自动 reload——无需重启
+```
+
+### 多用户场景
+
+| 场景 | 做法 |
+|---|---|
+| 个人律师 | 直接 `cp -r plugins/* ~/.claude/skills/` |
+| 律所团队 | 把 `plugins/` 放到律所共享目录（GitHub / 内网），每人 `cp` |
+| 律所定制 | `fork` 本项目，修改 `plugins/legal-operations/legal-document-redaction/SKILL.md § 4.2 矩阵`（按本所 SOP），其余保持 |
 
 ## 开发者规范（供参考）
 

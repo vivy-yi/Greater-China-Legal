@@ -28,7 +28,7 @@ matter-workspace 为每个案件创建一个隔离的工作目录，确保一个
 案件文件存储在调用场景的 `matters/` 目录下：
 
 ```
-plugins/scenes/<scene>/
+plugins/legal-scenes/<scene>/
 ├── CLAUDE.md
 ├── matters/
 │   ├── <slug>/

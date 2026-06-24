@@ -1,16 +1,11 @@
 ---
 name: self-audit
 description: >
-  自动 QA 循环——遍历全部场景和 skill，检查内容完整性、
-  路径有效性、frontmatter 合规、内容深度。可修复的自动修复，
-  不可修复的记录到审计日志。适合定时运行（每周）。
-trigger_phrases:
-  - 质量检查
-  - 自动审计
-  - self audit
-  - 检查所有skill
+legal_frame: cn-mainland
 last_reviewed: 2026-06
 version: 1.0.0
+trigger_phrases:
+  - self-audit
 risk_level: low
 ---
 
@@ -18,7 +13,7 @@ risk_level: low
 
 ## 审计范围
 
-扫描 `plugins/scenes/` 下全部场景和 `plugins/legal-atomic/` 下的全部原子 skill。
+扫描 `plugins/legal-scenes/` 下全部场景和 `plugins/legal-atomic/` 下的全部原子 skill。
 
 ## 工作流程
 
@@ -89,11 +84,11 @@ risk_level: low
   files_checked: 475
   auto_fixed: 3
   issues:
-    - file: plugins/scenes/xxx/skills/yyy/SKILL.md
+    - file: plugins/legal-scenes/xxx/skills/yyy/SKILL.md
       severity: warn
       issue: body_too_small
       detail: "仅43行，含frontmatter后正文不足100字"
-    - file: plugins/scenes/xxx/skills/zzz/SKILL.md
+    - file: plugins/legal-scenes/xxx/skills/zzz/SKILL.md
       severity: error
       issue: missing_legal_frame
       detail: "legal_frame: cn-mainland 字段缺失"
