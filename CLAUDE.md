@@ -216,12 +216,12 @@ python3 scripts/validate-skills.py
 |---|---|
 | `~/.claude/skills/` | Claude Code 默认 skill 目录（**目标位置**） |
 | `plugins/` | 本项目的 skill 源目录 |
-| `SKILL_INDEX.md` | **律师向**索引——"你能问什么 + 怎么问" |
+| `docs/getting-started/SKILL_INDEX.md` | **律师向**索引——"你能问什么 + 怎么问" |
 | `plugins/legal-research-templates/` | **agent 向**模板——"用户问 X 时怎么跑" |
 
 ### 安装后第一步
 
-让律师读 `SKILL_INDEX.md`，里面有：
+让律师读 `docs/getting-started/SKILL_INDEX.md`，里面有：
 - 6 大能力 + sample prompts
 - 跨法域支持
 - 常见任务完整流程示例
@@ -246,9 +246,9 @@ cp -r plugins/* ~/.claude/skills/
 ## 开发者规范（供参考）
 
 - CI 验证规则见 `scripts/validate-skills.py`
-- 数据结构见 `SKILL_MD_SCHEMA.md`
-- 贡献指南见 `CONTRIBUTING.md`
-- 上游追踪见 `UPSTREAM_TRACKING.md`
+- 数据结构见 `docs/development/SKILL_MD_SCHEMA.md`
+- 贡献指南见 `docs/community/CONTRIBUTING.md`
+- 上游追踪见 `docs/development/UPSTREAM_TRACKING.md`
 
 ---
 
