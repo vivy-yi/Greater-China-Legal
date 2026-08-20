@@ -31,6 +31,22 @@ keywords:
 
 ---
 
+## 联系我 & 支持
+
+**加入微信群，获取最新 skill 更新、使用答疑，与大中华区法律同行交流 👇**
+
+<p align="center">
+  <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/group_qrcode.jpg" width="280" alt="Greater China Legal 微信群二维码">
+</p>
+
+如果本项目对你有帮助，欢迎 **请我喝一杯咖啡** ☕ — 每一杯都是持续维护与更新的动力：
+
+<p align="center">
+  <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/pay_qrcode.jpg" width="280" alt="请我喝一杯咖啡收款码">
+</p>
+
+---
+
 ## 项目概览
 
 | 指标 | 数值 |
@@ -241,22 +257,6 @@ Greater-China-Legal/
         ├── customize/
         └── matter-workspace/
 ```
-
----
-
-## 联系我 & 支持
-
-**加入微信群,获取最新 skill 更新、使用答疑,与大中华区法律同行交流 👇**
-
-<p align="center">
-  <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/group_qrcode.jpg" width="280" alt="Greater China Legal 微信群二维码">
-</p>
-
-如果本项目对你有帮助,欢迎 **请我喝一杯咖啡** ☕ — 每一杯都是持续维护与更新的动力:
-
-<p align="center">
-  <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/pay_qrcode.jpg" width="280" alt="请我喝一杯咖啡收款码">
-</p>
 
 ---
 
