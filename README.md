@@ -1,6 +1,6 @@
 # Greater China Legal
 
-> **大中华区法律 AI Agent Skill 体系** — 基于 Anthropic `claude-for-legal` 深度适配，支持中国大陆 / 香港 / 澳门 / 台湾 / 新加坡，覆盖 **36 个法律场景 · 501 个原子 Skills**。开箱即用于 Claude Code、Codex 及各类 Agent 平台。
+> **大中华区法律 AI Agent Skill 体系** — 基于 Anthropic `claude-for-legal` 深度适配，支持中国大陆 / 香港 / 澳门 / 台湾 / 新加坡，覆盖 **36 个法律场景 · 574 个 SKILL.md**。开箱即用于 Claude Code、Codex 及各类 Agent 平台。
 
 ---
 
@@ -29,11 +29,11 @@
 |------|------|
 | **法域覆盖** | CN · HK · MO · TW · SG（5个） |
 | **法律场景** | 36 个（v2.0 双层结构 + § A8.1 场景特化块） |
-| **原子 Skills** | 501 个 |
+| **原子 Skills** | 574 个 |
 | **场景 CLAUDE.md** | 230-500 行一体化（v3 红线控制） |
 | **场景级 Agent** | 8 个场景共 8 个监控 Agent |
 | **事件钩子** | 8 个场景共 27 个事件触发器 |
-| **推理原子能力** | 37 个（legal-atomic 跨场景复用） |
+| **推理原子能力** | 25 个（legal-atomic 跨场景复用） |
 | **适配来源** | Anthropic `claude-for-legal`（⭐ 8,195） |
 
 **2026-06 v2.0 架构升级：**
@@ -227,7 +227,7 @@ Greater-China-Legal/
     │   ├── agents/<agent>.md     ← 可选
     │   ├── hooks/hooks.json      ← 可选
     │   └── references/           ← 跨 skill 复用资料
-    ├── legal-atomic/             ← 37 个推理原子能力
+    ├── legal-atomic/             ← 25 个推理原子能力
     └── shared/                   ← 跨场景共享 skill
         ├── cold-start-interview/
         ├── customize/
@@ -243,4 +243,4 @@ Apache 2.0 — 详见 [LICENSE](LICENSE)。
 ---
 
 *Greater China Legal — 2026-06 v2.0 双层结构版*
-*Last updated: 2026-08-20 · 36 scenes · 501 atomic skills · 5 jurisdictions*
+*Last updated: 2026-08-20 · 36 scenes · 574 atomic skills · 5 jurisdictions*

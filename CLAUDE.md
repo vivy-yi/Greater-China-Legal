@@ -1,6 +1,6 @@
 # Greater China Legal — AI Agent Context
 
-本项目是 **大中华区法律 AI Agent Skill 体系**，基于 Anthropic `claude-for-legal` 深度适配中国大陆/香港/澳门/台湾/新加坡五大法域，覆盖 **36 个**法律场景、475 个原子 Skills(2026-06 新增 criminal-defense / family-law / administrative-litigation / antitrust / enforcement / maritime / environmental 七个 P0/P1 场景)。
+本项目是 **大中华区法律 AI Agent Skill 体系**，基于 Anthropic `claude-for-legal` 深度适配中国大陆/香港/澳门/台湾/新加坡五大法域，覆盖 **36 个**法律场景、**574 个** SKILL.md(2026-06 新增 criminal-defense / family-law / administrative-litigation / antitrust / enforcement / maritime / environmental 七个 P0/P1 场景)。
 
 ---
 
@@ -10,34 +10,30 @@
 Greater-China-Legal/
 ├── CLAUDE.md                     ← 本文件：AI Agent 运行时上下文
 ├── plugins/
-│   ├── legal-scenes/<scene>/     ← 36 个法律场景（每场景完整业务包）
+│   ├── legal-tools/              ← 外部世界：数据源/API/连接器（17）
+│   │   ├── gcl-data-service/     ← [YD][WKL][GOV] 数据源
+│   │   ├── law-firm-research/    ← 胡润 TOP100 律所
+│   │   └── qcc-skills/           ← 企查查 MCP（4 类业务）
+│   ├── legal-atomic/             ← 法律原子操作：推理方法论（25）
+│   │   ├── deductive-reasoning/  ← P-F-C三段论
+│   │   ├── legal-element-extraction/ ← 法律要素提取
+│   │   ├── legal-norm-validity-check/ ← 法条效力核查
+│   │   └── ...（共25个）
+│   ├── legal-scenes/<scene>/     ← 法律复合操作：36 个业务入口
 │   │   ├── CLAUDE.md             ← 场景级实践画像 + 角色 + 数据源 + 推理原子能力
 │   │   ├── skills/<skill>/SKILL.md ← 原子 Skill（可独立执行）
 │   │   ├── agents/<agent>.md     ← 定时调度 Agent（可选）
 │   │   ├── hooks/hooks.json      ← 事件驱动钩子（可选）
 │   │   ├── references/           ← 场景内参考文件
 │   │   └── matters/<slug>/       ← 案件工作区（运行时）
-│   ├── legal-atomic/             ← 39 个推理原子能力（跨场景复用）
-│   │   ├── deductive-reasoning/  ← P-F-C三段论
-│   │   ├── legal-element-extraction/ ← 法律要素提取
-│   │   ├── legal-norm-validity-check/ ← 法条效力核查
-│   │   ├── legal-document-redaction/ ← 文件脱敏（含 references/）
-│   │   ├── legal-document-restoration/ ← 脱敏稿还原
-│   │   └── ...（共39个）
-│   ├── legal-tools/              ← 外部数据/API 工具封装
-│   │   ├── gcl-data-service/     ← [YD][WKL][GOV] 数据源
-│   │   ├── law-firm-research/    ← 胡润 TOP100 律所
-│   │   ├── qcc-skills/           ← 企查查 MCP（4 类业务）
-│   │   └── qcc-tools-list.md
-│   └── shared/                   ← 跨场景共享 skill
-│       ├── auto-test/            ← 自测
-│       ├── cold-start-interview/ ← 场景冷启动配置
-│       ├── customize/            ← 自定义配置
-│       ├── evolution/            ← 自主学习闭环
-│       ├── evolution-meta/       ← 元学习视图
-│       ├── legal-builder-hub/    ← skill 构造中心
-│       ├── matter-workspace/     ← 案件工作区
-│       └── self-audit/           ← 自动 QA 循环
+│   ├── legal-documents/          ← 产出物：文书生成/摘要/格式（5）
+│   ├── legal-management/         ← 经营层：排期/预算/风险/检索（7）
+│   ├── shared/                   ← 工作环境：案件/用户/脱敏预处理（4）
+│   │   ├── cold-start-interview/ ← 场景冷启动配置
+│   │   ├── matter-workspace/     ← 案件工作区
+│   │   ├── legal-document-redaction/ ← 文书脱敏（输入预处理）
+│   │   └── legal-document-restoration/ ← 脱敏稿还原（输出还原）
+│   └── legal-builder-hub/        ← 自维护：skill 管理/进化（完整插件包，14）
 ├── .claude/skills/               ← 项目元管理（独立于 plugins）
 │   ├── scene-claudemd-curator/   ← scene CLAUDE.md 馆长
 │   ├── scene-sysprompt-forge/    ← scene prompt 锻造
