@@ -1,30 +1,3 @@
----
-title: Greater China Legal — 大中华区法律 AI Agent Skill 体系
-description: >
-  Greater China Legal 是基于 Anthropic claude-for-legal 适配的大中华区法律 AI Agent 技能库。
-  覆盖中国大陆、香港、澳门、台湾、新加坡五大法域，36 个法律场景，501 个原子 Skills。
-  适用于 Claude Code、Codex 及各类 Agent 平台的法律咨询、合同审查、诉讼支持、合规管理等场景。
-keywords:
-  - Greater China Legal
-  - 大中华区法律 AI
-  - 中国法律 Agent
-  - 法律 Skill 系统
-  - Hong Kong legal AI
-  - Taiwan legal AI
-  - claude-for-legal 中文适配
-  - 法律人工智能助手
-  - 劳动仲裁 AI
-  - 合同审查 AI
-  - 知识产权 AI
-  - 公司治理 AI
-  - 数据合规 AI
-  - 诉讼支持 AI
-  - 税务合规 AI
-  - AI legal skill system
-  - Chinese law AI agent
-  - legal workflow automation
----
-
 # Greater China Legal
 
 > **大中华区法律 AI Agent Skill 体系** — 基于 Anthropic `claude-for-legal` 深度适配，支持中国大陆 / 香港 / 澳门 / 台湾 / 新加坡，覆盖 **36 个法律场景 · 501 个原子 Skills**。开箱即用于 Claude Code、Codex 及各类 Agent 平台。
