@@ -39,11 +39,11 @@ keywords:
   <tr>
     <td align="center">
       <b>📱 加入微信群</b><br/>
-      <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/group_qrcode.jpg" width="240" alt="Greater China Legal 微信群二维码">
+      <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/group_qrcode.jpg" width="90%" style="max-width: 280px; height: auto;" alt="Greater China Legal 微信群二维码">
     </td>
     <td align="center">
       <b>☕ 请我喝一杯咖啡</b><br/>
-      <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/pay_qrcode.jpg" width="240" alt="请我喝一杯咖啡收款码">
+      <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/pay_qrcode.jpg" width="90%" style="max-width: 280px; height: auto;" alt="请我喝一杯咖啡收款码">
     </td>
   </tr>
 </table>
