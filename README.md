@@ -33,17 +33,20 @@ keywords:
 
 ## 联系我 & 支持
 
-**加入微信群，获取最新 skill 更新、使用答疑，与大中华区法律同行交流 👇**
+获取最新 skill 更新 · 使用答疑 · 与大中华区法律同行交流
 
-<p align="center">
-  <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/group_qrcode.jpg" width="280" alt="Greater China Legal 微信群二维码">
-</p>
-
-如果本项目对你有帮助，欢迎 **请我喝一杯咖啡** ☕ — 每一杯都是持续维护与更新的动力：
-
-<p align="center">
-  <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/pay_qrcode.jpg" width="280" alt="请我喝一杯咖啡收款码">
-</p>
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>📱 加入微信群</b><br/>
+      <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/group_qrcode.jpg" width="240" alt="Greater China Legal 微信群二维码">
+    </td>
+    <td align="center">
+      <b>☕ 请我喝一杯咖啡</b><br/>
+      <img src="docs/%E4%BA%8C%E7%BB%B4%E7%A0%81/pay_qrcode.jpg" width="240" alt="请我喝一杯咖啡收款码">
+    </td>
+  </tr>
+</table>
 
 ---
 
